@@ -11,6 +11,8 @@ paths:
       summary: Validate Url
       description: Validate strava workouts.
       operationId: validate_url_v2_data_webhook_strava_workouts_get
+      x-fern-sdk-group-name: webhook
+      x-fern-sdk-method-name: strava
       responses:
         '200':
           description: Successful Response
@@ -26,6 +28,8 @@ paths:
       summary: Validate Workouts Url Fitbit
       description: Validate fitbit workouts.
       operationId: validate_workouts_url_fitbit_v2_data_webhook_fitbit_workouts_get
+      x-fern-sdk-group-name: webhook
+      x-fern-sdk-method-name: fitbit
       parameters:
         - required: true
           schema:
@@ -56,6 +60,8 @@ paths:
       summary: Validate Sleep Url Fitbit
       description: Validate fitbit workouts.
       operationId: validate_sleep_url_fitbit_v2_data_webhook_fitbit_sleep_get
+      x-fern-sdk-group-name: webhook
+      x-fern-sdk-method-name: sleep
       parameters:
         - required: true
           schema:
@@ -86,6 +92,8 @@ paths:
       summary: Validate Body Url Fitbit
       description: Validate fitbit workouts.
       operationId: validate_body_url_fitbit_v2_data_webhook_fitbit_body_get
+      x-fern-sdk-group-name: webhook
+      x-fern-sdk-method-name: body
       parameters:
         - required: true
           schema:
@@ -149,6 +157,8 @@ paths:
         Returns:
             200 - Success
       operationId: ihealth_webhook_v2_data_webhook_ihealth_post
+      x-fern-sdk-group-name: webhook
+      x-fern-sdk-method-name: ihealth
       requestBody:
         content:
           application/json:
@@ -176,6 +186,8 @@ paths:
       summary: Receive Resource Updates
       description: Post records.
       operationId: receive_resource_updates_v2_data_webhook__provider___backfill_type__post
+      x-fern-sdk-group-name: webhook
+      x-fern-sdk-method-name: backfill
       parameters:
         - description: Provider slug. e.g., `oura`, `fitbit`, `garmin`.
           required: true
@@ -221,6 +233,8 @@ paths:
       summary: Receive Garmin Workout Stream Updates
       description: Post records.
       operationId: receive_garmin_workout_stream_updates_v2_data_webhook_garmin_workouts_stream_post
+      x-fern-sdk-group-name: webhook
+      x-fern-sdk-method-name: garmin
       requestBody:
         content:
           application/json:
@@ -252,6 +266,8 @@ paths:
         garmin and deregisters a garmin user if a user deresgisters on the
         garmin website/delinks vital from their garmin account.
       operationId: deregister_garmin_v2_data_webhook_deregister_garmin_post
+      x-fern-sdk-group-name: webhook
+      x-fern-sdk-method-name: deregister-garmin
       requestBody:
         content:
           application/json:
@@ -279,6 +295,8 @@ paths:
         - data-webhook
       summary: Receive Withings Updates
       operationId: receive_withings_updates_v2_data_webhook_withings_post
+      x-fern-sdk-group-name: webhook
+      x-fern-sdk-method-name: withings
       responses:
         '200':
           description: Successful Response
@@ -307,6 +325,8 @@ paths:
         - data-webhook
       summary: Receive Polar Updates
       operationId: receive_polar_updates_v2_data_webhook_polar_post
+      x-fern-sdk-group-name: webhook
+      x-fern-sdk-method-name: polar
       responses:
         '200':
           description: Successful Response
@@ -327,6 +347,8 @@ paths:
         like to redirect to a custom url after successful or error connection,
         pass in your own custom redirect_url parameter.
       operationId: generate_vital_link_token_v2_link_token_post
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: create
       requestBody:
         content:
           application/json:
@@ -352,6 +374,8 @@ paths:
         - link
       summary: Check Token Valid
       operationId: check_token_valid_v2_link_token_isValid_post
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: check-token
       requestBody:
         content:
           application/json:
@@ -379,6 +403,8 @@ paths:
       summary: Create Token
       description: Generate a token to invite a user of Vital mobile app to your team
       operationId: create_token_v2_link_code_create_post
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: create-token
       parameters:
         - required: true
           schema:
@@ -415,6 +441,8 @@ paths:
       summary: Exchange Token
       description: Redeem an invite token for an api key
       operationId: exchange_token_v2_link_code_exchange_post
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: exchange-token
       parameters:
         - required: true
           schema:
@@ -445,6 +473,8 @@ paths:
         PROVIDER_TYPE: OAUTH
         Connect oauth providers
       operationId: connect_provider_v2_link_connect__provider__get
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: connect-provider
       parameters:
         - description: Provider slug. e.g., `oura`, `fitbit`, `garmin`.
           required: true
@@ -483,6 +513,8 @@ paths:
         REQUEST_SOURCE: VITAL-LINK
         Start link token process
       operationId: start_connect_process_v2_link_start_post
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: start
       requestBody:
         content:
           application/json:
@@ -512,6 +544,8 @@ paths:
         REQUEST_SOURCE: VITAL-LINK
         Check link token state - can be hit continuously used as heartbeat
       operationId: check_link_token_state_v2_link_state_get
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: state
       responses:
         '200':
           description: Successful Response
@@ -530,6 +564,8 @@ paths:
         PROVIDER_TYPE: EMAIL-AUTH
         This function is hit by vital-link to authenticate a email provider.
       operationId: connect_email_auth_v2_link_auth_email_post
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: email-auth
       requestBody:
         content:
           application/json:
@@ -559,6 +595,8 @@ paths:
         PROVIDER_TYPE: PASSWORD-AUTH
         This function is hit by vital-link to authenticate a password provider.
       operationId: connect_password_auth_v2_link_auth_post
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: auth
       parameters:
         - required: false
           schema:
@@ -592,6 +630,8 @@ paths:
       summary: Get Oauth Provider
       description: This endpoint generates an OAuth link for oauth provider
       operationId: get_oauth_provider_v2_link_provider_oauth__oauth_provider__get
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: oauth-provider
       parameters:
         - required: true
           schema:
@@ -618,6 +658,8 @@ paths:
       summary: Connect Individual Provider
       description: This connects auth providers that are password based.
       operationId: connect_individual_provider_v2_link_provider_password__provider__post
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: password-provider
       parameters:
         - required: true
           schema:
@@ -888,6 +930,8 @@ paths:
       summary: Get User Devices Raw
       description: Get Devices for user_id
       operationId: get_user_devices_raw_v2_summary_devices__user_id__raw_get
+      x-fern-sdk-group-name: devices
+      x-fern-sdk-method-name: get_raw
       parameters:
         - required: true
           schema:
@@ -1413,6 +1457,8 @@ paths:
       summary: Get User Body
       description: Get Daily Body data for user_id
       operationId: get_user_body_v2_summary_body__user_id__get
+      x-fern-sdk-group-name: body
+      x-fern-sdk-method-name: get
       parameters:
         - required: true
           schema:
@@ -1505,7 +1551,9 @@ paths:
       summary: Get User Body Raw
       description: Get Daily Body data for user_id
       operationId: get_user_body_raw_v2_summary_body__user_id__raw_get
-      parameters:
+      x-fern-sdk-group-name: body
+      x-fern-sdk-method-name: get_raw
+     parameters:
         - required: true
           schema:
             type: string
@@ -1558,6 +1606,8 @@ paths:
       summary: Get Meals
       description: Get user's meals
       operationId: get_meals_v2_summary_meal__user_id__get
+      x-fern-sdk-group-name: meal
+      x-fern-sdk-method-name: get
       parameters:
         - required: true
           schema:
@@ -4178,6 +4228,8 @@ paths:
         Return the available time slots to book an appointment with a phlebotomist
         for the given address and order.
       operationId: get_order_appointment_availability_v3_order__order_id__phlebotomy_appointment_availability_post
+      x-fern-sdk-group-name: athome_phlebotomy
+      x-fern-sdk-method-name: appointment_availability
       parameters:
         - description: Your Order ID.
           required: true
@@ -4216,6 +4268,8 @@ paths:
       summary: Book Phlebotomy Appointment
       description: Book an at-home phlebotomy appointment.
       operationId: book_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_book_post
+      x-fern-sdk-group-name: athome_phlebotomy
+      x-fern-sdk-method-name: book_appointment
       parameters:
         - description: Your Order ID.
           required: true
@@ -4252,6 +4306,8 @@ paths:
       summary: Reschedule Phlebotomy Appointment
       description: Reschedule a previously booked at-home phlebotomy appointment.
       operationId: reschedule_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_reschedule_patch
+      x-fern-sdk-group-name: athome_phlebotomy
+      x-fern-sdk-method-name: reschedule_appointment
       parameters:
         - description: Your Order ID.
           required: true
@@ -4288,6 +4344,8 @@ paths:
       summary: Cancel Phlebotomy Appointment
       description: Cancel a previously booked at-home phlebotomy appointment.
       operationId: cancel_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_cancel_patch
+      x-fern-sdk-group-name: athome_phlebotomy
+      x-fern-sdk-method-name: cancel_appointment
       parameters:
         - description: Your Order ID.
           required: true
@@ -4324,6 +4382,8 @@ paths:
       summary: Get Phlebotomy Appointment Cancellation Reasons
       description: Get the list of reasons for cancelling an at-home phlebotomy appointment.
       operationId: get_phlebotomy_appointment_cancellation_reasons_v3_order_phlebotomy_appointment_cancellation_reasons_get
+      x-fern-sdk-group-name: athome_phlebotomy
+      x-fern-sdk-method-name: cancellation_reason
       responses:
         '200':
           description: Successful Response
@@ -4341,6 +4401,8 @@ paths:
       summary: Get Phlebotomy Appointment
       description: Get the appointment associated with an order.
       operationId: get_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_get
+      x-fern-sdk-group-name: athome_phlebotomy
+      x-fern-sdk-method-name: get_appointment
       parameters:
         - description: Your Order ID.
           required: true
