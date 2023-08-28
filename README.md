@@ -5,6 +5,7 @@ Tagging a release on this repository will update the:
   - [Python SDK](https://github.com/fern-vital/vital-python)
   - [Java SDK](https://github.com/fern-vital/vital-java)
   - [TypeScript SDK](https://github.com/fern-vital/vital-node)
+  - [Go SDK](https://github.com/fern-vital/vital-go)
 
 ## What is in this repository?
 
