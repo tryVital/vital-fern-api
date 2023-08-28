@@ -11,6 +11,7 @@ paths:
       summary: Validate Url
       description: Validate strava workouts.
       operationId: validate_url_v2_data_webhook_strava_workouts_get
+      x-internal: true
       x-fern-sdk-group-name: webhook
       x-fern-sdk-method-name: strava
       responses:
@@ -28,6 +29,7 @@ paths:
       summary: Validate Workouts Url Fitbit
       description: Validate fitbit workouts.
       operationId: validate_workouts_url_fitbit_v2_data_webhook_fitbit_workouts_get
+      x-internal: true
       x-fern-sdk-group-name: webhook
       x-fern-sdk-method-name: fitbit
       parameters:
@@ -60,6 +62,7 @@ paths:
       summary: Validate Sleep Url Fitbit
       description: Validate fitbit workouts.
       operationId: validate_sleep_url_fitbit_v2_data_webhook_fitbit_sleep_get
+      x-internal: true
       x-fern-sdk-group-name: webhook
       x-fern-sdk-method-name: sleep
       parameters:
@@ -92,6 +95,7 @@ paths:
       summary: Validate Body Url Fitbit
       description: Validate fitbit workouts.
       operationId: validate_body_url_fitbit_v2_data_webhook_fitbit_body_get
+      x-internal: true
       x-fern-sdk-group-name: webhook
       x-fern-sdk-method-name: body
       parameters:
@@ -157,6 +161,7 @@ paths:
         Returns:
             200 - Success
       operationId: ihealth_webhook_v2_data_webhook_ihealth_post
+      x-internal: true
       x-fern-sdk-group-name: webhook
       x-fern-sdk-method-name: ihealth
       requestBody:
@@ -186,8 +191,9 @@ paths:
       summary: Receive Resource Updates
       description: Post records.
       operationId: receive_resource_updates_v2_data_webhook__provider___backfill_type__post
+      x-internal: true
       x-fern-sdk-group-name: webhook
-      x-fern-sdk-method-name: backfill
+      x-fern-sdk-method-name: backfill_type
       parameters:
         - description: Provider slug. e.g., `oura`, `fitbit`, `garmin`.
           required: true
@@ -233,6 +239,7 @@ paths:
       summary: Receive Garmin Workout Stream Updates
       description: Post records.
       operationId: receive_garmin_workout_stream_updates_v2_data_webhook_garmin_workouts_stream_post
+      x-internal: true
       x-fern-sdk-group-name: webhook
       x-fern-sdk-method-name: garmin
       requestBody:
@@ -266,6 +273,7 @@ paths:
         garmin and deregisters a garmin user if a user deresgisters on the
         garmin website/delinks vital from their garmin account.
       operationId: deregister_garmin_v2_data_webhook_deregister_garmin_post
+      x-internal: true
       x-fern-sdk-group-name: webhook
       x-fern-sdk-method-name: deregister-garmin
       requestBody:
@@ -295,6 +303,7 @@ paths:
         - data-webhook
       summary: Receive Withings Updates
       operationId: receive_withings_updates_v2_data_webhook_withings_post
+      x-internal: true
       x-fern-sdk-group-name: webhook
       x-fern-sdk-method-name: withings
       responses:
@@ -325,6 +334,7 @@ paths:
         - data-webhook
       summary: Receive Polar Updates
       operationId: receive_polar_updates_v2_data_webhook_polar_post
+      x-internal: true
       x-fern-sdk-group-name: webhook
       x-fern-sdk-method-name: polar
       responses:
@@ -347,8 +357,9 @@ paths:
         like to redirect to a custom url after successful or error connection,
         pass in your own custom redirect_url parameter.
       operationId: generate_vital_link_token_v2_link_token_post
+      x-fern-internal: true
       x-fern-sdk-group-name: link
-      x-fern-sdk-method-name: create
+      x-fern-sdk-method-name: generate
       requestBody:
         content:
           application/json:
@@ -404,7 +415,7 @@ paths:
       description: Generate a token to invite a user of Vital mobile app to your team
       operationId: create_token_v2_link_code_create_post
       x-fern-sdk-group-name: link
-      x-fern-sdk-method-name: create-token
+      x-fern-sdk-method-name: create
       parameters:
         - required: true
           schema:
@@ -631,7 +642,7 @@ paths:
       description: This endpoint generates an OAuth link for oauth provider
       operationId: get_oauth_provider_v2_link_provider_oauth__oauth_provider__get
       x-fern-sdk-group-name: link
-      x-fern-sdk-method-name: oauth-provider
+      x-fern-sdk-method-name: oauth_provider
       parameters:
         - required: true
           schema:
@@ -659,7 +670,7 @@ paths:
       description: This connects auth providers that are password based.
       operationId: connect_individual_provider_v2_link_provider_password__provider__post
       x-fern-sdk-group-name: link
-      x-fern-sdk-method-name: password-provider
+      x-fern-sdk-method-name: password_provider
       parameters:
         - required: true
           schema:
@@ -700,6 +711,8 @@ paths:
       summary: Connect Email Auth Provider
       description: This connects auth providers that are email based.
       operationId: connect_email_auth_provider_v2_link_provider_email__provider__post
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: email_provider
       parameters:
         - required: true
           schema:
@@ -791,6 +804,9 @@ paths:
       summary: Create Demo Connection
       description: POST Connect the given Vital user to a demo provider.
       operationId: create_demo_connection_v2_link_connect_demo_post
+      x-fern-internal: true 
+      x-fern-sdk-group-name: link
+      x-fern-sdk-method-name: demo
       requestBody:
         content:
           application/json:
@@ -817,6 +833,8 @@ paths:
       summary: Get User Profile
       description: Get Daily profile for user_id
       operationId: get_user_profile_v2_summary_profile__user_id__get
+      x-fern-sdk-group-name: profile
+      x-fern-sdk-method-name: get
       parameters:
         - required: true
           schema:
@@ -893,6 +911,8 @@ paths:
       summary: Get User Profile Raw
       description: Get Daily profile for user_id
       operationId: get_user_profile_raw_v2_summary_profile__user_id__raw_get
+      x-fern-sdk-group-name: profile
+      x-fern-sdk-method-name: get_raw
       parameters:
         - required: true
           schema:
@@ -1114,6 +1134,8 @@ paths:
       summary: Get User Workouts
       description: Get Daily workout for user_id
       operationId: get_user_workouts_v2_summary_workouts__user_id__get
+      x-fern-sdk-group-name: workouts
+      x-fern-sdk-method-name: get
       parameters:
         - required: true
           schema:
@@ -1206,6 +1228,8 @@ paths:
       summary: Get User Workouts Raw
       description: Get Daily workout for user_id
       operationId: get_user_workouts_raw_v2_summary_workouts__user_id__raw_get
+      x-fern-sdk-group-name: workouts
+      x-fern-sdk-method-name: get_raw
       parameters:
         - required: true
           schema:
@@ -1259,6 +1283,8 @@ paths:
       summary: Get User Sleep
       description: Get Daily sleep for user_id
       operationId: get_user_sleep_v2_summary_sleep__user_id__get
+      x-fern-sdk-group-name: sleep
+      x-fern-sdk-method-name: get
       parameters:
         - required: true
           schema:
@@ -1351,6 +1377,8 @@ paths:
       summary: Get User Sleep Stream
       description: Get Daily sleep stream for user_id
       operationId: get_user_sleep_stream_v2_summary_sleep__user_id__stream_get
+      x-fern-sdk-group-name: sleep
+      x-fern-sdk-method-name: get_user_stream
       parameters:
         - required: true
           schema:
@@ -1404,6 +1432,8 @@ paths:
       summary: Get User Sleep Raw
       description: Get Daily sleep for user_id
       operationId: get_user_sleep_raw_v2_summary_sleep__user_id__raw_get
+      x-fern-sdk-group-name: sleep
+      x-fern-sdk-method-name: get_raw
       parameters:
         - required: true
           schema:
@@ -1553,7 +1583,7 @@ paths:
       operationId: get_user_body_raw_v2_summary_body__user_id__raw_get
       x-fern-sdk-group-name: body
       x-fern-sdk-method-name: get_raw
-     parameters:
+      parameters:
         - required: true
           schema:
             type: string
@@ -1606,7 +1636,7 @@ paths:
       summary: Get Meals
       description: Get user's meals
       operationId: get_meals_v2_summary_meal__user_id__get
-      x-fern-sdk-group-name: meal
+      x-fern-sdk-group-name: meals
       x-fern-sdk-method-name: get
       parameters:
         - required: true
@@ -1661,6 +1691,8 @@ paths:
       summary: Get User Sleep Stream
       description: Get Sleep stream for a user_id
       operationId: get_user_sleep_stream_v2_timeseries_sleep__sleep_id__stream_get
+      x-fern-sdk-group-name: sleep
+      x-fern-sdk-method-name: get_stream
       parameters:
         - description: The Vital Sleep ID
           required: true
@@ -1689,6 +1721,8 @@ paths:
         - timeseries
       summary: Get User Workouts
       operationId: get_user_workouts_v2_timeseries_workouts__workout_id__stream_get
+      x-fern-sdk-group-name: workouts
+      x-fern-sdk-method-name: get_stream
       parameters:
         - description: The Vital ID for the workout
           required: true
@@ -1719,6 +1753,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__mindfulness_minutes_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: mindfulness_minutes
       parameters:
         - required: true
           schema:
@@ -1780,6 +1816,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__caffeine_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: caffeine
       parameters:
         - required: true
           schema:
@@ -1841,6 +1879,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__water_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: water
       parameters:
         - required: true
           schema:
@@ -1902,6 +1942,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__steps_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: steps
       parameters:
         - required: true
           schema:
@@ -1940,7 +1982,7 @@ paths:
             description: Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
           name: end_date
           in: query
-      responses:
+    responses:
         '200':
           description: Successful Response
           content:
@@ -1963,6 +2005,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__floors_climbed_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: floors_climbed
       parameters:
         - required: true
           schema:
@@ -2024,6 +2068,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__distance_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: distance
       parameters:
         - required: true
           schema:
@@ -2085,6 +2131,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__calories_basal_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: calories_basal
       parameters:
         - required: true
           schema:
@@ -2146,6 +2194,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__calories_active_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: calories_active
       parameters:
         - required: true
           schema:
@@ -2207,6 +2257,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__respiratory_rate_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: respiratory_rate
       parameters:
         - required: true
           schema:
@@ -2268,6 +2320,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__ige_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: ige
       parameters:
         - required: true
           schema:
@@ -2329,6 +2383,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__igg_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: igg
       parameters:
         - required: true
           schema:
@@ -2390,6 +2446,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__hypnogram_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: hypnogram
       parameters:
         - required: true
           schema:
@@ -2451,6 +2509,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__hrv_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: hrv
       parameters:
         - required: true
           schema:
@@ -2512,6 +2572,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__heartrate_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: heartrate
       parameters:
         - required: true
           schema:
@@ -2573,6 +2635,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__glucose_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: glucose
       parameters:
         - required: true
           schema:
@@ -2634,6 +2698,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__cholesterol_triglycerides_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: triglycerides
       parameters:
         - required: true
           schema:
@@ -2695,6 +2761,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__cholesterol_total_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: cholesterol_total
       parameters:
         - required: true
           schema:
@@ -2756,6 +2824,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__cholesterol_hdl_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: cholesterol_hdl
       parameters:
         - required: true
           schema:
@@ -2817,6 +2887,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__cholesterol_ldl_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: cholesterol_ldl
       parameters:
         - required: true
           schema:
@@ -2878,6 +2950,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__cholesterol_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: cholesterol
       parameters:
         - required: true
           schema:
@@ -2939,6 +3013,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__blood_oxygen_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: blood_oxygen
       parameters:
         - required: true
           schema:
@@ -3000,6 +3076,8 @@ paths:
       summary: Get Timeseries Resource Data
       description: Get timeseries data for user
       operationId: get_timeseries_resource_data_v2_timeseries__user_id__blood_pressure_get
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: blood_pressure
       parameters:
         - required: true
           schema:
@@ -3099,6 +3177,8 @@ paths:
         - timeseries
       summary: Post User Vitals
       operationId: post_user_vitals_v2_timeseries__user_id___resource__post
+      x-fern-sdk-group-name: vitals
+      x-fern-sdk-method-name: _timeseries_request
       parameters:
         - required: true
           schema:
@@ -3145,6 +3225,8 @@ paths:
       summary: Get Teams Users
       description: GET All users for team.
       operationId: get_teams_users_v2_user_get
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: get_all
       parameters:
         - required: false
           schema:
@@ -3206,6 +3288,9 @@ paths:
       summary: Get Teams Metrics
       description: GET metrics for team.
       operationId: get_teams_metrics_v2_user_metrics_get
+      x-fern-internal: true
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: metrics
       responses:
         '200':
           description: Successful Response
@@ -3220,6 +3305,8 @@ paths:
       summary: Get Connected Providers
       description: GET Users connected providers
       operationId: get_connected_providers_v2_user_providers__user_id__get
+      x-fern-sdk-group-name: user
+      x-fern-sdk-method-name: providers
       parameters:
         - required: true
           schema:
@@ -3253,6 +3340,8 @@ paths:
       summary: Get User
       description: GET User details given the user_id.
       operationId: get_user_v2_user__user_id__get
+      x-fern-sdk-group-name: user
+      x-fern-sdk-method-name: get
       parameters:
         - required: true
           schema:
@@ -3335,6 +3424,8 @@ paths:
       summary: Get User By Client User Id
       description: GET user_id from client_user_id.
       operationId: get_user_by_client_user_id_v2_user_resolve__client_user_id__get
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: create
       parameters:
         - description: A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
           required: true
@@ -3363,6 +3454,8 @@ paths:
         - user
       summary: Deregister Provider
       operationId: deregister_provider_v2_user__user_id___provider__delete
+      x-fern-sdk-group-name: user
+      x-fern-sdk-method-name: deregister_provider
       parameters:
         - required: true
           schema:
@@ -3399,6 +3492,8 @@ paths:
       summary: Refresh User Id
       description: Trigger a manual refresh for a specific user
       operationId: refresh_user_id_v2_user_refresh__user_id__post
+      x-fern-sdk-group-name: user
+      x-fern-sdk-method-name: refresh
       parameters:
         - required: true
           schema:
@@ -3433,6 +3528,9 @@ paths:
         - user
       summary: Backfill Webhook For User
       operationId: backfill_webhook_for_user_v2_user_admin_webhook__user_id___team_id__post
+      x-fern-internal: true
+      x-fern-sdk-group-name: webhook
+      x-fern-sdk-method-name: backfill
       parameters:
         - required: true
           schema:
@@ -3966,6 +4064,8 @@ paths:
       summary: Get Lab Tests For Team
       description: GET all the lab tests the team has access to.
       operationId: get_lab_tests_for_team_v3_lab_tests_get
+      x-fern-sdk-group-name: labtests
+      x-fern-sdk-method-name: get_tests
       responses:
         '200':
           description: Successful Response
@@ -4104,6 +4204,8 @@ paths:
       summary: Create Testkit Order
       description: Creates an order for an unregistered testkit
       operationId: create_testkit_order_v3_order_testkit_post
+      x-fern-sdk-group-name: labtests
+      x-fern-sdk-method-name: create_unregistered_testkit_order
       requestBody:
         content:
           application/json:
@@ -4437,6 +4539,8 @@ paths:
         Information returned:
         * Whether a given zip code is served by our Phlebotomy network.
       operationId: get_area_info_v3_order_area_info_get
+      x-fern-sdk-group-name: labtests
+      x-fern-sdk-method-name: get_area_info
       parameters:
         - description: Zip code of the area to check
           required: true
@@ -4467,6 +4571,8 @@ paths:
       summary: Get Lab Test Result
       description: This endpoint returns the lab results for the order.
       operationId: get_lab_test_result_v3_order__order_id__result_pdf_get
+      x-fern-sdk-group-name: labtests
+      x-fern-sdk-method-name: get_results_pdf
       parameters:
         - required: true
           schema:
@@ -4497,6 +4603,8 @@ paths:
         Return metadata related to order results, such as lab metadata,
         provider and sample dates.
       operationId: get_lab_test_result_metadata_v3_order__order_id__result_metadata_get
+      x-fern-sdk-group-name: labtests
+      x-fern-sdk-method-name: get_results_metadata
       parameters:
         - required: true
           schema:
@@ -4525,6 +4633,8 @@ paths:
       summary: Get Lab Test Result Raw
       description: Return both metadata and raw json test data
       operationId: get_lab_test_result_raw_v3_order__order_id__result_get
+      x-fern-sdk-group-name: labtests
+      x-fern-sdk-method-name: get_results
       parameters:
         - required: true
           schema:
@@ -4553,6 +4663,8 @@ paths:
       summary: Get Order Requisition Url
       description: GET requisition pdf for an order
       operationId: get_order_requisition_url_v3_order__order_id__requisition_pdf_get
+      x-fern-sdk-group-name: labtests
+      x-fern-sdk-method-name: get
       parameters:
         - description: Your Order ID.
           required: true
@@ -4582,6 +4694,8 @@ paths:
       summary: Get Order
       description: GET individual order by ID.
       operationId: get_order_v3_order__order_id__get
+      x-fern-sdk-group-name: labtests
+      x-fern-sdk-method-name: get_order
       parameters:
         - description: Your Order ID.
           required: true
@@ -4612,6 +4726,8 @@ paths:
       summary: Create Order
       description: POST create new order
       operationId: create_order_v3_order_post
+      x-fern-sdk-group-name: labtests
+      x-fern-sdk-method-name: create_order
       requestBody:
         content:
           application/json:
@@ -4706,6 +4822,8 @@ paths:
         - insurance
       summary: Search Insurance Payor Information
       operationId: search_insurance_payor_information_v3_insurance_search_payor_post
+      x-fern-sdk-group-name: labtests
+      x-fern-sdk-method-name: search_payor
       requestBody:
         content:
           application/json:
@@ -4734,6 +4852,8 @@ paths:
         - insurance
       summary: Search Diagnosis
       operationId: search_diagnosis_v3_insurance_search_diagnosis_get
+      x-fern-sdk-group-name: labtests
+      x-fern-sdk-method-name: search_diagnosis
       parameters:
         - required: true
           schema:
@@ -9819,6 +9939,9 @@ components:
         - email
         - app
         - ''
+      x-fern-enum: 
+        '': 
+          name: Empty
       title: SourceAuthType
       description: An enumeration.
     SourceLink:
