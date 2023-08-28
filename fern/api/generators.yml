@@ -1,0 +1,24 @@
+---
+groups:
+  publish:
+    generators:
+    - name: "fernapi/fern-typescript-sdk"
+      version: "0.7.2"
+      output:
+        package-name: "@fern-api/vital"
+        token: "${NPM_TOKEN}"
+        location: "npm"
+      config:
+        namespaceExport: "Vital"
+      github:
+        repository: "fern-vital/vital-node"
+    - name: "fernapi/fern-python-sdk"
+      version: "0.4.4"
+      output:
+        package-name: "fern-vital"
+        token: "${PYPI_TOKEN}"
+        location: "pypi"
+      config:
+        client_class_name: "Vital"
+      github:
+        repository: "fern-vital/vital-python"
