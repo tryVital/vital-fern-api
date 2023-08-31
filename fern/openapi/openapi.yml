@@ -4973,7 +4973,15 @@ paths:
             text/plain:
               schema:
                 type: string
+security: 
+  - apiKeyAuth: []
 components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-vital-api-key
+      description: API key based authentication
   schemas:
     APIKeyRole:
       type: string
