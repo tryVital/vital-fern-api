@@ -4064,7 +4064,7 @@ paths:
       summary: Get Lab Tests For Team
       description: GET all the lab tests the team has access to.
       operationId: get_lab_tests_for_team_v3_lab_tests_get
-      x-fern-sdk-group-name: labtests
+      x-fern-sdk-group-name: lab_tests
       x-fern-sdk-method-name: get_tests
       responses:
         '200':
@@ -4204,7 +4204,7 @@ paths:
       summary: Create Testkit Order
       description: Creates an order for an unregistered testkit
       operationId: create_testkit_order_v3_order_testkit_post
-      x-fern-sdk-group-name: labtests
+      x-fern-sdk-group-name: lab_tests
       x-fern-sdk-method-name: create_unregistered_testkit_order
       requestBody:
         content:
@@ -4539,7 +4539,7 @@ paths:
         Information returned:
         * Whether a given zip code is served by our Phlebotomy network.
       operationId: get_area_info_v3_order_area_info_get
-      x-fern-sdk-group-name: labtests
+      x-fern-sdk-group-name: lab_tests
       x-fern-sdk-method-name: get_area_info
       parameters:
         - description: Zip code of the area to check
@@ -4571,7 +4571,7 @@ paths:
       summary: Get Lab Test Result
       description: This endpoint returns the lab results for the order.
       operationId: get_lab_test_result_v3_order__order_id__result_pdf_get
-      x-fern-sdk-group-name: labtests
+      x-fern-sdk-group-name: lab_tests
       x-fern-sdk-method-name: get_results_pdf
       parameters:
         - required: true
@@ -4603,7 +4603,7 @@ paths:
         Return metadata related to order results, such as lab metadata,
         provider and sample dates.
       operationId: get_lab_test_result_metadata_v3_order__order_id__result_metadata_get
-      x-fern-sdk-group-name: labtests
+      x-fern-sdk-group-name: lab_tests
       x-fern-sdk-method-name: get_results_metadata
       parameters:
         - required: true
@@ -4633,7 +4633,7 @@ paths:
       summary: Get Lab Test Result Raw
       description: Return both metadata and raw json test data
       operationId: get_lab_test_result_raw_v3_order__order_id__result_get
-      x-fern-sdk-group-name: labtests
+      x-fern-sdk-group-name: lab_tests
       x-fern-sdk-method-name: get_results
       parameters:
         - required: true
@@ -4663,7 +4663,7 @@ paths:
       summary: Get Order Requisition Url
       description: GET requisition pdf for an order
       operationId: get_order_requisition_url_v3_order__order_id__requisition_pdf_get
-      x-fern-sdk-group-name: labtests
+      x-fern-sdk-group-name: lab_tests
       x-fern-sdk-method-name: get
       parameters:
         - description: Your Order ID.
@@ -4694,7 +4694,7 @@ paths:
       summary: Get Order
       description: GET individual order by ID.
       operationId: get_order_v3_order__order_id__get
-      x-fern-sdk-group-name: labtests
+      x-fern-sdk-group-name: lab_tests
       x-fern-sdk-method-name: get_order
       parameters:
         - description: Your Order ID.
@@ -4726,7 +4726,7 @@ paths:
       summary: Create Order
       description: POST create new order
       operationId: create_order_v3_order_post
-      x-fern-sdk-group-name: labtests
+      x-fern-sdk-group-name: lab_tests
       x-fern-sdk-method-name: create_order
       requestBody:
         content:
@@ -4822,7 +4822,7 @@ paths:
         - insurance
       summary: Search Insurance Payor Information
       operationId: search_insurance_payor_information_v3_insurance_search_payor_post
-      x-fern-sdk-group-name: labtests
+      x-fern-sdk-group-name: lab_tests
       x-fern-sdk-method-name: search_payor
       requestBody:
         content:
@@ -4852,7 +4852,7 @@ paths:
         - insurance
       summary: Search Diagnosis
       operationId: search_diagnosis_v3_insurance_search_diagnosis_get
-      x-fern-sdk-group-name: labtests
+      x-fern-sdk-group-name: lab_tests
       x-fern-sdk-method-name: search_diagnosis
       parameters:
         - required: true
