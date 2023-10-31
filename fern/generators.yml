@@ -1,31 +1,7 @@
 default-group: publish
 groups:
-  publish:
+  java-sdk:
     generators:
-      - name: fernapi/fern-typescript-node-sdk
-        version: 0.7.2
-        output:
-          location: npm
-          package-name: "@fern-api/vital"
-          token: ${NPM_TOKEN}
-        github:
-          repository: fern-vital/vital-node
-        config:
-          namespaceExport: Vital
-      - name: fernapi/fern-python-sdk
-        version: 0.6.2
-        output:
-          location: pypi
-          package-name: fern-vital
-          token: ${PYPI_TOKEN}
-        github:
-          repository: fern-vital/vital-python
-        config:
-          client_class_name: Vital
-      - name: fernapi/fern-go-sdk
-        version: 0.8.0
-        github:
-          repository: fern-vital/vital-go
       - name: fernapi/fern-java-sdk
         version: 0.5.13
         output:
@@ -34,4 +10,34 @@ groups:
           username: ${MAVEN_USERNAME}
           password: ${MAVEN_PASSWORD}
         github:
-          repository: fern-vital/vital-java
+          repository: tryVital/vital-java
+  node-sdk: 
+    generators:
+      - name: fernapi/fern-typescript-node-sdk
+        version: 0.7.2
+        output:
+          location: npm
+          package-name: "@fern-api/vital"
+          token: ${NPM_TOKEN}
+        github:
+          repository: tryVital/vital-node
+        config:
+          namespaceExport: Vital
+  python-sdk:
+    generators:
+      - name: fernapi/fern-python-sdk
+        version: 0.6.2
+        output:
+          location: pypi
+          package-name: fern-vital
+          token: ${PYPI_TOKEN}
+        github:
+          repository: tryVital/vital-python
+        config:
+          client_class_name: Vital
+  go-sdk:
+    generators:
+      - name: fernapi/fern-go-sdk
+        version: 0.8.0
+        github:
+          repository: tryVital/vital-go
