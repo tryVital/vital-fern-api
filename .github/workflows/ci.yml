@@ -77,8 +77,9 @@ jobs:
       - name: Download Fern
         run: npm install -g fern-api
 
-      - name: Release Python SDK
+      - name: Release Node SDK
         env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
           tag=${{ github.ref_name }}
@@ -100,8 +101,9 @@ jobs:
       - name: Download Fern
         run: npm install -g fern-api
 
-      - name: Release Go SDK
+      - name: Release PYTHON SDK
         env:
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
           tag=${{ github.ref_name }}
