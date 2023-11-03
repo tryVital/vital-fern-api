@@ -16,13 +16,14 @@ jobs:
       - name: openapi.json line count
         run: |
           for file in $(git diff --name-only ${{ github.base_ref }}...${{ github.head_ref }}); do
-          echo $file
-          if [[ $file == "openapi.json" ]]; then
-            echo "Checking $file"
-            line_count=$(wc -l < "$file")
+            echo $file
+            if [[ $file == "openapi.json" ]]; then
+              echo "Checking $file"
+              line_count=$(wc -l < "$file")
 
-            if [ "$line_count" -lt 2 ]; then
-              echo "$file has not been formatted to a multiline JSON file."
-              exit 1
+              if [ "$line_count" -lt 2 ]; then
+                echo "$file has not been formatted to a multiline JSON file."
+                exit 1
+              fi
             fi
-          fi
+          done
