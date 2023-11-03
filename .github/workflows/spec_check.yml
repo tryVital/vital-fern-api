@@ -18,3 +18,15 @@ jobs:
             echo "$file has not been formatted to a multiline JSON file."
             exit 1
           fi
+  
+  fern-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Fern
+        run:  npm install -g fern-api
+
+      - name: Check Fern API is valid
+        run: fern check
