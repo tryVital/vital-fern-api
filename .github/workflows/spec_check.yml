@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: openapi.json line count
         run: |
-          file="fern/openapi/openapi.json"
+          file=$(find . -name "openapi.json")
           echo "Checking $file"
           line_count=$(wc -l < "$file")
 
