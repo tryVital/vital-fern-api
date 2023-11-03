@@ -11,12 +11,17 @@ jobs:
 
     steps:
       - name: Check openapi.json Line Count
-        run: |
-          echo $(ls)
-          file="fern/openapi/openapi.json"
-          line_count=$(wc -l < "$file")
+        run:
+          shell: bash
+          working-directory: fern
+      steps:
+        - name: bash
+          run: |
+            echo $(ls)
+            file="openapi/openapi.json"
+            line_count=$(wc -l < "$file")
 
-          if [ "$line_count" -lt 2 ]; then
-            echo "$file has not been formatted to a multiline JSON file."
-            exit 1
-          fi
+            if [ "$line_count" -lt 2 ]; then
+              echo "$file has not been formatted to a multiline JSON file."
+              exit 1
+            fi
