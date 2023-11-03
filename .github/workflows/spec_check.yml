@@ -1,4 +1,4 @@
-name: Check openapi.json Line Count
+name: openapi.json line count
 
 on:
   pull_request:
@@ -8,20 +8,19 @@ on:
 jobs:
   check-line-count:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: fern
 
     steps:
-      - name: Check openapi.json Line Count
-        run:
-          shell: bash
-          working-directory: fern
-      steps:
-        - name: bash
-          run: |
-            echo $(ls)
-            file="openapi/openapi.json"
-            line_count=$(wc -l < "$file")
+      - name: openapi.json line count
+        run: |
+          echo $(ls)
+          file="openapi/openapi.json"
+          line_count=$(wc -l < "$file")
 
-            if [ "$line_count" -lt 2 ]; then
-              echo "$file has not been formatted to a multiline JSON file."
-              exit 1
-            fi
+          if [ "$line_count" -lt 2 ]; then
+            echo "$file has not been formatted to a multiline JSON file."
+            exit 1
+          fi
