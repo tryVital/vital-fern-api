@@ -12,7 +12,6 @@ jobs:
     steps:
       - name: Check openapi.json Line Count
         run: |
-          echo $(pwd)
           echo $(ls)
           file="fern/openapi/openapi.json"
           line_count=$(wc -l < "$file")
