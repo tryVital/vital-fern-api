@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: openapi.json line count
         run: |
+          cd ..
           file=$(find . -name "openapi.json")
           echo "Checking $file"
           line_count=$(wc -l < "$file")
