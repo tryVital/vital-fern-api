@@ -1,9 +1,7 @@
 name: openapi.json line count
 
 on:
-  pull_request:
-    paths:
-      - fern/openapi/openapi.json
+  [pull_request]
 
 jobs:
   check-line-count:
@@ -15,16 +13,11 @@ jobs:
     steps:
       - name: openapi.json line count
         run: |
-          git checkout ${{ github.head_ref }}
-          for file in $(git diff --name-only ${{ github.base_ref }}...${{ github.head_ref }}); do
-            echo $file
-            if [[ $file == "openapi.json" ]]; then
-              echo "Checking $file"
-              line_count=$(wc -l < "$file")
+          file="fern/openapi/openapi.json"
+          echo "Checking $file"
+          line_count=$(wc -l < "$file")
 
-              if [ "$line_count" -lt 2 ]; then
-                echo "$file has not been formatted to a multiline JSON file."
-                exit 1
-              fi
-            fi
-          done
+          if [ "$line_count" -lt 2 ]; then
+            echo "$file has not been formatted to a multiline JSON file."
+            exit 1
+          fi
