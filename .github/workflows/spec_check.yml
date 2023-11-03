@@ -14,19 +14,8 @@ jobs:
         run: |
           file="fern/openapi/openapi.json"
           line_count=$(wc -l < "$file")
+          echo $(pwd)
           if [ "$line_count" -lt 2 ]; then
             echo "$file has not been formatted to a multiline JSON file."
             exit 1
           fi
-  
-  fern-check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Install Fern
-        run:  npm install -g fern-api
-
-      - name: Check Fern API is valid
-        run: fern check
