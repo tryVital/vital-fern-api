@@ -119,7 +119,7 @@
               "type": "string",
               "format": "date-time",
               "title": "Expires At",
-              "default": "2023-11-21T09:50:06.033564+00:00"
+              "default": "2023-11-21T09:50:04.975369+00:00"
             },
             "name": "expires_at",
             "in": "query"
@@ -4521,6 +4521,7 @@
       }
     },
     "/v2/introspect/resources": {
+      "x-fern-ignore": true,
       "get": {
         "tags": [
           "introspect"
@@ -6391,7 +6392,7 @@
         "example": {
           "activity": [
             {
-              "date": "2023-11-21T09:34:54+00:00",
+              "date": "2023-11-21T09:34:52+00:00",
               "calendar_date": "2023-11-21",
               "calories_total": 100,
               "calories_active": 2000,
@@ -6414,7 +6415,7 @@
                 "slug": "oura",
                 "logo": "https://logo_url.com"
               },
-              "user_id": "23f93c27-f825-4aac-bfc2-676385079851"
+              "user_id": "4b88ab8c-afa0-44d7-8dc0-052067b72f29"
             }
           ]
         }
@@ -6437,8 +6438,8 @@
         "example": {
           "body": [
             {
-              "id": "b53be341-ede6-4635-b243-25b0df803079",
-              "date": "2023-11-21T09:34:58+00:00",
+              "id": "f0f9c311-afbe-40fd-8761-1a643d8b6472",
+              "date": "2023-11-21T09:34:56+00:00",
               "calendar_date": "2023-34-",
               "weight": 80,
               "fat": 30,
@@ -6448,7 +6449,7 @@
                 "slug": "oura",
                 "logo": "https://logo_url.com"
               },
-              "user_id": "2746562b-7060-412f-813f-473efb2177bf"
+              "user_id": "17ad02fe-3503-4595-ba42-82c0b69c9858"
             }
           ]
         }
@@ -6564,7 +6565,7 @@
         ],
         "title": "Daily Activity",
         "example": {
-          "date": "2023-11-21T09:34:54+00:00",
+          "date": "2023-11-21T09:34:52+00:00",
           "calendar_date": "2023-11-21",
           "calories_total": 100,
           "calories_active": 2000,
@@ -6587,7 +6588,7 @@
             "slug": "oura",
             "logo": "https://logo_url.com"
           },
-          "user_id": "23f93c27-f825-4aac-bfc2-676385079851"
+          "user_id": "4b88ab8c-afa0-44d7-8dc0-052067b72f29"
         }
       },
       "ClientFacingApiKey": {
@@ -6722,9 +6723,9 @@
         ],
         "title": "ClientFacingAppointment",
         "example": {
-          "id": "a8f0ecfa-72f6-4b5a-aff3-c389d0a99f81",
-          "user_id": "6253a5e5-4298-4c31-a6ee-5f5c0656a1ff",
-          "order_id": "8e751efe-8db7-4dd4-b5a6-4c41b6a01b92",
+          "id": "a713df15-69ea-4153-8abe-b0fe6d353243",
+          "user_id": "343be203-da71-4552-96f6-7a496e25183b",
+          "order_id": "e3498b74-7e71-45ca-b941-3aef5c8d903b",
           "address": {
             "first_line": "123 Main St.",
             "second_line": "Apt. 208",
@@ -6785,7 +6786,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "886adb82-4aff-4f3d-b6cc-e66797ecfa96",
+          "id": "ca50b818-4748-4523-8d53-e1226336e0e7",
           "name": "I'm feeling sick",
           "is_refundable": true
         }
@@ -6845,8 +6846,8 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "id": "aeadc6b8-5dfb-4dd8-8d04-f5ca494abc64",
-          "appointment_id": "1f59801f-64b1-4eba-9132-9882d5654ae2",
+          "id": "d2d16638-c5cb-41ba-be1e-0779becd9c5a",
+          "appointment_id": "25e376b3-d5fd-48c9-bc99-7b6e8fab2359",
           "created_at": "2020-01-01T00:00:00Z",
           "updated_at": "2020-01-01T00:00:00Z"
         }
@@ -6912,7 +6913,7 @@
         ],
         "title": "ClientFacingBloodOxygenTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.103201+00:00",
+          "timestamp": "2023-11-21T09:34:55.701406+00:00",
           "value": 98,
           "unit": "%"
         }
@@ -6962,7 +6963,7 @@
         ],
         "title": "ClientFacingBloodPressureTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57+00:00",
+          "timestamp": "2023-11-21T09:34:55+00:00",
           "systolic": "125",
           "diastolic": "75",
           "unit": "mmHg"
@@ -7018,8 +7019,8 @@
         ],
         "title": "ClientFacingBody",
         "example": {
-          "id": "b53be341-ede6-4635-b243-25b0df803079",
-          "date": "2023-11-21T09:34:58+00:00",
+          "id": "f0f9c311-afbe-40fd-8761-1a643d8b6472",
+          "date": "2023-11-21T09:34:56+00:00",
           "calendar_date": "2023-34-",
           "weight": 80,
           "fat": 30,
@@ -7029,7 +7030,7 @@
             "slug": "oura",
             "logo": "https://logo_url.com"
           },
-          "user_id": "2746562b-7060-412f-813f-473efb2177bf"
+          "user_id": "17ad02fe-3503-4595-ba42-82c0b69c9858"
         }
       },
       "ClientFacingCaffeineTimeseries": {
@@ -7088,9 +7089,9 @@
         ],
         "title": "ClientFacingCaffeineTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.104833+00:00",
-          "start": "2023-11-21T09:34:57.104928+00:00",
-          "end": "2023-11-21T09:39:57.105213+00:00",
+          "timestamp": "2023-11-21T09:34:55.702559+00:00",
+          "start": "2023-11-21T09:34:55.702652+00:00",
+          "end": "2023-11-21T09:39:55.702742+00:00",
           "value": 42,
           "unit": "g"
         }
@@ -7154,9 +7155,9 @@
         ],
         "title": "ClientFacingCaloriesActiveTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.106016+00:00",
-          "start": "2023-11-21T09:34:57.106118+00:00",
-          "end": "2023-11-21T09:39:57.106272+00:00",
+          "timestamp": "2023-11-21T09:34:55.703590+00:00",
+          "start": "2023-11-21T09:34:55.703688+00:00",
+          "end": "2023-11-21T09:39:55.704160+00:00",
           "value": 184,
           "unit": "kcal"
         }
@@ -7206,7 +7207,7 @@
         ],
         "title": "ClientFacingCaloriesBasalTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.106454+00:00",
+          "timestamp": "2023-11-21T09:34:55.704260+00:00",
           "value": 22.8,
           "unit": "kcal"
         }
@@ -7254,25 +7255,25 @@
         "title": "ClientFacingCholesterolTimeseries",
         "example": [
           {
-            "timestamp": "2023-11-21T09:34:57.102611+00:00",
+            "timestamp": "2023-11-21T09:34:55.700574+00:00",
             "value": 0.6,
             "type": "cholesterol/ldl",
             "unit": "mmol/L"
           },
           {
-            "timestamp": "2023-11-21T09:34:57.102721+00:00",
+            "timestamp": "2023-11-21T09:34:55.700655+00:00",
             "value": 0.2,
             "type": "cholesterol/hdl",
             "unit": "mmol/L"
           },
           {
-            "timestamp": "2023-11-21T09:34:57.102820+00:00",
+            "timestamp": "2023-11-21T09:34:55.700728+00:00",
             "value": 0.7,
             "type": "cholesterol/total",
             "unit": "mmol/L"
           },
           {
-            "timestamp": "2023-11-21T09:34:57.102917+00:00",
+            "timestamp": "2023-11-21T09:34:55.700868+00:00",
             "value": 0.7,
             "type": "cholesterol/triglycerides",
             "unit": "mmol/L"
@@ -7358,9 +7359,9 @@
         ],
         "title": "ClientFacingDistanceTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.106544+00:00",
-          "start": "2023-11-21T09:34:57.106630+00:00",
-          "end": "2023-11-21T09:39:57.106730+00:00",
+          "timestamp": "2023-11-21T09:34:55.704343+00:00",
+          "start": "2023-11-21T09:34:55.704427+00:00",
+          "end": "2023-11-21T09:39:55.704505+00:00",
           "value": 5.6,
           "unit": "m"
         }
@@ -7408,7 +7409,7 @@
         ],
         "title": "ClientFacingElectrocardiogramVoltageTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.102206+00:00",
+          "timestamp": "2023-11-21T09:34:55.700369+00:00",
           "value": -373,
           "type": "lead_1",
           "unit": "mV"
@@ -7459,7 +7460,7 @@
         ],
         "title": "ClientFacingFloorsClimbedTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.106831+00:00",
+          "timestamp": "2023-11-21T09:34:55.704632+00:00",
           "value": 2,
           "unit": "count"
         }
@@ -7521,7 +7522,7 @@
         ],
         "title": "ClientFacingGlucoseTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.101876+00:00",
+          "timestamp": "2023-11-21T09:34:55.700224+00:00",
           "value": 0.5,
           "type": "automatic | manual_scan",
           "unit": "mmol/L"
@@ -7569,7 +7570,7 @@
         ],
         "title": "ClientFacingHRVTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.103111+00:00",
+          "timestamp": "2023-11-21T09:34:55.701322+00:00",
           "value": 48,
           "unit": "rmssd"
         }
@@ -7648,7 +7649,7 @@
         ],
         "title": "ClientFacingHeartRateTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.103011+00:00",
+          "timestamp": "2023-11-21T09:34:55.701115+00:00",
           "value": 70,
           "unit": "bpm"
         }
@@ -7709,9 +7710,9 @@
         ],
         "title": "ClientFacingHypnogramTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.104355+00:00",
-          "start": "2023-11-21T09:34:57.104517+00:00",
-          "end": "2023-11-21T09:39:57.104618+00:00",
+          "timestamp": "2023-11-21T09:34:55.702200+00:00",
+          "start": "2023-11-21T09:34:55.702291+00:00",
+          "end": "2023-11-21T09:39:55.702382+00:00",
           "value": 1,
           "unit": "stage"
         }
@@ -7758,7 +7759,7 @@
         ],
         "title": "ClientFacingIgeTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.103434+00:00",
+          "timestamp": "2023-11-21T09:34:55.701561+00:00",
           "value": 70,
           "type": "baha_grass",
           "unit": "FSU"
@@ -7806,7 +7807,7 @@
         ],
         "title": "ClientFacingIggTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.103912+00:00",
+          "timestamp": "2023-11-21T09:34:55.701683+00:00",
           "value": 12.0,
           "type": "dairy",
           "unit": "FSU"
@@ -8293,9 +8294,9 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.105327+00:00",
-          "start": "2023-11-21T09:34:57.105497+00:00",
-          "end": "2023-11-21T09:39:57.105581+00:00",
+          "timestamp": "2023-11-21T09:34:55.702868+00:00",
+          "start": "2023-11-21T09:34:55.702960+00:00",
+          "end": "2023-11-21T09:39:55.703185+00:00",
           "value": 42,
           "unit": "min"
         }
@@ -8436,9 +8437,9 @@
         ],
         "title": "ClientFacingOrder",
         "example": {
-          "id": "d39c59de-582e-4334-89f7-35bf36db92b9",
-          "team_id": "72abd437-444d-4c83-8761-ed18b2d77392",
-          "user_id": "74daa554-fdff-4bb1-a5a2-5af02f68891c",
+          "id": "12dce721-9da5-4f55-9132-bdab4e457457",
+          "team_id": "abde6d69-3e95-411b-b3f3-0ceeb66b08b1",
+          "user_id": "005cd018-70e4-46cd-999a-588b65d7fa6f",
           "patient_details": {
             "dob": "2020-01-01",
             "gender": "male"
@@ -8479,7 +8480,7 @@
             "method": "testkit"
           },
           "sample_id": "123456789",
-          "health_insurace_id": "683ccd9d-d23d-4862-b91a-f239f97d03ca",
+          "health_insurace_id": "19c90ae5-14f3-4901-be64-afea7a7e7e61",
           "requisition_form_url": "https://www.example.com",
           "notes": "This is a note",
           "created_at": "2020-01-01T00:00:00Z",
@@ -8644,14 +8645,14 @@
         ],
         "title": "ClientFacingProfile",
         "example": {
-          "id": "796c9cf3-8102-447a-8c1a-b4ec13233188",
+          "id": "6600604e-8a0e-4d17-9b0e-b64a8cfcb082",
           "height": 183,
           "source": {
             "name": "Oura",
             "slug": "oura",
             "logo": "https://logo_url.com"
           },
-          "user_id": "1b0a8ade-87e8-4510-82e7-48a6d9f1d3c4"
+          "user_id": "a4e5b038-57db-4d5b-bab2-385af39d5904"
         }
       },
       "ClientFacingProvider": {
@@ -8860,7 +8861,7 @@
         ],
         "title": "ClientFacingRespiratoryRateTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.106943+00:00",
+          "timestamp": "2023-11-21T09:34:55.704816+00:00",
           "value": 15.5,
           "unit": "bpm"
         }
@@ -8964,7 +8965,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "5c90819b-324e-4c64-a391-8de053cb39c0",
+          "id": "74bd95ea-9992-48ae-89c3-fc9bbd057cb9",
           "outbound_tracking_number": "<outbound_tracking_number>",
           "outbound_tracking_url": "<outbound_tracking_url>",
           "inbound_tracking_number": "<inbound_tracking_number>",
@@ -9128,11 +9129,11 @@
         ],
         "title": "Sleep Data",
         "example": {
-          "id": "2c0920ff-5590-43eb-9e17-150eb3530d5a",
-          "date": "2023-11-21T09:34:58+00:00",
+          "id": "7419db40-8d5d-4456-a3fc-861c4e3d0ebe",
+          "date": "2023-11-21T09:34:56+00:00",
           "calendar_date": "2023-11-21",
-          "bedtime_start": "2023-11-21T09:34:58+00:00",
-          "bedtime_stop": "2023-11-21T09:34:58+00:00",
+          "bedtime_start": "2023-11-21T09:34:56+00:00",
+          "bedtime_stop": "2023-11-21T09:34:56+00:00",
           "timezone_offset": 2400,
           "duration": 28800,
           "total": 28800,
@@ -9152,7 +9153,7 @@
             "provider": "oura",
             "type": "unknown"
           },
-          "user_id": "0e3ca3d9-255f-4c23-ac59-2849e856a2d0"
+          "user_id": "89b3098a-0b1a-4177-a37c-0e7efc2a8360"
         }
       },
       "ClientFacingSleepStream": {
@@ -9196,128 +9197,128 @@
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2023-11-21T09:34:58.265569+00:00",
+              "timestamp": "2023-11-21T09:34:56.867896+00:00",
               "value": 60,
               "unit": "rmssd"
             },
             {
               "id": 1,
-              "timestamp": "2023-11-21T09:35:28.265701+00:00",
-              "value": 22,
+              "timestamp": "2023-11-21T09:35:26.868037+00:00",
+              "value": 40,
               "unit": "rmssd"
             },
             {
               "id": 2,
-              "timestamp": "2023-11-21T09:35:58.265767+00:00",
-              "value": 80,
+              "timestamp": "2023-11-21T09:35:56.868100+00:00",
+              "value": 63,
               "unit": "rmssd"
             },
             {
               "id": 3,
-              "timestamp": "2023-11-21T09:36:28.265845+00:00",
-              "value": 29,
+              "timestamp": "2023-11-21T09:36:26.868181+00:00",
+              "value": 37,
               "unit": "rmssd"
             },
             {
               "id": 4,
-              "timestamp": "2023-11-21T09:36:58.265890+00:00",
-              "value": 71,
+              "timestamp": "2023-11-21T09:36:56.868227+00:00",
+              "value": 81,
               "unit": "rmssd"
             }
           ],
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2023-11-21T09:34:58.265931+00:00",
-              "value": 136,
+              "timestamp": "2023-11-21T09:34:56.868268+00:00",
+              "value": 127,
               "unit": "bpm"
             },
             {
               "id": 1,
-              "timestamp": "2023-11-21T09:35:28.265968+00:00",
-              "value": 105,
+              "timestamp": "2023-11-21T09:35:26.868306+00:00",
+              "value": 177,
               "unit": "bpm"
             },
             {
               "id": 2,
-              "timestamp": "2023-11-21T09:35:58.266004+00:00",
-              "value": 90,
+              "timestamp": "2023-11-21T09:35:56.868342+00:00",
+              "value": 162,
               "unit": "bpm"
             },
             {
               "id": 3,
-              "timestamp": "2023-11-21T09:36:28.266056+00:00",
-              "value": 79,
+              "timestamp": "2023-11-21T09:36:26.868396+00:00",
+              "value": 39,
               "unit": "bpm"
             },
             {
               "id": 4,
-              "timestamp": "2023-11-21T09:36:58.266091+00:00",
-              "value": 182,
+              "timestamp": "2023-11-21T09:36:56.868433+00:00",
+              "value": 48,
               "unit": "bpm"
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2023-11-21T09:34:58.266127+00:00",
-              "value": -1,
-              "unit": "stage"
-            },
-            {
-              "id": 1,
-              "timestamp": "2023-11-21T09:35:28.266159+00:00",
-              "value": 3,
-              "unit": "stage"
-            },
-            {
-              "id": 2,
-              "timestamp": "2023-11-21T09:35:58.266189+00:00",
+              "timestamp": "2023-11-21T09:34:56.868470+00:00",
               "value": 0,
               "unit": "stage"
             },
             {
+              "id": 1,
+              "timestamp": "2023-11-21T09:35:26.868506+00:00",
+              "value": 0,
+              "unit": "stage"
+            },
+            {
+              "id": 2,
+              "timestamp": "2023-11-21T09:35:56.868543+00:00",
+              "value": 4,
+              "unit": "stage"
+            },
+            {
               "id": 3,
-              "timestamp": "2023-11-21T09:36:28.266220+00:00",
-              "value": -1,
+              "timestamp": "2023-11-21T09:36:26.868580+00:00",
+              "value": 3,
               "unit": "stage"
             },
             {
               "id": 4,
-              "timestamp": "2023-11-21T09:36:58.266252+00:00",
-              "value": 4,
+              "timestamp": "2023-11-21T09:36:56.868616+00:00",
+              "value": 2,
               "unit": "stage"
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2023-11-21T09:34:58.266284+00:00",
-              "value": 21,
+              "timestamp": "2023-11-21T09:34:56.868651+00:00",
+              "value": 22,
               "unit": "bpm"
             },
             {
               "id": 1,
-              "timestamp": "2023-11-21T09:35:28.266365+00:00",
-              "value": 25,
+              "timestamp": "2023-11-21T09:35:26.868685+00:00",
+              "value": 21,
               "unit": "bpm"
             },
             {
               "id": 2,
-              "timestamp": "2023-11-21T09:35:58.266396+00:00",
+              "timestamp": "2023-11-21T09:35:56.868719+00:00",
               "value": 9,
               "unit": "bpm"
             },
             {
               "id": 3,
-              "timestamp": "2023-11-21T09:36:28.266427+00:00",
+              "timestamp": "2023-11-21T09:36:26.868754+00:00",
               "value": 18,
               "unit": "bpm"
             },
             {
               "id": 4,
-              "timestamp": "2023-11-21T09:36:58.266458+00:00",
-              "value": 13,
+              "timestamp": "2023-11-21T09:36:56.868850+00:00",
+              "value": 18,
               "unit": "bpm"
             }
           ]
@@ -9457,9 +9458,9 @@
         ],
         "title": "ClientFacingStepsTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.105695+00:00",
-          "start": "2023-11-21T09:34:57.105786+00:00",
-          "end": "2023-11-21T09:39:57.105868+00:00",
+          "timestamp": "2023-11-21T09:34:55.703296+00:00",
+          "start": "2023-11-21T09:34:55.703386+00:00",
+          "end": "2023-11-21T09:39:55.703480+00:00",
           "value": 123,
           "unit": "count"
         }
@@ -9870,9 +9871,9 @@
         "title": "ClientFacingTestkitOrder",
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "id": "ef6a7528-083e-4e44-a605-6819820289df",
+          "id": "9fb4e126-2870-4ea8-a2c4-9fb016e101ef",
           "shipment": {
-            "id": "295e43c4-3133-4b78-ac58-c893dd0a73f6",
+            "id": "3f8c0eff-b3ab-495b-a73b-93fe2e3ca7a4",
             "outbound_tracking_number": "<outbound_tracking_number>",
             "outbound_tracking_url": "<outbound_tracking_url>",
             "inbound_tracking_number": "<inbound_tracking_number>",
@@ -9940,10 +9941,10 @@
         ],
         "title": "User",
         "example": {
-          "user_id": "a0e38325-78e3-451b-b66c-3575d8561289",
-          "team_id": "3cdbb5ad-ee40-4ae1-a8c1-63672b57a01b",
-          "client_user_id": "e887060c-9c11-475d-b3de-8aed010121af",
-          "created_on": "2023-11-21T09:34:54+00:00",
+          "user_id": "daf4e2ef-f43b-4b36-9c33-7976ce2c48ec",
+          "team_id": "2f0b2ee0-0322-4e95-9678-17ff3c4d9fdf",
+          "client_user_id": "11c2877e-aeab-4a7e-a873-56efbcff62af",
+          "created_on": "2023-11-21T09:34:52+00:00",
           "connected_sources": [
             {
               "source": {
@@ -9951,13 +9952,13 @@
                 "slug": "oura",
                 "logo": "logo_url"
               },
-              "created_on": "2023-11-21T09:34:54+00:00"
+              "created_on": "2023-11-21T09:34:52+00:00"
             }
           ],
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2023-11-21T09:34:54+00:00"
+            "updated_at": "2023-11-21T09:34:52+00:00"
           }
         }
       },
@@ -9982,8 +9983,8 @@
         ],
         "title": "ClientFacingUserKey",
         "example": {
-          "client_user_id": "7c3d4481-3274-4a97-929b-b568b70ba094",
-          "user_id": "b5e29596-85d6-4f32-ab59-a7a8a349fe4f"
+          "client_user_id": "89708037-36eb-4e13-a154-1dacc57fb3c4",
+          "user_id": "63b41de1-2f72-40c0-abba-349e57e7b079"
         }
       },
       "ClientFacingWalkInOrderDetails": {
@@ -10033,7 +10034,7 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "id": "81ee6fae-8177-48a2-86c6-33d347eda1a2",
+          "id": "bfcd1757-47a9-4439-8171-89b1452a4936",
           "created_at": "2020-01-01T00:00:00Z",
           "updated_at": "2020-01-01T00:00:00Z"
         }
@@ -10080,7 +10081,7 @@
         ],
         "title": "ClientFacingWaterTimeseries",
         "example": {
-          "timestamp": "2023-11-21T09:34:57.104748+00:00",
+          "timestamp": "2023-11-21T09:34:55.702473+00:00",
           "value": 400,
           "unit": "ml"
         }
@@ -10246,13 +10247,13 @@
         ],
         "title": "Workout Data",
         "example": {
-          "id": "d40216ee-ffa0-4562-84fd-0dbf540bf474",
+          "id": "0bb1f818-bc16-40a0-86a5-4722be9420c2",
           "average_hr": 100,
           "max_hr": 190,
           "distance": 1700,
           "calendar_date": "2023-34-",
-          "time_start": "2023-11-21T08:34:58+00:00",
-          "time_end": "2023-11-21T09:34:58+00:00",
+          "time_start": "2023-11-21T08:34:56+00:00",
+          "time_end": "2023-11-21T09:34:56+00:00",
           "calories": 300,
           "sport": {
             "id": 1,
@@ -10269,7 +10270,7 @@
             10,
             200
           ],
-          "user_id": "2857cc3d-0642-4458-a966-48248bd3bcc3",
+          "user_id": "1c9cc55e-ae18-4c21-a489-dd31426d465a",
           "moving_time": 100,
           "total_elevation_gain": 10,
           "elev_high": 20.2,
@@ -10303,11 +10304,11 @@
         "example": {
           "sleep": [
             {
-              "id": "2c0920ff-5590-43eb-9e17-150eb3530d5a",
-              "date": "2023-11-21T09:34:58+00:00",
+              "id": "7419db40-8d5d-4456-a3fc-861c4e3d0ebe",
+              "date": "2023-11-21T09:34:56+00:00",
               "calendar_date": "2023-11-21",
-              "bedtime_start": "2023-11-21T09:34:58+00:00",
-              "bedtime_stop": "2023-11-21T09:34:58+00:00",
+              "bedtime_start": "2023-11-21T09:34:56+00:00",
+              "bedtime_stop": "2023-11-21T09:34:56+00:00",
               "timezone_offset": 2400,
               "duration": 28800,
               "total": 28800,
@@ -10327,7 +10328,7 @@
                 "provider": "oura",
                 "type": "unknown"
               },
-              "user_id": "0e3ca3d9-255f-4c23-ac59-2849e856a2d0"
+              "user_id": "89b3098a-0b1a-4177-a37c-0e7efc2a8360"
             }
           ]
         }
@@ -10350,13 +10351,13 @@
         "example": {
           "workouts": [
             {
-              "id": "d40216ee-ffa0-4562-84fd-0dbf540bf474",
+              "id": "0bb1f818-bc16-40a0-86a5-4722be9420c2",
               "average_hr": 100,
               "max_hr": 190,
               "distance": 1700,
               "calendar_date": "2023-34-",
-              "time_start": "2023-11-21T08:34:58+00:00",
-              "time_end": "2023-11-21T09:34:58+00:00",
+              "time_start": "2023-11-21T08:34:56+00:00",
+              "time_end": "2023-11-21T09:34:56+00:00",
               "calories": 300,
               "sport": {
                 "id": 1,
@@ -10373,7 +10374,7 @@
                 10,
                 200
               ],
-              "user_id": "2857cc3d-0642-4458-a966-48248bd3bcc3",
+              "user_id": "1c9cc55e-ae18-4c21-a489-dd31426d465a",
               "moving_time": 100,
               "total_elevation_gain": 10,
               "elev_high": 20.2,
@@ -12205,12 +12206,12 @@
         "example": {
           "activity": [
             {
-              "timestamp": "2023-11-21T09:34:50.958566+00:00",
+              "timestamp": "2023-11-21T09:34:48.772806+00:00",
               "data": {
                 "data": "...provider_specific_data"
               },
-              "provider_id": "6e8a7669-126b-4478-b4e2-68b177711c5f",
-              "user_id": "c2496c5b-5c61-4bf6-97d4-79893c3ba5e2",
+              "provider_id": "bb3c774d-3930-4043-9a6c-0077541a8ab2",
+              "user_id": "08afea49-b8e6-4f4a-a023-b841e515e25a",
               "source_id": 1,
               "priority_id": 1
             }
@@ -12235,12 +12236,12 @@
         "example": {
           "body": [
             {
-              "timestamp": "2023-11-21T09:34:50.969954+00:00",
+              "timestamp": "2023-11-21T09:34:48.787409+00:00",
               "data": {
                 "data": "...provider_specific_data"
               },
-              "provider_id": "cf501969-8f5b-43c5-ac0d-3f4eb9d1c3b3",
-              "user_id": "20571b17-bfc8-452f-9229-9a832aec293d",
+              "provider_id": "df4f2e1f-e90e-431b-acb1-50774284eca6",
+              "user_id": "75ab4b04-a8b7-435c-ab86-abbb34bc8c38",
               "source_id": 1,
               "priority_id": 1
             }
@@ -12268,8 +12269,8 @@
               "data": {
                 "data": "...provider_specific_data"
               },
-              "provider_id": "9e3cca37-df0e-4ec5-82d9-26fb8ee17247",
-              "user_id": "8b8fde49-0571-4615-99d7-e97944404d4b",
+              "provider_id": "806d00b5-f0ad-4fe8-8870-5df2dd3e9f83",
+              "user_id": "218434a0-9dfc-4b02-83a1-b9ad7c3ee66d",
               "source_id": 1
             }
           ]
@@ -12292,8 +12293,8 @@
               "data": {
                 "data": "...provider_specific_data"
               },
-              "provider_id": "1caa32e5-0a19-4af9-9d9b-8b86d46c1eed",
-              "user_id": "afdeb5d5-1577-443f-af1e-c68da277312b",
+              "provider_id": "42383d25-38e0-401d-adbf-39d48b9b540d",
+              "user_id": "03a6322c-6680-4fd3-a4ea-1a98f1ef4832",
               "source_id": 1
             }
           ]
@@ -12317,12 +12318,12 @@
         "example": {
           "sleep": [
             {
-              "timestamp": "2023-11-21T09:34:51.016828+00:00",
+              "timestamp": "2023-11-21T09:34:48.834730+00:00",
               "data": {
                 "data": "...provider_specific_data"
               },
-              "provider_id": "abed9678-2598-41d5-9da0-43cdfc094b44",
-              "user_id": "b579429a-e925-4fab-b9f7-2033a51ca2dd",
+              "provider_id": "0f0617be-6227-4160-ac9e-1cd2ac4faa5c",
+              "user_id": "9a439ba5-29d0-4dd0-9de9-f62ac93cf16c",
               "source_id": 1,
               "priority_id": 1
             }
@@ -12347,12 +12348,12 @@
         "example": {
           "workouts": [
             {
-              "timestamp": "2023-11-21T09:34:51.033433+00:00",
+              "timestamp": "2023-11-21T09:34:48.851433+00:00",
               "data": {
                 "provider_specific": "..._data"
               },
-              "provider_id": "db44f1e4-2b43-461e-844d-6216a35849ed",
-              "user_id": "f6a1da8f-93bd-44e9-a568-eaa0dc9c8cd7",
+              "provider_id": "2b6b4d2d-fda6-4ef1-bf5f-b3ba7a962cc2",
+              "user_id": "7387fced-1df8-46b0-a484-c3537eab4f75",
               "source_id": 1,
               "priority_id": 1,
               "sport_id": 3
@@ -12509,16 +12510,6 @@
             "type": "string",
             "format": "uuid",
             "title": "User Id"
-          },
-          "provider": {
-            "additionalProperties": {
-              "additionalProperties": {
-                "$ref": "#/components/schemas/SingleResourceStatistics"
-              },
-              "type": "object"
-            },
-            "type": "object",
-            "title": "Provider"
           }
         },
         "type": "object",
@@ -12961,7 +12952,7 @@
         "title": "UserRefreshErrorResponse",
         "example": {
           "success": false,
-          "user_id": "3ada77f2-c16b-47a6-b5e0-6217bf490631",
+          "user_id": "b6614fec-a029-4424-96e3-dad0f04d8488",
           "error": "user has no connected sources",
           "failed_sources": []
         }
@@ -13007,7 +12998,7 @@
         "title": "UserRefreshSuccessResponse",
         "example": {
           "success": true,
-          "user_id": "df9a0318-9587-477e-a837-cca88c391ff2",
+          "user_id": "102d67a3-f230-425f-b9f8-0a7d083ec4b0",
           "refreshed_sources": [
             "Withings/workouts",
             "Withings/sleep",
