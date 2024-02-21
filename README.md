@@ -27,9 +27,19 @@ Generators read in your API Definition and output artifacts (e.g. TypeScript SDK
 and are tracked in [generators.yml](./fern/api/generators.yml).
 
 ```bash
-fern generate
-fern generate --group publish --version <release version>
+fern generate --group java-sdk --version <release version>
+fern generate --group node-sdk --version <release version>
+fern generate --group python-sdk --version <release version>
+fern generate --group go-sdk --version <release version>
 ```
+
+## How to preview generated SDKs locally?
+
+```bash
+fern generate --group local-preview
+```
+
+The generated code would be located at `./generated/`.
 
 ## How to make a release? 
 

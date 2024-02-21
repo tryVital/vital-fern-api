@@ -43,3 +43,31 @@ groups:
         version: 0.8.0
         github:
           repository: tryVital/vital-go
+  local-preview:
+    generators:
+      - name: fernapi/fern-java-sdk
+        version: 0.5.13
+        output:
+          location: local-file-system
+          path: ../generated/java
+        config: 
+          client-class-name: Vital
+      - name: fernapi/fern-typescript-node-sdk
+        version: 0.9.0-rc1
+        output:
+          location: local-file-system
+          path: ../generated/node
+        config:
+          namespaceExport: Vital
+      - name: fernapi/fern-python-sdk
+        version: 0.8.0
+        output:
+          location: local-file-system
+          path: ../generated/python
+        config:
+          client_class_name: Vital
+      - name: fernapi/fern-go-sdk
+        version: 0.8.0
+        output:
+          location: local-file-system
+          path: ../generated/go
