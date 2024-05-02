@@ -39,6 +39,21 @@ jobs:
           prefix="java@"
           SDK_VERSION="${tag#$prefix}"
           fern generate --group java-sdk --version "$SDK_VERSION" --log-level debug
+      
+      - name: Create Github release
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const response = await github.rest.repos.createRelease({
+              draft: false,
+              generate_release_notes: true,
+              name: "${{ github.ref_name }}",
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: "${{ github.ref_name }}",
+              target_commitish: "${{ github.base_ref }}",
+            });
 
   fern-generate-go:
     needs: fern-check
@@ -62,6 +77,22 @@ jobs:
           prefix="go@"
           SDK_VERSION="${tag#$prefix}"
           fern generate --group go-sdk --version "$SDK_VERSION" --log-level debug
+      
+      - name: Create Github release
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const response = await github.rest.repos.createRelease({
+              draft: false,
+              generate_release_notes: true,
+              name: "${{ github.ref_name }}",
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: "${{ github.ref_name }}",
+              target_commitish: "${{ github.base_ref }}",
+            });
+
   
   fern-generate-node:
     needs: fern-check
@@ -86,6 +117,22 @@ jobs:
           prefix="node@"
           SDK_VERSION="${tag#$prefix}"
           fern generate --group node-sdk --version "$SDK_VERSION" --log-level debug
+      
+      - name: Create Github release
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const response = await github.rest.repos.createRelease({
+              draft: false,
+              generate_release_notes: true,
+              name: "${{ github.ref_name }}",
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: "${{ github.ref_name }}",
+              target_commitish: "${{ github.base_ref }}",
+            });
+
   
   fern-generate-python:
     needs: fern-check
@@ -110,3 +157,19 @@ jobs:
           prefix="python@"
           SDK_VERSION="${tag#$prefix}"
           fern generate --group python-sdk --version "$SDK_VERSION" --log-level debug
+      
+      - name: Create Github release
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const response = await github.rest.repos.createRelease({
+              draft: false,
+              generate_release_notes: true,
+              name: "${{ github.ref_name }}",
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: "${{ github.ref_name }}",
+              target_commitish: "${{ github.base_ref }}",
+            });
+

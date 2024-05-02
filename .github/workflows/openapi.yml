@@ -1,0 +1,149 @@
+name: openapi
+
+# Controls when the workflow will run
+on:
+  # triggered on a custom event
+  repository_dispatch:
+    types: [trigger_ci]
+ 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+
+      - name: Download json
+        run: npm install -g json
+
+      # Runs a single command using the runners shell
+      - name: Download swagger and push it
+        run: |
+          echo "$GITHUB_WORKSPACE"
+          wget https://api.tryvital.io/openapi.json -O- | json > ./fern/openapi/openapi.json
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "[automated commit] update openapi.json"
+          git push
+
+  create_tags:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Compute release tag
+        id: compute-release-tag
+        uses: "actions/github-script@v6"
+        with:
+          github-token: "${{ secrets.GH_ADMIN_TOKEN }}"
+          result-encoding: json
+          script: |
+            function semver_lt(lhs, rhs) {
+                let left = lhs.split(".").map((str) => parseInt(str))
+                let right = rhs.split(".").map((str) => parseInt(str))
+
+                if (left.length != 3 || right.length != 3)
+                    throw new Error("not valid semver")
+                if (left[0] < right[0])
+                    return true
+                if (left[0] > right[0])
+                    return false
+                if (left[1] < right[1])
+                    return true
+                if (left[1] > right[1])
+                    return false
+                if (left[2] < right[2])
+                    return true
+
+                return false
+            }
+
+            function semver_inc(ver) {
+                let components = ver.split(".").map((str) => parseInt(str))
+                if (components.length != 3) {
+                    throw new Error("not valid semver")
+                }
+                if (components[2] < 999) {
+                    components[2] += 1
+                } else {
+                    components[1] += 1
+                    components[2] = 0
+                }
+                return components.map((n) => n.toString()).join(".")
+            }
+
+            try {
+                const { data } = await github.rest.repos.listReleases({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                });
+
+                let lastReleases = {
+                    java: "0.0.0",
+                    go: "0.0.0",
+                    node: "0.0.0",
+                    python: "0.0.0"
+                };
+
+                for (let release of data) {
+                    if (release.tag_name.startsWith("java@")) {
+                        if (semver_lt(lastReleases.java, release.tag_name)) {
+                            lastReleases.java = release.tag_name;
+                        }
+                    } else if (release.tag_name.startsWith("go@")) {
+                        if (semver_lt(lastReleases.go, release.tag_name)) {
+                            lastReleases.go = release.tag_name;
+                        }
+                    } else if (release.tag_name.startsWith("node@")) {
+                        if (semver_lt(lastReleases.node, release.tag_name)) {
+                            lastReleases.node = release.tag_name;
+                        }
+                    } else if (release.tag_name.startsWith("python@")) {
+                        if (semver_lt(lastReleases.python, release.tag_name)) {
+                            lastReleases.python = release.tag_name;
+                        }
+                    }
+                }
+
+                console.log("Last releases:");
+                console.log(lastReleases);
+
+                let bumpedVersions = {};
+
+                for (let lang in lastReleases) {
+                    if (lastReleases[lang] == "0.0.0") {
+                        core.setFailed("Failed to extract the latest tag for " + lang + " from GitHub releases");
+                        return;
+                    } else {
+                        let bumpedVersion = semver_inc(lastReleases[lang]);
+                        console.log("Next " + lang + " release: " + bumpedVersion);
+                        bumpedVersions[lang] = bumpedVersion;
+                    }
+                }
+
+                return bumpedVersions;
+            } catch (error) {
+                core.setFailed(error.message);
+            }
+
+      - name: Create tags
+        # This will trigger the CI job and release the SDKs
+        run: |
+          echo "Creating tags"
+          git tag -a "java@${{ steps.compute-release-tag.outputs.result.java }}" -m "Java SDK ${{ steps.compute-release-tag.outputs.result.java }}"
+          git tag -a "go@${{ steps.compute-release-tag.outputs.result.go }}" -m "Go SDK ${{ steps.compute-release-tag.outputs.result.go }}"
+          git tag -a "node@${{ steps.compute-release-tag.outputs.result.node }}" -m "Node SDK ${{ steps.compute-release-tag.outputs.result.node }}"
+          git tag -a "python@${{ steps.compute-release-tag.outputs.result.python }}" -m "Python SDK ${{ steps.compute-release-tag.outputs.result.python }}"
+          git push origin --tags
