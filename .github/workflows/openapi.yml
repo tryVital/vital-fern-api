@@ -30,7 +30,7 @@ jobs:
       - name: Download swagger and push it
         run: |
           echo "$GITHUB_WORKSPACE"
-          wget https://api.tryvital.io/openapi.json -O- | json > ./fern/openapi/openapi.json
+          wget https://api.tryvital.io/openapi.json -O- | npx json > ./fern/openapi/openapi.json
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
