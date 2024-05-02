@@ -26,16 +26,16 @@ jobs:
       - name: Download json
         run: npm install json
 
-      # Runs a single command using the runners shell
-      - name: Download swagger and push it
-        run: |
-          echo "$GITHUB_WORKSPACE"
-          wget https://api.tryvital.io/openapi.json -O- | npx json > ./fern/openapi/openapi.json
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add ./fern/openapi/openapi.json
-          git commit -m "[automated commit] update openapi.json"
-          git push
+      # # Runs a single command using the runners shell
+      # - name: Download swagger and push it
+      #   run: |
+      #     echo "$GITHUB_WORKSPACE"
+      #     wget https://api.tryvital.io/openapi.json -O- | npx json > ./fern/openapi/openapi.json
+      #     git config user.name github-actions
+      #     git config user.email github-actions@github.com
+      #     git add ./fern/openapi/openapi.json
+      #     git commit -m "[automated commit] update openapi.json"
+      #     git push
 
   create_tags:
     runs-on: ubuntu-latest
@@ -151,7 +151,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
 
-          RESULT="${{ steps.compute-release-tag.outputs.result }}"
+          RESULT='${{ steps.compute-release-tag.outputs.result }}'
 
           JAVA_VERSION=$(echo "$RESULT" | npx json java)
 
