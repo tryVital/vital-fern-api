@@ -43,6 +43,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup node
+        uses: actions/setup-node@v3
+
+      - name: Download json
+        run: npm install json
+
       - name: Compute release tag
         id: compute-release-tag
         uses: "actions/github-script@v6"
@@ -145,14 +151,18 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
 
-          java_version="${{ steps.compute-release-tag.outputs.result.java }}"
-          go_version="${{ steps.compute-release-tag.outputs.result.go }}"
-          node_version="${{ steps.compute-release-tag.outputs.result.node }}"
-          python_version="${{ steps.compute-release-tag.outputs.result.python }}"
+          RESULT="${{ steps.compute-release-tag.outputs.result }}"
 
-          git tag -a "java@$java_version" -m "Java SDK $java_version"
-          git tag -a "go@$go_version" -m "Go SDK $go_version"
-          git tag -a "node@$node_version" -m "Node SDK $node_version"
-          git tag -a "python@$python_version" -m "Python SDK $python_version"
+          JAVA_VERSION=$(echo "$RESULT" | npx json java)
 
+          GO_VERSION=$(echo "$RESULT" | npx json go)
+
+          NODE_VERSION=$(echo "$RESULT" | npx json node)
+
+          PYTHON_VERSION=$(echo "$RESULT" | npx json python)
+
+          git tag -a "java@${JAVA_VERSION}" -m "Java SDK ${JAVA_VERSION}"
+          git tag -a "go@${GO_VERSION}" -m "Go SDK ${GO_VERSION}"
+          git tag -a "node@${NODE_VERSION}" -m "Node SDK ${NODE_VERSION}"
+          git tag -a "python@${PYTHON_VERSION}" -m "Python SDK ${PYTHON_VERSION}"
           git push origin --tags
