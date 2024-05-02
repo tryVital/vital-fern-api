@@ -142,8 +142,8 @@ jobs:
         # This will trigger the CI job and release the SDKs
         run: |
           echo "Creating tags"
-          git tag -a "$java@{{ steps.compute-release-tag.outputs.result.java }}" -m "Java SDK ${{ steps.compute-release-tag.outputs.result.java }}"
-          git tag -a "$go@{{ steps.compute-release-tag.outputs.result.go }}" -m "Go SDK ${{ steps.compute-release-tag.outputs.result.go }}"
+          git tag -a "java@${{ steps.compute-release-tag.outputs.result.java }}" -m "Java SDK ${{ steps.compute-release-tag.outputs.result.java }}"
+          git tag -a "go@${{ steps.compute-release-tag.outputs.result.go }}" -m "Go SDK ${{ steps.compute-release-tag.outputs.result.go }}"
           git tag -a "node@${{ steps.compute-release-tag.outputs.result.node }}" -m "Node SDK ${{ steps.compute-release-tag.outputs.result.node }}"
-          git tag -a "python@${{ steps.compute-release-tag.outputs.result.python }}" -m "Python SDK {{ steps.compute-release-tag.outputs.result.python }}"
+          git tag -a "python@${{ steps.compute-release-tag.outputs.result.python }}" -m "Python SDK ${{ steps.compute-release-tag.outputs.result.python }}"
           git push origin --tags
