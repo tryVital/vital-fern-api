@@ -100,19 +100,19 @@ jobs:
                 for (let release of data) {
                     if (release.tag_name.startsWith("java@")) {
                         if (semver_lt(lastReleases.java, release.tag_name)) {
-                            lastReleases.java = release.tag_name;
+                            lastReleases.java = release.tag_name.split('@')[1];
                         }
                     } else if (release.tag_name.startsWith("go@")) {
                         if (semver_lt(lastReleases.go, release.tag_name)) {
-                            lastReleases.go = release.tag_name;
+                            lastReleases.go = release.tag_name.split('@')[1];
                         }
                     } else if (release.tag_name.startsWith("node@")) {
                         if (semver_lt(lastReleases.node, release.tag_name)) {
-                            lastReleases.node = release.tag_name;
+                            lastReleases.node = release.tag_name.split('@')[1];
                         }
                     } else if (release.tag_name.startsWith("python@")) {
                         if (semver_lt(lastReleases.python, release.tag_name)) {
-                            lastReleases.python = release.tag_name;
+                            lastReleases.python = release.tag_name.split('@')[1];
                         }
                     }
                 }
