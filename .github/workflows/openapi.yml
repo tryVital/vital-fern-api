@@ -43,6 +43,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup node
+        uses: actions/setup-node@v3
+
+      - name: Download json
+        run: npm install json
+
       - name: Compute release tag
         id: compute-release-tag
         uses: "actions/github-script@v6"
@@ -142,8 +148,21 @@ jobs:
         # This will trigger the CI job and release the SDKs
         run: |
           echo "Creating tags"
-          git tag -a "java@${{ steps.compute-release-tag.outputs.result.java }}" -m "Java SDK ${{ steps.compute-release-tag.outputs.result.java }}"
-          git tag -a "go@${{ steps.compute-release-tag.outputs.result.go }}" -m "Go SDK ${{ steps.compute-release-tag.outputs.result.go }}"
-          git tag -a "node@${{ steps.compute-release-tag.outputs.result.node }}" -m "Node SDK ${{ steps.compute-release-tag.outputs.result.node }}"
-          git tag -a "python@${{ steps.compute-release-tag.outputs.result.python }}" -m "Python SDK ${{ steps.compute-release-tag.outputs.result.python }}"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+          RESULT="${{ steps.compute-release-tag.outputs.result }}"
+
+          JAVA_VERSION=$(echo "$RESULT" | npx json java)
+
+          GO_VERSION=$(echo "$RESULT" | npx json go)
+
+          NODE_VERSION=$(echo "$RESULT" | npx json node)
+
+          PYTHON_VERSION=$(echo "$RESULT" | npx json python)
+
+          git tag -a "java@${JAVA_VERSION}" -m "Java SDK ${JAVA_VERSION}"
+          git tag -a "go@${GO_VERSION}" -m "Go SDK ${GO_VERSION}"
+          git tag -a "node@${NODE_VERSION}" -m "Node SDK ${NODE_VERSION}"
+          git tag -a "python@${PYTHON_VERSION}" -m "Python SDK ${PYTHON_VERSION}"
           git push origin --tags
