@@ -43,7 +43,4 @@ The generated code would be located at `./generated/`.
 
 ## How to make a release? 
 
-To release the generators, create a Github release that is formatted "<language>@<version>". 
-So, if you wanted to release version 3.4.0 of the python SDK, the Github release should 
-be tagged "python@3.4.0". 
-
+A release happens automatically on every Vital Api prod release.
