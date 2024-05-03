@@ -144,25 +144,52 @@ jobs:
                 core.setFailed(error.message);
             }
 
-      - name: Create tags
-        # This will trigger the CI job and release the SDKs
+      # This will trigger the CI job and release the SDKs
+      - name: Create java tag
         run: |
-          echo "Creating tags"
+          echo "Creating java tag"
           git config user.name github-actions
           git config user.email github-actions@github.com
 
           RESULT='${{ steps.compute-release-tag.outputs.result }}'
-
           JAVA_VERSION=$(echo "$RESULT" | npx json java)
 
+          git tag -a "java@${JAVA_VERSION}" -m "Java SDK ${JAVA_VERSION}"
+          git push origin tag "java@${JAVA_VERSION}"
+
+      - name: Create go tag
+        run: |
+          echo "Creating go tag"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+          RESULT='${{ steps.compute-release-tag.outputs.result }}'
           GO_VERSION=$(echo "$RESULT" | npx json go)
+
+          git tag -a "go@${GO_VERSION}" -m "Go SDK ${GO_VERSION}"
+          git push origin tag "go@${GO_VERSION}"
+
+      - name: Create node tag
+        run: |
+          echo "Creating node tag"
+          git config user.name github-actions
+          git config user.email
+
+          RESULT='${{ steps.compute-release-tag.outputs.result }}'
 
           NODE_VERSION=$(echo "$RESULT" | npx json node)
 
+          git tag -a "node@${NODE_VERSION}" -m "Node SDK ${NODE_VERSION}"
+          git push origin tag "node@${NODE_VERSION}"
+
+      - name: Create python tag
+        run: |
+          echo "Creating python tag"
+          git config user.name github-actions
+          git config user.email
+
+          RESULT='${{ steps.compute-release-tag.outputs.result }}'
           PYTHON_VERSION=$(echo "$RESULT" | npx json python)
 
-          git tag -a "java@${JAVA_VERSION}" -m "Java SDK ${JAVA_VERSION}"
-          git tag -a "go@${GO_VERSION}" -m "Go SDK ${GO_VERSION}"
-          git tag -a "node@${NODE_VERSION}" -m "Node SDK ${NODE_VERSION}"
           git tag -a "python@${PYTHON_VERSION}" -m "Python SDK ${PYTHON_VERSION}"
-          git push origin --tags
+          git push origin tag "python@${PYTHON_VERSION}"
