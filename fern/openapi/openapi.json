@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.2.408"
+    "version": "0.2.412"
   },
   "paths": {
     "/v2/link/token": {
@@ -46,8 +46,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "token"
+        "x-fern-sdk-method-name": "token",
+        "x-fern-sdk-group-name": "link"
       }
     },
     "/v2/link/token/isValid": {
@@ -91,9 +91,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "is_token_valid",
         "x-fern-sdk-group-name": "link",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "is_token_valid"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/link/code/create": {
@@ -121,7 +121,7 @@
               "type": "string",
               "format": "date-time",
               "title": "Expires At",
-              "default": "2024-05-09T18:46:47.497307+00:00"
+              "default": "2024-05-16T09:15:40.224364+00:00"
             },
             "name": "expires_at",
             "in": "query"
@@ -149,8 +149,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "code_create"
+        "x-fern-sdk-method-name": "code_create",
+        "x-fern-sdk-group-name": "link"
       }
     },
     "/v2/link/start": {
@@ -195,9 +195,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "start_connect",
         "x-fern-sdk-group-name": "link",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "start_connect"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/link/state": {
@@ -243,9 +243,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "token_state",
         "x-fern-sdk-group-name": "link",
         "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "token_state",
         "security": []
       }
     },
@@ -254,9 +254,9 @@
         "tags": [
           "link"
         ],
-        "summary": "Connect Email Auth",
+        "summary": "Legacy Connect Email Auth",
         "description": "Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.",
-        "operationId": "connect_email_auth_v2_link_auth_email_post",
+        "operationId": "legacy_connect_email_auth_v2_link_auth_email_post",
         "parameters": [
           {
             "required": false,
@@ -301,9 +301,9 @@
           }
         },
         "deprecated": true,
-        "x-fern-sdk-group-name": "link",
-        "x-fern-availability": "deprecated",
         "x-fern-sdk-method-name": "email_auth",
+        "x-fern-availability": "deprecated",
+        "x-fern-sdk-group-name": "link",
         "security": []
       }
     },
@@ -312,9 +312,9 @@
         "tags": [
           "link"
         ],
-        "summary": "Connect Password Auth",
+        "summary": "Legacy Connect Password Auth",
         "description": "Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.",
-        "operationId": "connect_password_auth_v2_link_auth_post",
+        "operationId": "legacy_connect_password_auth_v2_link_auth_post",
         "parameters": [
           {
             "required": false,
@@ -359,9 +359,9 @@
           }
         },
         "deprecated": true,
-        "x-fern-sdk-group-name": "link",
-        "x-fern-availability": "deprecated",
         "x-fern-sdk-method-name": "password_auth",
+        "x-fern-availability": "deprecated",
+        "x-fern-sdk-group-name": "link",
         "security": []
       }
     },
@@ -414,8 +414,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "link",
         "x-fern-sdk-method-name": "generate_oauth_link",
+        "x-fern-sdk-group-name": "link",
         "security": []
       }
     },
@@ -424,9 +424,9 @@
         "tags": [
           "link"
         ],
-        "summary": "Connect Individual Provider",
+        "summary": "Connect Password Provider",
         "description": "This connects auth providers that are password based.",
-        "operationId": "connect_individual_provider_v2_link_provider_password__provider__post",
+        "operationId": "connect_password_provider_v2_link_provider_password__provider__post",
         "parameters": [
           {
             "required": true,
@@ -440,15 +440,6 @@
             },
             "name": "provider",
             "in": "path"
-          },
-          {
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "X-Vital-Link-Client-Region"
-            },
-            "name": "x-vital-link-client-region",
-            "in": "header"
           },
           {
             "required": false,
@@ -492,8 +483,77 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "link",
         "x-fern-sdk-method-name": "connect_password_provider",
+        "x-fern-sdk-group-name": "link",
+        "security": []
+      }
+    },
+    "/v2/link/provider/password/{provider}/complete_mfa": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Complete Password Provider Mfa",
+        "description": "This connects auth providers that are password based.",
+        "operationId": "complete_password_provider_mfa_v2_link_provider_password__provider__complete_mfa_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/PasswordProviders"
+                }
+              ],
+              "title": "Providers that require password auth, whoop, renpho, peloton, zwift"
+            },
+            "name": "provider",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Vital-Link-Token"
+            },
+            "name": "x-vital-link-token",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompletePasswordProviderMFABody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderLinkResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-method-name": "complete_password_provider_mfa",
+        "x-fern-sdk-group-name": "link",
         "security": []
       }
     },
@@ -561,8 +621,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "link",
         "x-fern-sdk-method-name": "connect_email_auth_provider",
+        "x-fern-sdk-group-name": "link",
         "security": []
       }
     },
@@ -611,8 +671,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "link",
         "x-fern-sdk-method-name": "get_all_providers",
+        "x-fern-sdk-group-name": "link",
         "security": []
       }
     },
@@ -675,9 +735,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "connect_manual_provider",
         "x-fern-sdk-group-name": "link",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "connect_manual_provider"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/link/connect/demo": {
@@ -720,8 +780,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "connect_demo_provider"
+        "x-fern-sdk-method-name": "connect_demo_provider",
+        "x-fern-sdk-group-name": "link"
       }
     },
     "/v2/summary/profile/{user_id}": {
@@ -778,8 +838,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "profile",
-        "x-fern-sdk-method-name": "get"
+        "x-fern-sdk-method-name": "get",
+        "x-fern-sdk-group-name": "profile"
       }
     },
     "/v2/summary/profile/{user_id}/raw": {
@@ -836,8 +896,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "profile",
-        "x-fern-sdk-method-name": "get_raw"
+        "x-fern-sdk-method-name": "get_raw",
+        "x-fern-sdk-group-name": "profile"
       }
     },
     "/v2/summary/devices/{user_id}/raw": {
@@ -894,8 +954,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "devices",
-        "x-fern-sdk-method-name": "get_raw"
+        "x-fern-sdk-method-name": "get_raw",
+        "x-fern-sdk-group-name": "devices"
       }
     },
     "/v2/summary/activity/{user_id}": {
@@ -974,8 +1034,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "activity",
-        "x-fern-sdk-method-name": "get"
+        "x-fern-sdk-method-name": "get",
+        "x-fern-sdk-group-name": "activity"
       }
     },
     "/v2/summary/activity/{user_id}/raw": {
@@ -1054,8 +1114,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "activity",
-        "x-fern-sdk-method-name": "get_raw"
+        "x-fern-sdk-method-name": "get_raw",
+        "x-fern-sdk-group-name": "activity"
       }
     },
     "/v2/summary/workouts/{user_id}": {
@@ -1134,8 +1194,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "workouts",
-        "x-fern-sdk-method-name": "get"
+        "x-fern-sdk-method-name": "get",
+        "x-fern-sdk-group-name": "workouts"
       }
     },
     "/v2/summary/workouts/{user_id}/raw": {
@@ -1214,8 +1274,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "workouts",
-        "x-fern-sdk-method-name": "get_raw"
+        "x-fern-sdk-method-name": "get_raw",
+        "x-fern-sdk-group-name": "workouts"
       }
     },
     "/v2/summary/sleep/{user_id}": {
@@ -1294,8 +1354,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "sleep",
-        "x-fern-sdk-method-name": "get"
+        "x-fern-sdk-method-name": "get",
+        "x-fern-sdk-group-name": "sleep"
       }
     },
     "/v2/summary/sleep/{user_id}/stream": {
@@ -1374,8 +1434,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "sleep",
-        "x-fern-sdk-method-name": "get_stream"
+        "x-fern-sdk-method-name": "get_stream",
+        "x-fern-sdk-group-name": "sleep"
       }
     },
     "/v2/summary/sleep/{user_id}/raw": {
@@ -1454,8 +1514,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "sleep",
-        "x-fern-sdk-method-name": "get_raw"
+        "x-fern-sdk-method-name": "get_raw",
+        "x-fern-sdk-group-name": "sleep"
       }
     },
     "/v2/summary/body/{user_id}": {
@@ -1534,8 +1594,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "body",
-        "x-fern-sdk-method-name": "get"
+        "x-fern-sdk-method-name": "get",
+        "x-fern-sdk-group-name": "body"
       }
     },
     "/v2/summary/body/{user_id}/raw": {
@@ -1614,8 +1674,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "body",
-        "x-fern-sdk-method-name": "get_raw"
+        "x-fern-sdk-method-name": "get_raw",
+        "x-fern-sdk-group-name": "body"
       }
     },
     "/v2/summary/meal/{user_id}": {
@@ -1694,8 +1754,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "meal",
-        "x-fern-sdk-method-name": "get"
+        "x-fern-sdk-method-name": "get",
+        "x-fern-sdk-group-name": "meal"
       }
     },
     "/v2/timeseries/sleep/{sleep_id}/stream": {
@@ -1741,8 +1801,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "sleep",
-        "x-fern-sdk-method-name": "get_stream_by_sleep_id"
+        "x-fern-sdk-method-name": "get_stream_by_sleep_id",
+        "x-fern-sdk-group-name": "sleep"
       }
     },
     "/v2/timeseries/workouts/{workout_id}/stream": {
@@ -1788,8 +1848,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "workouts",
-        "x-fern-sdk-method-name": "get_by_workout_id"
+        "x-fern-sdk-method-name": "get_by_workout_id",
+        "x-fern-sdk-group-name": "workouts"
       }
     },
     "/v2/timeseries/{user_id}/vo2_max/grouped": {
@@ -1878,8 +1938,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "vo2_max_grouped"
+        "x-fern-sdk-method-name": "vo2_max_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/stress_level/grouped": {
@@ -1968,8 +2028,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "stress_level_grouped"
+        "x-fern-sdk-method-name": "stress_level_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/mindfulness_minutes/grouped": {
@@ -2058,8 +2118,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "mindfulness_minutes_grouped"
+        "x-fern-sdk-method-name": "mindfulness_minutes_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/caffeine/grouped": {
@@ -2148,8 +2208,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "caffeine_grouped"
+        "x-fern-sdk-method-name": "caffeine_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/water/grouped": {
@@ -2238,8 +2298,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "water_grouped"
+        "x-fern-sdk-method-name": "water_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/steps/grouped": {
@@ -2328,8 +2388,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "steps_grouped"
+        "x-fern-sdk-method-name": "steps_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/floors_climbed/grouped": {
@@ -2418,8 +2478,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "floors_climbed_grouped"
+        "x-fern-sdk-method-name": "floors_climbed_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/distance/grouped": {
@@ -2508,8 +2568,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "distance_grouped"
+        "x-fern-sdk-method-name": "distance_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/calories_basal/grouped": {
@@ -2598,8 +2658,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "calories_basal_grouped"
+        "x-fern-sdk-method-name": "calories_basal_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/calories_active/grouped": {
@@ -2688,8 +2748,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "calories_active_grouped"
+        "x-fern-sdk-method-name": "calories_active_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/respiratory_rate/grouped": {
@@ -2778,8 +2838,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "respiratory_rate_grouped"
+        "x-fern-sdk-method-name": "respiratory_rate_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/ige/grouped": {
@@ -2868,8 +2928,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "ige_grouped"
+        "x-fern-sdk-method-name": "ige_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/igg/grouped": {
@@ -2958,8 +3018,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "igg_grouped"
+        "x-fern-sdk-method-name": "igg_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/hypnogram/grouped": {
@@ -3048,8 +3108,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "hypnogram_grouped"
+        "x-fern-sdk-method-name": "hypnogram_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/hrv/grouped": {
@@ -3138,8 +3198,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "hrv_grouped"
+        "x-fern-sdk-method-name": "hrv_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/heartrate/grouped": {
@@ -3228,8 +3288,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "heartrate_grouped"
+        "x-fern-sdk-method-name": "heartrate_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/glucose/grouped": {
@@ -3318,8 +3378,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "glucose_grouped"
+        "x-fern-sdk-method-name": "glucose_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/cholesterol/grouped": {
@@ -3408,8 +3468,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "cholesterol_grouped"
+        "x-fern-sdk-method-name": "cholesterol_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/body_weight/grouped": {
@@ -3498,8 +3558,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "body_weight_grouped"
+        "x-fern-sdk-method-name": "body_weight_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/body_fat/grouped": {
@@ -3588,8 +3648,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "body_fat_grouped"
+        "x-fern-sdk-method-name": "body_fat_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/blood_oxygen/grouped": {
@@ -3678,8 +3738,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "blood_oxygen_grouped"
+        "x-fern-sdk-method-name": "blood_oxygen_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/electrocardiogram_voltage/grouped": {
@@ -3768,8 +3828,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "electrocardiogram_voltage_grouped"
+        "x-fern-sdk-method-name": "electrocardiogram_voltage_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/blood_pressure/grouped": {
@@ -3858,8 +3918,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "blood_pressure_grouped"
+        "x-fern-sdk-method-name": "blood_pressure_grouped",
+        "x-fern-sdk-group-name": "vitals"
       }
     },
     "/v2/timeseries/{user_id}/vo2_max": {
@@ -3942,9 +4002,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "vo2_max",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "vo2_max"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/stress_level": {
@@ -4027,9 +4087,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "stress_level",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "stress_level"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/mindfulness_minutes": {
@@ -4112,9 +4172,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "mindfulness_minutes",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "mindfulness_minutes"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/caffeine": {
@@ -4197,9 +4257,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "caffeine",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "caffeine"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/water": {
@@ -4282,9 +4342,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "water",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "water"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/steps": {
@@ -4367,9 +4427,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "steps",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "steps"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/floors_climbed": {
@@ -4452,9 +4512,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "floors_climbed",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "floors_climbed"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/distance": {
@@ -4537,9 +4597,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "distance",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "distance"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/calories_basal": {
@@ -4622,9 +4682,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "calories_basal",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "calories_basal"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/calories_active": {
@@ -4707,9 +4767,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "calories_active",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "calories_active"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/respiratory_rate": {
@@ -4792,9 +4852,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "respiratory_rate",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "respiratory_rate"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/ige": {
@@ -4877,9 +4937,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "ige",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "ige"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/igg": {
@@ -4962,9 +5022,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "igg",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "igg"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/hypnogram": {
@@ -5047,9 +5107,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "hypnogram",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "hypnogram"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/hrv": {
@@ -5132,9 +5192,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "hrv",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "hrv"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/heartrate": {
@@ -5217,9 +5277,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "heartrate",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "heartrate"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/glucose": {
@@ -5302,9 +5362,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "glucose",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "glucose"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/cholesterol/triglycerides": {
@@ -5387,9 +5447,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "cholesterol/triglycerides",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "cholesterol/triglycerides"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/cholesterol/total": {
@@ -5472,9 +5532,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "cholesterol/total",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "cholesterol/total"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/cholesterol/ldl": {
@@ -5557,9 +5617,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "cholesterol/ldl",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "cholesterol/ldl"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/cholesterol/hdl": {
@@ -5642,9 +5702,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "cholesterol/hdl",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "cholesterol/hdl"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/cholesterol": {
@@ -5727,9 +5787,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "cholesterol",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "cholesterol"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/body_weight": {
@@ -5812,9 +5872,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "body_weight",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "body_weight"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/body_fat": {
@@ -5897,9 +5957,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "body_fat",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "body_fat"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/blood_oxygen": {
@@ -5982,9 +6042,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "blood_oxygen",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "blood_oxygen"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/electrocardiogram_voltage": {
@@ -6067,9 +6127,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "electrocardiogram_voltage",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "electrocardiogram_voltage"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/timeseries/{user_id}/blood_pressure": {
@@ -6152,9 +6212,9 @@
           }
         },
         "deprecated": true,
+        "x-fern-sdk-method-name": "blood_pressure",
         "x-fern-sdk-group-name": "vitals",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "blood_pressure"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/user": {
@@ -6210,8 +6270,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_all"
+        "x-fern-sdk-method-name": "get_all",
+        "x-fern-sdk-group-name": "user"
       },
       "post": {
         "tags": [
@@ -6262,8 +6322,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "create"
+        "x-fern-sdk-method-name": "create",
+        "x-fern-sdk-group-name": "user"
       }
     },
     "/v2/user/metrics": {
@@ -6286,8 +6346,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_team_metrics"
+        "x-fern-sdk-method-name": "get_team_metrics",
+        "x-fern-sdk-group-name": "user"
       }
     },
     "/v2/user/{user_id}/sign_in_token": {
@@ -6331,8 +6391,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_user_sign_in_token"
+        "x-fern-sdk-method-name": "get_user_sign_in_token",
+        "x-fern-sdk-group-name": "user"
       }
     },
     "/v2/user/providers/{user_id}": {
@@ -6384,8 +6444,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_connected_providers"
+        "x-fern-sdk-method-name": "get_connected_providers",
+        "x-fern-sdk-group-name": "user"
       }
     },
     "/v2/user/{user_id}": {
@@ -6430,8 +6490,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get"
+        "x-fern-sdk-method-name": "get",
+        "x-fern-sdk-group-name": "user"
       },
       "delete": {
         "tags": [
@@ -6473,8 +6533,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "delete"
+        "x-fern-sdk-method-name": "delete",
+        "x-fern-sdk-group-name": "user"
       },
       "patch": {
         "tags": [
@@ -6519,8 +6579,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "patch"
+        "x-fern-sdk-method-name": "patch",
+        "x-fern-sdk-group-name": "user"
       }
     },
     "/v2/user/resolve/{client_user_id}": {
@@ -6566,8 +6626,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_by_client_user_id"
+        "x-fern-sdk-method-name": "get_by_client_user_id",
+        "x-fern-sdk-group-name": "user"
       }
     },
     "/v2/user/{user_id}/{provider}": {
@@ -6625,8 +6685,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "deregister_provider"
+        "x-fern-sdk-method-name": "deregister_provider",
+        "x-fern-sdk-group-name": "user"
       }
     },
     "/v2/user/undo_delete": {
@@ -6683,8 +6743,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "undo_delete"
+        "x-fern-sdk-method-name": "undo_delete",
+        "x-fern-sdk-group-name": "user"
       }
     },
     "/v2/user/refresh/{user_id}": {
@@ -6762,8 +6822,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "refresh"
+        "x-fern-sdk-method-name": "refresh",
+        "x-fern-sdk-group-name": "user"
       }
     },
     "/v2/team/link/config": {
@@ -6808,8 +6868,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "team",
         "x-fern-sdk-method-name": "get_link_config",
+        "x-fern-sdk-group-name": "team",
         "security": []
       }
     },
@@ -6855,9 +6915,9 @@
             }
           }
         },
+        "x-fern-sdk-method-name": "get",
         "x-fern-sdk-group-name": "team",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "get"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/team/users/search": {
@@ -6906,9 +6966,9 @@
             }
           }
         },
+        "x-fern-sdk-method-name": "get_user_by_id",
         "x-fern-sdk-group-name": "team",
-        "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "get_user_by_id"
+        "x-fern-availability": "deprecated"
       }
     },
     "/v2/team/svix/url": {
@@ -6931,9 +6991,9 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_svix_url",
         "x-fern-availability": "deprecated",
-        "x-fern-sdk-method-name": "get_svix_url"
+        "x-fern-sdk-group-name": "team"
       }
     },
     "/v2/team/source/priorities": {
@@ -6981,8 +7041,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_source_priorities"
+        "x-fern-sdk-method-name": "get_source_priorities",
+        "x-fern-sdk-group-name": "team"
       },
       "patch": {
         "tags": [
@@ -7028,8 +7088,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "update_source_priorities"
+        "x-fern-sdk-method-name": "update_source_priorities",
+        "x-fern-sdk-group-name": "team"
       }
     },
     "/v2/team/{team_id}/physicians": {
@@ -7077,8 +7137,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_physicians"
+        "x-fern-sdk-method-name": "get_physicians",
+        "x-fern-sdk-group-name": "team"
       }
     },
     "/v2/providers": {
@@ -7105,8 +7165,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "providers",
-        "x-fern-sdk-method-name": "get_all"
+        "x-fern-sdk-method-name": "get_all",
+        "x-fern-sdk-group-name": "providers"
       }
     },
     "/v2/introspect/resources": {
@@ -7177,8 +7237,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "introspect",
-        "x-fern-sdk-method-name": "get_user_resources"
+        "x-fern-sdk-method-name": "get_user_resources",
+        "x-fern-sdk-group-name": "introspect"
       }
     },
     "/v2/introspect/historical_pull": {
@@ -7249,8 +7309,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "introspect",
-        "x-fern-sdk-method-name": "get_user_historical_pulls"
+        "x-fern-sdk-method-name": "get_user_historical_pulls",
+        "x-fern-sdk-group-name": "introspect"
       }
     },
     "/v3/lab_tests": {
@@ -7277,8 +7337,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get"
+        "x-fern-sdk-method-name": "get",
+        "x-fern-sdk-group-name": "lab_tests"
       },
       "post": {
         "tags": [
@@ -7318,8 +7378,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "create"
+        "x-fern-sdk-method-name": "create",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/lab_tests/markers": {
@@ -7403,8 +7463,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_markers"
+        "x-fern-sdk-method-name": "get_markers",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/lab_tests/{lab_test_id}/markers": {
@@ -7471,8 +7531,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_markers_for_lab_test"
+        "x-fern-sdk-method-name": "get_markers_for_lab_test",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/lab_tests/{lab_id}/markers/{provider_id}": {
@@ -7525,8 +7585,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_markers_by_lab_and_provider_id"
+        "x-fern-sdk-method-name": "get_markers_by_lab_and_provider_id",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/lab_tests/labs": {
@@ -7553,8 +7613,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_labs"
+        "x-fern-sdk-method-name": "get_labs",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/lab_tests/{lab_test_id}": {
@@ -7599,8 +7659,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_by_id"
+        "x-fern-sdk-method-name": "get_by_id",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/testkit/register": {
@@ -7642,8 +7702,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "testkit",
-        "x-fern-sdk-method-name": "register"
+        "x-fern-sdk-method-name": "register",
+        "x-fern-sdk-group-name": "testkit"
       }
     },
     "/v3/order/testkit": {
@@ -7686,8 +7746,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "testkit",
-        "x-fern-sdk-method-name": "create_order"
+        "x-fern-sdk-method-name": "create_order",
+        "x-fern-sdk-group-name": "testkit"
       }
     },
     "/v3/order/phlebotomy/appointment/availability": {
@@ -7736,8 +7796,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_phlebotomy_appointment_availability"
+        "x-fern-sdk-method-name": "get_phlebotomy_appointment_availability",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/{order_id}/phlebotomy/appointment/book": {
@@ -7794,8 +7854,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "book_phlebotomy_appointment"
+        "x-fern-sdk-method-name": "book_phlebotomy_appointment",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/{order_id}/phlebotomy/appointment/request": {
@@ -7839,9 +7899,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "12ffa86e-e4a3-461a-b5d5-45d995957d51",
-                  "user_id": "2d2b4a4d-bec3-4616-b047-c1d0542677cb",
-                  "order_id": "e47a28b1-1a4b-423b-aa03-57b80d9f8d6e",
+                  "id": "411855d9-296d-48ec-97ba-a4a806c7da14",
+                  "user_id": "8da398a7-6c91-4f69-a6c3-659722b700a8",
+                  "order_id": "5dce8ccb-b5a8-47b2-9386-f95deab04cbd",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -7884,8 +7944,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "request_phlebotomy_appointment"
+        "x-fern-sdk-method-name": "request_phlebotomy_appointment",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/{order_id}/phlebotomy/appointment/reschedule": {
@@ -7942,8 +8002,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "reschedule_phlebotomy_appointment"
+        "x-fern-sdk-method-name": "reschedule_phlebotomy_appointment",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/{order_id}/phlebotomy/appointment/cancel": {
@@ -8000,8 +8060,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "cancel_phlebotomy_appointment"
+        "x-fern-sdk-method-name": "cancel_phlebotomy_appointment",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/phlebotomy/appointment/cancellation-reasons": {
@@ -8028,8 +8088,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_phlebotomy_appointment_cancellation_reason"
+        "x-fern-sdk-method-name": "get_phlebotomy_appointment_cancellation_reason",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/{order_id}/phlebotomy/appointment": {
@@ -8076,8 +8136,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_phlebotomy_appointment"
+        "x-fern-sdk-method-name": "get_phlebotomy_appointment",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/area/info": {
@@ -8124,8 +8184,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_area_info"
+        "x-fern-sdk-method-name": "get_area_info",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/{order_id}/result/pdf": {
@@ -8171,9 +8231,9 @@
             }
           }
         },
-        "x-fern-streaming": true,
+        "x-fern-sdk-method-name": "get_result_pdf",
         "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_result_pdf"
+        "x-fern-streaming": true
       }
     },
     "/v3/order/{order_id}/result/metadata": {
@@ -8218,8 +8278,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_result_metadata"
+        "x-fern-sdk-method-name": "get_result_metadata",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/{order_id}/result": {
@@ -8264,8 +8324,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_result_raw"
+        "x-fern-sdk-method-name": "get_result_raw",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/{order_id}/requisition/pdf": {
@@ -8313,9 +8373,9 @@
             }
           }
         },
-        "x-fern-streaming": true,
+        "x-fern-sdk-method-name": "get_order_requistion_pdf",
         "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_order_requistion_pdf"
+        "x-fern-streaming": true
       }
     },
     "/v3/order/{order_id}": {
@@ -8362,8 +8422,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_order"
+        "x-fern-sdk-method-name": "get_order",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order": {
@@ -8406,8 +8466,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "create_order"
+        "x-fern-sdk-method-name": "create_order",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/{order_id}/cancel": {
@@ -8454,8 +8514,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "cancel_order"
+        "x-fern-sdk-method-name": "cancel_order",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/order/{order_id}/test": {
@@ -8517,8 +8577,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "simulate_order_process"
+        "x-fern-sdk-method-name": "simulate_order_process",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     },
     "/v3/insurance/search/payor": {
@@ -8564,8 +8624,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "insurance",
-        "x-fern-sdk-method-name": "search_payor_info"
+        "x-fern-sdk-method-name": "search_payor_info",
+        "x-fern-sdk-group-name": "insurance"
       }
     },
     "/v3/insurance/search/diagnosis": {
@@ -8612,8 +8672,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "insurance",
-        "x-fern-sdk-method-name": "search_diagnosis"
+        "x-fern-sdk-method-name": "search_diagnosis",
+        "x-fern-sdk-group-name": "insurance"
       }
     },
     "/v3/orders": {
@@ -8733,8 +8793,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_orders"
+        "x-fern-sdk-method-name": "get_orders",
+        "x-fern-sdk-group-name": "lab_tests"
       }
     }
   },
@@ -9171,8 +9231,8 @@
         "example": {
           "activity": [
             {
-              "date": "2024-05-09T18:31:39+00:00",
-              "calendar_date": "2024-05-09",
+              "date": "2024-05-16T09:00:31+00:00",
+              "calendar_date": "2024-05-16",
               "calories_total": 100,
               "calories_active": 2000,
               "steps": 10000,
@@ -9194,7 +9254,7 @@
                 "slug": "oura",
                 "logo": "https://logo_url.com"
               },
-              "user_id": "41e4182a-a001-495f-981e-b7d8fae88d10"
+              "user_id": "5a8d5fbb-f6e3-4091-9b79-ac38ca5e8a32"
             }
           ]
         }
@@ -9217,9 +9277,9 @@
         "example": {
           "body": [
             {
-              "id": "322ef905-01d2-450a-8a85-3fb2b9741354",
-              "date": "2024-05-09T18:31:39+00:00",
-              "calendar_date": "2024-31-",
+              "id": "aa91d43f-ec62-4f0a-bfed-ed2c24c13a43",
+              "date": "2024-05-16T09:00:31+00:00",
+              "calendar_date": "2024-00-",
               "weight": 80,
               "fat": 30,
               "height": 183,
@@ -9228,7 +9288,7 @@
                 "slug": "oura",
                 "logo": "https://logo_url.com"
               },
-              "user_id": "73499e93-8248-476b-9c38-482000230668"
+              "user_id": "ad9a26e2-e492-4df5-adba-1bc975c4a3c4"
             }
           ]
         }
@@ -9344,8 +9404,8 @@
         ],
         "title": "Daily Activity",
         "example": {
-          "date": "2024-05-09T18:31:39+00:00",
-          "calendar_date": "2024-05-09",
+          "date": "2024-05-16T09:00:31+00:00",
+          "calendar_date": "2024-05-16",
           "calories_total": 100,
           "calories_active": 2000,
           "steps": 10000,
@@ -9367,7 +9427,7 @@
             "slug": "oura",
             "logo": "https://logo_url.com"
           },
-          "user_id": "41e4182a-a001-495f-981e-b7d8fae88d10"
+          "user_id": "5a8d5fbb-f6e3-4091-9b79-ac38ca5e8a32"
         }
       },
       "ClientFacingApiKey": {
@@ -9499,9 +9559,9 @@
         ],
         "title": "ClientFacingAppointment",
         "example": {
-          "id": "0aacf505-3e78-422a-8e71-8baede1db041",
-          "user_id": "247d5c50-ab05-430a-a6b7-9a352594ade3",
-          "order_id": "9572f42d-856a-4339-9c7f-2a1d9394e865",
+          "id": "dc04d20d-ae7f-4f48-a4dd-19c9bd364af5",
+          "user_id": "603f95e8-9e36-4374-93c3-485e98a9b919",
+          "order_id": "a176b9b6-36c2-475d-bc44-4c6da6b35224",
           "address": {
             "first_line": "123 Main St.",
             "second_line": "Apt. 208",
@@ -9562,7 +9622,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "48a3c309-3963-4343-a281-631aab8d74d8",
+          "id": "b43fbc58-9e15-4fae-8fe2-104001478c65",
           "name": "I'm feeling sick",
           "is_refundable": true
         }
@@ -9622,8 +9682,8 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "id": "7fe9977f-d223-4a99-ae9f-94ffa445a03b",
-          "appointment_id": "e0706e9d-2230-4703-8a96-12121dfffd1f",
+          "id": "c1945f07-192f-480f-b363-23a4de1b10d3",
+          "appointment_id": "7d24514a-5010-42f5-aae7-41a9f003f7e2",
           "created_at": "2020-01-01T00:00:00Z",
           "updated_at": "2020-01-01T00:00:00Z"
         }
@@ -9739,7 +9799,7 @@
         ],
         "title": "ClientFacingBloodPressureTimeseries",
         "example": {
-          "timestamp": "2024-05-09T18:31:37+00:00",
+          "timestamp": "2024-05-16T09:00:30+00:00",
           "systolic": 125,
           "diastolic": 75,
           "unit": "mmHg"
@@ -9795,9 +9855,9 @@
         ],
         "title": "ClientFacingBody",
         "example": {
-          "id": "322ef905-01d2-450a-8a85-3fb2b9741354",
-          "date": "2024-05-09T18:31:39+00:00",
-          "calendar_date": "2024-31-",
+          "id": "aa91d43f-ec62-4f0a-bfed-ed2c24c13a43",
+          "date": "2024-05-16T09:00:31+00:00",
+          "calendar_date": "2024-00-",
           "weight": 80,
           "fat": 30,
           "height": 183,
@@ -9806,7 +9866,7 @@
             "slug": "oura",
             "logo": "https://logo_url.com"
           },
-          "user_id": "73499e93-8248-476b-9c38-482000230668"
+          "user_id": "ad9a26e2-e492-4df5-adba-1bc975c4a3c4"
         }
       },
       "ClientFacingBodyFatTimeseries": {
@@ -11163,7 +11223,7 @@
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
           "start": "2023-02-13T14:57:24+00:00",
-          "end": "2024-05-09T18:36:37.826122+00:00",
+          "end": "2024-05-16T09:05:30.573167+00:00",
           "value": 42,
           "unit": "min"
         }
@@ -11310,9 +11370,9 @@
         ],
         "title": "ClientFacingOrder",
         "example": {
-          "id": "7294452b-4087-40a2-b9eb-35de2e3f5e05",
-          "team_id": "896f89d2-4b50-4eed-82c1-9420877facc1",
-          "user_id": "442524fa-cba5-4fb5-801a-144e343af28a",
+          "id": "1b473c1e-5903-4c7b-b67a-38d7c2951722",
+          "team_id": "0b90e455-45a8-43e4-a95f-0fd8184d033a",
+          "user_id": "dd20e74d-7bef-447a-a391-337539429696",
           "patient_details": {
             "dob": "2020-01-01",
             "gender": "male"
@@ -11353,7 +11413,7 @@
             "method": "testkit"
           },
           "sample_id": "123456789",
-          "health_insurace_id": "49c21ccb-4db7-4f54-a672-5819d08ec349",
+          "health_insurace_id": "9e7c136f-5b1f-40b4-92e5-cc5dd555547a",
           "requisition_form_url": "https://www.example.com",
           "notes": "This is a note",
           "created_at": "2020-01-01T00:00:00Z",
@@ -11519,14 +11579,14 @@
         ],
         "title": "ClientFacingProfile",
         "example": {
-          "id": "92ec9e08-54bb-43cd-bfff-482e93e19321",
+          "id": "242f5234-4855-45ea-a113-095185c2262a",
           "height": 183,
           "source": {
             "name": "Oura",
             "slug": "oura",
             "logo": "https://logo_url.com"
           },
-          "user_id": "4a5fd42f-9484-49dd-aca3-1ccadab247b8"
+          "user_id": "feb219d5-5af9-4032-bd9a-fd4e78862c98"
         }
       },
       "ClientFacingProvider": {
@@ -11872,7 +11932,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "7765849d-0664-4a12-9c7e-ae6282fdb164",
+          "id": "7e8c10d8-f927-4f9b-a4a9-b1e3a301ff8c",
           "outbound_tracking_number": "<outbound_tracking_number>",
           "outbound_tracking_url": "<outbound_tracking_url>",
           "inbound_tracking_number": "<inbound_tracking_number>",
@@ -12036,11 +12096,11 @@
         ],
         "title": "Sleep Data",
         "example": {
-          "id": "a91a6df8-a5a8-4d93-8b14-d516ed191c41",
-          "date": "2024-05-09T18:31:39+00:00",
-          "calendar_date": "2024-05-09",
-          "bedtime_start": "2024-05-09T18:31:39+00:00",
-          "bedtime_stop": "2024-05-09T18:31:39+00:00",
+          "id": "268e017b-3ac8-4d85-a8c8-ab76404c63f5",
+          "date": "2024-05-16T09:00:31+00:00",
+          "calendar_date": "2024-05-16",
+          "bedtime_start": "2024-05-16T09:00:31+00:00",
+          "bedtime_stop": "2024-05-16T09:00:31+00:00",
           "timezone_offset": 2400,
           "duration": 28800,
           "total": 28800,
@@ -12060,7 +12120,7 @@
             "provider": "oura",
             "type": "unknown"
           },
-          "user_id": "fc34e45e-f527-4664-9783-0b6d2c89ba7a"
+          "user_id": "6071b009-97c6-4b50-8bf2-758f9a31b6e5"
         }
       },
       "ClientFacingSleepStream": {
@@ -12104,128 +12164,128 @@
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2024-05-09T18:31:39.331176+00:00",
-              "value": 52,
+              "timestamp": "2024-05-16T09:00:31.992078+00:00",
+              "value": 6,
               "unit": "rmssd"
             },
             {
               "id": 1,
-              "timestamp": "2024-05-09T18:32:09.331340+00:00",
-              "value": 16,
+              "timestamp": "2024-05-16T09:01:01.992219+00:00",
+              "value": 47,
               "unit": "rmssd"
             },
             {
               "id": 2,
-              "timestamp": "2024-05-09T18:32:39.331434+00:00",
-              "value": 93,
+              "timestamp": "2024-05-16T09:01:31.992283+00:00",
+              "value": 11,
               "unit": "rmssd"
             },
             {
               "id": 3,
-              "timestamp": "2024-05-09T18:33:09.331517+00:00",
-              "value": 80,
+              "timestamp": "2024-05-16T09:02:01.992340+00:00",
+              "value": 47,
               "unit": "rmssd"
             },
             {
               "id": 4,
-              "timestamp": "2024-05-09T18:33:39.331593+00:00",
-              "value": 21,
+              "timestamp": "2024-05-16T09:02:31.992387+00:00",
+              "value": 60,
               "unit": "rmssd"
             }
           ],
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2024-05-09T18:31:39.331678+00:00",
-              "value": 61,
+              "timestamp": "2024-05-16T09:00:31.992429+00:00",
+              "value": 100,
               "unit": "bpm"
             },
             {
               "id": 1,
-              "timestamp": "2024-05-09T18:32:09.331744+00:00",
-              "value": 90,
+              "timestamp": "2024-05-16T09:01:01.992469+00:00",
+              "value": 149,
               "unit": "bpm"
             },
             {
               "id": 2,
-              "timestamp": "2024-05-09T18:32:39.331807+00:00",
-              "value": 171,
+              "timestamp": "2024-05-16T09:01:31.992504+00:00",
+              "value": 152,
               "unit": "bpm"
             },
             {
               "id": 3,
-              "timestamp": "2024-05-09T18:33:09.331904+00:00",
-              "value": 110,
+              "timestamp": "2024-05-16T09:02:01.992555+00:00",
+              "value": 181,
               "unit": "bpm"
             },
             {
               "id": 4,
-              "timestamp": "2024-05-09T18:33:39.331969+00:00",
-              "value": 97,
+              "timestamp": "2024-05-16T09:02:31.992592+00:00",
+              "value": 139,
               "unit": "bpm"
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2024-05-09T18:31:39.332032+00:00",
-              "value": 0,
+              "timestamp": "2024-05-16T09:00:31.992628+00:00",
+              "value": 1,
               "unit": "stage"
             },
             {
               "id": 1,
-              "timestamp": "2024-05-09T18:32:09.332099+00:00",
-              "value": 4,
+              "timestamp": "2024-05-16T09:01:01.992662+00:00",
+              "value": 0,
               "unit": "stage"
             },
             {
               "id": 2,
-              "timestamp": "2024-05-09T18:32:39.332158+00:00",
-              "value": 4,
+              "timestamp": "2024-05-16T09:01:31.992701+00:00",
+              "value": 1,
               "unit": "stage"
             },
             {
               "id": 3,
-              "timestamp": "2024-05-09T18:33:09.332218+00:00",
-              "value": -1,
+              "timestamp": "2024-05-16T09:02:01.992734+00:00",
+              "value": 4,
               "unit": "stage"
             },
             {
               "id": 4,
-              "timestamp": "2024-05-09T18:33:39.332280+00:00",
-              "value": -1,
+              "timestamp": "2024-05-16T09:02:31.992766+00:00",
+              "value": 1,
               "unit": "stage"
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2024-05-09T18:31:39.332343+00:00",
-              "value": 12,
+              "timestamp": "2024-05-16T09:00:31.992808+00:00",
+              "value": 21,
               "unit": "bpm"
             },
             {
               "id": 1,
-              "timestamp": "2024-05-09T18:32:09.332411+00:00",
-              "value": 30,
+              "timestamp": "2024-05-16T09:01:01.992844+00:00",
+              "value": 10,
               "unit": "bpm"
             },
             {
               "id": 2,
-              "timestamp": "2024-05-09T18:32:39.332470+00:00",
-              "value": 12,
+              "timestamp": "2024-05-16T09:01:31.992876+00:00",
+              "value": 24,
               "unit": "bpm"
             },
             {
               "id": 3,
-              "timestamp": "2024-05-09T18:33:09.332537+00:00",
-              "value": 25,
+              "timestamp": "2024-05-16T09:02:01.992907+00:00",
+              "value": 14,
               "unit": "bpm"
             },
             {
               "id": 4,
-              "timestamp": "2024-05-09T18:33:39.332598+00:00",
-              "value": 12,
+              "timestamp": "2024-05-16T09:02:31.992938+00:00",
+              "value": 26,
               "unit": "bpm"
             }
           ]
@@ -12831,9 +12891,9 @@
         "title": "ClientFacingTestkitOrder",
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "id": "be779658-e3fc-47ab-905e-5f9368920c72",
+          "id": "3923f281-55da-4227-babf-6aaa40ed5352",
           "shipment": {
-            "id": "347d1922-bbb5-487f-a874-8dc4b4b23982",
+            "id": "3ba2533b-c2c9-4ea8-9014-83de45b08fc2",
             "outbound_tracking_number": "<outbound_tracking_number>",
             "outbound_tracking_url": "<outbound_tracking_url>",
             "inbound_tracking_number": "<inbound_tracking_number>",
@@ -12909,7 +12969,7 @@
             "type": "string",
             "format": "date",
             "title": "Ingestion End",
-            "description": "Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered."
+            "description": "Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered."
           }
         },
         "type": "object",
@@ -12922,10 +12982,10 @@
         ],
         "title": "User",
         "example": {
-          "user_id": "ab977211-a780-44de-8c6f-70c61f4da50a",
-          "team_id": "d171a03f-a1da-4bc7-83a1-49a1d488a44b",
-          "client_user_id": "310491d1-23d2-49b5-b47f-99f667aeaae7",
-          "created_on": "2024-05-09T18:31:37+00:00",
+          "user_id": "6afcadd8-33ba-485c-a970-951e428f8fa2",
+          "team_id": "30c4df35-cd96-4a3b-b409-4e6e52f54f69",
+          "client_user_id": "7f92c7ef-52b2-4899-abcc-134ca23f7e75",
+          "created_on": "2024-05-16T09:00:30+00:00",
           "connected_sources": [
             {
               "source": {
@@ -12933,18 +12993,18 @@
                 "slug": "oura",
                 "logo": "logo_url"
               },
-              "created_on": "2024-05-09T18:31:37+00:00"
+              "created_on": "2024-05-16T09:00:30+00:00"
             }
           ],
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2024-05-09T18:31:37+00:00"
+            "updated_at": "2024-05-16T09:00:30+00:00"
           },
           "fallback_birth_date": {
             "value": "1989-09-12",
             "source_slug": "manual",
-            "updated_at": "2024-05-09T18:31:37+00:00"
+            "updated_at": "2024-05-16T09:00:30+00:00"
           }
         }
       },
@@ -12969,8 +13029,8 @@
         ],
         "title": "ClientFacingUserKey",
         "example": {
-          "client_user_id": "a3587671-e3cc-41a8-8bec-07e4f12b2084",
-          "user_id": "56bcfab6-58b2-42a2-a652-252e0f7cfbce"
+          "client_user_id": "8ebd829a-7c96-408e-904f-7bbe7cd4ed9f",
+          "user_id": "6bbe1d77-6290-4590-bbcc-183443ed2380"
         }
       },
       "ClientFacingVO2MaxTimeseries": {
@@ -13082,7 +13142,7 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "id": "1b240885-1d75-4187-98c0-cf39301aea44",
+          "id": "6898e2f2-032a-4c30-a6aa-632afd3d1d88",
           "created_at": "2020-01-01T00:00:00Z",
           "updated_at": "2020-01-01T00:00:00Z"
         }
@@ -13296,13 +13356,13 @@
         ],
         "title": "Workout Data",
         "example": {
-          "id": "87c3d6ca-6b7f-47f4-80d4-85c15ed2b518",
+          "id": "713fdf0d-c501-40e8-ad79-df57b152b87c",
           "average_hr": 100,
           "max_hr": 190,
           "distance": 1700,
-          "calendar_date": "2024-31-",
-          "time_start": "2024-05-09T17:31:39+00:00",
-          "time_end": "2024-05-09T18:31:39+00:00",
+          "calendar_date": "2024-00-",
+          "time_start": "2024-05-16T08:00:32+00:00",
+          "time_end": "2024-05-16T09:00:32+00:00",
           "calories": 300,
           "sport": {
             "id": 1,
@@ -13319,7 +13379,7 @@
             10,
             200
           ],
-          "user_id": "41e7ce2a-d253-460a-8881-a9dcfe5af961",
+          "user_id": "5ff4435c-8577-4179-8b87-8a38e5cf0a4b",
           "moving_time": 100,
           "total_elevation_gain": 10,
           "elev_high": 20.2,
@@ -13353,11 +13413,11 @@
         "example": {
           "sleep": [
             {
-              "id": "a91a6df8-a5a8-4d93-8b14-d516ed191c41",
-              "date": "2024-05-09T18:31:39+00:00",
-              "calendar_date": "2024-05-09",
-              "bedtime_start": "2024-05-09T18:31:39+00:00",
-              "bedtime_stop": "2024-05-09T18:31:39+00:00",
+              "id": "268e017b-3ac8-4d85-a8c8-ab76404c63f5",
+              "date": "2024-05-16T09:00:31+00:00",
+              "calendar_date": "2024-05-16",
+              "bedtime_start": "2024-05-16T09:00:31+00:00",
+              "bedtime_stop": "2024-05-16T09:00:31+00:00",
               "timezone_offset": 2400,
               "duration": 28800,
               "total": 28800,
@@ -13377,7 +13437,7 @@
                 "provider": "oura",
                 "type": "unknown"
               },
-              "user_id": "fc34e45e-f527-4664-9783-0b6d2c89ba7a"
+              "user_id": "6071b009-97c6-4b50-8bf2-758f9a31b6e5"
             }
           ]
         }
@@ -13436,13 +13496,13 @@
         "example": {
           "workouts": [
             {
-              "id": "87c3d6ca-6b7f-47f4-80d4-85c15ed2b518",
+              "id": "713fdf0d-c501-40e8-ad79-df57b152b87c",
               "average_hr": 100,
               "max_hr": 190,
               "distance": 1700,
-              "calendar_date": "2024-31-",
-              "time_start": "2024-05-09T17:31:39+00:00",
-              "time_end": "2024-05-09T18:31:39+00:00",
+              "calendar_date": "2024-00-",
+              "time_start": "2024-05-16T08:00:32+00:00",
+              "time_end": "2024-05-16T09:00:32+00:00",
               "calories": 300,
               "sport": {
                 "id": 1,
@@ -13459,7 +13519,7 @@
                 10,
                 200
               ],
-              "user_id": "41e7ce2a-d253-460a-8881-a9dcfe5af961",
+              "user_id": "5ff4435c-8577-4179-8b87-8a38e5cf0a4b",
               "moving_time": 100,
               "total_elevation_gain": 10,
               "elev_high": 20.2,
@@ -13476,6 +13536,19 @@
             }
           ]
         }
+      },
+      "CompletePasswordProviderMFABody": {
+        "properties": {
+          "mfa_code": {
+            "type": "string",
+            "title": "Mfa Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mfa_code"
+        ],
+        "title": "CompletePasswordProviderMFABody"
       },
       "ConnectedSourceClientFacing": {
         "properties": {
@@ -13524,6 +13597,10 @@
             ],
             "title": "State"
           },
+          "redirect_url": {
+            "type": "string",
+            "title": "Redirect Url"
+          },
           "error_type": {
             "type": "string",
             "title": "Error Type"
@@ -13539,10 +13616,6 @@
             "type": "boolean",
             "title": "Success",
             "deprecated": true
-          },
-          "redirect_url": {
-            "type": "string",
-            "title": "Redirect Url"
           }
         },
         "type": "object",
@@ -13871,7 +13944,12 @@
             "title": "Email"
           },
           "provider": {
-            "$ref": "#/components/schemas/Providers"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Providers"
+              }
+            ],
+            "deprecated": true
           },
           "region": {
             "$ref": "#/components/schemas/Region"
@@ -14225,7 +14303,7 @@
                 },
                 "data": [
                   {
-                    "timestamp": "2024-05-09T18:31:37+00:00",
+                    "timestamp": "2024-05-16T09:00:30+00:00",
                     "systolic": 125,
                     "diastolic": 75,
                     "unit": "mmHg"
@@ -15282,7 +15360,7 @@
                 "data": [
                   {
                     "start": "2023-02-13T14:57:24+00:00",
-                    "end": "2024-05-09T18:36:37.826122+00:00",
+                    "end": "2024-05-16T09:05:30.573167+00:00",
                     "value": 42,
                     "unit": "min"
                   }
@@ -15737,6 +15815,9 @@
             "type": "string",
             "title": "Password",
             "description": "Password for provider"
+          },
+          "region": {
+            "$ref": "#/components/schemas/Region"
           }
         },
         "type": "object",
@@ -16497,7 +16578,8 @@
           "dexcom",
           "hammerhead",
           "my_fitness_pal",
-          "kardia"
+          "kardia",
+          "abbott_libreview"
         ],
         "title": "PasswordProviders",
         "description": "An enumeration."
@@ -16859,6 +16941,10 @@
             ],
             "title": "State"
           },
+          "redirect_url": {
+            "type": "string",
+            "title": "Redirect Url"
+          },
           "error_type": {
             "type": "string",
             "title": "Error Type"
@@ -16871,7 +16957,12 @@
             "$ref": "#/components/schemas/ProviderMFARequest"
           },
           "provider": {
-            "$ref": "#/components/schemas/PasswordProviders"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PasswordProviders"
+              }
+            ],
+            "deprecated": true
           },
           "connected": {
             "type": "boolean",
@@ -16880,19 +16971,19 @@
           },
           "provider_id": {
             "type": "string",
-            "title": "Provider Id"
+            "title": "Provider Id",
+            "deprecated": true
           }
         },
         "type": "object",
         "required": [
           "state",
           "provider",
-          "connected"
+          "connected",
+          "provider_id"
         ],
         "title": "ProviderLinkResponse",
         "example": {
-          "provider": "zwift",
-          "provider_id": "<provider_id>",
           "state": "success"
         }
       },
@@ -16977,12 +17068,12 @@
         "example": {
           "activity": [
             {
-              "timestamp": "2024-05-09T18:31:31.268204+00:00",
+              "timestamp": "2024-05-16T09:00:23.220728+00:00",
               "data": {
                 "data": "...provider_specific_data"
               },
-              "provider_id": "3543d831-a67b-485c-a615-357744cb8950",
-              "user_id": "43636fab-52e7-4df0-8885-ff6b2590158e",
+              "provider_id": "38573df0-a13d-4c8f-bc2b-f7cb5bb89ea0",
+              "user_id": "f2bfc8a7-58cf-42c2-a58a-12930e393877",
               "source_id": 1,
               "priority_id": 1
             }
@@ -17007,12 +17098,12 @@
         "example": {
           "body": [
             {
-              "timestamp": "2024-05-09T18:31:31.280488+00:00",
+              "timestamp": "2024-05-16T09:00:23.231416+00:00",
               "data": {
                 "data": "...provider_specific_data"
               },
-              "provider_id": "03e33930-3c6d-48d8-900f-e451ab40a48f",
-              "user_id": "75189acc-8a1b-4080-ab7f-ae729f385470",
+              "provider_id": "f155e124-612c-42bf-a489-b7259cf966fc",
+              "user_id": "11a9b5f2-c58e-4876-b9cf-f878cc6d77f8",
               "source_id": 1,
               "priority_id": 1
             }
@@ -17040,8 +17131,8 @@
               "data": {
                 "data": "...provider_specific_data"
               },
-              "provider_id": "3aef3bd0-4966-49a2-a18c-cae0d9f3f48d",
-              "user_id": "2d42a2ed-12a6-498e-b0ea-6cf59ba7cb36",
+              "provider_id": "1c9cb779-7572-43d7-82d6-26dec869e4ca",
+              "user_id": "8350a205-7fab-475f-aa05-29b1bc2fb405",
               "source_id": 1
             }
           ]
@@ -17064,8 +17155,8 @@
               "data": {
                 "data": "...provider_specific_data"
               },
-              "provider_id": "c154a952-2df2-4c57-a886-3762aadc59d9",
-              "user_id": "68bd741e-ac36-4c5e-b1c7-a04655d889a8",
+              "provider_id": "614290a9-507c-4dfb-b7c2-ee0e47d2ad41",
+              "user_id": "44fd3638-2094-416d-a420-5f9718328e5e",
               "source_id": 1
             }
           ]
@@ -17089,12 +17180,12 @@
         "example": {
           "sleep": [
             {
-              "timestamp": "2024-05-09T18:31:31.328955+00:00",
+              "timestamp": "2024-05-16T09:00:23.299406+00:00",
               "data": {
                 "data": "...provider_specific_data"
               },
-              "provider_id": "76a214d3-8cc3-4f1c-99da-ffcc66574c3a",
-              "user_id": "8cd1f10b-0865-470d-b03f-3ac545ae641c",
+              "provider_id": "2d80850e-7d11-4728-8281-f50584ff712a",
+              "user_id": "3a71f0a4-6aee-4a78-b0c1-ec78b353f3af",
               "source_id": 1,
               "priority_id": 1
             }
@@ -17119,12 +17210,12 @@
         "example": {
           "workouts": [
             {
-              "timestamp": "2024-05-09T18:31:31.345268+00:00",
+              "timestamp": "2024-05-16T09:00:23.314107+00:00",
               "data": {
                 "provider_specific": "..._data"
               },
-              "provider_id": "08a35914-2c9b-4b80-92db-139310a834a1",
-              "user_id": "dd45c424-01df-4370-bf6a-e92fbd42c727",
+              "provider_id": "82c4cddf-392b-44d8-9b6e-b932f8d09e82",
+              "user_id": "55b86374-67df-497a-a9a4-770a6d3af6c7",
               "source_id": 1,
               "priority_id": 1,
               "sport_id": 3
@@ -17880,7 +17971,7 @@
             "type": "string",
             "format": "date",
             "title": "Ingestion End",
-            "description": "Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered."
+            "description": "Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered."
           }
         },
         "type": "object",
@@ -17964,7 +18055,7 @@
             "type": "string",
             "format": "date",
             "title": "Ingestion End",
-            "description": "Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered."
+            "description": "Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered."
           }
         },
         "type": "object",
@@ -18007,7 +18098,7 @@
         "title": "UserRefreshErrorResponse",
         "example": {
           "success": false,
-          "user_id": "baf7eabf-a984-4693-bd57-e354f7016fa6",
+          "user_id": "cdcbd42f-4271-43ec-b146-e23f20a2f7b5",
           "error": "user has no connected sources",
           "failed_sources": []
         }
@@ -18061,7 +18152,7 @@
         "title": "UserRefreshSuccessResponse",
         "example": {
           "success": true,
-          "user_id": "08c3a04d-11fb-46ea-949d-b802f270fa8a",
+          "user_id": "a6e1318d-ad09-4a5d-9ade-a6818da68fee",
           "refreshed_sources": [
             "withings/workouts",
             "withings/sleep",
