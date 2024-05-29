@@ -41,6 +41,15 @@ fern generate --group local-preview
 
 The generated code would be located at `./generated/`.
 
+## How to generate new postman collection locally?
+
+```bash
+fern generate --group postman
+```
+
+The generated code would be located at `./postman/`.
+
+
 ## How to make a release? 
 
 A release happens automatically on every Vital Api prod release.
