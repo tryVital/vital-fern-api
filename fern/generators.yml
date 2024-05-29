@@ -15,15 +15,15 @@ groups:
           password: ${MAVEN_PASSWORD}
         github:
           repository: tryVital/vital-java
-        config: 
+        config:
           client-class-name: Vital
-  node-sdk: 
+  node-sdk:
     generators:
       - name: fernapi/fern-typescript-node-sdk
         version: 0.12.9
         output:
           location: npm
-          package-name: "@tryvital/vital-node"
+          package-name: '@tryvital/vital-node'
           token: ${NPM_TOKEN}
         github:
           repository: tryVital/vital-node
@@ -54,7 +54,7 @@ groups:
         output:
           location: local-file-system
           path: ../generated/java
-        config: 
+        config:
           client-class-name: Vital
       - name: fernapi/fern-typescript-node-sdk
         version: 0.12.9
@@ -75,3 +75,10 @@ groups:
         output:
           location: local-file-system
           path: ../generated/go
+  postman:
+    generators:
+      - name: fernapi/fern-postman
+        version: 0.0.45
+        output:
+          location: local-file-system
+          path: ../postman
