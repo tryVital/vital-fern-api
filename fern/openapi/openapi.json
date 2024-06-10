@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.2.456"
+    "version": "0.2.459"
   },
   "paths": {
     "/v2/link/token": {
@@ -122,7 +122,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "default": "2024-06-08T21:38:45.346508Z",
+              "default": "2024-06-10T14:45:26.157617Z",
               "title": "Expires At"
             }
           }
@@ -3792,6 +3792,214 @@
         },
         "x-fern-sdk-group-name": "vitals",
         "x-fern-sdk-method-name": "cholesterol_grouped"
+      }
+    },
+    "/v2/timeseries/{user_id}/body_temperature_delta/grouped": {
+      "get": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Body Temperature Delta",
+        "operationId": "get_body_temperature_delta_grouped",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingGroupedTimeseriesResponse_ClientFacingBodyTemperatureDeltaSample_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "vitals",
+        "x-fern-sdk-method-name": "body_temperature_delta_grouped"
+      }
+    },
+    "/v2/timeseries/{user_id}/body_temperature/grouped": {
+      "get": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Body Temperature",
+        "operationId": "get_body_temperature_grouped",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingGroupedTimeseriesResponse_ClientFacingBodyTemperatureSample_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "vitals",
+        "x-fern-sdk-method-name": "body_temperature_grouped"
       }
     },
     "/v2/timeseries/{user_id}/body_weight/grouped": {
@@ -8560,9 +8768,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "fde1257d-1419-4bbc-bfc5-cf2b9db0ab51",
-                  "user_id": "2594189e-248c-48d9-99ab-868f7edae6ec",
-                  "order_id": "eda75c4c-c132-46f8-a05f-ece73a94e5d3",
+                  "id": "5565bee2-fbb4-4a71-90a0-745fd9049baf",
+                  "user_id": "a592970f-2c17-44a3-b9fe-7e1d851a287d",
+                  "order_id": "c1a7252e-327a-4bc3-ab7e-f5328ec2db5a",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -8807,7 +9015,7 @@
           "order"
         ],
         "summary": "Get Area Info",
-        "description": "GET information about an area with respect to lab-testing.\n\nInformation returned:\n* Whether a given zip code is served by our Phlebotomy network.",
+        "description": "GET information about an area with respect to lab-testing.\n\nInformation returned:\n* Whether a given zip code is served by our Phlebotomy network.\n* List of Lab locations in the area.",
         "operationId": "get_area_info_v3_order_area_info_get",
         "parameters": [
           {
@@ -9887,12 +10095,16 @@
           },
           "phlebotomy": {
             "$ref": "#/components/schemas/PhlebotomyAreaInfo"
+          },
+          "psc": {
+            "$ref": "#/components/schemas/PSCAreaInfo"
           }
         },
         "type": "object",
         "required": [
           "zip_code",
-          "phlebotomy"
+          "phlebotomy",
+          "psc"
         ],
         "title": "AreaInfo"
       },
@@ -10661,18 +10873,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "5dd5bdb0-d04d-4f23-af38-8a5b813f6f65",
+          "id": "6e34d64b-8ff6-42e4-9e9b-f165d1e76725",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "0af7eed5-a2b3-4a16-bc73-c27ddf54bf91",
+          "order_id": "609ada27-d059-42d0-aac6-dbd1286ae41d",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "69824e57-50eb-467e-8c29-eb6fe900cae8"
+          "user_id": "43c5dd4c-85e3-4b3a-b8f3-a9735aaee4e1"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -10699,7 +10911,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "69c9ca8e-dc92-4449-a3a1-b1290089a67e",
+          "id": "2a55a599-bb44-42a6-bceb-f4e788d43ed2",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -10773,9 +10985,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "637427e2-5bb9-4f62-9ef4-afe44a6f7677",
+          "appointment_id": "9325db57-cb6c-44af-9478-488786a138bb",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "4e9d1d47-3551-48f5-99a7-5b78aa18a042",
+          "id": "f2f153a8-d72d-4d69-94d0-cb13d0da6a04",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -10942,7 +11154,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2024-06-08T21:23:43+00:00",
+          "timestamp": "2024-06-10T14:30:24+00:00",
           "unit": "mmHg"
         }
       },
@@ -11090,6 +11302,234 @@
           "timestamp": "2023-02-13T14:30:52+00:00",
           "unit": "%",
           "value": 50
+        }
+      },
+      "ClientFacingBodyTemperatureDeltaSample": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "Deprecated"
+          },
+          "timezone_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone Offset",
+            "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "The reading type of the measurement. This is applicable only to Cholesterol, IGG and IGE."
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "°C"
+            ],
+            "const": "°C",
+            "title": "Unit"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "Depracated. The start time (inclusive) of the interval."
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start",
+            "description": "The start time (inclusive) of the interval."
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End",
+            "description": "The end time (exclusive) of the interval."
+          },
+          "value": {
+            "type": "number",
+            "title": "Value",
+            "description": "The recorded value for the interval."
+          },
+          "sensor_location": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "armpit",
+                  "body",
+                  "ear",
+                  "finger",
+                  "gastrointestinal",
+                  "mouth",
+                  "rectum",
+                  "toe",
+                  "eardrum",
+                  "temporal_artery",
+                  "forehead",
+                  "wrist"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sensor Location",
+            "description": "Location of the temperature sensor."
+          }
+        },
+        "type": "object",
+        "required": [
+          "unit",
+          "timestamp",
+          "start",
+          "end",
+          "value",
+          "sensor_location"
+        ],
+        "title": "ClientFacingBodyTemperatureDeltaSample",
+        "example": {
+          "end": "2023-02-13T14:57:24+00:00",
+          "sensor_location": "wrist",
+          "start": "2023-02-13T14:30:52+00:00",
+          "unit": "°C",
+          "value": -1
+        }
+      },
+      "ClientFacingBodyTemperatureSample": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "Deprecated"
+          },
+          "timezone_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone Offset",
+            "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "The reading type of the measurement. This is applicable only to Cholesterol, IGG and IGE."
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "°C"
+            ],
+            "const": "°C",
+            "title": "Unit"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "Depracated. The start time (inclusive) of the interval."
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start",
+            "description": "The start time (inclusive) of the interval."
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End",
+            "description": "The end time (exclusive) of the interval."
+          },
+          "value": {
+            "type": "number",
+            "title": "Value",
+            "description": "The recorded value for the interval."
+          },
+          "sensor_location": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "armpit",
+                  "body",
+                  "ear",
+                  "finger",
+                  "gastrointestinal",
+                  "mouth",
+                  "rectum",
+                  "toe",
+                  "eardrum",
+                  "temporal_artery",
+                  "forehead",
+                  "wrist"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sensor Location",
+            "description": "Location of the temperature sensor."
+          }
+        },
+        "type": "object",
+        "required": [
+          "unit",
+          "timestamp",
+          "start",
+          "end",
+          "value",
+          "sensor_location"
+        ],
+        "title": "ClientFacingBodyTemperatureSample",
+        "example": {
+          "end": "2023-02-13T14:30:52+00:00",
+          "sensor_location": "eardrum",
+          "start": "2023-02-13T14:30:52+00:00",
+          "unit": "°C",
+          "value": 65
         }
       },
       "ClientFacingBodyWeightTimeseries": {
@@ -11465,7 +11905,7 @@
           "value"
         ],
         "title": "ClientFacingCholesterolTimeseries",
-        "example": [
+        "examples": [
           {
             "timestamp": "2023-02-13T14:30:52+00:00",
             "type": "cholesterol/ldl",
@@ -11836,6 +12276,112 @@
           "type": "automatic | manual_scan",
           "unit": "mmol/L",
           "value": 0.5
+        }
+      },
+      "ClientFacingGroupedTimeseriesResponse_ClientFacingBodyTemperatureDeltaSample_": {
+        "properties": {
+          "groups": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/ClientFacingTimeseriesGroup_ClientFacingBodyTemperatureDeltaSample_"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Groups",
+            "description": "For each matching provider or lab, a list of grouped timeseries values."
+          },
+          "next": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups"
+        ],
+        "title": "ClientFacingGroupedTimeseriesResponse[ClientFacingBodyTemperatureDeltaSample]",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "sensor_location": "wrist",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "°C",
+                    "value": -1
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "ClientFacingGroupedTimeseriesResponse_ClientFacingBodyTemperatureSample_": {
+        "properties": {
+          "groups": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/ClientFacingTimeseriesGroup_ClientFacingBodyTemperatureSample_"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Groups",
+            "description": "For each matching provider or lab, a list of grouped timeseries values."
+          },
+          "next": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups"
+        ],
+        "title": "ClientFacingGroupedTimeseriesResponse[ClientFacingBodyTemperatureSample]",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:30:52+00:00",
+                    "sensor_location": "eardrum",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "°C",
+                    "value": 65
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
         }
       },
       "ClientFacingHRVTimeseries": {
@@ -12322,6 +12868,23 @@
           "slug": "labcorp",
           "zipcode": "91789"
         }
+      },
+      "ClientFacingLabLocation": {
+        "properties": {
+          "metadata": {
+            "$ref": "#/components/schemas/LabLocationMetadata"
+          },
+          "distance": {
+            "type": "integer",
+            "title": "Distance"
+          }
+        },
+        "type": "object",
+        "required": [
+          "metadata",
+          "distance"
+        ],
+        "title": "ClientFacingLabLocation"
       },
       "ClientFacingLabTest": {
         "properties": {
@@ -12923,7 +13486,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2024-06-08T21:28:43.626464+00:00",
+          "end": "2024-06-10T14:35:24.849101+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -13182,8 +13745,8 @@
               "status": "collecting_sample.testkit.transit_customer"
             }
           ],
-          "health_insurace_id": "c9ba5a30-cd88-467c-8b48-4ac5e6f54794",
-          "id": "1b8844a5-8525-43db-877b-3199dd812ddd",
+          "health_insurace_id": "34cfdbf4-d7c9-4189-a9cc-f4e6f8f0bf2a",
+          "id": "a0e084ed-5ffe-4a1a-bd47-176bbfe6f069",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -13207,9 +13770,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "3509601a-304f-4434-ae55-f63cf05df523",
+          "team_id": "b68ec674-a5f9-4341-8f44-ccaea64a30d4",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "3b9d68d1-dd02-438b-aa28-a6355f14e453"
+          "user_id": "1c1cff49-779d-4a03-abbc-bf15491ba828"
         }
       },
       "ClientFacingOrderEvent": {
@@ -13855,7 +14418,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "722631e1-f059-4fa4-a679-b11aa238d6b7",
+          "id": "502f36c2-58e5-424a-a32b-b77916ef9d06",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -14198,129 +14761,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2024-06-08T21:23:45.152653+00:00",
+              "timestamp": "2024-06-10T14:30:26.022919+00:00",
               "unit": "bpm",
-              "value": 67
+              "value": 58
             },
             {
               "id": 1,
-              "timestamp": "2024-06-08T21:24:15.152742+00:00",
+              "timestamp": "2024-06-10T14:30:56.022957+00:00",
               "unit": "bpm",
-              "value": 133
+              "value": 117
             },
             {
               "id": 2,
-              "timestamp": "2024-06-08T21:24:45.152822+00:00",
+              "timestamp": "2024-06-10T14:31:26.022990+00:00",
               "unit": "bpm",
-              "value": 189
+              "value": 179
             },
             {
               "id": 3,
-              "timestamp": "2024-06-08T21:25:15.152906+00:00",
+              "timestamp": "2024-06-10T14:31:56.023043+00:00",
               "unit": "bpm",
-              "value": 166
+              "value": 119
             },
             {
               "id": 4,
-              "timestamp": "2024-06-08T21:25:45.152982+00:00",
+              "timestamp": "2024-06-10T14:32:26.023078+00:00",
               "unit": "bpm",
-              "value": 47
+              "value": 84
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2024-06-08T21:23:45.151976+00:00",
+              "timestamp": "2024-06-10T14:30:26.022292+00:00",
               "unit": "rmssd",
-              "value": 33
+              "value": 78
             },
             {
               "id": 1,
-              "timestamp": "2024-06-08T21:24:15.152194+00:00",
+              "timestamp": "2024-06-10T14:30:56.022465+00:00",
               "unit": "rmssd",
-              "value": 40
+              "value": 75
             },
             {
               "id": 2,
-              "timestamp": "2024-06-08T21:24:45.152310+00:00",
+              "timestamp": "2024-06-10T14:31:26.022697+00:00",
               "unit": "rmssd",
-              "value": 85
+              "value": 86
             },
             {
               "id": 3,
-              "timestamp": "2024-06-08T21:25:15.152437+00:00",
+              "timestamp": "2024-06-10T14:31:56.022793+00:00",
               "unit": "rmssd",
-              "value": 79
+              "value": 34
             },
             {
               "id": 4,
-              "timestamp": "2024-06-08T21:25:45.152536+00:00",
+              "timestamp": "2024-06-10T14:32:26.022845+00:00",
               "unit": "rmssd",
-              "value": 94
+              "value": 46
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2024-06-08T21:23:45.153064+00:00",
+              "timestamp": "2024-06-10T14:30:26.023110+00:00",
               "unit": "stage",
               "value": 3
             },
             {
               "id": 1,
-              "timestamp": "2024-06-08T21:24:15.153146+00:00",
-              "unit": "stage",
-              "value": 3
-            },
-            {
-              "id": 2,
-              "timestamp": "2024-06-08T21:24:45.153219+00:00",
+              "timestamp": "2024-06-10T14:30:56.023140+00:00",
               "unit": "stage",
               "value": 1
             },
             {
-              "id": 3,
-              "timestamp": "2024-06-08T21:25:15.153298+00:00",
+              "id": 2,
+              "timestamp": "2024-06-10T14:31:26.023174+00:00",
               "unit": "stage",
-              "value": -1
+              "value": 0
+            },
+            {
+              "id": 3,
+              "timestamp": "2024-06-10T14:31:56.023202+00:00",
+              "unit": "stage",
+              "value": 4
             },
             {
               "id": 4,
-              "timestamp": "2024-06-08T21:25:45.153363+00:00",
+              "timestamp": "2024-06-10T14:32:26.023230+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 4
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2024-06-08T21:23:45.153432+00:00",
+              "timestamp": "2024-06-10T14:30:26.023258+00:00",
               "unit": "bpm",
-              "value": 24
+              "value": 29
             },
             {
               "id": 1,
-              "timestamp": "2024-06-08T21:24:15.153495+00:00",
+              "timestamp": "2024-06-10T14:30:56.023284+00:00",
               "unit": "bpm",
               "value": 29
             },
             {
               "id": 2,
-              "timestamp": "2024-06-08T21:24:45.153551+00:00",
+              "timestamp": "2024-06-10T14:31:26.023310+00:00",
               "unit": "bpm",
-              "value": 26
+              "value": 9
             },
             {
               "id": 3,
-              "timestamp": "2024-06-08T21:25:15.153644+00:00",
+              "timestamp": "2024-06-10T14:31:56.023336+00:00",
               "unit": "bpm",
-              "value": 22
+              "value": 30
             },
             {
               "id": 4,
-              "timestamp": "2024-06-08T21:25:45.153708+00:00",
+              "timestamp": "2024-06-10T14:32:26.023363+00:00",
               "unit": "bpm",
-              "value": 18
+              "value": 24
             }
           ]
         }
@@ -15154,10 +15717,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "aab90aec-cce5-4a75-b9f5-2bcbeb749926",
+          "id": "67578054-404d-4bce-a4cb-da45d7832686",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "6fe66769-901d-42c0-81e6-26eefc1eb699",
+            "id": "a34b0d42-aa00-4d49-a967-751872fdec43",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -15169,6 +15732,46 @@
           },
           "updated_at": "2020-01-01T00:00:00Z"
         }
+      },
+      "ClientFacingTimeseriesGroup_ClientFacingBodyTemperatureDeltaSample_": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingSource"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingBodyTemperatureDeltaSample"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "data"
+        ],
+        "title": "ClientFacingTimeseriesGroup[ClientFacingBodyTemperatureDeltaSample]"
+      },
+      "ClientFacingTimeseriesGroup_ClientFacingBodyTemperatureSample_": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingSource"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingBodyTemperatureSample"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "data"
+        ],
+        "title": "ClientFacingTimeseriesGroup[ClientFacingBodyTemperatureSample]"
       },
       "ClientFacingUser": {
         "properties": {
@@ -15266,7 +15869,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2024-06-08T21:23:43+00:00",
+              "created_on": "2024-06-10T14:30:24+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -15274,16 +15877,16 @@
               }
             }
           ],
-          "created_on": "2024-06-08T21:23:43+00:00",
+          "created_on": "2024-06-10T14:30:24+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2024-06-08T21:23:43+00:00",
+            "updated_at": "2024-06-10T14:30:24+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2024-06-08T21:23:43+00:00"
+            "updated_at": "2024-06-10T14:30:24+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -15453,7 +16056,7 @@
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "d7fc8410-f124-4168-bf0b-126317d4cd07",
+          "id": "f907ea3f-72c0-478c-8fe5-f1022908fd1a",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -17087,6 +17690,83 @@
         ],
         "title": "Jpeg"
       },
+      "LabLocationMetadata": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "city": {
+            "type": "string",
+            "title": "City"
+          },
+          "zip_code": {
+            "type": "string",
+            "title": "Zip Code"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "phone_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone Number"
+          },
+          "fax_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fax Number"
+          },
+          "hours": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hours"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "state",
+          "city",
+          "zip_code",
+          "address"
+        ],
+        "title": "LabLocationMetadata"
+      },
       "LabResultsMetadata": {
         "properties": {
           "age": {
@@ -17917,6 +18597,25 @@
           "failed"
         ],
         "title": "OrderTopLevelStatus"
+      },
+      "PSCAreaInfo": {
+        "properties": {
+          "locations": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/ClientFacingLabLocation"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Locations"
+          }
+        },
+        "type": "object",
+        "required": [
+          "locations"
+        ],
+        "title": "PSCAreaInfo"
       },
       "PaginatedUsersResponse": {
         "properties": {
@@ -20393,7 +21092,7 @@
               {
                 "data": [
                   {
-                    "end": "2024-06-08T21:28:43.626464+00:00",
+                    "end": "2024-06-10T14:35:24.849101+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -21170,32 +21869,30 @@
             "oura": [
               {
                 "data": [
-                  [
-                    {
-                      "timestamp": "2023-02-13T14:30:52+00:00",
-                      "type": "cholesterol/ldl",
-                      "unit": "mmol/L",
-                      "value": 0.6
-                    },
-                    {
-                      "timestamp": "2023-02-13T14:30:52+00:00",
-                      "type": "cholesterol/hdl",
-                      "unit": "mmol/L",
-                      "value": 0.2
-                    },
-                    {
-                      "timestamp": "2023-02-13T14:30:52+00:00",
-                      "type": "cholesterol/total",
-                      "unit": "mmol/L",
-                      "value": 0.7
-                    },
-                    {
-                      "timestamp": "2023-02-13T14:30:52+00:00",
-                      "type": "cholesterol/triglycerides",
-                      "unit": "mmol/L",
-                      "value": 0.7
-                    }
-                  ]
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "cholesterol/ldl",
+                    "unit": "mmol/L",
+                    "value": 0.6
+                  },
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "cholesterol/hdl",
+                    "unit": "mmol/L",
+                    "value": 0.2
+                  },
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "cholesterol/total",
+                    "unit": "mmol/L",
+                    "value": 0.7
+                  },
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "cholesterol/triglycerides",
+                    "unit": "mmol/L",
+                    "value": 0.7
+                  }
                 ],
                 "source": {
                   "provider": "oura",
@@ -21450,7 +22147,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2024-06-08T21:23:43+00:00",
+                    "timestamp": "2024-06-10T14:30:24+00:00",
                     "unit": "mmHg"
                   }
                 ],
