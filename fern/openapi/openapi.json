@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.2.497"
+    "version": "0.2.508"
   },
   "paths": {
     "/v2/link/token": {
@@ -122,7 +122,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "default": "2024-07-02T15:37:13.317506Z",
+              "default": "2024-07-08T13:04:10.992638Z",
               "title": "Expires At"
             }
           }
@@ -1825,6 +1825,92 @@
           }
         },
         "x-fern-sdk-group-name": "meal",
+        "x-fern-sdk-method-name": "get"
+      }
+    },
+    "/v2/summary/menstrual_cycle/{user_id}": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Get User Menstrual Cycles",
+        "operationId": "get_user_menstrual_cycles_v2_summary_menstrual_cycle__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "Start date in YYYY-MM-DD",
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "End date (inclusive) in YYYY-MM-DD",
+              "title": "End Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenstrualCycleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "menstrual_cycle",
         "x-fern-sdk-method-name": "get"
       }
     },
@@ -9281,9 +9367,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "5b9396a5-77ec-4864-bf04-da46f6a7d534",
-                  "user_id": "bacda777-6298-4496-99c8-e1e4d7fa8269",
-                  "order_id": "ddc87d5e-e50c-4d55-984b-d10df5702a70",
+                  "id": "d6cf9ddc-8078-4fa4-a40a-e06ebd8a053f",
+                  "user_id": "eece89a7-9739-4b1f-bc1b-41fe8deb0c75",
+                  "order_id": "ce402691-d4ce-4aff-8521-012ab088c1e8",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -10851,6 +10937,25 @@
         ],
         "title": "Availability"
       },
+      "BasalBodyTemperatureEntry": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "value": {
+            "type": "number",
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "value"
+        ],
+        "title": "BasalBodyTemperatureEntry"
+      },
       "BeginLinkTokenRequest": {
         "properties": {
           "link_token": {
@@ -11097,6 +11202,32 @@
           "source"
         ],
         "title": "BodyV2InDB"
+      },
+      "CervicalMucusEntry": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "quality": {
+            "type": "string",
+            "enum": [
+              "dry",
+              "sticky",
+              "creamy",
+              "watery",
+              "egg_white"
+            ],
+            "title": "Quality"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "quality"
+        ],
+        "title": "CervicalMucusEntry"
       },
       "ClientActivityResponse": {
         "properties": {
@@ -11591,18 +11722,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "a893d7c1-84fc-4212-adbc-eef861020b8b",
+          "id": "2fca4de7-0e98-4210-8b6a-400af4c907ca",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "5491c9a2-4240-4ceb-8d55-5066c458a2a1",
+          "order_id": "f1a70fef-42a7-4889-9189-45eb93af815f",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "936e2e38-27c0-4c80-bc41-c892f0d62e4f"
+          "user_id": "9b5b6d5a-aff8-42dc-a48a-f2c23409ccdb"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -11629,7 +11760,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "7952a719-6510-4f20-9793-a1993ba01fcb",
+          "id": "3c0e90c7-437f-44d9-a3c8-f8dbe7d9ac8f",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -11703,9 +11834,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "fe303ad3-378a-43e0-ba63-ace3f5975cae",
+          "appointment_id": "94f64afc-01df-4afe-b551-8e74ad5ea5f5",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "3cf0a58b-7832-4568-9671-c034e4e08ca2",
+          "id": "a9f3ae18-3995-4c4b-b4a9-613bc41f3183",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -11872,7 +12003,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2024-07-02T15:22:10+00:00",
+          "timestamp": "2024-07-08T12:49:08+00:00",
           "unit": "mmHg"
         }
       },
@@ -14230,7 +14361,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2024-07-02T15:27:10.102682+00:00",
+          "end": "2024-07-08T12:54:08.746373+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -14489,8 +14620,8 @@
               "status": "collecting_sample.testkit.transit_customer"
             }
           ],
-          "health_insurace_id": "26ac3916-ac08-4ac8-babf-5a1132c60535",
-          "id": "b98a238a-cc8d-4a7c-abb1-a7f2a2484b7c",
+          "health_insurace_id": "659f0b96-bb56-4b32-b3a0-325f33594f72",
+          "id": "b0a0db87-7675-4590-96fb-a3a6ee4e9a4f",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -14514,9 +14645,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "82ea1644-7fb7-4bdf-a55c-2cbb34a0d02b",
+          "team_id": "5d0983c7-f5e4-48b6-b2ba-f5f0bfe0e904",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "37f8d7b2-3a38-45a2-9749-07551ec69214"
+          "user_id": "e36f3758-62a9-497c-a2ea-11a62e5b0867"
         }
       },
       "ClientFacingOrderEvent": {
@@ -15162,7 +15293,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "fe055396-4362-4296-a5f7-2807c9d907dd",
+          "id": "37b62d08-484d-4603-b0c5-bcc6bd3c9f78",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -15505,129 +15636,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2024-07-02T15:22:11.873575+00:00",
+              "timestamp": "2024-07-08T12:49:09.938066+00:00",
               "unit": "bpm",
-              "value": 34
+              "value": 187
             },
             {
               "id": 1,
-              "timestamp": "2024-07-02T15:22:41.873608+00:00",
+              "timestamp": "2024-07-08T12:49:39.938106+00:00",
               "unit": "bpm",
-              "value": 9
+              "value": 117
             },
             {
               "id": 2,
-              "timestamp": "2024-07-02T15:23:11.873640+00:00",
+              "timestamp": "2024-07-08T12:50:09.938138+00:00",
               "unit": "bpm",
-              "value": 102
+              "value": 80
             },
             {
               "id": 3,
-              "timestamp": "2024-07-02T15:23:41.873688+00:00",
+              "timestamp": "2024-07-08T12:50:39.938186+00:00",
               "unit": "bpm",
-              "value": 164
+              "value": 105
             },
             {
               "id": 4,
-              "timestamp": "2024-07-02T15:24:11.873721+00:00",
+              "timestamp": "2024-07-08T12:51:09.938220+00:00",
               "unit": "bpm",
-              "value": 71
+              "value": 136
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2024-07-02T15:22:11.873243+00:00",
+              "timestamp": "2024-07-08T12:49:09.937567+00:00",
               "unit": "rmssd",
               "value": 92
             },
             {
               "id": 1,
-              "timestamp": "2024-07-02T15:22:41.873382+00:00",
+              "timestamp": "2024-07-08T12:49:39.937705+00:00",
               "unit": "rmssd",
-              "value": 95
+              "value": 34
             },
             {
               "id": 2,
-              "timestamp": "2024-07-02T15:23:11.873436+00:00",
+              "timestamp": "2024-07-08T12:50:09.937753+00:00",
               "unit": "rmssd",
-              "value": 96
+              "value": 33
             },
             {
               "id": 3,
-              "timestamp": "2024-07-02T15:23:41.873492+00:00",
+              "timestamp": "2024-07-08T12:50:39.937797+00:00",
               "unit": "rmssd",
-              "value": 92
+              "value": 7
             },
             {
               "id": 4,
-              "timestamp": "2024-07-02T15:24:11.873537+00:00",
+              "timestamp": "2024-07-08T12:51:09.937836+00:00",
               "unit": "rmssd",
-              "value": 53
+              "value": 17
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2024-07-02T15:22:11.873753+00:00",
+              "timestamp": "2024-07-08T12:49:09.938252+00:00",
               "unit": "stage",
-              "value": 0
+              "value": 2
             },
             {
               "id": 1,
-              "timestamp": "2024-07-02T15:22:41.873783+00:00",
-              "unit": "stage",
-              "value": 4
-            },
-            {
-              "id": 2,
-              "timestamp": "2024-07-02T15:23:11.873810+00:00",
+              "timestamp": "2024-07-08T12:49:39.938283+00:00",
               "unit": "stage",
               "value": 3
             },
             {
-              "id": 3,
-              "timestamp": "2024-07-02T15:23:41.873838+00:00",
+              "id": 2,
+              "timestamp": "2024-07-08T12:50:09.938312+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 0
+            },
+            {
+              "id": 3,
+              "timestamp": "2024-07-08T12:50:39.938341+00:00",
+              "unit": "stage",
+              "value": 0
             },
             {
               "id": 4,
-              "timestamp": "2024-07-02T15:24:11.873866+00:00",
+              "timestamp": "2024-07-08T12:51:09.938372+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 1
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2024-07-02T15:22:11.873895+00:00",
+              "timestamp": "2024-07-08T12:49:09.938401+00:00",
               "unit": "bpm",
-              "value": 17
+              "value": 23
             },
             {
               "id": 1,
-              "timestamp": "2024-07-02T15:22:41.873921+00:00",
-              "unit": "bpm",
-              "value": 15
-            },
-            {
-              "id": 2,
-              "timestamp": "2024-07-02T15:23:11.873946+00:00",
-              "unit": "bpm",
-              "value": 29
-            },
-            {
-              "id": 3,
-              "timestamp": "2024-07-02T15:23:41.873972+00:00",
+              "timestamp": "2024-07-08T12:49:39.938429+00:00",
               "unit": "bpm",
               "value": 16
             },
             {
-              "id": 4,
-              "timestamp": "2024-07-02T15:24:11.873998+00:00",
+              "id": 2,
+              "timestamp": "2024-07-08T12:50:09.938456+00:00",
               "unit": "bpm",
-              "value": 15
+              "value": 28
+            },
+            {
+              "id": 3,
+              "timestamp": "2024-07-08T12:50:39.938483+00:00",
+              "unit": "bpm",
+              "value": 10
+            },
+            {
+              "id": 4,
+              "timestamp": "2024-07-08T12:51:09.938518+00:00",
+              "unit": "bpm",
+              "value": 23
             }
           ]
         }
@@ -16461,10 +16592,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "dfb8ec2d-963b-4071-b9c9-6fb67e093ae3",
+          "id": "bca64307-468e-483d-8c87-db81bcb3967d",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "caba57e3-ad94-44ee-84ba-19982a1765f4",
+            "id": "81269cef-035f-4a8d-8b99-884ac62bc6cb",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -16613,7 +16744,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2024-07-02T15:22:09+00:00",
+              "created_on": "2024-07-08T12:49:08+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -16621,16 +16752,16 @@
               }
             }
           ],
-          "created_on": "2024-07-02T15:22:09+00:00",
+          "created_on": "2024-07-08T12:49:08+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2024-07-02T15:22:09+00:00",
+            "updated_at": "2024-07-08T12:49:08+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2024-07-02T15:22:09+00:00"
+            "updated_at": "2024-07-08T12:49:08+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -16800,7 +16931,7 @@
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "20cd0e35-557a-4f49-aab2-3a4c461ce671",
+          "id": "181def75-48de-4f8b-a7e0-0117934f4561",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -17502,6 +17633,34 @@
         ],
         "title": "ConsentType"
       },
+      "ContraceptiveEntry": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "unspecified",
+              "implant",
+              "injection",
+              "iud",
+              "intravaginal_ring",
+              "oral",
+              "patch"
+            ],
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "type"
+        ],
+        "title": "ContraceptiveEntry"
+      },
       "CreateLabTestRequest": {
         "properties": {
           "marker_ids": {
@@ -17790,6 +17949,31 @@
           "oura"
         ],
         "title": "DemoProviders"
+      },
+      "DetectedDeviationEntry": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "deviation": {
+            "type": "string",
+            "enum": [
+              "persistent_intermenstrual_bleeding",
+              "prolonged_menstrual_periods",
+              "irregular_menstrual_cycles",
+              "infrequent_menstrual_cycles"
+            ],
+            "title": "Deviation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "deviation"
+        ],
+        "title": "DetectedDeviationEntry"
       },
       "DeviceV2InDB": {
         "properties": {
@@ -18399,6 +18583,54 @@
         ],
         "title": "HistoricalPullTimeline"
       },
+      "HomePregnancyTestEntry": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "test_result": {
+            "type": "string",
+            "enum": [
+              "negative",
+              "positive",
+              "indeterminate"
+            ],
+            "title": "Test Result"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "test_result"
+        ],
+        "title": "HomePregnancyTestEntry"
+      },
+      "HomeProgesteroneTestEntry": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "test_result": {
+            "type": "string",
+            "enum": [
+              "negative",
+              "positive",
+              "indeterminate"
+            ],
+            "title": "Test Result"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "test_result"
+        ],
+        "title": "HomeProgesteroneTestEntry"
+      },
       "IndividualProviderData": {
         "properties": {
           "username": {
@@ -18428,6 +18660,20 @@
           "password"
         ],
         "title": "IndividualProviderData"
+      },
+      "IntermenstrualBleedingEntry": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date"
+        ],
+        "title": "IntermenstrualBleedingEntry"
       },
       "Jpeg": {
         "properties": {
@@ -19191,6 +19437,167 @@
           "user_id": "a169451c-8525-4352-b8ca-070dd449a1a5"
         }
       },
+      "MenstrualCycle": {
+        "properties": {
+          "period_start": {
+            "type": "string",
+            "format": "date",
+            "title": "Period Start"
+          },
+          "period_end": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Period End"
+          },
+          "cycle_end": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cycle End"
+          },
+          "is_predicted": {
+            "type": "boolean",
+            "title": "Is Predicted",
+            "default": false
+          },
+          "menstrual_flow": {
+            "items": {
+              "$ref": "#/components/schemas/MenstrualFlowEntry"
+            },
+            "type": "array",
+            "title": "Menstrual Flow"
+          },
+          "cervical_mucus": {
+            "items": {
+              "$ref": "#/components/schemas/CervicalMucusEntry"
+            },
+            "type": "array",
+            "title": "Cervical Mucus"
+          },
+          "intermenstrual_bleeding": {
+            "items": {
+              "$ref": "#/components/schemas/IntermenstrualBleedingEntry"
+            },
+            "type": "array",
+            "title": "Intermenstrual Bleeding"
+          },
+          "contraceptive": {
+            "items": {
+              "$ref": "#/components/schemas/ContraceptiveEntry"
+            },
+            "type": "array",
+            "title": "Contraceptive"
+          },
+          "detected_deviations": {
+            "items": {
+              "$ref": "#/components/schemas/DetectedDeviationEntry"
+            },
+            "type": "array",
+            "title": "Detected Deviations"
+          },
+          "ovulation_test": {
+            "items": {
+              "$ref": "#/components/schemas/OvulationTestEntry"
+            },
+            "type": "array",
+            "title": "Ovulation Test"
+          },
+          "home_pregnancy_test": {
+            "items": {
+              "$ref": "#/components/schemas/HomePregnancyTestEntry"
+            },
+            "type": "array",
+            "title": "Home Pregnancy Test"
+          },
+          "home_progesterone_test": {
+            "items": {
+              "$ref": "#/components/schemas/HomeProgesteroneTestEntry"
+            },
+            "type": "array",
+            "title": "Home Progesterone Test"
+          },
+          "sexual_activity": {
+            "items": {
+              "$ref": "#/components/schemas/SexualActivityEntry"
+            },
+            "type": "array",
+            "title": "Sexual Activity"
+          },
+          "basal_body_temperature": {
+            "items": {
+              "$ref": "#/components/schemas/BasalBodyTemperatureEntry"
+            },
+            "type": "array",
+            "title": "Basal Body Temperature"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingSource"
+          }
+        },
+        "type": "object",
+        "required": [
+          "period_start",
+          "period_end",
+          "cycle_end",
+          "source"
+        ],
+        "title": "MenstrualCycle"
+      },
+      "MenstrualCycleResponse": {
+        "properties": {
+          "menstrual_cycle": {
+            "items": {
+              "$ref": "#/components/schemas/MenstrualCycle"
+            },
+            "type": "array",
+            "title": "Menstrual Cycle"
+          }
+        },
+        "type": "object",
+        "required": [
+          "menstrual_cycle"
+        ],
+        "title": "MenstrualCycleResponse"
+      },
+      "MenstrualFlowEntry": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "flow": {
+            "type": "string",
+            "enum": [
+              "unspecified",
+              "none",
+              "light",
+              "medium",
+              "heavy"
+            ],
+            "title": "Flow"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "flow"
+        ],
+        "title": "MenstrualFlowEntry"
+      },
       "MetricsResult": {
         "properties": {
           "team_id": {
@@ -19359,6 +19766,31 @@
           "failed"
         ],
         "title": "OrderTopLevelStatus"
+      },
+      "OvulationTestEntry": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "test_result": {
+            "type": "string",
+            "enum": [
+              "negative",
+              "luteinizing_hormone_surge",
+              "estrogen_surge",
+              "indeterminate"
+            ],
+            "title": "Test Result"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "test_result"
+        ],
+        "title": "OvulationTestEntry"
       },
       "PSCAreaInfo": {
         "properties": {
@@ -20499,6 +20931,25 @@
           "optional"
         ],
         "title": "ScopeRequirements[str]"
+      },
+      "SexualActivityEntry": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "protection_used": {
+            "type": "boolean",
+            "title": "Protection Used"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "protection_used"
+        ],
+        "title": "SexualActivityEntry"
       },
       "ShippingAddress": {
         "properties": {
@@ -21960,7 +22411,7 @@
               {
                 "data": [
                   {
-                    "end": "2024-07-02T15:27:10.102682+00:00",
+                    "end": "2024-07-08T12:54:08.746373+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -23274,7 +23725,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2024-07-02T15:22:10+00:00",
+                    "timestamp": "2024-07-08T12:49:08+00:00",
                     "unit": "mmHg"
                   }
                 ],
