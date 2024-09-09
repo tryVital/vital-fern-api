@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.2.636"
+    "version": "0.2.640"
   },
   "paths": {
     "/v2/link/token": {
@@ -122,7 +122,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "default": "2024-09-09T10:26:02.802183Z",
+              "default": "2024-09-09T13:09:34.447402Z",
               "title": "Expires At"
             }
           }
@@ -433,11 +433,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/PasswordProviders"
-                }
-              ],
+              "$ref": "#/components/schemas/PasswordProviders",
               "title": "Providers that require password auth, whoop, renpho, peloton, zwift"
             }
           },
@@ -502,11 +498,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/PasswordProviders"
-                }
-              ],
+              "$ref": "#/components/schemas/PasswordProviders",
               "title": "Providers that require password auth, whoop, renpho, peloton, zwift"
             }
           },
@@ -571,11 +563,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/EmailProviders"
-                }
-              ],
+              "$ref": "#/components/schemas/EmailProviders",
               "title": "Email providers that require emails freestyle_auth"
             }
           },
@@ -690,11 +678,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/ManualProviders"
-                }
-              ],
+              "$ref": "#/components/schemas/ManualProviders",
               "title": "Providers that are manually added devices, such as ble devices and generated data"
             }
           }
@@ -8691,13 +8675,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/Providers"
-                }
-              ],
-              "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`.",
-              "title": "Provider"
+              "$ref": "#/components/schemas/Providers",
+              "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
             },
             "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
           }
@@ -9934,12 +9913,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/USAddress"
-                  }
-                ],
-                "title": "Address",
+                "$ref": "#/components/schemas/USAddress",
                 "description": "At-home phlebotomy appointment address."
               }
             }
@@ -10071,9 +10045,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "8d9afc87-a1cd-41fd-b26a-4f420a077a13",
-                  "user_id": "b957002f-a946-478f-ad98-ace1dcd29933",
-                  "order_id": "ec468881-fade-46c5-aefa-69464c7ecf9e",
+                  "id": "a3b8963e-8b4f-4824-821d-ab83c2f442ae",
+                  "user_id": "7b0f69dc-906e-4481-aa50-d7ccde7a479b",
+                  "order_id": "97255155-b53d-4586-9b36-416d5a0d1569",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -10338,14 +10312,9 @@
             "in": "query",
             "required": false,
             "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/AllowedRadius"
-                }
-              ],
+              "$ref": "#/components/schemas/AllowedRadius",
               "description": "Radius in which to search in miles",
-              "default": "25",
-              "title": "Radius"
+              "default": "25"
             },
             "description": "Radius in which to search in miles"
           },
@@ -10430,14 +10399,9 @@
             "in": "query",
             "required": false,
             "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/AllowedRadius"
-                }
-              ],
+              "$ref": "#/components/schemas/AllowedRadius",
               "description": "Radius in which to search. (meters)",
-              "default": "25",
-              "title": "Radius"
+              "default": "25"
             },
             "description": "Radius in which to search. (meters)"
           }
@@ -10493,14 +10457,9 @@
             "in": "query",
             "required": false,
             "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/AllowedRadius"
-                }
-              ],
+              "$ref": "#/components/schemas/AllowedRadius",
               "description": "Radius in which to search in miles",
-              "default": "25",
-              "title": "Radius"
+              "default": "25"
             },
             "description": "Radius in which to search in miles"
           }
@@ -11951,8 +11910,7 @@
           "timestamp": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
@@ -12277,7 +12235,6 @@
           },
           "date": {
             "type": "string",
-            "format": "date-time",
             "title": "Date",
             "description": "Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date.",
             "deprecated": true
@@ -12386,11 +12343,7 @@
             "description": "Number of minutes during the day with high intensity activity (e.g. running)::minutes"
           },
           "source": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ClientFacingSource"
-              }
-            ],
+            "$ref": "#/components/schemas/ClientFacingSource",
             "description": "Source the data has come from."
           },
           "floors_climbed": {
@@ -12506,14 +12459,12 @@
           },
           "created_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Created At"
           },
           "deleted_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
@@ -12557,8 +12508,7 @@
           "start_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
@@ -12570,8 +12520,7 @@
           "end_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
@@ -12675,18 +12624,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "98dfcf04-6d62-4165-b7ec-7e43f2e3027f",
+          "id": "1ec053ea-9b51-4bb9-80a5-65f31d13da55",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "bfde661c-4fe4-41c1-a2c8-655b72ef2f59",
+          "order_id": "fbd46afb-89ff-4e5f-9cfb-0d89965a4301",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "b3a5127f-6cb1-45fc-8a5f-ad7796f6e818"
+          "user_id": "7e297ad3-a889-4d66-bd67-db3d36e1658c"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -12713,7 +12662,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "8038fb16-8627-4a3e-bcd7-c3c08113ef74",
+          "id": "d30cee9d-cfa5-4aa5-a893-7b6ccee085be",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -12722,7 +12671,6 @@
         "properties": {
           "created_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Created At"
           },
           "status": {
@@ -12769,12 +12717,10 @@
           },
           "created_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Created At"
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Updated At"
           }
         },
@@ -12787,9 +12733,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "d07dd2ac-6518-435e-adec-3cc52a78b636",
+          "appointment_id": "96158a14-9c0f-47e8-a8ce-580008265094",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "24e8f88a-a9fa-42e9-8872-a8730e767ffa",
+          "id": "a057e090-ead5-433b-8b02-ba4652871551",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -12865,7 +12811,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -12933,7 +12878,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp"
           },
           "systolic": {
@@ -12956,7 +12900,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2024-09-09T10:11:01+00:00",
+          "timestamp": "2024-09-09T12:54:32+00:00",
           "unit": "mmHg"
         }
       },
@@ -12975,7 +12919,6 @@
           },
           "date": {
             "type": "string",
-            "format": "date-time",
             "title": "Date",
             "description": "Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date.",
             "deprecated": true
@@ -13083,7 +13026,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -13154,19 +13096,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -13268,19 +13207,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -13379,7 +13315,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -13447,19 +13382,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -13534,19 +13466,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -13621,7 +13550,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -13690,19 +13618,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -13773,7 +13698,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -13886,19 +13810,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -14034,7 +13955,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -14139,7 +14059,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -14606,7 +14525,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -14734,7 +14652,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -14802,19 +14719,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -14885,7 +14799,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -14954,7 +14867,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -15023,19 +14935,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -15218,19 +15127,11 @@
             "description": ""
           },
           "sample_type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/LabTestSampleType"
-              }
-            ],
+            "$ref": "#/components/schemas/LabTestSampleType",
             "description": ""
           },
           "method": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/LabTestCollectionMethod"
-              }
-            ],
+            "$ref": "#/components/schemas/LabTestCollectionMethod",
             "description": ""
           },
           "price": {
@@ -15244,11 +15145,7 @@
             "description": "Deprecated. Use status instead."
           },
           "status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/LabTestStatus"
-              }
-            ],
+            "$ref": "#/components/schemas/LabTestStatus",
             "description": ""
           },
           "fasting": {
@@ -15736,9 +15633,10 @@
               "provider_id": "123456",
               "source": {
                 "logo": "https://logo_url.com",
-                "name": "MyFitnessPal",
-                "slug": "my_fitness_pal"
+                "name": "Apple Health Kit",
+                "slug": "apple_health_kit"
               },
+              "source_app_id": "com.myfitnesspal.mfp",
               "source_id": 10,
               "timestamp": "2019-08-24T14:15:22Z",
               "updated_at": "2019-08-24T14:15:22Z",
@@ -15792,19 +15690,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -15824,7 +15719,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2024-09-09T10:16:00.998850+00:00",
+          "end": "2024-09-09T12:59:31.894698+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -15875,19 +15770,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -15981,11 +15873,7 @@
             "description": "Patient Address"
           },
           "lab_test": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ClientFacingLabTest"
-              }
-            ],
+            "$ref": "#/components/schemas/ClientFacingLabTest",
             "description": "The Vital Test associated with the order"
           },
           "details": {
@@ -16028,13 +15916,11 @@
           },
           "created_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Created At",
             "description": "When your order was created"
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Updated At",
             "description": "When your order was last updated."
           },
@@ -16132,11 +16018,7 @@
             "title": "Passthrough"
           },
           "billing_type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Billing"
-              }
-            ],
+            "$ref": "#/components/schemas/Billing",
             "default": "client_bill"
           },
           "icd_codes": {
@@ -16213,8 +16095,8 @@
               "status": "collecting_sample.testkit.transit_customer"
             }
           ],
-          "health_insurace_id": "9431a914-7dcc-4656-9598-f8665caf8c3e",
-          "id": "8f007b17-d1fd-4548-8bb6-796fd2f0b76f",
+          "health_insurace_id": "b9b921d8-66ad-42bb-92cc-55399883b233",
+          "id": "ac182d9c-a73a-49d8-8088-5b438340a195",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -16238,9 +16120,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "772b2fee-ae6b-4aff-ad85-08f3cd6fd33a",
+          "team_id": "94414935-84d8-4dd5-bd32-354d47efb42d",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "981ca4a9-75a4-4768-82ff-b623ec947365"
+          "user_id": "b6d6b9f7-a10d-413d-bfca-12dd8fe0a92c"
         }
       },
       "ClientFacingOrderEvent": {
@@ -16251,7 +16133,6 @@
           },
           "created_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Created At"
           },
           "status": {
@@ -16292,7 +16173,6 @@
           },
           "dob": {
             "type": "string",
-            "format": "date-time",
             "title": "Dob"
           },
           "gender": {
@@ -16350,11 +16230,7 @@
             "description": "Insurance name aliases returned for the insurance information."
           },
           "org_address": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Address"
-              }
-            ],
+            "$ref": "#/components/schemas/Address",
             "description": "Insurance business address returned for the insurance information."
           }
         },
@@ -16695,7 +16571,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -16899,7 +16774,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "bd6f3222-59cf-4e4a-bc3b-741589a84012",
+          "id": "f6e24d27-28da-4ceb-9002-81ed60dacffd",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -16924,7 +16799,6 @@
           },
           "date": {
             "type": "string",
-            "format": "date-time",
             "title": "Date",
             "description": "Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date.",
             "deprecated": true
@@ -16937,13 +16811,11 @@
           },
           "bedtime_start": {
             "type": "string",
-            "format": "date-time",
             "title": "Bedtime Start",
             "description": "UTC Time when the sleep period started"
           },
           "bedtime_stop": {
             "type": "string",
-            "format": "date-time",
             "title": "Bedtime Stop",
             "description": "UTC Time when the sleep period ended"
           },
@@ -17121,11 +16993,7 @@
             "description": "Average respiratory rate::breaths per minute"
           },
           "source": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ClientFacingSource"
-              }
-            ],
+            "$ref": "#/components/schemas/ClientFacingSource",
             "description": "Source the data has come from."
           },
           "sleep_stream": {
@@ -17253,129 +17121,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2024-09-09T10:11:02.110397+00:00",
+              "timestamp": "2024-09-09T12:54:33.386393+00:00",
               "unit": "bpm",
-              "value": 62
+              "value": 132
             },
             {
               "id": 1,
-              "timestamp": "2024-09-09T10:11:32.110428+00:00",
+              "timestamp": "2024-09-09T12:55:03.386425+00:00",
               "unit": "bpm",
-              "value": 68
+              "value": 69
             },
             {
               "id": 2,
-              "timestamp": "2024-09-09T10:12:02.110456+00:00",
+              "timestamp": "2024-09-09T12:55:33.386471+00:00",
               "unit": "bpm",
-              "value": 64
+              "value": 37
             },
             {
               "id": 3,
-              "timestamp": "2024-09-09T10:12:32.110503+00:00",
+              "timestamp": "2024-09-09T12:56:03.386517+00:00",
               "unit": "bpm",
-              "value": 60
+              "value": 181
             },
             {
               "id": 4,
-              "timestamp": "2024-09-09T10:13:02.110533+00:00",
+              "timestamp": "2024-09-09T12:56:33.386546+00:00",
               "unit": "bpm",
-              "value": 102
+              "value": 119
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2024-09-09T10:11:02.110099+00:00",
+              "timestamp": "2024-09-09T12:54:33.386096+00:00",
               "unit": "rmssd",
-              "value": 15
+              "value": 38
             },
             {
               "id": 1,
-              "timestamp": "2024-09-09T10:11:32.110206+00:00",
+              "timestamp": "2024-09-09T12:55:03.386215+00:00",
               "unit": "rmssd",
-              "value": 6
+              "value": 62
             },
             {
               "id": 2,
-              "timestamp": "2024-09-09T10:12:02.110275+00:00",
+              "timestamp": "2024-09-09T12:55:33.386265+00:00",
               "unit": "rmssd",
-              "value": 42
+              "value": 45
             },
             {
               "id": 3,
-              "timestamp": "2024-09-09T10:12:32.110322+00:00",
+              "timestamp": "2024-09-09T12:56:03.386319+00:00",
               "unit": "rmssd",
-              "value": 34
+              "value": 81
             },
             {
               "id": 4,
-              "timestamp": "2024-09-09T10:13:02.110361+00:00",
+              "timestamp": "2024-09-09T12:56:33.386358+00:00",
               "unit": "rmssd",
-              "value": 53
+              "value": 58
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2024-09-09T10:11:02.110561+00:00",
-              "unit": "stage",
-              "value": 1
-            },
-            {
-              "id": 1,
-              "timestamp": "2024-09-09T10:11:32.110588+00:00",
-              "unit": "stage",
-              "value": 0
-            },
-            {
-              "id": 2,
-              "timestamp": "2024-09-09T10:12:02.110612+00:00",
-              "unit": "stage",
-              "value": 3
-            },
-            {
-              "id": 3,
-              "timestamp": "2024-09-09T10:12:32.110638+00:00",
+              "timestamp": "2024-09-09T12:54:33.386575+00:00",
               "unit": "stage",
               "value": 4
             },
             {
-              "id": 4,
-              "timestamp": "2024-09-09T10:13:02.110664+00:00",
+              "id": 1,
+              "timestamp": "2024-09-09T12:55:03.386602+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 1
+            },
+            {
+              "id": 2,
+              "timestamp": "2024-09-09T12:55:33.386627+00:00",
+              "unit": "stage",
+              "value": 0
+            },
+            {
+              "id": 3,
+              "timestamp": "2024-09-09T12:56:03.386652+00:00",
+              "unit": "stage",
+              "value": -1
+            },
+            {
+              "id": 4,
+              "timestamp": "2024-09-09T12:56:33.386678+00:00",
+              "unit": "stage",
+              "value": 4
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2024-09-09T10:11:02.110690+00:00",
-              "unit": "bpm",
-              "value": 23
-            },
-            {
-              "id": 1,
-              "timestamp": "2024-09-09T10:11:32.110714+00:00",
-              "unit": "bpm",
-              "value": 20
-            },
-            {
-              "id": 2,
-              "timestamp": "2024-09-09T10:12:02.110759+00:00",
-              "unit": "bpm",
-              "value": 23
-            },
-            {
-              "id": 3,
-              "timestamp": "2024-09-09T10:12:32.110787+00:00",
+              "timestamp": "2024-09-09T12:54:33.386703+00:00",
               "unit": "bpm",
               "value": 29
             },
             {
-              "id": 4,
-              "timestamp": "2024-09-09T10:13:02.110813+00:00",
+              "id": 1,
+              "timestamp": "2024-09-09T12:55:03.386728+00:00",
               "unit": "bpm",
-              "value": 12
+              "value": 13
+            },
+            {
+              "id": 2,
+              "timestamp": "2024-09-09T12:55:33.386760+00:00",
+              "unit": "bpm",
+              "value": 21
+            },
+            {
+              "id": 3,
+              "timestamp": "2024-09-09T12:56:03.386783+00:00",
+              "unit": "bpm",
+              "value": 30
+            },
+            {
+              "id": 4,
+              "timestamp": "2024-09-09T12:56:33.386805+00:00",
+              "unit": "bpm",
+              "value": 18
             }
           ]
         }
@@ -17512,19 +17380,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -17979,7 +17844,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -18218,12 +18082,10 @@
           },
           "created_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Created At"
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Updated At"
           }
         },
@@ -18238,10 +18100,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "cca5cb81-5849-438d-8c46-1e4e0ab4b0e3",
+          "id": "f3d2ff29-8b3a-4278-a3dd-117a9d04fa91",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "17ce8b25-633e-454f-bc34-4706025745c8",
+            "id": "934980cc-f4ba-4aa5-af53-e0f8b2f5e88b",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -18395,7 +18257,6 @@
           },
           "created_on": {
             "type": "string",
-            "format": "date-time",
             "title": "Created On",
             "description": "When your item is created"
           },
@@ -18470,7 +18331,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2024-09-09T10:11:00+00:00",
+              "created_on": "2024-09-09T12:54:31+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -18478,16 +18339,16 @@
               }
             }
           ],
-          "created_on": "2024-09-09T10:11:00+00:00",
+          "created_on": "2024-09-09T12:54:31+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2024-09-09T10:11:00+00:00",
+            "updated_at": "2024-09-09T12:54:31+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2024-09-09T10:11:00+00:00"
+            "updated_at": "2024-09-09T12:54:31+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -18563,19 +18424,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -18638,12 +18496,10 @@
           },
           "created_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Created At"
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Updated At"
           }
         },
@@ -18657,7 +18513,7 @@
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "47b9b44c-fa90-4164-b897-5b131ae4967b",
+          "id": "fefa5b37-f19d-49c7-b0c9-b96123b23a54",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -18706,7 +18562,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "The timestamp of the measurement."
           },
@@ -18811,13 +18666,11 @@
           },
           "time_start": {
             "type": "string",
-            "format": "date-time",
             "title": "Time Start",
             "description": "Start time of the workout::time"
           },
           "time_end": {
             "type": "string",
-            "format": "date-time",
             "title": "Time End",
             "description": "End time of the workout::time"
           },
@@ -18834,11 +18687,7 @@
             "description": "Calories burned during the workout::kCal"
           },
           "sport": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ClientFacingSport"
-              }
-            ],
+            "$ref": "#/components/schemas/ClientFacingSport",
             "description": "Sport's name",
             "default": ""
           },
@@ -19007,11 +18856,7 @@
             "description": "Provider ID given for that specific workout"
           },
           "source": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ClientFacingSource"
-              }
-            ],
+            "$ref": "#/components/schemas/ClientFacingSource",
             "description": "Source the data has come from."
           }
         },
@@ -19114,19 +18959,16 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp",
             "description": "Depracated. The start time (inclusive) of the interval."
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "The start time (inclusive) of the interval."
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "The end time (exclusive) of the interval."
           },
@@ -19346,25 +19188,16 @@
       "ConnectedSourceClientFacing": {
         "properties": {
           "provider": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ClientFacingProvider"
-              }
-            ],
+            "$ref": "#/components/schemas/ClientFacingProvider",
             "description": "The provider of this connected source."
           },
           "created_on": {
             "type": "string",
-            "format": "date-time",
             "title": "Created On",
             "description": "When your item is created"
           },
           "source": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ClientFacingProvider"
-              }
-            ],
+            "$ref": "#/components/schemas/ClientFacingProvider",
             "description": "Deprecated. Use `provider` instead. Subject to removal after 1 Jan 2024.",
             "deprecated": true
           }
@@ -19686,11 +19519,7 @@
             "default": false
           },
           "billing_type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Billing"
-              }
-            ],
+            "$ref": "#/components/schemas/Billing",
             "default": "client_bill"
           },
           "icd_codes": {
@@ -19843,11 +19672,7 @@
             "description": "Vital user ID"
           },
           "provider": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DemoProviders"
-              }
-            ],
+            "$ref": "#/components/schemas/DemoProviders",
             "description": "Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data)"
           }
         },
@@ -20083,7 +19908,6 @@
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Updated At"
           }
         },
@@ -20109,7 +19933,6 @@
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Updated At"
           }
         },
@@ -20489,14 +20312,12 @@
         "properties": {
           "scheduled_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Scheduled At"
           },
           "started_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
@@ -20507,8 +20328,7 @@
           "ended_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
@@ -20928,7 +20748,6 @@
         "properties": {
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp"
           },
           "status": {
@@ -21114,11 +20933,7 @@
             "description": "Amount of protein in grams (g)"
           },
           "fats": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Fats"
-              }
-            ],
+            "$ref": "#/components/schemas/Fats",
             "description": "Details of fat content"
           },
           "alcohol": {
@@ -21258,7 +21073,6 @@
           },
           "timestamp": {
             "type": "string",
-            "format": "date-time",
             "title": "Timestamp"
           },
           "name": {
@@ -21308,13 +21122,22 @@
           },
           "created_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Created At"
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time",
             "title": "Updated At"
+          },
+          "source_app_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source App Id"
           }
         },
         "type": "object",
@@ -21387,9 +21210,10 @@
           "provider_id": "123456",
           "source": {
             "logo": "https://logo_url.com",
-            "name": "MyFitnessPal",
-            "slug": "my_fitness_pal"
+            "name": "Apple Health Kit",
+            "slug": "apple_health_kit"
           },
+          "source_app_id": "com.myfitnesspal.mfp",
           "source_id": 10,
           "timestamp": "2019-08-24T14:15:22Z",
           "updated_at": "2019-08-24T14:15:22Z",
@@ -22336,6 +22160,23 @@
         ],
         "title": "PhysicianCreateRequestBase"
       },
+      "Placeholder": {
+        "properties": {
+          "placeholder": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "const": true,
+            "title": "Placeholder"
+          }
+        },
+        "type": "object",
+        "required": [
+          "placeholder"
+        ],
+        "title": "Placeholder"
+      },
       "Png": {
         "properties": {
           "content": {
@@ -22492,11 +22333,7 @@
             ]
           },
           "provider": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PasswordProviders"
-              }
-            ],
+            "$ref": "#/components/schemas/PasswordProviders",
             "deprecated": true
           },
           "connected": {
@@ -22600,7 +22437,7 @@
                 "$ref": "#/components/schemas/RelativeTimeframe"
               },
               {
-                "$ref": "#/components/schemas/_Placeholder"
+                "$ref": "#/components/schemas/Placeholder"
               }
             ],
             "title": "Timeframe"
@@ -22678,7 +22515,7 @@
                 "$ref": "#/components/schemas/Period"
               },
               {
-                "$ref": "#/components/schemas/_Placeholder"
+                "$ref": "#/components/schemas/Placeholder"
               }
             ],
             "title": "Partition By"
@@ -23076,11 +22913,7 @@
       "RequestAppointmentRequest": {
         "properties": {
           "address": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/USAddress"
-              }
-            ],
+            "$ref": "#/components/schemas/USAddress",
             "description": "At-home phlebotomy appointment address."
           },
           "provider": {
@@ -23262,8 +23095,7 @@
           "range_start": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
@@ -23274,8 +23106,7 @@
           "range_end": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
@@ -23354,8 +23185,7 @@
           "oldest_data": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
@@ -23366,8 +23196,7 @@
           "newest_data": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
@@ -23850,21 +23679,18 @@
           },
           "start": {
             "type": "string",
-            "format": "date-time",
             "title": "Start",
             "description": "Time is in UTC"
           },
           "end": {
             "type": "string",
-            "format": "date-time",
             "title": "End",
             "description": "Time is in UTC"
           },
           "expires_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
@@ -23899,7 +23725,6 @@
         "properties": {
           "date": {
             "type": "string",
-            "format": "date-time",
             "title": "Date"
           },
           "value": {
@@ -24680,22 +24505,6 @@
         "maxItems": 1,
         "minItems": 1
       },
-      "_Placeholder": {
-        "properties": {
-          "placeholder": {
-            "type": "null",
-            "enum": [
-              null
-            ],
-            "title": "Placeholder"
-          }
-        },
-        "type": "object",
-        "required": [
-          "placeholder"
-        ],
-        "title": "_Placeholder"
-      },
       "vital_core__schemas__db_schemas__lab_test__health_insurance__PersonDetails": {
         "properties": {
           "first_name": {
@@ -24949,7 +24758,7 @@
               {
                 "data": [
                   {
-                    "end": "2024-09-09T10:16:00.998850+00:00",
+                    "end": "2024-09-09T12:59:31.894698+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -26263,7 +26072,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2024-09-09T10:11:01+00:00",
+                    "timestamp": "2024-09-09T12:54:32+00:00",
                     "unit": "mmHg"
                   }
                 ],
