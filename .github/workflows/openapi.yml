@@ -33,6 +33,8 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Download swagger, generate postman and push it
+        env:
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
           echo "$GITHUB_WORKSPACE"
           wget https://api.tryvital.io/openapi.json -O- | npx json > ./fern/openapi/openapi.json
