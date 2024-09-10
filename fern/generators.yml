@@ -7,7 +7,7 @@ groups:
   java-sdk:
     generators:
       - name: fernapi/fern-java-sdk
-        version: 0.10.1
+        version: 1.0.1
         output:
           location: maven
           coordinate: io.tryvital:vital-java
@@ -16,11 +16,12 @@ groups:
         github:
           repository: tryVital/vital-java
         config:
+          base-api-exception-class-name: ApiError
           client-class-name: Vital
   node-sdk:
     generators:
       - name: fernapi/fern-typescript-node-sdk
-        version: 0.39.6
+        version: 0.39.7
         output:
           location: npm
           package-name: '@tryvital/vital-node'
@@ -32,7 +33,7 @@ groups:
   python-sdk:
     generators:
       - name: fernapi/fern-python-sdk
-        version: 0.13.4
+        version: 3.10.8
         output:
           location: pypi
           package-name: vital
@@ -41,6 +42,9 @@ groups:
           repository: tryVital/vital-python
         config:
           client_class_name: Vital
+          inline_request_params: false
+          pydantic_config:
+            use_str_enums: false
   go-sdk:
     generators:
       - name: fernapi/fern-go-sdk
@@ -50,28 +54,32 @@ groups:
   local-preview:
     generators:
       - name: fernapi/fern-java-sdk
-        version: 0.5.13
+        version: 1.0.1
         output:
           location: local-file-system
           path: ../generated/java
         config:
+          base-api-exception-class-name: ApiError
           client-class-name: Vital
       - name: fernapi/fern-typescript-node-sdk
-        version: 0.39.6
+        version: 0.39.7
         output:
           location: local-file-system
           path: ../generated/node
         config:
           namespaceExport: Vital
       - name: fernapi/fern-python-sdk
-        version: 0.8.0
+        version: 3.10.8
         output:
           location: local-file-system
           path: ../generated/python
         config:
           client_class_name: Vital
+          inline_request_params: false
+          pydantic_config:
+            use_str_enums: false
       - name: fernapi/fern-go-sdk
-        version: 0.8.0
+        version: 0.25.0
         output:
           location: local-file-system
           path: ../generated/go
