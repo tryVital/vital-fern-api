@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.2.642"
+    "version": "0.2.650"
   },
   "paths": {
     "/v2/link/token": {
@@ -122,7 +122,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "default": "2024-09-10T15:37:11.822394Z",
+              "default": "2024-09-11T19:23:09.425467Z",
               "title": "Expires At"
             }
           }
@@ -10045,9 +10045,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "0798e606-72b2-4e74-9488-d75ca52f8f92",
-                  "user_id": "83f4b4e5-f4a7-4dca-89c0-c21dbc9f0b31",
-                  "order_id": "0ca758be-ced0-402d-b6df-cca2b3f827ba",
+                  "id": "39412541-ab2d-4b2d-92ca-9eb0b702dbce",
+                  "user_id": "d992c8f1-1f30-4522-bb90-5a9f13f2d0ec",
+                  "order_id": "602f35c3-c2b7-43e3-98c4-57f8ee61f8d6",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -11417,7 +11417,7 @@
   },
   "components": {
     "schemas": {
-      "ActivitySelector": {
+      "ActivityColumnExpr": {
         "properties": {
           "activity": {
             "type": "string",
@@ -11448,7 +11448,7 @@
         "required": [
           "activity"
         ],
-        "title": "ActivitySelector"
+        "title": "ActivityColumnExpr"
       },
       "ActivityV2InDB": {
         "properties": {
@@ -11578,6 +11578,48 @@
           "state"
         ],
         "title": "Address"
+      },
+      "AggregateExpr": {
+        "properties": {
+          "arg": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SleepColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/ActivityColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/IndexColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/GroupKeyColumnExpr"
+              }
+            ],
+            "title": "Arg"
+          },
+          "func": {
+            "type": "string",
+            "enum": [
+              "mean",
+              "min",
+              "max",
+              "sum",
+              "count",
+              "median",
+              "stddev",
+              "oldest",
+              "newest"
+            ],
+            "title": "Func"
+          }
+        },
+        "type": "object",
+        "required": [
+          "arg",
+          "func"
+        ],
+        "title": "AggregateExpr"
       },
       "AllowedRadius": {
         "type": "string",
@@ -12624,18 +12666,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "83adc7e5-dde4-40bd-9f9b-37d70e41c0c6",
+          "id": "a6ef08d3-151b-4fed-8b53-4b86159cfd32",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "e81ac979-a5a2-4a21-88c5-e569662ec7d2",
+          "order_id": "062da499-ae1a-4878-aa4a-4a1d58c19d6b",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "bc7647b8-25ec-48c7-958b-d6b8d2af04fd"
+          "user_id": "7ab93cbb-eb34-4288-972e-16bafdc3787b"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -12662,7 +12704,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "3a385004-a896-4c4f-92dc-b642f3b09e33",
+          "id": "1ce4f3e1-d408-41d1-ad54-f7782501e44c",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -12733,9 +12775,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "78b64e4b-eb4a-467d-b2eb-2a2cf3290bab",
+          "appointment_id": "b84b330a-1f93-4ce9-9a88-6ff63f0adc95",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "550ae0b4-1b23-4a26-82f7-44112b282194",
+          "id": "b4249d55-c488-4daa-9258-d8d3d239c81c",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -12900,7 +12942,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2024-09-10T15:22:10+00:00",
+          "timestamp": "2024-09-11T19:08:06+00:00",
           "unit": "mmHg"
         }
       },
@@ -15719,7 +15761,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2024-09-10T15:27:10.122659+00:00",
+          "end": "2024-09-11T19:13:06.663036+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -16095,8 +16137,8 @@
               "status": "collecting_sample.testkit.transit_customer"
             }
           ],
-          "health_insurace_id": "3da5c660-cfcc-4511-ac94-df4b30c4a5f6",
-          "id": "b298f2eb-cfb8-4c66-9fd0-edfdea91eda9",
+          "health_insurace_id": "036d58f1-a13b-4f1f-9d33-0a781391b8af",
+          "id": "2ab91b1b-4f70-4715-be5e-11a0937f43de",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -16120,9 +16162,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "431f6413-1113-439e-9054-58aa5adaa987",
+          "team_id": "6a31e2c8-9233-4596-952c-4fcd12da7acf",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "11dc459c-90a0-497e-b084-0fe998add6a8"
+          "user_id": "8440cb6f-6b98-4b87-812f-86738dbe4ff2"
         }
       },
       "ClientFacingOrderEvent": {
@@ -16774,7 +16816,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "f5d02eda-1757-40b2-b6eb-98b37e90028a",
+          "id": "f084a5c7-f15b-483b-b364-43f518c0e167",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -17121,129 +17163,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2024-09-10T15:22:11.200090+00:00",
+              "timestamp": "2024-09-11T19:08:08.498247+00:00",
               "unit": "bpm",
-              "value": 59
+              "value": 64
             },
             {
               "id": 1,
-              "timestamp": "2024-09-10T15:22:41.200128+00:00",
+              "timestamp": "2024-09-11T19:08:38.498279+00:00",
               "unit": "bpm",
-              "value": 30
+              "value": 130
             },
             {
               "id": 2,
-              "timestamp": "2024-09-10T15:23:11.200156+00:00",
+              "timestamp": "2024-09-11T19:09:08.498308+00:00",
               "unit": "bpm",
-              "value": 142
+              "value": 63
             },
             {
               "id": 3,
-              "timestamp": "2024-09-10T15:23:41.200212+00:00",
+              "timestamp": "2024-09-11T19:09:38.498356+00:00",
               "unit": "bpm",
-              "value": 185
+              "value": 101
             },
             {
               "id": 4,
-              "timestamp": "2024-09-10T15:24:11.200242+00:00",
+              "timestamp": "2024-09-11T19:10:08.498386+00:00",
               "unit": "bpm",
-              "value": 3
+              "value": 17
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2024-09-10T15:22:11.199799+00:00",
+              "timestamp": "2024-09-11T19:08:08.497944+00:00",
               "unit": "rmssd",
-              "value": 56
+              "value": 45
             },
             {
               "id": 1,
-              "timestamp": "2024-09-10T15:22:41.199909+00:00",
+              "timestamp": "2024-09-11T19:08:38.498071+00:00",
               "unit": "rmssd",
-              "value": 11
+              "value": 72
             },
             {
               "id": 2,
-              "timestamp": "2024-09-10T15:23:11.199959+00:00",
+              "timestamp": "2024-09-11T19:09:08.498123+00:00",
               "unit": "rmssd",
-              "value": 23
+              "value": 58
             },
             {
               "id": 3,
-              "timestamp": "2024-09-10T15:23:41.200007+00:00",
+              "timestamp": "2024-09-11T19:09:38.498171+00:00",
               "unit": "rmssd",
-              "value": 43
+              "value": 39
             },
             {
               "id": 4,
-              "timestamp": "2024-09-10T15:24:11.200053+00:00",
+              "timestamp": "2024-09-11T19:10:08.498211+00:00",
               "unit": "rmssd",
-              "value": 30
+              "value": 82
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2024-09-10T15:22:11.200271+00:00",
+              "timestamp": "2024-09-11T19:08:08.498416+00:00",
               "unit": "stage",
               "value": 1
             },
             {
               "id": 1,
-              "timestamp": "2024-09-10T15:22:41.200299+00:00",
+              "timestamp": "2024-09-11T19:08:38.498443+00:00",
               "unit": "stage",
-              "value": 3
+              "value": -1
             },
             {
               "id": 2,
-              "timestamp": "2024-09-10T15:23:11.200324+00:00",
+              "timestamp": "2024-09-11T19:09:08.498469+00:00",
+              "unit": "stage",
+              "value": 0
+            },
+            {
+              "id": 3,
+              "timestamp": "2024-09-11T19:09:38.498496+00:00",
               "unit": "stage",
               "value": 2
             },
             {
-              "id": 3,
-              "timestamp": "2024-09-10T15:23:41.200350+00:00",
-              "unit": "stage",
-              "value": 4
-            },
-            {
               "id": 4,
-              "timestamp": "2024-09-10T15:24:11.200376+00:00",
+              "timestamp": "2024-09-11T19:10:08.498523+00:00",
               "unit": "stage",
-              "value": 1
+              "value": 2
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2024-09-10T15:22:11.200402+00:00",
+              "timestamp": "2024-09-11T19:08:08.498549+00:00",
               "unit": "bpm",
-              "value": 22
+              "value": 15
             },
             {
               "id": 1,
-              "timestamp": "2024-09-10T15:22:41.200426+00:00",
+              "timestamp": "2024-09-11T19:08:38.498573+00:00",
               "unit": "bpm",
               "value": 9
             },
             {
               "id": 2,
-              "timestamp": "2024-09-10T15:23:11.200449+00:00",
+              "timestamp": "2024-09-11T19:09:08.498604+00:00",
               "unit": "bpm",
-              "value": 12
+              "value": 30
             },
             {
               "id": 3,
-              "timestamp": "2024-09-10T15:23:41.200472+00:00",
+              "timestamp": "2024-09-11T19:09:38.498629+00:00",
               "unit": "bpm",
-              "value": 21
+              "value": 17
             },
             {
               "id": 4,
-              "timestamp": "2024-09-10T15:24:11.200496+00:00",
+              "timestamp": "2024-09-11T19:10:08.498654+00:00",
               "unit": "bpm",
-              "value": 11
+              "value": 8
             }
           ]
         }
@@ -18100,10 +18142,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "68f310df-6186-43e2-a96f-46a257f0c9a8",
+          "id": "e458dc28-8575-4704-977b-44324f15280b",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "2a5274f7-811d-40ca-aa0d-aa9c7b9ad1b1",
+            "id": "bc588625-6331-4b1f-abaa-127455d53c0b",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -18331,7 +18373,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2024-09-10T15:22:10+00:00",
+              "created_on": "2024-09-11T19:08:06+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -18339,16 +18381,16 @@
               }
             }
           ],
-          "created_on": "2024-09-10T15:22:10+00:00",
+          "created_on": "2024-09-11T19:08:06+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2024-09-10T15:22:10+00:00",
+            "updated_at": "2024-09-11T19:08:06+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2024-09-10T15:22:10+00:00"
+            "updated_at": "2024-09-11T19:08:06+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -18513,7 +18555,7 @@
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "595d6a53-2225-4676-ae0c-49fbc759f18c",
+          "id": "889edd74-07d1-450c-917f-3e003de8200b",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -19632,6 +19674,75 @@
         ],
         "title": "CreateRegistrableTestkitOrderRequest"
       },
+      "DatePartExpr": {
+        "properties": {
+          "arg": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IndexColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/Placeholder"
+              }
+            ],
+            "title": "Arg"
+          },
+          "date_part": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "minute",
+                  "hour",
+                  "day",
+                  "week",
+                  "month",
+                  "year"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "weekday",
+                  "week_of_year",
+                  "day_of_year"
+                ]
+              }
+            ],
+            "title": "Date Part"
+          }
+        },
+        "type": "object",
+        "required": [
+          "arg",
+          "date_part"
+        ],
+        "title": "DatePartExpr"
+      },
+      "DateTruncExpr": {
+        "properties": {
+          "date_trunc": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "arg": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IndexColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/Placeholder"
+              }
+            ],
+            "title": "Arg"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date_trunc",
+          "arg"
+        ],
+        "title": "DateTruncExpr"
+      },
       "DaySlots": {
         "properties": {
           "date": {
@@ -20149,6 +20260,28 @@
         ],
         "title": "GetOrdersResponse"
       },
+      "GroupKeyColumnExpr": {
+        "properties": {
+          "group_key": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "*"
+                ],
+                "const": "*"
+              }
+            ],
+            "title": "Group Key",
+            "default": "*"
+          }
+        },
+        "type": "object",
+        "title": "GroupKeyColumnExpr"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -20390,6 +20523,23 @@
           "test_result"
         ],
         "title": "HomeProgesteroneTestEntry"
+      },
+      "IndexColumnExpr": {
+        "properties": {
+          "index": {
+            "type": "string",
+            "enum": [
+              "sleep",
+              "activity"
+            ],
+            "title": "Index"
+          }
+        },
+        "type": "object",
+        "required": [
+          "index"
+        ],
+        "title": "IndexColumnExpr"
       },
       "IndividualProviderData": {
         "properties": {
@@ -20715,6 +20865,7 @@
         "type": "string",
         "enum": [
           "dried_blood_spot",
+          "arm_collector",
           "serum",
           "saliva",
           "urine"
@@ -20740,7 +20891,8 @@
           "quest",
           "labcorp",
           "bioreference",
-          "manual"
+          "manual",
+          "sanocardio"
         ],
         "title": "Labs"
       },
@@ -22499,43 +22651,41 @@
       "QueryInstruction": {
         "properties": {
           "select": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/SleepSelector"
-              },
-              {
-                "$ref": "#/components/schemas/ActivitySelector"
-              }
-            ],
-            "title": "Select"
-          },
-          "partition_by": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/Period"
-              },
-              {
-                "$ref": "#/components/schemas/Placeholder"
-              }
-            ],
-            "title": "Partition By"
-          },
-          "swizzle_by": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/Swizzling"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "reduce_by": {
             "items": {
-              "$ref": "#/components/schemas/Reducer"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/AggregateExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/SleepColumnExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/ActivityColumnExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/IndexColumnExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/GroupKeyColumnExpr"
+                }
+              ]
             },
             "type": "array",
-            "title": "Reduce By"
+            "title": "Select"
+          },
+          "group_by": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/DateTruncExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/DatePartExpr"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Group By"
           },
           "split_by_source": {
             "type": "boolean",
@@ -22546,8 +22696,7 @@
         "type": "object",
         "required": [
           "select",
-          "partition_by",
-          "reduce_by"
+          "group_by"
         ],
         "title": "QueryInstruction"
       },
@@ -22593,6 +22742,17 @@
               }
             ],
             "title": "Constraint"
+          },
+          "default": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Default"
           }
         },
         "type": "object",
@@ -22788,30 +22948,6 @@
             }
           ]
         }
-      },
-      "Reducer": {
-        "properties": {
-          "function": {
-            "type": "string",
-            "enum": [
-              "mean",
-              "min",
-              "max",
-              "sum",
-              "count",
-              "median",
-              "stddev",
-              "oldest",
-              "newest"
-            ],
-            "title": "Function"
-          }
-        },
-        "type": "object",
-        "required": [
-          "function"
-        ],
-        "title": "Reducer"
       },
       "Region": {
         "type": "string",
@@ -23266,7 +23402,7 @@
         ],
         "title": "SingleUserResourceResponse"
       },
-      "SleepSelector": {
+      "SleepColumnExpr": {
         "properties": {
           "sleep": {
             "type": "string",
@@ -23303,7 +23439,7 @@
         "required": [
           "sleep"
         ],
-        "title": "SleepSelector"
+        "title": "SleepColumnExpr"
       },
       "SleepSummaryState": {
         "type": "string",
@@ -23579,37 +23715,6 @@
         ],
         "title": "SourceType"
       },
-      "Swizzling": {
-        "properties": {
-          "bin_granularity": {
-            "type": "string",
-            "enum": [
-              "minute",
-              "hour",
-              "day",
-              "week",
-              "month"
-            ],
-            "title": "Bin Granularity"
-          },
-          "bin_count": {
-            "type": "integer",
-            "minimum": 1,
-            "title": "Bin Count",
-            "default": 1
-          },
-          "gather_every": {
-            "$ref": "#/components/schemas/Period"
-          }
-        },
-        "type": "object",
-        "required": [
-          "bin_granularity",
-          "gather_every"
-        ],
-        "title": "Swizzling",
-        "description": "The Swizzling mode makes the reducer functions produce statistics\nbased on X-of-Y granularity (e.g., day-of-week) for each and every data partition.\n\n## Basic usages\n\n* Hour of Day — gather_every={1, hour}, bin_granularity=day, bin_count=1\n* Day of Week — gather_every={1, day}, bin_granularity=week, bin_count=1\n* Day of Month — gather_every={1, day}, bin_granularity=month, bin_count=1\n\n## Output columns\nSwizzling mode adds two additional columns to the output dataframes:\n1. `swizzle_bin`: The bin index of the data point post-binning (with respect to `bin_count`\n   and `bin_granularity); and\n2 `swizzle_period_start`: The bin-relative period start of the data point with respect to\n  `gather_every`.\n\n## Supported combinations\n| gather_every | group_by              |\n| ---------- | ----------------------- |\n| minute     | minute, hour, day       |\n| hour       | hour, day, week         |\n| day        | day, week, month        |\n| week       | week, month             |\n| month      | month                   |"
-      },
       "TeamConfig": {
         "properties": {
           "libreview": {
@@ -23730,12 +23835,17 @@
           "value": {
             "type": "number",
             "title": "Value"
+          },
+          "all": {
+            "type": "number",
+            "title": "All"
           }
         },
         "type": "object",
         "required": [
           "date",
-          "value"
+          "value",
+          "all"
         ],
         "title": "TimeseriesMetricPoint"
       },
@@ -24758,7 +24868,7 @@
               {
                 "data": [
                   {
-                    "end": "2024-09-10T15:27:10.122659+00:00",
+                    "end": "2024-09-11T19:13:06.663036+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -26072,7 +26182,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2024-09-10T15:22:10+00:00",
+                    "timestamp": "2024-09-11T19:08:06+00:00",
                     "unit": "mmHg"
                   }
                 ],
