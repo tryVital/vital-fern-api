@@ -1,0 +1,15 @@
+components:
+  schemas:
+    Select:
+      enum:
+        - "*"
+      x-fern-enum:
+        '*':
+          name: SelectAll
+
+    GroupKeyColumnExpr:
+      properties:
+        group_key:
+          anyOf:
+            - type: integer
+            - $ref: '#/components/schemas/Select'
