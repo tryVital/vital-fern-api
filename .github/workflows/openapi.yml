@@ -8,12 +8,19 @@ on:
  
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      sdk:
+        description: 'SDK to generate (all, java, go, node, python)'
+        required: true
+        default: 'all'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
+  setup:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    outputs:
+      release_tags: ${{ steps.compute-release-tag.outputs.result }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -141,52 +148,62 @@ jobs:
                 core.setFailed(error.message);
             }
 
-      # This will trigger the CI job and release the SDKs
+  generate_java:
+    needs: setup
+    if: ${{ github.event_name == 'repository_dispatch' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.sdk == 'all' || github.event.inputs.sdk == 'java')) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
       - name: Create java tag
         run: |
-          echo "Creating java tag"
           git config user.name github-actions
           git config user.email github-actions@github.com
-
-          RESULT='${{ steps.compute-release-tag.outputs.result }}'
+          RESULT='${{ needs.setup.outputs.release_tags }}'
           JAVA_VERSION=$(echo "$RESULT" | npx json java)
-
           git tag -a "java@${JAVA_VERSION}" -m "Java SDK ${JAVA_VERSION}"
           git push origin tag "java@${JAVA_VERSION}"
 
+  generate_go:
+    needs: setup
+    if: ${{ github.event_name == 'repository_dispatch' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.sdk == 'all' || github.event.inputs.sdk == 'go')) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
       - name: Create go tag
         run: |
-          echo "Creating go tag"
           git config user.name github-actions
           git config user.email github-actions@github.com
-
-          RESULT='${{ steps.compute-release-tag.outputs.result }}'
+          RESULT='${{ needs.setup.outputs.release_tags }}'
           GO_VERSION=$(echo "$RESULT" | npx json go)
-
           git tag -a "go@${GO_VERSION}" -m "Go SDK ${GO_VERSION}"
           git push origin tag "go@${GO_VERSION}"
 
+  generate_node:
+    needs: setup
+    if: ${{ github.event_name == 'repository_dispatch' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.sdk == 'all' || github.event.inputs.sdk == 'node')) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
       - name: Create node tag
         run: |
-          echo "Creating node tag"
           git config user.name github-actions
-          git config user.email
-
-          RESULT='${{ steps.compute-release-tag.outputs.result }}'
-
+          git config user.email github-actions@github.com
+          RESULT='${{ needs.setup.outputs.release_tags }}'
           NODE_VERSION=$(echo "$RESULT" | npx json node)
-
           git tag -a "node@${NODE_VERSION}" -m "Node SDK ${NODE_VERSION}"
           git push origin tag "node@${NODE_VERSION}"
 
+  generate_python:
+    needs: setup
+    if: ${{ github.event_name == 'repository_dispatch' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.sdk == 'all' || github.event.inputs.sdk == 'python')) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
       - name: Create python tag
         run: |
-          echo "Creating python tag"
           git config user.name github-actions
-          git config user.email
-
-          RESULT='${{ steps.compute-release-tag.outputs.result }}'
+          git config user.email github-actions@github.com
+          RESULT='${{ needs.setup.outputs.release_tags }}'
           PYTHON_VERSION=$(echo "$RESULT" | npx json python)
-
           git tag -a "python@${PYTHON_VERSION}" -m "Python SDK ${PYTHON_VERSION}"
           git push origin tag "python@${PYTHON_VERSION}"
