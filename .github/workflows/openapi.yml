@@ -207,3 +207,49 @@ jobs:
           PYTHON_VERSION=$(echo "$RESULT" | npx json python)
           git tag -a "python@${PYTHON_VERSION}" -m "Python SDK ${PYTHON_VERSION}"
           git push origin tag "python@${PYTHON_VERSION}"
+
+  notify_slack_on_failure:
+    needs: [setup, generate_java, generate_go, generate_node, generate_python]
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: Slack Notification
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "Failed to push SDK release tag",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":x: Workflow failed: ${{ github.workflow }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Event:*\n${{ github.event_name }}"
+                    },
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "View Workflow Run"
+                      },
+                      "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
