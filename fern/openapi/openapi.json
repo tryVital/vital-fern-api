@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.2.714"
+    "version": "0.2.724"
   },
   "paths": {
     "/v2/link/token": {
@@ -122,7 +122,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "default": "2024-10-15T11:11:04.505644Z",
+              "default": "2024-10-17T18:44:14.127369Z",
               "title": "Expires At"
             }
           }
@@ -10137,9 +10137,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "1f1658e8-1c8e-45df-acaf-445b5e05c9ca",
-                  "user_id": "6205c8fc-19a6-41d4-8f61-78e9369d39b5",
-                  "order_id": "3a3b7d8a-6ec3-4f12-805e-c694ab1b88e2",
+                  "id": "e41d0b27-25af-46e9-876b-77b24770b116",
+                  "user_id": "647acc81-ffbd-4d47-89ca-13ca47710a28",
+                  "order_id": "5a4748b8-984c-44d4-b16f-e9e89ac71fa9",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -10271,7 +10271,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AppointmentCancelRequest"
+                "$ref": "#/components/schemas/api__api_v1__endpoints__vital_api__lab_testing__orders__helpers__AppointmentCancelRequest"
               }
             }
           }
@@ -10802,6 +10802,327 @@
         "x-fern-sdk-group-name": "lab_tests",
         "x-fern-sdk-method-name": "get_labels_pdf",
         "x-fern-streaming": true
+      }
+    },
+    "/v3/order/psc/appointment/availability": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Psc Appointment Availability",
+        "operationId": "get_psc_appointment_availability_v3_order_psc_appointment_availability_get",
+        "parameters": [
+          {
+            "name": "lab",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/AppointmentPSCLabs",
+              "description": "Lab to check for availability"
+            },
+            "description": "Lab to check for availability"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Start date for appointment availability",
+              "title": "Start Date"
+            },
+            "description": "Start date for appointment availability"
+          },
+          {
+            "name": "site_codes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "List of site codes to fetch availability for",
+              "title": "Site Codes"
+            },
+            "description": "List of site codes to fetch availability for"
+          },
+          {
+            "name": "zip_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^\\d{5}$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Zip code of the area to check",
+              "title": "Zip Code"
+            },
+            "description": "Zip code of the area to check"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/AllowedRadius"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Radius in which to search. (meters)",
+              "default": "25",
+              "title": "Radius"
+            },
+            "description": "Radius in which to search. (meters)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentAvailabilitySlots"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_psc_appointment_availability"
+      }
+    },
+    "/v3/order/{order_id}/psc/appointment/book": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Book Phlebotomy Appointment",
+        "operationId": "book_phlebotomy_appointment_v3_order__order_id__psc_appointment_book_post",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentBookingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "book_psc_appointment"
+      }
+    },
+    "/v3/order/{order_id}/psc/appointment/reschedule": {
+      "patch": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Reschedule Phlebotomy Appointment",
+        "operationId": "reschedule_phlebotomy_appointment_v3_order__order_id__psc_appointment_reschedule_patch",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentRescheduleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "reschedule_psc_appointment"
+      }
+    },
+    "/v3/order/{order_id}/psc/appointment/cancel": {
+      "patch": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Cancel Phlebotomy Appointment",
+        "operationId": "cancel_phlebotomy_appointment_v3_order__order_id__psc_appointment_cancel_patch",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/vital_core__clients__lab_test__getlabs__schema__AppointmentCancelRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "cancel_psc_appointment"
+      }
+    },
+    "/v3/order/psc/appointment/cancellation-reasons": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Phlebotomy Appointment Cancellation Reasons",
+        "operationId": "get_phlebotomy_appointment_cancellation_reasons_v3_order_psc_appointment_cancellation_reasons_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingAppointmentCancellationReason"
+                  },
+                  "type": "array",
+                  "title": "Response Get Phlebotomy Appointment Cancellation Reasons V3 Order Psc Appointment Cancellation Reasons Get"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_psc_appointment_cancellation_reason"
       }
     },
     "/v3/order/{order_id}/requisition/pdf": {
@@ -11833,31 +12154,6 @@
         ],
         "title": "AppointmentBookingRequest"
       },
-      "AppointmentCancelRequest": {
-        "properties": {
-          "cancellation_reason_id": {
-            "type": "string",
-            "format": "uuid4",
-            "title": "Cancellation Reason Id"
-          },
-          "notes": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Notes"
-          }
-        },
-        "type": "object",
-        "required": [
-          "cancellation_reason_id"
-        ],
-        "title": "AppointmentCancelRequest"
-      },
       "AppointmentEventStatus": {
         "type": "string",
         "enum": [
@@ -11869,12 +12165,47 @@
         ],
         "title": "AppointmentEventStatus"
       },
+      "AppointmentLocation": {
+        "properties": {
+          "location": {
+            "$ref": "#/components/schemas/LngLat"
+          },
+          "address": {
+            "$ref": "#/components/schemas/USAddress"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "location",
+          "address",
+          "code",
+          "name"
+        ],
+        "title": "AppointmentLocation"
+      },
+      "AppointmentPSCLabs": {
+        "type": "string",
+        "enum": [
+          "quest"
+        ],
+        "const": "quest",
+        "title": "AppointmentPSCLabs"
+      },
       "AppointmentProvider": {
         "type": "string",
         "enum": [
           "getlabs",
           "axlehealth",
-          "phlebfinders"
+          "phlebfinders",
+          "quest"
         ],
         "title": "AppointmentProvider"
       },
@@ -11913,9 +12244,9 @@
       "AppointmentType": {
         "type": "string",
         "enum": [
-          "phlebotomy"
+          "phlebotomy",
+          "patient_service_center"
         ],
-        "const": "phlebotomy",
         "title": "AppointmentType"
       },
       "AreaInfo": {
@@ -12785,18 +13116,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "462b0e5c-44ac-4457-9067-a04760a10cb8",
+          "id": "ca4487c8-398b-4e8e-ad23-ce1c089e5699",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "779fda4f-9b2e-4e66-8a25-cc2eae27a259",
+          "order_id": "2e91dbd2-c867-40b5-a0cc-104ac5c9e6a6",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "3ea253d7-2e8e-4bb6-8200-148eb924e35a"
+          "user_id": "c3467d57-23d8-4f4e-9bed-efa2ec59affb"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -12823,7 +13154,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "e9380fed-9695-40f0-9f20-5f0c51e31403",
+          "id": "bbb1cc6f-47f1-44f8-b977-ab9299e3bcd0",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -12894,9 +13225,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "3f799263-597b-4315-b45f-0637a35ab760",
+          "appointment_id": "15e0e472-566f-4552-95a5-251b1d14b2b5",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "d0fe62fe-d1aa-48d6-bb31-8b943ffd6aaa",
+          "id": "f48c5fac-1c2b-481d-b786-b190470cf1c8",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -13061,7 +13392,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2024-10-15T10:56:01+00:00",
+          "timestamp": "2024-10-17T18:29:11+00:00",
           "unit": "mmHg"
         }
       },
@@ -15880,7 +16211,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2024-10-15T11:01:00.887121+00:00",
+          "end": "2024-10-17T18:34:11.341062+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -16256,8 +16587,8 @@
               "status": "collecting_sample.testkit.transit_customer"
             }
           ],
-          "health_insurace_id": "09a31d3d-bd7f-4b2f-b56c-4f3490cb39cf",
-          "id": "494e51e7-a6c6-4516-9cf6-7f46d5e37774",
+          "health_insurace_id": "4e060f0a-0ff5-4f01-b8ae-a11454599280",
+          "id": "51e17e2d-5622-4beb-876b-01f7aa440c83",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -16281,9 +16612,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "4005e10c-3bc4-4e6d-a29a-d0c4c14ca0e5",
+          "team_id": "e5c9c180-ea4f-4d69-8ce6-7f84cb855cde",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "f46f2042-2c1e-49ed-ab3e-57005cb5e7a5"
+          "user_id": "e54b022c-d746-4faa-a521-92a3a27d9cc8"
         }
       },
       "ClientFacingOrderEvent": {
@@ -16935,7 +17266,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "e9152efa-0415-44ec-9bc5-9dc2a0b31234",
+          "id": "d1c86b81-a55d-48d1-8da3-a5558032f197",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -17282,129 +17613,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2024-10-15T10:56:03.219129+00:00",
+              "timestamp": "2024-10-17T18:29:13.172793+00:00",
               "unit": "bpm",
-              "value": 186
+              "value": 54
             },
             {
               "id": 1,
-              "timestamp": "2024-10-15T10:56:33.219159+00:00",
+              "timestamp": "2024-10-17T18:29:43.172821+00:00",
+              "unit": "bpm",
+              "value": 172
+            },
+            {
+              "id": 2,
+              "timestamp": "2024-10-17T18:30:13.172848+00:00",
               "unit": "bpm",
               "value": 4
             },
             {
-              "id": 2,
-              "timestamp": "2024-10-15T10:57:03.219206+00:00",
-              "unit": "bpm",
-              "value": 78
-            },
-            {
               "id": 3,
-              "timestamp": "2024-10-15T10:57:33.219254+00:00",
+              "timestamp": "2024-10-17T18:30:43.172890+00:00",
               "unit": "bpm",
-              "value": 79
+              "value": 10
             },
             {
               "id": 4,
-              "timestamp": "2024-10-15T10:58:03.219285+00:00",
+              "timestamp": "2024-10-17T18:31:13.172917+00:00",
               "unit": "bpm",
-              "value": 87
+              "value": 179
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2024-10-15T10:56:03.218855+00:00",
+              "timestamp": "2024-10-17T18:29:13.172535+00:00",
               "unit": "rmssd",
-              "value": 18
+              "value": 46
             },
             {
               "id": 1,
-              "timestamp": "2024-10-15T10:56:33.218963+00:00",
+              "timestamp": "2024-10-17T18:29:43.172631+00:00",
               "unit": "rmssd",
-              "value": 41
+              "value": 14
             },
             {
               "id": 2,
-              "timestamp": "2024-10-15T10:57:03.219012+00:00",
+              "timestamp": "2024-10-17T18:30:13.172677+00:00",
               "unit": "rmssd",
-              "value": 82
+              "value": 65
             },
             {
               "id": 3,
-              "timestamp": "2024-10-15T10:57:33.219058+00:00",
+              "timestamp": "2024-10-17T18:30:43.172725+00:00",
               "unit": "rmssd",
-              "value": 75
+              "value": 0
             },
             {
               "id": 4,
-              "timestamp": "2024-10-15T10:58:03.219095+00:00",
+              "timestamp": "2024-10-17T18:31:13.172761+00:00",
               "unit": "rmssd",
-              "value": 1
+              "value": 84
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2024-10-15T10:56:03.219314+00:00",
+              "timestamp": "2024-10-17T18:29:13.172943+00:00",
+              "unit": "stage",
+              "value": 3
+            },
+            {
+              "id": 1,
+              "timestamp": "2024-10-17T18:29:43.172968+00:00",
               "unit": "stage",
               "value": 2
             },
             {
-              "id": 1,
-              "timestamp": "2024-10-15T10:56:33.219340+00:00",
-              "unit": "stage",
-              "value": -1
-            },
-            {
               "id": 2,
-              "timestamp": "2024-10-15T10:57:03.219365+00:00",
+              "timestamp": "2024-10-17T18:30:13.172991+00:00",
               "unit": "stage",
               "value": 4
             },
             {
               "id": 3,
-              "timestamp": "2024-10-15T10:57:33.219390+00:00",
+              "timestamp": "2024-10-17T18:30:43.173015+00:00",
               "unit": "stage",
               "value": 4
             },
             {
               "id": 4,
-              "timestamp": "2024-10-15T10:58:03.219416+00:00",
+              "timestamp": "2024-10-17T18:31:13.173040+00:00",
               "unit": "stage",
-              "value": 4
+              "value": 0
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2024-10-15T10:56:03.219442+00:00",
+              "timestamp": "2024-10-17T18:29:13.173065+00:00",
               "unit": "bpm",
-              "value": 21
+              "value": 23
             },
             {
               "id": 1,
-              "timestamp": "2024-10-15T10:56:33.219465+00:00",
+              "timestamp": "2024-10-17T18:29:43.173088+00:00",
               "unit": "bpm",
-              "value": 22
+              "value": 12
             },
             {
               "id": 2,
-              "timestamp": "2024-10-15T10:57:03.219487+00:00",
+              "timestamp": "2024-10-17T18:30:13.173127+00:00",
               "unit": "bpm",
-              "value": 29
+              "value": 15
             },
             {
               "id": 3,
-              "timestamp": "2024-10-15T10:57:33.219511+00:00",
+              "timestamp": "2024-10-17T18:30:43.173177+00:00",
               "unit": "bpm",
-              "value": 22
+              "value": 27
             },
             {
               "id": 4,
-              "timestamp": "2024-10-15T10:58:03.219534+00:00",
+              "timestamp": "2024-10-17T18:31:13.173216+00:00",
               "unit": "bpm",
-              "value": 28
+              "value": 22
             }
           ]
         }
@@ -18261,10 +18592,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "06190240-8d98-4aca-bcf4-6b1489bddaa1",
+          "id": "90dbccf7-02b4-4904-b4d5-7ad66260dad0",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "e4251fb0-7b42-4730-9113-e7c7d3dda9d9",
+            "id": "675a1aab-26f7-4945-a604-f262f070ccac",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -18492,7 +18823,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2024-10-15T10:56:00+00:00",
+              "created_on": "2024-10-17T18:29:11+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -18500,16 +18831,16 @@
               }
             }
           ],
-          "created_on": "2024-10-15T10:56:00+00:00",
+          "created_on": "2024-10-17T18:29:11+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2024-10-15T10:56:00+00:00",
+            "updated_at": "2024-10-17T18:29:11+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2024-10-15T10:56:00+00:00"
+            "updated_at": "2024-10-17T18:29:11+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -18662,6 +18993,18 @@
           "updated_at": {
             "type": "string",
             "title": "Updated At"
+          },
+          "appointment_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Appointment Id"
           }
         },
         "type": "object",
@@ -18673,8 +19016,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
+          "appointment_id": "89ac3694-2655-4928-b42b-f698dfba9a30",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "98fdd63e-471c-45f0-8333-d108b34a928e",
+          "id": "40157313-703d-480e-9e01-18d1b4367959",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -19864,6 +20208,16 @@
       },
       "DaySlots": {
         "properties": {
+          "location": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AppointmentLocation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "date": {
             "type": "string",
             "format": "date",
@@ -21953,7 +22307,8 @@
           "polar",
           "cronometer",
           "omron",
-          "whoop_v2"
+          "whoop_v2",
+          "my_fitness_pal_v2"
         ],
         "title": "OAuthProviders"
       },
@@ -21997,6 +22352,9 @@
           "sample_with_lab.walk_in_test.partial_results",
           "failed.walk_in_test.sample_error",
           "cancelled.walk_in_test.cancelled",
+          "collecting_sample.walk_in_test.appointment_pending",
+          "collecting_sample.walk_in_test.appointment_scheduled",
+          "collecting_sample.walk_in_test.appointment_cancelled",
           "received.at_home_phlebotomy.ordered",
           "received.at_home_phlebotomy.requisition_created",
           "collecting_sample.at_home_phlebotomy.appointment_pending",
@@ -22795,7 +23153,8 @@
           "cronometer",
           "kardia",
           "whoop_v2",
-          "ultrahuman"
+          "ultrahuman",
+          "my_fitness_pal_v2"
         ],
         "title": "Providers"
       },
@@ -24898,6 +25257,56 @@
         "maxItems": 1,
         "minItems": 1
       },
+      "api__api_v1__endpoints__vital_api__lab_testing__orders__helpers__AppointmentCancelRequest": {
+        "properties": {
+          "cancellation_reason_id": {
+            "type": "string",
+            "format": "uuid4",
+            "title": "Cancellation Reason Id"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cancellation_reason_id"
+        ],
+        "title": "AppointmentCancelRequest"
+      },
+      "vital_core__clients__lab_test__getlabs__schema__AppointmentCancelRequest": {
+        "properties": {
+          "cancellationReasonId": {
+            "type": "string",
+            "format": "uuid4",
+            "title": "Cancellationreasonid"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cancellationReasonId"
+        ],
+        "title": "AppointmentCancelRequest"
+      },
       "vital_core__schemas__db_schemas__lab_test__health_insurance__PersonDetails": {
         "properties": {
           "first_name": {
@@ -25151,7 +25560,7 @@
               {
                 "data": [
                   {
-                    "end": "2024-10-15T11:01:00.887121+00:00",
+                    "end": "2024-10-17T18:34:11.341062+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -26465,7 +26874,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2024-10-15T10:56:01+00:00",
+                    "timestamp": "2024-10-17T18:29:11+00:00",
                     "unit": "mmHg"
                   }
                 ],
