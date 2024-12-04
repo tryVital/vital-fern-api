@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.2.841"
+    "version": "0.2.843"
   },
   "paths": {
     "/v2/link/token": {
@@ -122,7 +122,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "default": "2024-12-03T16:11:57.424010Z",
+              "default": "2024-12-04T14:06:47.565847Z",
               "title": "Expires At"
             }
           }
@@ -2133,6 +2133,254 @@
         },
         "x-fern-sdk-group-name": "workouts",
         "x-fern-sdk-method-name": "get_by_workout_id"
+      }
+    },
+    "/v2/timeseries/{user_id}/heart_rate_alert/grouped": {
+      "get": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Heart Rate Alert",
+        "operationId": "get_heart_rate_alert_grouped",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+            "deprecated": true
+          },
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Next Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingGroupedTimeseriesResponse_ClientFacingHeartRateAlertSample_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "vitals",
+        "x-fern-sdk-method-name": "heart_rate_alert_grouped",
+        "x-fern-availability": "generally-available"
+      }
+    },
+    "/v2/timeseries/{user_id}/afib_burden/grouped": {
+      "get": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Afib Burden",
+        "operationId": "get_afib_burden_grouped",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+            "deprecated": true
+          },
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Next Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingGroupedTimeseriesResponse_ClientFacingAFibBurdenSample_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "vitals",
+        "x-fern-sdk-method-name": "afib_burden_grouped",
+        "x-fern-availability": "generally-available"
       }
     },
     "/v2/timeseries/{user_id}/workout_duration/grouped": {
@@ -10317,9 +10565,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "58c228a8-d9f0-4d7b-a145-1db61821aab5",
-                  "user_id": "3ff846f1-d7ba-4a06-ab16-7eacce995d2c",
-                  "order_id": "61582737-3fc2-41ab-9f3f-9de13b52d400",
+                  "id": "0dc6fdd8-b5f9-4610-8050-352d2e190903",
+                  "user_id": "cdad53f6-4c29-4609-910d-b007df343992",
+                  "order_id": "8423336e-c444-4e73-9d48-0ae267e538b0",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -12246,6 +12494,9 @@
                 "$ref": "#/components/schemas/SleepScoreValueMacroExpr"
               },
               {
+                "$ref": "#/components/schemas/ChronotypeValueMacroExpr"
+              },
+              {
                 "$ref": "#/components/schemas/UnrecognizedValueMacroExpr"
               }
             ],
@@ -12885,6 +13136,32 @@
         ],
         "title": "CervicalMucusEntry"
       },
+      "ChronotypeValueMacroExpr": {
+        "properties": {
+          "value_macro": {
+            "type": "string",
+            "enum": [
+              "chronotype"
+            ],
+            "const": "chronotype",
+            "title": "Value Macro"
+          },
+          "version": {
+            "type": "string",
+            "enum": [
+              "automatic"
+            ],
+            "const": "automatic",
+            "title": "Version",
+            "default": "automatic"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value_macro"
+        ],
+        "title": "ChronotypeValueMacroExpr"
+      },
       "ClientActivityResponse": {
         "properties": {
           "activity": {
@@ -12967,6 +13244,89 @@
               "weight": 80
             }
           ]
+        }
+      },
+      "ClientFacingAFibBurdenSample": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "Deprecated"
+          },
+          "timezone_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone Offset",
+            "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection."
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "%"
+            ],
+            "const": "%",
+            "title": "Unit"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp",
+            "description": "Depracated. The start time (inclusive) of the interval."
+          },
+          "start": {
+            "type": "string",
+            "title": "Start",
+            "description": "The start time (inclusive) of the interval."
+          },
+          "end": {
+            "type": "string",
+            "title": "End",
+            "description": "The end time (exclusive) of the interval."
+          },
+          "value": {
+            "type": "number",
+            "title": "Value",
+            "description": "The recorded value for the interval."
+          }
+        },
+        "type": "object",
+        "required": [
+          "unit",
+          "timestamp",
+          "start",
+          "end",
+          "value"
+        ],
+        "title": "ClientFacingAFibBurdenSample",
+        "example": {
+          "end": "2023-02-13T14:30:52+00:00",
+          "start": "2023-02-13T14:30:52+00:00",
+          "unit": "%",
+          "value": 3
         }
       },
       "ClientFacingActivity": {
@@ -13373,18 +13733,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "c8779230-00bc-4a83-ad83-2f47baabd39a",
+          "id": "e72595a7-1464-402a-8b35-8dafab03f2dd",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "1f703c90-9bc3-405f-8bfd-1ee9ace41482",
+          "order_id": "fd0b8c6f-6c00-4cfb-89ad-da371c6a07d1",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "ad6b4dcb-b75c-4db4-96c5-0567ab9bd8b4"
+          "user_id": "94f79289-1714-407e-a7ba-1b75e2a63b2a"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -13411,7 +13771,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "2e449182-0197-497b-8d04-42577a5f5e68",
+          "id": "3600427b-7675-4cb3-8311-97db2d1de34e",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -13482,9 +13842,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "4804ac73-87d8-49b5-8fb7-2ebbcc292369",
+          "appointment_id": "1557f0fb-f04f-4e2a-a7b7-1a6efe2ee519",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "8795cc9e-55e7-4ddb-8951-b428d9e0ed9b",
+          "id": "b62c8fa2-0190-4193-88b2-34cc0bcd8c10",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -13649,7 +14009,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2024-12-03T15:56:55+00:00",
+          "timestamp": "2024-12-04T13:51:45+00:00",
           "unit": "mmHg"
         }
       },
@@ -14883,6 +15243,71 @@
           "value": 0.5
         }
       },
+      "ClientFacingGroupedTimeseriesResponse_ClientFacingAFibBurdenSample_": {
+        "properties": {
+          "groups": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/ClientFacingTimeseriesGroup_ClientFacingAFibBurdenSample_"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Groups",
+            "description": "For each matching provider or lab, a list of grouped timeseries values."
+          },
+          "next": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data.",
+            "deprecated": true
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups"
+        ],
+        "title": "ClientFacingGroupedTimeseriesResponse[ClientFacingAFibBurdenSample]",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:30:52+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "%",
+                    "value": 3
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
+      },
       "ClientFacingGroupedTimeseriesResponse_ClientFacingBodyTemperatureDeltaSample_": {
         "properties": {
           "groups": {
@@ -15069,6 +15494,72 @@
                     "start": "2023-02-13T14:30:52+00:00",
                     "unit": "g",
                     "value": 30
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "ClientFacingGroupedTimeseriesResponse_ClientFacingHeartRateAlertSample_": {
+        "properties": {
+          "groups": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/ClientFacingTimeseriesGroup_ClientFacingHeartRateAlertSample_"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Groups",
+            "description": "For each matching provider or lab, a list of grouped timeseries values."
+          },
+          "next": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data.",
+            "deprecated": true
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups"
+        ],
+        "title": "ClientFacingGroupedTimeseriesResponse[ClientFacingHeartRateAlertSample]",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:30:52+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "type": "irregular_rhythm",
+                    "unit": "count",
+                    "value": 1
                   }
                 ],
                 "source": {
@@ -15406,6 +15897,91 @@
           "max_bpm": 100,
           "min_bpm": 60,
           "resting_bpm": 60
+        }
+      },
+      "ClientFacingHeartRateAlertSample": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "Deprecated"
+          },
+          "timezone_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone Offset",
+            "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "low_heart_rate",
+              "high_heart_rate",
+              "irregular_rhythm"
+            ],
+            "title": "Type"
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "count"
+            ],
+            "const": "count",
+            "title": "Unit"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp",
+            "description": "Depracated. The start time (inclusive) of the interval."
+          },
+          "start": {
+            "type": "string",
+            "title": "Start",
+            "description": "The start time (inclusive) of the interval."
+          },
+          "end": {
+            "type": "string",
+            "title": "End",
+            "description": "The end time (exclusive) of the interval."
+          },
+          "value": {
+            "type": "integer",
+            "enum": [
+              1
+            ],
+            "const": 1,
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "unit",
+          "timestamp",
+          "start",
+          "end",
+          "value"
+        ],
+        "title": "ClientFacingHeartRateAlertSample",
+        "example": {
+          "end": "2023-02-13T14:30:52+00:00",
+          "start": "2023-02-13T14:30:52+00:00",
+          "type": "irregular_rhythm",
+          "unit": "count",
+          "value": 1
         }
       },
       "ClientFacingHeartRateTimeseries": {
@@ -16526,7 +17102,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2024-12-03T16:01:55.163605+00:00",
+          "end": "2024-12-04T13:56:45.261029+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -16902,8 +17478,8 @@
               "status": "collecting_sample.testkit.transit_customer"
             }
           ],
-          "health_insurace_id": "9b869b15-10c8-44f8-a56a-b9f8c1f9eab8",
-          "id": "f9a64d76-f44d-4717-96d2-d06ad076afd7",
+          "health_insurace_id": "d49035bf-6d29-4cce-99d3-3b4b1298d7fe",
+          "id": "30d14768-05f6-4469-8ae5-e7427001af15",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -16927,9 +17503,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "39aeacbb-e6e0-4add-a6f7-8ba31c108b57",
+          "team_id": "0401c8a9-5764-42f6-9e94-b3b55ea26a06",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "78fc57f2-b76a-405a-9c84-8c73ff1fc9d4"
+          "user_id": "d73b2dec-6991-44f4-a76c-75b454e3b3ff"
         }
       },
       "ClientFacingOrderEvent": {
@@ -17326,6 +17902,8 @@
           "menstrual_cycle",
           "sleep_cycle",
           "electrocardiogram_voltage",
+          "afib_burden",
+          "heart_rate_alert",
           "workout_duration",
           "insulin_injection",
           "carbohydrates",
@@ -17582,7 +18160,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "0b508015-8753-4c14-a8d3-3b74c71528d8",
+          "id": "e8b473b7-bfb8-446d-9f79-7205207a4514",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -18093,129 +18671,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2024-12-03T15:56:56.399578+00:00",
+              "timestamp": "2024-12-04T13:51:46.600805+00:00",
               "unit": "bpm",
-              "value": 131
+              "value": 60
             },
             {
               "id": 1,
-              "timestamp": "2024-12-03T15:57:26.399604+00:00",
+              "timestamp": "2024-12-04T13:52:16.600836+00:00",
               "unit": "bpm",
-              "value": 108
+              "value": 57
             },
             {
               "id": 2,
-              "timestamp": "2024-12-03T15:57:56.399628+00:00",
+              "timestamp": "2024-12-04T13:52:46.600864+00:00",
               "unit": "bpm",
-              "value": 9
+              "value": 142
             },
             {
               "id": 3,
-              "timestamp": "2024-12-03T15:58:26.399668+00:00",
+              "timestamp": "2024-12-04T13:53:16.600910+00:00",
               "unit": "bpm",
-              "value": 106
+              "value": 160
             },
             {
               "id": 4,
-              "timestamp": "2024-12-03T15:58:56.399694+00:00",
+              "timestamp": "2024-12-04T13:53:46.600940+00:00",
               "unit": "bpm",
-              "value": 61
+              "value": 97
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2024-12-03T15:56:56.399338+00:00",
+              "timestamp": "2024-12-04T13:51:46.600508+00:00",
               "unit": "rmssd",
-              "value": 14
+              "value": 62
             },
             {
               "id": 1,
-              "timestamp": "2024-12-03T15:57:26.399431+00:00",
+              "timestamp": "2024-12-04T13:52:16.600616+00:00",
               "unit": "rmssd",
-              "value": 13
+              "value": 76
             },
             {
               "id": 2,
-              "timestamp": "2024-12-03T15:57:56.399474+00:00",
+              "timestamp": "2024-12-04T13:52:46.600665+00:00",
               "unit": "rmssd",
-              "value": 86
+              "value": 62
             },
             {
               "id": 3,
-              "timestamp": "2024-12-03T15:58:26.399514+00:00",
+              "timestamp": "2024-12-04T13:53:16.600728+00:00",
               "unit": "rmssd",
-              "value": 75
+              "value": 66
             },
             {
               "id": 4,
-              "timestamp": "2024-12-03T15:58:56.399548+00:00",
+              "timestamp": "2024-12-04T13:53:46.600770+00:00",
               "unit": "rmssd",
-              "value": 69
+              "value": 94
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2024-12-03T15:56:56.399719+00:00",
+              "timestamp": "2024-12-04T13:51:46.600968+00:00",
               "unit": "stage",
-              "value": 1
+              "value": 0
             },
             {
               "id": 1,
-              "timestamp": "2024-12-03T15:57:26.399742+00:00",
+              "timestamp": "2024-12-04T13:52:16.600995+00:00",
               "unit": "stage",
-              "value": 4
+              "value": -1
             },
             {
               "id": 2,
-              "timestamp": "2024-12-03T15:57:56.399764+00:00",
+              "timestamp": "2024-12-04T13:52:46.601019+00:00",
               "unit": "stage",
-              "value": 1
+              "value": 3
             },
             {
               "id": 3,
-              "timestamp": "2024-12-03T15:58:26.399785+00:00",
+              "timestamp": "2024-12-04T13:53:16.601044+00:00",
               "unit": "stage",
               "value": 1
             },
             {
               "id": 4,
-              "timestamp": "2024-12-03T15:58:56.399807+00:00",
+              "timestamp": "2024-12-04T13:53:46.601070+00:00",
               "unit": "stage",
-              "value": 4
+              "value": 3
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2024-12-03T15:56:56.399859+00:00",
+              "timestamp": "2024-12-04T13:51:46.601095+00:00",
               "unit": "bpm",
-              "value": 20
+              "value": 23
             },
             {
               "id": 1,
-              "timestamp": "2024-12-03T15:57:26.399880+00:00",
+              "timestamp": "2024-12-04T13:52:16.601119+00:00",
               "unit": "bpm",
               "value": 18
             },
             {
               "id": 2,
-              "timestamp": "2024-12-03T15:57:56.399900+00:00",
+              "timestamp": "2024-12-04T13:52:46.601142+00:00",
               "unit": "bpm",
-              "value": 14
+              "value": 12
             },
             {
               "id": 3,
-              "timestamp": "2024-12-03T15:58:26.399921+00:00",
+              "timestamp": "2024-12-04T13:53:16.601165+00:00",
               "unit": "bpm",
-              "value": 29
+              "value": 24
             },
             {
               "id": 4,
-              "timestamp": "2024-12-03T15:58:56.399962+00:00",
+              "timestamp": "2024-12-04T13:53:46.601189+00:00",
               "unit": "bpm",
-              "value": 24
+              "value": 13
             }
           ]
         }
@@ -19072,10 +19650,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "74704bff-8245-41b8-9429-93f3992877c2",
+          "id": "9c77fb10-d8fb-4dee-bdd6-6c7f80f49aa6",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "23a047af-ab2a-4172-b6b3-fe8acbe05c13",
+            "id": "5d152726-6b58-4794-899b-871fa69288f6",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -19087,6 +19665,26 @@
           },
           "updated_at": "2020-01-01T00:00:00Z"
         }
+      },
+      "ClientFacingTimeseriesGroup_ClientFacingAFibBurdenSample_": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingSource"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingAFibBurdenSample"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "data"
+        ],
+        "title": "ClientFacingTimeseriesGroup[ClientFacingAFibBurdenSample]"
       },
       "ClientFacingTimeseriesGroup_ClientFacingBodyTemperatureDeltaSample_": {
         "properties": {
@@ -19147,6 +19745,26 @@
           "data"
         ],
         "title": "ClientFacingTimeseriesGroup[ClientFacingCarbohydratesSample]"
+      },
+      "ClientFacingTimeseriesGroup_ClientFacingHeartRateAlertSample_": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingSource"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingHeartRateAlertSample"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "data"
+        ],
+        "title": "ClientFacingTimeseriesGroup[ClientFacingHeartRateAlertSample]"
       },
       "ClientFacingTimeseriesGroup_ClientFacingInsulinInjectionSample_": {
         "properties": {
@@ -19303,7 +19921,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2024-12-03T15:56:55+00:00",
+              "created_on": "2024-12-04T13:51:45+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -19311,16 +19929,16 @@
               }
             }
           ],
-          "created_on": "2024-12-03T15:56:55+00:00",
+          "created_on": "2024-12-04T13:51:45+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2024-12-03T15:56:55+00:00",
+            "updated_at": "2024-12-04T13:51:45+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2024-12-03T15:56:55+00:00"
+            "updated_at": "2024-12-04T13:51:45+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -19496,9 +20114,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "44b1dc1c-39d4-458f-bc32-13ca8bae1a36",
+          "appointment_id": "a54448c9-97b2-47bc-891a-fc96e1f97173",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "b9844cc3-da9a-45d3-b8b7-655d30bd53a7",
+          "id": "809ff0c9-aa52-4206-b68b-da8cdca2c8cc",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -23255,6 +23873,7 @@
           },
           "email": {
             "type": "string",
+            "format": "email",
             "title": "Email"
           }
         },
@@ -23857,6 +24476,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/SleepScoreValueMacroExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/ChronotypeValueMacroExpr"
                 },
                 {
                   "$ref": "#/components/schemas/UnrecognizedValueMacroExpr"
@@ -25110,6 +25732,8 @@
           "water",
           "caffeine",
           "mindfulness_minutes",
+          "afib_burden",
+          "heart_rate_alert",
           "workout_duration",
           "insulin_injection",
           "carbohydrates",
@@ -26231,7 +26855,7 @@
               {
                 "data": [
                   {
-                    "end": "2024-12-03T16:01:55.163605+00:00",
+                    "end": "2024-12-04T13:56:45.261029+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -27545,7 +28169,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2024-12-03T15:56:55+00:00",
+                    "timestamp": "2024-12-04T13:51:45+00:00",
                     "unit": "mmHg"
                   }
                 ],
