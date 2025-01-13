@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_tags: ${{ steps.compute-release-tag.outputs.result }}
+      release_commit: ${{ steps.push-openapi.outputs.release_commit }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,6 +41,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Download swagger, generate postman and push it
+        id: push-openapi
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
@@ -52,6 +54,7 @@ jobs:
           git add ./postman/collection.json
           git commit -m "[automated commit] update openapi.json and collection.json"
           git push
+          echo "release_commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Compute release tag
         id: compute-release-tag
@@ -156,6 +159,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ref: ${{ needs.setup.outputs.release_commit }}
+          
       - name: Create java tag
         run: |
           git config user.name github-actions
@@ -173,6 +178,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ref: ${{ needs.setup.outputs.release_commit }}
+
       - name: Create go tag
         run: |
           git config user.name github-actions
@@ -190,6 +197,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ref: ${{ needs.setup.outputs.release_commit }}
+
       - name: Create node tag
         run: |
           git config user.name github-actions
@@ -207,6 +216,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ref: ${{ needs.setup.outputs.release_commit }}
+
       - name: Create python tag
         run: |
           git config user.name github-actions
