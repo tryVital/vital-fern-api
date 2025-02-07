@@ -237,7 +237,6 @@ jobs:
         with:
           payload: |
             {
-              "text": "Failed to push SDK release tag",
               "blocks": [
                 {
                   "type": "section",
@@ -260,9 +259,9 @@ jobs:
                   "elements": [
                     {
                       "type": "button",
-                      "text": {
+                      "text":{
                         "type": "plain_text",
-                        "text": "View Workflow Run"
+                        "text": "Inspect Workflow Run"
                       },
                       "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                     }
