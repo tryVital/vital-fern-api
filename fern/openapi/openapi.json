@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.2.973"
+    "version": "0.2.977"
   },
   "paths": {
     "/v2/link/bulk_import": {
@@ -10141,6 +10141,7 @@
         "summary": "Get Lab Tests For Team",
         "description": "GET all the lab tests the team has access to.",
         "operationId": "get_lab_tests_for_team_v3_lab_tests_get",
+        "deprecated": true,
         "parameters": [
           {
             "name": "generation_method",
@@ -10330,7 +10331,8 @@
           }
         },
         "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get"
+        "x-fern-sdk-method-name": "get",
+        "x-fern-availability": "deprecated"
       },
       "post": {
         "tags": [
@@ -10799,6 +10801,229 @@
         "x-fern-sdk-method-name": "get_labs"
       }
     },
+    "/v3/lab_test": {
+      "get": {
+        "tags": [
+          "lab_tests"
+        ],
+        "summary": "Get Paginated Lab Tests For Team",
+        "description": "GET lab tests the team has access to as a paginated list.",
+        "operationId": "get_paginated_lab_tests_for_team_v3_lab_test_get",
+        "parameters": [
+          {
+            "name": "lab_test_limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Lab Test Limit"
+            }
+          },
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Next Cursor"
+            }
+          },
+          {
+            "name": "generation_method",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/LabTestGenerationMethodFilter",
+              "description": "Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.",
+              "default": "manual"
+            },
+            "description": "Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned."
+          },
+          {
+            "name": "lab_slug",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by the slug of the lab for these lab tests.",
+              "title": "Lab Slug"
+            },
+            "description": "Filter by the slug of the lab for these lab tests."
+          },
+          {
+            "name": "collection_method",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LabTestCollectionMethod"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by the collection method for these lab tests.",
+              "title": "Collection Method"
+            },
+            "description": "Filter by the collection method for these lab tests."
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LabTestStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by the status of these lab tests.",
+              "title": "Status"
+            },
+            "description": "Filter by the status of these lab tests."
+          },
+          {
+            "name": "marker_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter to only include lab tests containing these marker IDs.",
+              "title": "Marker Ids"
+            },
+            "description": "Filter to only include lab tests containing these marker IDs."
+          },
+          {
+            "name": "provider_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter to only include lab tests containing these provider IDs.",
+              "title": "Provider Ids"
+            },
+            "description": "Filter to only include lab tests containing these provider IDs."
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by the name of the lab test (a case-insensitive substring search).",
+              "title": "Name"
+            },
+            "description": "Filter by the name of the lab test (a case-insensitive substring search)."
+          },
+          {
+            "name": "order_key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "price",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Order Key"
+            }
+          },
+          {
+            "name": "order_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string",
+              "default": "asc",
+              "title": "Order Direction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LabTestResourcesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_paginated"
+      }
+    },
     "/v3/order/testkit/register": {
       "post": {
         "tags": [
@@ -11051,9 +11276,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "c2ffd57b-ec1a-4fab-a8e6-222cb882c95c",
-                  "user_id": "cec17566-e322-4bd4-a186-43c7cd7830af",
-                  "order_id": "08777e09-b8eb-4d69-a8ba-c24fa0d28bfb",
+                  "id": "bedb6ebf-7a46-449c-bf9f-1afef981a0fb",
+                  "user_id": "ae2c9ac5-16ea-4324-b5f3-b2a6056e82e6",
+                  "order_id": "75980cc5-5420-4b59-8a11-4c9660a64d92",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -14612,18 +14837,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "151d64c3-490b-48ee-9fad-018e77e97f0c",
+          "id": "776bd32f-f233-442b-b4e7-b827fa0d7775",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "b60d5ac0-ce89-4483-afcc-c2632f1a2941",
+          "order_id": "70c30865-cfb2-4310-98b7-476ccba0c1a8",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "fac98976-3a8e-4437-bfab-3b45c1fb2406"
+          "user_id": "145ef9af-c968-4261-bf2f-0b91f24ac510"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -14650,7 +14875,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "6906a650-cea3-4d37-87d9-54e227f07adc",
+          "id": "1eb35afb-270f-4f8d-a62e-e864b02e212c",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -14721,9 +14946,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "e3e23b80-5463-424f-aa2d-f7dc9521d4ed",
+          "appointment_id": "94d4e18c-c8b4-488b-8d31-24f8bffd8da6",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "fe5ba855-7d08-44de-8cfd-576936dbf9ca",
+          "id": "c149972a-8182-4eb5-b23d-43651c412a5a",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -14888,7 +15113,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-02-06T19:03:40+00:00",
+          "timestamp": "2025-02-10T13:13:12+00:00",
           "unit": "mmHg"
         }
       },
@@ -18472,7 +18697,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-02-06T19:08:40.702639+00:00",
+          "end": "2025-02-10T13:18:12.659453+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -18848,8 +19073,8 @@
               "status": "collecting_sample.testkit.transit_customer"
             }
           ],
-          "health_insurace_id": "32457908-c1a7-42b4-b1af-162f61df4195",
-          "id": "bb456fae-873e-428c-bb5a-16f1b9f0781e",
+          "health_insurace_id": "44723f03-df03-481b-b3a3-c8bb80e1e01a",
+          "id": "8ce3cdca-c01d-4694-a926-e7ff41e47067",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -18873,9 +19098,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "677eb6b0-9db8-46b8-a84d-4f230ed70df3",
+          "team_id": "970cc55b-4edf-4551-8327-abd635d36644",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "a9ec5f76-a31a-4ba0-b1a1-6411fdec6408"
+          "user_id": "4f1eb4c2-0c2d-4841-b3ef-8107773b0d36"
         }
       },
       "ClientFacingOrderEvent": {
@@ -19533,7 +19758,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "744ef618-d797-4fcb-8e7f-32955695edfa",
+          "id": "21c1ff8d-d77a-4e36-8677-3c75b235f0f8",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -20044,127 +20269,127 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-02-06T19:03:41.348764+00:00",
+              "timestamp": "2025-02-10T13:13:13.357803+00:00",
               "unit": "bpm",
-              "value": 90
+              "value": 44
             },
             {
               "id": 1,
-              "timestamp": "2025-02-06T19:04:11.348794+00:00",
+              "timestamp": "2025-02-10T13:13:43.357835+00:00",
               "unit": "bpm",
-              "value": 181
+              "value": 6
             },
             {
               "id": 2,
-              "timestamp": "2025-02-06T19:04:41.348821+00:00",
+              "timestamp": "2025-02-10T13:14:13.357866+00:00",
               "unit": "bpm",
-              "value": 10
+              "value": 187
             },
             {
               "id": 3,
-              "timestamp": "2025-02-06T19:05:11.348865+00:00",
+              "timestamp": "2025-02-10T13:14:43.357914+00:00",
               "unit": "bpm",
-              "value": 93
+              "value": 69
             },
             {
               "id": 4,
-              "timestamp": "2025-02-06T19:05:41.348894+00:00",
+              "timestamp": "2025-02-10T13:15:13.357945+00:00",
               "unit": "bpm",
-              "value": 173
+              "value": 161
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-02-06T19:03:41.348475+00:00",
+              "timestamp": "2025-02-10T13:13:13.357484+00:00",
               "unit": "rmssd",
-              "value": 96
+              "value": 8
             },
             {
               "id": 1,
-              "timestamp": "2025-02-06T19:04:11.348591+00:00",
+              "timestamp": "2025-02-10T13:13:43.357594+00:00",
               "unit": "rmssd",
-              "value": 6
+              "value": 83
             },
             {
               "id": 2,
-              "timestamp": "2025-02-06T19:04:41.348640+00:00",
+              "timestamp": "2025-02-10T13:14:13.357647+00:00",
               "unit": "rmssd",
-              "value": 3
+              "value": 71
             },
             {
               "id": 3,
-              "timestamp": "2025-02-06T19:05:11.348693+00:00",
+              "timestamp": "2025-02-10T13:14:43.357699+00:00",
               "unit": "rmssd",
-              "value": 47
+              "value": 29
             },
             {
               "id": 4,
-              "timestamp": "2025-02-06T19:05:41.348731+00:00",
+              "timestamp": "2025-02-10T13:15:13.357765+00:00",
               "unit": "rmssd",
-              "value": 17
+              "value": 29
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-02-06T19:03:41.348921+00:00",
-              "unit": "stage",
-              "value": 2
-            },
-            {
-              "id": 1,
-              "timestamp": "2025-02-06T19:04:11.348947+00:00",
-              "unit": "stage",
-              "value": 0
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-02-06T19:04:41.348971+00:00",
+              "timestamp": "2025-02-10T13:13:13.357976+00:00",
               "unit": "stage",
               "value": -1
             },
             {
-              "id": 3,
-              "timestamp": "2025-02-06T19:05:11.348995+00:00",
+              "id": 1,
+              "timestamp": "2025-02-10T13:13:43.358004+00:00",
               "unit": "stage",
               "value": 1
             },
             {
-              "id": 4,
-              "timestamp": "2025-02-06T19:05:41.349019+00:00",
+              "id": 2,
+              "timestamp": "2025-02-10T13:14:13.358030+00:00",
+              "unit": "stage",
+              "value": 0
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-02-10T13:14:43.358057+00:00",
               "unit": "stage",
               "value": 2
+            },
+            {
+              "id": 4,
+              "timestamp": "2025-02-10T13:15:13.358085+00:00",
+              "unit": "stage",
+              "value": -1
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-02-06T19:03:41.349043+00:00",
+              "timestamp": "2025-02-10T13:13:13.358112+00:00",
               "unit": "bpm",
               "value": 10
             },
             {
               "id": 1,
-              "timestamp": "2025-02-06T19:04:11.349067+00:00",
+              "timestamp": "2025-02-10T13:13:43.358138+00:00",
               "unit": "bpm",
-              "value": 16
+              "value": 19
             },
             {
               "id": 2,
-              "timestamp": "2025-02-06T19:04:41.349089+00:00",
+              "timestamp": "2025-02-10T13:14:13.358163+00:00",
               "unit": "bpm",
-              "value": 30
+              "value": 28
             },
             {
               "id": 3,
-              "timestamp": "2025-02-06T19:05:11.349112+00:00",
+              "timestamp": "2025-02-10T13:14:43.358188+00:00",
               "unit": "bpm",
-              "value": 22
+              "value": 9
             },
             {
               "id": 4,
-              "timestamp": "2025-02-06T19:05:41.349139+00:00",
+              "timestamp": "2025-02-10T13:15:13.358213+00:00",
               "unit": "bpm",
               "value": 25
             }
@@ -21025,10 +21250,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "9b0096d5-e214-41e6-b37b-f9105a366040",
+          "id": "ff255885-de24-4c32-a575-12e0c8cd71c3",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "a05ca697-7e2d-4b5d-890b-fc65b603ba3c",
+            "id": "1e544aba-fcca-421f-b3e8-0fe9650c19b8",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -21296,7 +21521,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-02-06T19:03:40+00:00",
+              "created_on": "2025-02-10T13:13:12+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -21304,16 +21529,16 @@
               }
             }
           ],
-          "created_on": "2025-02-06T19:03:40+00:00",
+          "created_on": "2025-02-10T13:13:12+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-02-06T19:03:40+00:00",
+            "updated_at": "2025-02-10T13:13:12+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-02-06T19:03:40+00:00"
+            "updated_at": "2025-02-10T13:13:12+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -21489,9 +21714,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "b31c6691-bf8e-497b-aa63-77e020389f99",
+          "appointment_id": "1e720bb5-d26d-438f-892b-c05a1e27603a",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "9dd2c23c-7362-48fb-a772-44a8e2d0b969",
+          "id": "e9c0e3f1-5f9d-48c2-a288-8447c77cf041",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -23300,11 +23525,13 @@
                 "const": "*"
               }
             ],
-            "title": "Group Key",
-            "default": "*"
+            "title": "Group Key"
           }
         },
         "type": "object",
+        "required": [
+          "group_key"
+        ],
         "title": "GroupKeyColumnExpr"
       },
       "GuarantorDetails": {
@@ -23945,6 +24172,35 @@
           "all"
         ],
         "title": "LabTestGenerationMethodFilter"
+      },
+      "LabTestResourcesResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingLabTest"
+            },
+            "type": "array",
+            "title": "Data"
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor",
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "next_cursor"
+        ],
+        "title": "LabTestResourcesResponse"
       },
       "LabTestSampleType": {
         "type": "string",
@@ -28412,7 +28668,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-02-06T19:08:40.702639+00:00",
+                    "end": "2025-02-10T13:18:12.659453+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -29726,7 +29982,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-02-06T19:03:40+00:00",
+                    "timestamp": "2025-02-10T13:13:12+00:00",
                     "unit": "mmHg"
                   }
                 ],
