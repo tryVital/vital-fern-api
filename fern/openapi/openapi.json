@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.95"
+    "version": "0.3.98"
   },
   "paths": {
     "/v2/link/bulk_import": {
@@ -11276,9 +11276,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "48ca873b-a865-4348-b6e3-e6c4757a3a7b",
-                  "user_id": "41d490ba-cd37-44b7-8119-eab656aed9d4",
-                  "order_id": "b052533f-0a92-444f-b93e-cf326eca7f9b",
+                  "id": "1786ffc7-a334-4d6a-96c3-db5503eb9c49",
+                  "user_id": "03546f9c-e49c-4f88-b9c8-77ed46eb1e29",
+                  "order_id": "94f4c92f-bd1e-4dfa-a183-dcd0aae5048e",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -16645,6 +16645,9 @@
               "heart_rate_minimum",
               "heart_rate_maximum",
               "heart_rate_resting",
+              "heart_rate_mean_walking",
+              "wheelchair_use",
+              "wheelchair_push",
               "source_type",
               "source_provider",
               "source_app_id",
@@ -17386,6 +17389,9 @@
               "muscle_mass_percentage",
               "visceral_fat_index",
               "bone_mass_percentage",
+              "body_mass_index",
+              "lean_body_mass_kilogram",
+              "waist_circumference_centimeter",
               "source_type",
               "source_provider",
               "source_app_id",
@@ -17707,6 +17713,7 @@
               "floors_climbed": 10,
               "heart_rate": {
                 "avg_bpm": 80,
+                "avg_walking_bpm": 70,
                 "max_bpm": 100,
                 "min_bpm": 60,
                 "resting_bpm": 60
@@ -17745,12 +17752,14 @@
         "example": {
           "body": [
             {
+              "body_mass_index": 22.3,
               "bone_mass_percentage": 4.3,
               "calendar_date": "2023-02-27",
               "date": "2023-02-27T12:31:24+00:00",
               "fat": 30,
               "height": 183,
               "id": "8be1306e-01fc-46b1-b5d1-a9e39052db09",
+              "lean_body_mass_kilogram": 40.1,
               "muscle_mass_percentage": 40.2,
               "source": {
                 "logo": "https://logo_url.com",
@@ -17759,6 +17768,7 @@
               },
               "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537",
               "visceral_fat_index": 4.5,
+              "waist_circumference_centimeter": 86.36,
               "water_percentage": 55.4,
               "weight": 80
             }
@@ -18030,6 +18040,32 @@
               }
             ],
             "description": "Heart rate daily summary."
+          },
+          "wheelchair_use": {
+            "anyOf": [
+              {
+                "type": "boolean",
+                "enum": [
+                  true
+                ],
+                "const": true
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wheelchair Use"
+          },
+          "wheelchair_push": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wheelchair Push"
           }
         },
         "type": "object",
@@ -18050,6 +18086,7 @@
           "floors_climbed": 10,
           "heart_rate": {
             "avg_bpm": 80,
+            "avg_walking_bpm": 70,
             "max_bpm": 100,
             "min_bpm": 60,
             "resting_bpm": 60
@@ -18266,18 +18303,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "2ff169ab-2842-442c-b80b-161529b4e026",
+          "id": "bc46680a-a902-45fb-a195-f632477ee2db",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "fae44421-606f-445a-9df2-5cee81110cc3",
+          "order_id": "d675bdf3-7cb7-4a03-9ceb-c31e88c21155",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "a424e00f-dae8-46f8-aa20-2194ae8d7960"
+          "user_id": "18981ccc-30a3-4ea1-b4de-2de1d8c74847"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -18304,7 +18341,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "b9ca64e3-3041-4235-9a28-3578cfa63171",
+          "id": "02fdd6ee-5f3f-4134-a66b-076f21c0e350",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -18378,9 +18415,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "12e0cc4c-fa40-4cb2-be69-0d1d1da5d215",
+          "appointment_id": "b16fe220-7e64-44b5-afa6-698149a297c6",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "05dac400-263b-4d09-ac31-d2a980022628",
+          "id": "37eb6c33-c659-4954-952f-b58ef8b10193",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -18559,7 +18596,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-03-25T22:33:31+00:00",
+          "timestamp": "2025-03-26T12:27:57+00:00",
           "unit": "mmHg"
         }
       },
@@ -18661,6 +18698,39 @@
             "title": "Bone Mass Percentage",
             "description": "Bone mass percentage in the body::perc"
           },
+          "body_mass_index": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body Mass Index"
+          },
+          "lean_body_mass_kilogram": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lean Body Mass Kilogram"
+          },
+          "waist_circumference_centimeter": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Waist Circumference Centimeter"
+          },
           "source": {
             "$ref": "#/components/schemas/ClientFacingSource"
           }
@@ -18675,12 +18745,14 @@
         ],
         "title": "ClientFacingBody",
         "example": {
+          "body_mass_index": 22.3,
           "bone_mass_percentage": 4.3,
           "calendar_date": "2023-02-27",
           "date": "2023-02-27T12:31:24+00:00",
           "fat": 30,
           "height": 183,
           "id": "8be1306e-01fc-46b1-b5d1-a9e39052db09",
+          "lean_body_mass_kilogram": 40.1,
           "muscle_mass_percentage": 40.2,
           "source": {
             "logo": "https://logo_url.com",
@@ -18689,6 +18761,7 @@
           },
           "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537",
           "visceral_fat_index": 4.5,
+          "waist_circumference_centimeter": 86.36,
           "water_percentage": 55.4,
           "weight": 80
         }
@@ -19621,12 +19694,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "56c995d3-a5f5-4e84-b840-6011f4c69f11",
+          "order_id": "d45cd42a-2c9e-4fed-a76b-5fca93339ce9",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "99b3a0eb-332d-4d8c-9d19-0f7b44b83842",
+          "team_id": "6d5642d7-a9e1-4955-b91c-c8c8414d45bc",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "972a3488-6c19-4557-a67d-8acb48e3d6fb"
+          "user_id": "22b8a552-49cb-48a0-a918-740192a5fd0b"
         }
       },
       "ClientFacingDiagnosisInformation": {
@@ -20348,12 +20421,24 @@
             ],
             "title": "Resting Bpm",
             "description": "Resting heart rate::bpm"
+          },
+          "avg_walking_bpm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Walking Bpm"
           }
         },
         "type": "object",
         "title": "Heart Rate",
         "example": {
           "avg_bpm": 80,
+          "avg_walking_bpm": 70,
           "max_bpm": 100,
           "min_bpm": 60,
           "resting_bpm": 60
@@ -21853,7 +21938,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-03-25T22:38:31.458338+00:00",
+          "end": "2025-03-26T12:32:57.255568+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -22240,8 +22325,8 @@
               "status": "collecting_sample.testkit.transit_customer"
             }
           ],
-          "health_insurace_id": "e990ec3b-c7a4-4207-b512-96d83d33313c",
-          "id": "b9a7f662-3fe8-448e-9841-65a8b8844e00",
+          "health_insurace_id": "f3f3af58-4d06-48c5-ad30-c3d6de24b73d",
+          "id": "d00471e9-bd3c-4508-8b35-5f51f2803a62",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -22265,9 +22350,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "d0bb75e3-c70d-4878-b3db-e5a934e82cba",
+          "team_id": "991b3c69-8edf-44d1-89d7-e6474744d262",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "0e70a9bc-cc42-4ef4-b9f0-fe32ffd055dd"
+          "user_id": "02ff37e4-a5d8-46da-912b-1c5ed9a67a10"
         }
       },
       "ClientFacingOrderEvent": {
@@ -22470,6 +22555,33 @@
               }
             ],
             "title": "Height"
+          },
+          "birth_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Birth Date"
+          },
+          "wheelchair_use": {
+            "anyOf": [
+              {
+                "type": "boolean",
+                "enum": [
+                  true
+                ],
+                "const": true
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wheelchair Use"
           },
           "source": {
             "$ref": "#/components/schemas/ClientFacingSource"
@@ -22991,7 +23103,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "ff719edc-d17d-482d-81a9-47d8f9747103",
+          "id": "132e0f0c-930e-4ed8-9bc2-e5edc9c32256",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -23517,129 +23629,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-03-25T22:33:32.091475+00:00",
+              "timestamp": "2025-03-26T12:27:57.771503+00:00",
               "unit": "bpm",
-              "value": 62
+              "value": 126
             },
             {
               "id": 1,
-              "timestamp": "2025-03-25T22:34:02.091504+00:00",
+              "timestamp": "2025-03-26T12:28:27.771531+00:00",
               "unit": "bpm",
-              "value": 62
+              "value": 182
             },
             {
               "id": 2,
-              "timestamp": "2025-03-25T22:34:32.091531+00:00",
+              "timestamp": "2025-03-26T12:28:57.771557+00:00",
               "unit": "bpm",
-              "value": 77
+              "value": 85
             },
             {
               "id": 3,
-              "timestamp": "2025-03-25T22:35:02.091584+00:00",
+              "timestamp": "2025-03-26T12:29:27.771599+00:00",
               "unit": "bpm",
-              "value": 52
+              "value": 162
             },
             {
               "id": 4,
-              "timestamp": "2025-03-25T22:35:32.091613+00:00",
+              "timestamp": "2025-03-26T12:29:57.771631+00:00",
               "unit": "bpm",
-              "value": 176
+              "value": 164
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-03-25T22:33:32.091189+00:00",
+              "timestamp": "2025-03-26T12:27:57.771249+00:00",
               "unit": "rmssd",
-              "value": 64
+              "value": 31
             },
             {
               "id": 1,
-              "timestamp": "2025-03-25T22:34:02.091298+00:00",
+              "timestamp": "2025-03-26T12:28:27.771345+00:00",
               "unit": "rmssd",
-              "value": 15
+              "value": 91
             },
             {
               "id": 2,
-              "timestamp": "2025-03-25T22:34:32.091348+00:00",
+              "timestamp": "2025-03-26T12:28:57.771392+00:00",
               "unit": "rmssd",
-              "value": 66
+              "value": 36
             },
             {
               "id": 3,
-              "timestamp": "2025-03-25T22:35:02.091397+00:00",
+              "timestamp": "2025-03-26T12:29:27.771437+00:00",
               "unit": "rmssd",
-              "value": 6
+              "value": 79
             },
             {
               "id": 4,
-              "timestamp": "2025-03-25T22:35:32.091440+00:00",
+              "timestamp": "2025-03-26T12:29:57.771472+00:00",
               "unit": "rmssd",
-              "value": 54
+              "value": 47
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-03-25T22:33:32.091640+00:00",
+              "timestamp": "2025-03-26T12:27:57.771658+00:00",
               "unit": "stage",
-              "value": -1
+              "value": 4
             },
             {
               "id": 1,
-              "timestamp": "2025-03-25T22:34:02.091666+00:00",
-              "unit": "stage",
-              "value": 0
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-03-25T22:34:32.091691+00:00",
-              "unit": "stage",
-              "value": 3
-            },
-            {
-              "id": 3,
-              "timestamp": "2025-03-25T22:35:02.091716+00:00",
+              "timestamp": "2025-03-26T12:28:27.771682+00:00",
               "unit": "stage",
               "value": -1
             },
             {
-              "id": 4,
-              "timestamp": "2025-03-25T22:35:32.091742+00:00",
+              "id": 2,
+              "timestamp": "2025-03-26T12:28:57.771705+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 4
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-03-26T12:29:27.771729+00:00",
+              "unit": "stage",
+              "value": 2
+            },
+            {
+              "id": 4,
+              "timestamp": "2025-03-26T12:29:57.771753+00:00",
+              "unit": "stage",
+              "value": -1
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-03-25T22:33:32.091767+00:00",
+              "timestamp": "2025-03-26T12:27:57.771777+00:00",
               "unit": "bpm",
               "value": 25
             },
             {
               "id": 1,
-              "timestamp": "2025-03-25T22:34:02.091792+00:00",
+              "timestamp": "2025-03-26T12:28:27.771801+00:00",
               "unit": "bpm",
-              "value": 8
+              "value": 29
             },
             {
               "id": 2,
-              "timestamp": "2025-03-25T22:34:32.091815+00:00",
+              "timestamp": "2025-03-26T12:28:57.771823+00:00",
               "unit": "bpm",
-              "value": 8
+              "value": 24
             },
             {
               "id": 3,
-              "timestamp": "2025-03-25T22:35:02.091839+00:00",
+              "timestamp": "2025-03-26T12:29:27.771845+00:00",
               "unit": "bpm",
-              "value": 25
+              "value": 14
             },
             {
               "id": 4,
-              "timestamp": "2025-03-25T22:35:32.091873+00:00",
+              "timestamp": "2025-03-26T12:29:57.771869+00:00",
               "unit": "bpm",
-              "value": 21
+              "value": 28
             }
           ]
         }
@@ -23668,6 +23780,31 @@
             ],
             "title": "App Id",
             "description": "The identifier of the app which recorded this summary. This is only applicable to multi-source providers like Apple Health and Android Health Connect."
+          },
+          "sport": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sport",
+            "description": "\nFor workout stream timeseries, this is the standard sport slug of the workout with which the timeseries data are associated.\n\nFor the `distance` timeseries, this is `wheelchair_pushing` if the user is a wheelchair user, or `null` otherwise.\n\nFor all summary types and non-workout timeseries, this is always `null`.\n"
+          },
+          "workout_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Workout Id",
+            "description": "\nFor workout stream timeseries, this is the workout ID with which the timeseries data are associated.\n\nFor all other types, this is always `null`.\n"
           },
           "name": {
             "type": "string",
@@ -24516,10 +24653,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "5adf7546-681b-429c-ae3a-387f263bb350",
+          "id": "2d006f38-c573-41c1-b8c3-4d8d89d8cc0a",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "e9d881fe-f39d-4f95-b5ea-bb7098ea1639",
+            "id": "fa021186-7353-4253-9c5a-c6e7d2a2098c",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -24628,7 +24765,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-03-25T22:33:31+00:00",
+              "created_on": "2025-03-26T12:27:57+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -24636,16 +24773,16 @@
               }
             }
           ],
-          "created_on": "2025-03-25T22:33:31+00:00",
+          "created_on": "2025-03-26T12:27:57+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-03-25T22:33:31+00:00",
+            "updated_at": "2025-03-26T12:27:57+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-03-25T22:33:31+00:00"
+            "updated_at": "2025-03-26T12:27:57+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -24832,9 +24969,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "0486fd62-5423-4696-a6c7-fcb628485c2f",
+          "appointment_id": "ebd96a5d-b7e8-4591-9088-3696dcae9a58",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "4e06236c-38e1-4e32-b8e8-21113ad75a79",
+          "id": "d0149322-e458-48d3-9853-fcf7310aadf3",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -25778,7 +25915,7 @@
               "third"
             ]
           },
-          "query_id": "77a1cf5c-8528-4252-8172-a601441d8a94",
+          "query_id": "c105b41f-1d8e-4734-8646-ef8129284876",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -32338,7 +32475,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-03-25T22:38:31.458338+00:00",
+                    "end": "2025-03-26T12:32:57.255568+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -33984,7 +34121,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-03-25T22:33:31+00:00",
+                    "timestamp": "2025-03-26T12:27:57+00:00",
                     "unit": "mmHg"
                   }
                 ],
