@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.110"
+    "version": "0.3.116"
   },
   "paths": {
     "/v2/link/bulk_import": {
@@ -2394,6 +2394,378 @@
         },
         "x-fern-sdk-group-name": "workouts",
         "x-fern-sdk-method-name": "get_by_workout_id"
+      }
+    },
+    "/v2/timeseries/{user_id}/waist_circumference/grouped": {
+      "get": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Waist Circumference",
+        "operationId": "get_waist_circumference_grouped",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+            "deprecated": true
+          },
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Next Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupedWaistCircumferenceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "vitals",
+        "x-fern-sdk-method-name": "waist_circumference_grouped",
+        "x-fern-availability": "generally-available"
+      }
+    },
+    "/v2/timeseries/{user_id}/lean_body_mass/grouped": {
+      "get": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Lean Body Mass",
+        "operationId": "get_lean_body_mass_grouped",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+            "deprecated": true
+          },
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Next Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupedLeanBodyMassResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "vitals",
+        "x-fern-sdk-method-name": "lean_body_mass_grouped",
+        "x-fern-availability": "generally-available"
+      }
+    },
+    "/v2/timeseries/{user_id}/body_mass_index/grouped": {
+      "get": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Body Mass Index",
+        "operationId": "get_body_mass_index_grouped",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+            "deprecated": true
+          },
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Next Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupedBodyMassIndexResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "vitals",
+        "x-fern-sdk-method-name": "body_mass_index_grouped",
+        "x-fern-availability": "generally-available"
       }
     },
     "/v2/timeseries/{user_id}/basal_body_temperature/grouped": {
@@ -13012,9 +13384,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "59eabfc6-6591-49dc-9e0f-07c6e6114450",
-                  "user_id": "86995a0a-4f61-49c5-8cad-535a223baf6b",
-                  "order_id": "8ae2d279-8bf6-4843-bbdc-8814cb8e1a73",
+                  "id": "4583e762-ed74-461e-8081-c1bb375cac4c",
+                  "user_id": "f316eedb-e582-47f9-9ca1-9448f1c27ae3",
+                  "order_id": "9f2872b1-3ad9-4eb1-8af2-704f9ca833a0",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -19449,6 +19821,240 @@
           }
         }
       }
+    },
+    "daily.data.body_mass_index.*": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Body Mass Index",
+        "operationId": "body_mass_indexdaily_data_body_mass_index___post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingBodyMassIndexChanged"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.body_mass_index.created": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Body Mass Index Historical Pull Completed",
+        "operationId": "body_mass_index_historical_pull_completedhistorical_data_body_mass_index_created_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingBodyMassIndexHistoricalPullCompleted"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "daily.data.lean_body_mass.*": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Lean Body Mass",
+        "operationId": "lean_body_massdaily_data_lean_body_mass___post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingLeanBodyMassChanged"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.lean_body_mass.created": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Lean Body Mass Historical Pull Completed",
+        "operationId": "lean_body_mass_historical_pull_completedhistorical_data_lean_body_mass_created_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingLeanBodyMassHistoricalPullCompleted"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "daily.data.waist_circumference.*": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Waist Circumference",
+        "operationId": "waist_circumferencedaily_data_waist_circumference___post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWaistCircumferenceChanged"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.waist_circumference.created": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Waist Circumference Historical Pull Completed",
+        "operationId": "waist_circumference_historical_pull_completedhistorical_data_waist_circumference_created_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWaistCircumferenceHistoricalPullCompleted"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -21131,18 +21737,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "e9b0f91c-596c-4071-8037-97b1009756d4",
+          "id": "81122376-38cb-47be-a80a-1f0be755ca49",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "a8626ab5-6fb5-4822-955d-c730e31df413",
+          "order_id": "271d0a73-fece-4abb-a560-4c9ca154a429",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "b4913a51-e108-4a8f-9318-64b48744f96b"
+          "user_id": "62b467e1-f0c0-4f14-b081-32f7104cfc92"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -21169,7 +21775,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "c56e2e4c-18be-4a2a-bd99-0a9b8baec012",
+          "id": "a4206f97-e117-450d-aba0-2ea5fcade924",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -21243,9 +21849,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "ce116753-5e45-4797-aff9-3c0b9328d2b1",
+          "appointment_id": "28b66ce5-fb92-41d6-b841-9121a7846bc1",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "34ceb5fd-e5dc-42c1-9bf4-5c1b4558a6de",
+          "id": "1eb068bb-d645-4ddc-b8b2-e96311c58153",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -21517,7 +22123,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-03-27T13:53:21+00:00",
+          "timestamp": "2025-03-28T18:59:46+00:00",
           "unit": "mmHg"
         }
       },
@@ -21759,6 +22365,99 @@
           "timestamp": "2023-02-13T14:30:52+00:00",
           "unit": "%",
           "value": 50
+        }
+      },
+      "ClientFacingBodyMassIndexSample": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "Deprecated"
+          },
+          "timezone_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone Offset",
+            "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection."
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "index"
+            ],
+            "const": "index",
+            "title": "Unit"
+          },
+          "grouping": {
+            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
+            "default": [
+              "unknown"
+            ]
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "Depracated. The start time (inclusive) of the interval."
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start",
+            "description": "The start time (inclusive) of the interval."
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End",
+            "description": "The end time (exclusive) of the interval."
+          },
+          "value": {
+            "type": "number",
+            "title": "Value",
+            "description": "The recorded value for the interval."
+          }
+        },
+        "type": "object",
+        "required": [
+          "unit",
+          "timestamp",
+          "start",
+          "end",
+          "value"
+        ],
+        "title": "ClientFacingBodyMassIndexSample",
+        "example": {
+          "end": "2023-02-13T14:57:24+00:00",
+          "start": "2023-02-13T14:30:52+00:00",
+          "timestamp": "2023-02-13T14:30:52+00:00",
+          "unit": "index",
+          "value": 21
         }
       },
       "ClientFacingBodyTemperatureDeltaSample": {
@@ -22615,12 +23314,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "787042cb-cb57-4663-9b1d-2483c9938122",
+          "order_id": "8da8fc14-10d3-481a-9b11-0d0b0c8fe65c",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "2a610361-22b2-4123-adcc-937b3b88d9a2",
+          "team_id": "2684aa5a-7ce9-401a-8ff1-f631dbd99b9c",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "523c19a2-f259-4834-96f8-91a65588f683"
+          "user_id": "f77be3ab-69c7-4478-ad04-fdcccabd2958"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -24716,6 +25415,99 @@
         ],
         "title": "ClientFacingLabs"
       },
+      "ClientFacingLeanBodyMassSample": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "Deprecated"
+          },
+          "timezone_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone Offset",
+            "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection."
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "kg"
+            ],
+            "const": "kg",
+            "title": "Unit"
+          },
+          "grouping": {
+            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
+            "default": [
+              "unknown"
+            ]
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "Depracated. The start time (inclusive) of the interval."
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start",
+            "description": "The start time (inclusive) of the interval."
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End",
+            "description": "The end time (exclusive) of the interval."
+          },
+          "value": {
+            "type": "number",
+            "title": "Value",
+            "description": "The recorded value for the interval."
+          }
+        },
+        "type": "object",
+        "required": [
+          "unit",
+          "timestamp",
+          "start",
+          "end",
+          "value"
+        ],
+        "title": "ClientFacingLeanBodyMassSample",
+        "example": {
+          "end": "2023-02-13T14:57:24+00:00",
+          "start": "2023-02-13T14:30:52+00:00",
+          "timestamp": "2023-02-13T14:30:52+00:00",
+          "unit": "kg",
+          "value": 50
+        }
+      },
       "ClientFacingLoinc": {
         "properties": {
           "id": {
@@ -25417,7 +26209,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-03-27T13:58:21.604586+00:00",
+          "end": "2025-03-28T19:04:45.885036+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -25804,8 +26596,8 @@
               "status": "collecting_sample.testkit.transit_customer"
             }
           ],
-          "health_insurace_id": "5c329a68-3c4b-4a3d-b82f-abbedeffe9c7",
-          "id": "53968a57-063e-45c7-a5e0-a3623e5f8a41",
+          "health_insurace_id": "89bccaa7-fabf-43b1-9183-86267ea1faf4",
+          "id": "0905c3e9-2f06-48c2-9939-b19dc1a7e40d",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -25829,9 +26621,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "52b837fd-77c1-4e58-a36f-3b7830cc9bfb",
+          "team_id": "b50c62ed-af02-43fd-8fea-fd49bb5f6c81",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "1baaeaf5-f629-47c2-aa81-2d1f63a8f963"
+          "user_id": "f2793bfc-7d5d-4207-bbff-43391c5a3b66"
         }
       },
       "ClientFacingOrderEvent": {
@@ -26675,7 +27467,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "a3eb13c7-fe87-40db-8b69-0eb23f5bd6ed",
+          "id": "f08fe9de-cbd8-4717-9035-df544defe779",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -27093,10 +27885,17 @@
             "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
           },
           "type": {
-            "type": "string",
-            "enum": [
-              "elevated",
-              "not_elevated"
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "elevated",
+                  "not_elevated"
+                ]
+              },
+              {
+                "type": "null"
+              }
             ],
             "title": "Type"
           },
@@ -27385,129 +28184,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-03-27T13:53:22.262810+00:00",
+              "timestamp": "2025-03-28T18:59:46.635755+00:00",
               "unit": "bpm",
-              "value": 23
+              "value": 80
             },
             {
               "id": 1,
-              "timestamp": "2025-03-27T13:53:52.262839+00:00",
+              "timestamp": "2025-03-28T19:00:16.635785+00:00",
               "unit": "bpm",
-              "value": 85
+              "value": 65
             },
             {
               "id": 2,
-              "timestamp": "2025-03-27T13:54:22.262868+00:00",
-              "unit": "bpm",
-              "value": 116
-            },
-            {
-              "id": 3,
-              "timestamp": "2025-03-27T13:54:52.262915+00:00",
-              "unit": "bpm",
-              "value": 118
-            },
-            {
-              "id": 4,
-              "timestamp": "2025-03-27T13:55:22.262945+00:00",
-              "unit": "bpm",
-              "value": 114
-            }
-          ],
-          "hrv": [
-            {
-              "id": 0,
-              "timestamp": "2025-03-27T13:53:22.262538+00:00",
-              "unit": "rmssd",
-              "value": 11
-            },
-            {
-              "id": 1,
-              "timestamp": "2025-03-27T13:53:52.262640+00:00",
-              "unit": "rmssd",
-              "value": 24
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-03-27T13:54:22.262691+00:00",
-              "unit": "rmssd",
-              "value": 94
-            },
-            {
-              "id": 3,
-              "timestamp": "2025-03-27T13:54:52.262738+00:00",
-              "unit": "rmssd",
-              "value": 16
-            },
-            {
-              "id": 4,
-              "timestamp": "2025-03-27T13:55:22.262775+00:00",
-              "unit": "rmssd",
-              "value": 81
-            }
-          ],
-          "hypnogram": [
-            {
-              "id": 0,
-              "timestamp": "2025-03-27T13:53:22.262992+00:00",
-              "unit": "stage",
-              "value": 2
-            },
-            {
-              "id": 1,
-              "timestamp": "2025-03-27T13:53:52.263021+00:00",
-              "unit": "stage",
-              "value": 2
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-03-27T13:54:22.263047+00:00",
-              "unit": "stage",
-              "value": 0
-            },
-            {
-              "id": 3,
-              "timestamp": "2025-03-27T13:54:52.263074+00:00",
-              "unit": "stage",
-              "value": 4
-            },
-            {
-              "id": 4,
-              "timestamp": "2025-03-27T13:55:22.263101+00:00",
-              "unit": "stage",
-              "value": -1
-            }
-          ],
-          "respiratory_rate": [
-            {
-              "id": 0,
-              "timestamp": "2025-03-27T13:53:22.263128+00:00",
-              "unit": "bpm",
-              "value": 21
-            },
-            {
-              "id": 1,
-              "timestamp": "2025-03-27T13:53:52.263172+00:00",
-              "unit": "bpm",
-              "value": 15
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-03-27T13:54:22.263196+00:00",
+              "timestamp": "2025-03-28T19:00:46.635812+00:00",
               "unit": "bpm",
               "value": 20
             },
             {
               "id": 3,
-              "timestamp": "2025-03-27T13:54:52.263221+00:00",
+              "timestamp": "2025-03-28T19:01:16.635858+00:00",
               "unit": "bpm",
-              "value": 15
+              "value": 91
             },
             {
               "id": 4,
-              "timestamp": "2025-03-27T13:55:22.263246+00:00",
+              "timestamp": "2025-03-28T19:01:46.635888+00:00",
               "unit": "bpm",
-              "value": 25
+              "value": 79
+            }
+          ],
+          "hrv": [
+            {
+              "id": 0,
+              "timestamp": "2025-03-28T18:59:46.635436+00:00",
+              "unit": "rmssd",
+              "value": 44
+            },
+            {
+              "id": 1,
+              "timestamp": "2025-03-28T19:00:16.635541+00:00",
+              "unit": "rmssd",
+              "value": 34
+            },
+            {
+              "id": 2,
+              "timestamp": "2025-03-28T19:00:46.635618+00:00",
+              "unit": "rmssd",
+              "value": 84
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-03-28T19:01:16.635683+00:00",
+              "unit": "rmssd",
+              "value": 11
+            },
+            {
+              "id": 4,
+              "timestamp": "2025-03-28T19:01:46.635721+00:00",
+              "unit": "rmssd",
+              "value": 94
+            }
+          ],
+          "hypnogram": [
+            {
+              "id": 0,
+              "timestamp": "2025-03-28T18:59:46.635917+00:00",
+              "unit": "stage",
+              "value": 3
+            },
+            {
+              "id": 1,
+              "timestamp": "2025-03-28T19:00:16.635960+00:00",
+              "unit": "stage",
+              "value": 2
+            },
+            {
+              "id": 2,
+              "timestamp": "2025-03-28T19:00:46.635986+00:00",
+              "unit": "stage",
+              "value": 4
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-03-28T19:01:16.636011+00:00",
+              "unit": "stage",
+              "value": 1
+            },
+            {
+              "id": 4,
+              "timestamp": "2025-03-28T19:01:46.636036+00:00",
+              "unit": "stage",
+              "value": 4
+            }
+          ],
+          "respiratory_rate": [
+            {
+              "id": 0,
+              "timestamp": "2025-03-28T18:59:46.636062+00:00",
+              "unit": "bpm",
+              "value": 8
+            },
+            {
+              "id": 1,
+              "timestamp": "2025-03-28T19:00:16.636086+00:00",
+              "unit": "bpm",
+              "value": 29
+            },
+            {
+              "id": 2,
+              "timestamp": "2025-03-28T19:00:46.636110+00:00",
+              "unit": "bpm",
+              "value": 28
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-03-28T19:01:16.636134+00:00",
+              "unit": "bpm",
+              "value": 17
+            },
+            {
+              "id": 4,
+              "timestamp": "2025-03-28T19:01:46.636160+00:00",
+              "unit": "bpm",
+              "value": 12
             }
           ]
         }
@@ -27742,16 +28541,12 @@
             "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
           },
           "type": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
+            "type": "string",
+            "enum": [
+              "stood",
+              "idle"
             ],
-            "title": "Type",
-            "description": "The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection."
+            "title": "Type"
           },
           "unit": {
             "type": "string",
@@ -27793,6 +28588,7 @@
         },
         "type": "object",
         "required": [
+          "type",
           "unit",
           "timestamp",
           "start",
@@ -28595,10 +29391,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "cd4902db-e45d-4ddd-a81e-4c9bbf73727e",
+          "id": "f92d745e-2cbb-4f44-9195-f8dc37d4745a",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "4f698f57-9f16-4f60-a940-e645da92a781",
+            "id": "09a07c50-5199-4dcb-a659-4682b48803ec",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -28800,7 +29596,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-03-27T13:53:21+00:00",
+              "created_on": "2025-03-28T18:59:45+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -28808,16 +29604,16 @@
               }
             }
           ],
-          "created_on": "2025-03-27T13:53:21+00:00",
+          "created_on": "2025-03-28T18:59:45+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-03-27T13:53:21+00:00",
+            "updated_at": "2025-03-28T18:59:45+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-03-27T13:53:21+00:00"
+            "updated_at": "2025-03-28T18:59:45+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -28937,6 +29733,99 @@
           "value": 48
         }
       },
+      "ClientFacingWaistCircumferenceSample": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "Deprecated"
+          },
+          "timezone_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone Offset",
+            "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection."
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "cm"
+            ],
+            "const": "cm",
+            "title": "Unit"
+          },
+          "grouping": {
+            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
+            "default": [
+              "unknown"
+            ]
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "Depracated. The start time (inclusive) of the interval."
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start",
+            "description": "The start time (inclusive) of the interval."
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End",
+            "description": "The end time (exclusive) of the interval."
+          },
+          "value": {
+            "type": "number",
+            "title": "Value",
+            "description": "The recorded value for the interval."
+          }
+        },
+        "type": "object",
+        "required": [
+          "unit",
+          "timestamp",
+          "start",
+          "end",
+          "value"
+        ],
+        "title": "ClientFacingWaistCircumferenceSample",
+        "example": {
+          "end": "2023-02-13T14:57:24+00:00",
+          "start": "2023-02-13T14:30:52+00:00",
+          "timestamp": "2023-02-13T14:30:52+00:00",
+          "unit": "cm",
+          "value": 90
+        }
+      },
       "ClientFacingWalkInOrderDetails": {
         "properties": {
           "type": {
@@ -29004,9 +29893,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "84c0640d-90bc-4b6d-8edb-6a6730719673",
+          "appointment_id": "ed539c03-f2a9-4cf6-a7ec-3605d987b3d6",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "fd7a8a4e-8e5e-4950-880a-674f558eb917",
+          "id": "197faff8-7f6e-48ee-ae3f-f46bc0f6619c",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -30043,7 +30932,7 @@
               "third"
             ]
           },
-          "query_id": "8c11e32c-3353-4bb1-8bc5-48865b1a9a0f",
+          "query_id": "96a2a03d-0883-4c14-95c1-a3c7e8e80909",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -34331,6 +35220,9 @@
           "daylight_exposure",
           "handwashing",
           "basal_body_temperature",
+          "body_mass_index",
+          "lean_body_mass",
+          "waist_circumference",
           "workout_duration",
           "insulin_injection",
           "carbohydrates",
@@ -35277,6 +36169,9 @@
           "daylight_exposure",
           "handwashing",
           "basal_body_temperature",
+          "body_mass_index",
+          "lean_body_mass",
+          "waist_circumference",
           "workout_duration",
           "insulin_injection",
           "carbohydrates",
@@ -36254,6 +37149,204 @@
           "phone_number"
         ],
         "title": "PersonDetails"
+      },
+      "GroupedWaistCircumferenceResponse": {
+        "properties": {
+          "groups": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/GroupedWaistCircumference"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Groups",
+            "description": "For each matching provider or lab, a list of grouped timeseries values."
+          },
+          "next": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data.",
+            "deprecated": true
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups"
+        ],
+        "title": "GroupedWaistCircumferenceResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "cm",
+                    "value": 90
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "GroupedLeanBodyMassResponse": {
+        "properties": {
+          "groups": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/GroupedLeanBodyMass"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Groups",
+            "description": "For each matching provider or lab, a list of grouped timeseries values."
+          },
+          "next": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data.",
+            "deprecated": true
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups"
+        ],
+        "title": "GroupedLeanBodyMassResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "kg",
+                    "value": 50
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "GroupedBodyMassIndexResponse": {
+        "properties": {
+          "groups": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/GroupedBodyMassIndex"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Groups",
+            "description": "For each matching provider or lab, a list of grouped timeseries values."
+          },
+          "next": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data.",
+            "deprecated": true
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups"
+        ],
+        "title": "GroupedBodyMassIndexResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "index",
+                    "value": 21
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedBasalBodyTemperatureResponse": {
         "properties": {
@@ -37556,7 +38649,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-03-27T13:58:21.604586+00:00",
+                    "end": "2025-03-28T19:04:45.885036+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -39202,7 +40295,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-03-27T13:53:21+00:00",
+                    "timestamp": "2025-03-28T18:59:46+00:00",
                     "unit": "mmHg"
                   }
                 ],
@@ -39214,6 +40307,63 @@
             ]
           }
         }
+      },
+      "GroupedWaistCircumference": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingSource"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingWaistCircumferenceSample"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "data"
+        ],
+        "title": "GroupedWaistCircumference"
+      },
+      "GroupedLeanBodyMass": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingSource"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingLeanBodyMassSample"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "data"
+        ],
+        "title": "GroupedLeanBodyMass"
+      },
+      "GroupedBodyMassIndex": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingSource"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingBodyMassIndexSample"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "data"
+        ],
+        "title": "GroupedBodyMassIndex"
       },
       "GroupedBasalBodyTemperature": {
         "properties": {
@@ -44519,6 +45669,240 @@
           "data"
         ],
         "title": "ClientFacingBasalBodyTemperatureHistoricalPullCompleted"
+      },
+      "ClientFacingBodyMassIndexChanged": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "daily.data.body_mass_index.created",
+              "daily.data.body_mass_index.updated"
+            ],
+            "title": "Event Type"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/GroupedBodyMassIndex"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingBodyMassIndexChanged"
+      },
+      "ClientFacingBodyMassIndexHistoricalPullCompleted": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "historical.data.body_mass_index.created"
+            ],
+            "const": "historical.data.body_mass_index.created",
+            "title": "Event Type"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullCompleted"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingBodyMassIndexHistoricalPullCompleted"
+      },
+      "ClientFacingLeanBodyMassChanged": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "daily.data.lean_body_mass.created",
+              "daily.data.lean_body_mass.updated"
+            ],
+            "title": "Event Type"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/GroupedLeanBodyMass"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingLeanBodyMassChanged"
+      },
+      "ClientFacingLeanBodyMassHistoricalPullCompleted": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "historical.data.lean_body_mass.created"
+            ],
+            "const": "historical.data.lean_body_mass.created",
+            "title": "Event Type"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullCompleted"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingLeanBodyMassHistoricalPullCompleted"
+      },
+      "ClientFacingWaistCircumferenceChanged": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "daily.data.waist_circumference.created",
+              "daily.data.waist_circumference.updated"
+            ],
+            "title": "Event Type"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/GroupedWaistCircumference"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWaistCircumferenceChanged"
+      },
+      "ClientFacingWaistCircumferenceHistoricalPullCompleted": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "historical.data.waist_circumference.created"
+            ],
+            "const": "historical.data.waist_circumference.created",
+            "title": "Event Type"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullCompleted"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWaistCircumferenceHistoricalPullCompleted"
       }
     },
     "securitySchemes": {
