@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.118"
+    "version": "0.3.120"
   },
   "paths": {
     "/v2/link/bulk_import": {
@@ -13384,9 +13384,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "40f4d5f1-dae9-4422-86ad-d8ac9a56691a",
-                  "user_id": "dc8553d7-34a0-46e3-b6ed-8c571393f292",
-                  "order_id": "efc3f37e-09d0-459a-840b-80f8e9285bc2",
+                  "id": "77bcf6d2-4b53-4190-9b36-4b610f796635",
+                  "user_id": "412e5f84-2916-46cd-b2b9-e4f9b13c5124",
+                  "order_id": "9b82e550-c640-41fc-9a2c-48a2b473903c",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -21255,12 +21255,6 @@
             "const": "%",
             "title": "Unit"
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -21737,18 +21731,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "285f098f-b757-41ac-b325-295d9e8f1658",
+          "id": "931f97f7-5f59-4ffa-8ed7-5f449e9a28d6",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "c65a2849-0a7a-4367-afc4-1000a1318c83",
+          "order_id": "f1911c47-c314-420e-85b5-042d213c06bf",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "d0a868e6-bad8-472c-8826-af9acd40bb38"
+          "user_id": "c2cc732e-16de-4500-ab55-a5b062d98fd6"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -21775,7 +21769,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "df71f009-f39c-4432-8467-ad21d0726dad",
+          "id": "61ceea91-68e7-48fe-a4f6-5dd5e5beff08",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -21849,9 +21843,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "0501e68d-4948-4cea-9922-e3895e7fb6af",
+          "appointment_id": "9f672bef-7652-4c30-aa05-93ee4184c99a",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "e5b158cb-a7da-4137-be34-98d432636bea",
+          "id": "e2950515-d5e1-4b3c-80db-1295144d3105",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -21927,12 +21921,6 @@
             ],
             "const": "°C",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -22017,12 +22005,6 @@
             "type": "string",
             "title": "Unit",
             "description": "Measured in percentage (spo2)."
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -22123,7 +22105,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-03-29T13:46:11+00:00",
+          "timestamp": "2025-03-31T12:29:49+00:00",
           "unit": "mmHg"
         }
       },
@@ -22336,12 +22318,6 @@
             "title": "Unit",
             "description": "Measured in percentage (0-100)."
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -22412,12 +22388,6 @@
             ],
             "const": "index",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -22505,12 +22475,6 @@
             ],
             "const": "°C",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -22626,12 +22590,6 @@
             "const": "°C",
             "title": "Unit"
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -22743,12 +22701,6 @@
             "title": "Unit",
             "description": "Measured in kilograms (kg)."
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -22816,12 +22768,6 @@
             "type": "string",
             "title": "Unit",
             "description": "Measured in grams."
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -22910,12 +22856,6 @@
             "title": "Unit",
             "description": "Measured in kilocalories (kcal)"
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -23003,12 +22943,6 @@
             "title": "Unit",
             "description": "Measured in kilocalories (kcal)"
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -23077,12 +23011,6 @@
             "type": "string",
             "title": "Unit",
             "description": "Measured in grams."
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -23166,12 +23094,6 @@
             "type": "string",
             "title": "Unit",
             "description": "Measured in mmol/L."
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -23314,12 +23236,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "7e03e311-0e29-4094-80fc-866438f0b676",
+          "order_id": "cd4c160e-d734-4485-a9b6-6a7b2f45b628",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "d4f02609-968b-4722-af75-11116941154d",
+          "team_id": "0552765c-3cec-45b8-baaa-9d504079e6bb",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "011e1758-9d65-4f0d-96e8-8a6f9749f9e2"
+          "user_id": "0c675ba0-ccde-420c-9cd4-7fb9c8e41435"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -23367,12 +23289,6 @@
             ],
             "const": "min",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -23481,12 +23397,6 @@
             "const": "m",
             "title": "Unit",
             "description": "Measured in meters (m)"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -23789,12 +23699,6 @@
             "title": "Unit",
             "description": "Measured in mV."
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -23809,6 +23713,7 @@
         },
         "type": "object",
         "required": [
+          "type",
           "unit",
           "timestamp",
           "value"
@@ -23866,12 +23771,6 @@
             ],
             "const": "count",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -23960,12 +23859,6 @@
             "const": "count",
             "title": "Unit",
             "description": "Measured in counts"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -24075,12 +23968,6 @@
             "const": "L",
             "title": "Unit"
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -24168,12 +24055,6 @@
             "const": "L",
             "title": "Unit"
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -24258,12 +24139,6 @@
             "title": "Unit",
             "description": "Measured in mmol/L."
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -24332,12 +24207,6 @@
             "type": "string",
             "title": "Unit",
             "description": "Measured in rmssd."
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -24409,12 +24278,6 @@
             ],
             "const": "count",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -24572,12 +24435,6 @@
             "const": "count",
             "title": "Unit"
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -24666,12 +24523,6 @@
             "title": "Unit",
             "description": "Measured in bpm."
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -24739,12 +24590,6 @@
             "type": "string",
             "title": "Unit",
             "description": "enum: 1: deep, 2: light, 3: rem, 4: awake, -1: missing_data."
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -24830,12 +24675,6 @@
             "title": "Unit",
             "description": "Measured in FSU."
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -24904,12 +24743,6 @@
             "type": "string",
             "title": "Unit",
             "description": "Measured in FSU."
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -24982,12 +24815,6 @@
             ],
             "const": "count",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -25072,12 +24899,6 @@
             ],
             "const": "unit",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -25460,12 +25281,6 @@
             ],
             "const": "kg",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -26169,12 +25984,6 @@
             "title": "Unit",
             "description": "Measured in minutes."
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -26209,7 +26018,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-03-29T13:51:11.020026+00:00",
+          "end": "2025-03-31T12:34:49.589652+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -26257,12 +26066,6 @@
             "type": "string",
             "title": "Unit",
             "description": "User notes as text."
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -26596,8 +26399,8 @@
               "status": "collecting_sample.testkit.transit_customer"
             }
           ],
-          "health_insurace_id": "342bed1d-a2f1-424a-812e-982b927ccf26",
-          "id": "6c0fa9bf-42d4-4afb-8e77-e32979b78aef",
+          "health_insurace_id": "e0b61673-11b9-4523-9c7c-aa8aed65062e",
+          "id": "d3162180-38ae-4fbe-8453-c75e95eed4b2",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -26621,9 +26424,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "8bff9917-f326-4fb3-89d9-7bd223e9b149",
+          "team_id": "bc50e648-bf86-4e9f-932d-fbea7e9c224c",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "c304f094-51be-4c1c-825e-ee501dbcbe05"
+          "user_id": "4f4e8389-7e13-47a4-84e6-929a063cc842"
         }
       },
       "ClientFacingOrderEvent": {
@@ -26825,12 +26628,6 @@
             ],
             "const": "L/min",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -27199,12 +26996,6 @@
             "title": "Unit",
             "description": "Measured in bpm."
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -27467,7 +27258,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "27fe65c0-299e-4b92-9ef6-ec547055ab1f",
+          "id": "f5e32c0b-92f5-458b-8f7e-3f83a97e3d60",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -27811,12 +27602,6 @@
             "const": "count",
             "title": "Unit"
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -27906,12 +27691,6 @@
             ],
             "const": "count",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -28184,129 +27963,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-03-29T13:46:11.689928+00:00",
+              "timestamp": "2025-03-31T12:29:50.292394+00:00",
               "unit": "bpm",
-              "value": 154
+              "value": 71
             },
             {
               "id": 1,
-              "timestamp": "2025-03-29T13:46:41.689956+00:00",
+              "timestamp": "2025-03-31T12:30:20.292426+00:00",
               "unit": "bpm",
-              "value": 166
+              "value": 92
             },
             {
               "id": 2,
-              "timestamp": "2025-03-29T13:47:11.689982+00:00",
+              "timestamp": "2025-03-31T12:30:50.292455+00:00",
               "unit": "bpm",
-              "value": 93
+              "value": 81
             },
             {
               "id": 3,
-              "timestamp": "2025-03-29T13:47:41.690025+00:00",
+              "timestamp": "2025-03-31T12:31:20.292504+00:00",
               "unit": "bpm",
-              "value": 42
+              "value": 0
             },
             {
               "id": 4,
-              "timestamp": "2025-03-29T13:48:11.690052+00:00",
+              "timestamp": "2025-03-31T12:31:50.292534+00:00",
               "unit": "bpm",
-              "value": 144
+              "value": 58
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-03-29T13:46:11.689680+00:00",
+              "timestamp": "2025-03-31T12:29:50.292088+00:00",
               "unit": "rmssd",
-              "value": 53
+              "value": 19
             },
             {
               "id": 1,
-              "timestamp": "2025-03-29T13:46:41.689773+00:00",
+              "timestamp": "2025-03-31T12:30:20.292200+00:00",
               "unit": "rmssd",
-              "value": 91
+              "value": 71
             },
             {
               "id": 2,
-              "timestamp": "2025-03-29T13:47:11.689820+00:00",
+              "timestamp": "2025-03-31T12:30:50.292252+00:00",
               "unit": "rmssd",
-              "value": 2
+              "value": 65
             },
             {
               "id": 3,
-              "timestamp": "2025-03-29T13:47:41.689863+00:00",
+              "timestamp": "2025-03-31T12:31:20.292300+00:00",
               "unit": "rmssd",
-              "value": 42
+              "value": 28
             },
             {
               "id": 4,
-              "timestamp": "2025-03-29T13:48:11.689897+00:00",
+              "timestamp": "2025-03-31T12:31:50.292340+00:00",
               "unit": "rmssd",
-              "value": 51
+              "value": 19
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-03-29T13:46:11.690078+00:00",
+              "timestamp": "2025-03-31T12:29:50.292564+00:00",
               "unit": "stage",
-              "value": 3
+              "value": -1
             },
             {
               "id": 1,
-              "timestamp": "2025-03-29T13:46:41.690109+00:00",
+              "timestamp": "2025-03-31T12:30:20.292591+00:00",
               "unit": "stage",
-              "value": 3
+              "value": -1
             },
             {
               "id": 2,
-              "timestamp": "2025-03-29T13:47:11.690132+00:00",
+              "timestamp": "2025-03-31T12:30:50.292616+00:00",
               "unit": "stage",
               "value": 1
             },
             {
               "id": 3,
-              "timestamp": "2025-03-29T13:47:41.690183+00:00",
+              "timestamp": "2025-03-31T12:31:20.292643+00:00",
               "unit": "stage",
-              "value": 4
+              "value": -1
             },
             {
               "id": 4,
-              "timestamp": "2025-03-29T13:48:11.690218+00:00",
+              "timestamp": "2025-03-31T12:31:50.292677+00:00",
               "unit": "stage",
-              "value": 0
+              "value": 1
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-03-29T13:46:11.690244+00:00",
+              "timestamp": "2025-03-31T12:29:50.292706+00:00",
               "unit": "bpm",
-              "value": 26
+              "value": 9
             },
             {
               "id": 1,
-              "timestamp": "2025-03-29T13:46:41.690267+00:00",
+              "timestamp": "2025-03-31T12:30:20.292731+00:00",
               "unit": "bpm",
-              "value": 8
+              "value": 30
             },
             {
               "id": 2,
-              "timestamp": "2025-03-29T13:47:11.690289+00:00",
+              "timestamp": "2025-03-31T12:30:50.292779+00:00",
               "unit": "bpm",
-              "value": 21
+              "value": 22
             },
             {
               "id": 3,
-              "timestamp": "2025-03-29T13:47:41.690311+00:00",
+              "timestamp": "2025-03-31T12:31:20.292804+00:00",
               "unit": "bpm",
-              "value": 29
+              "value": 27
             },
             {
               "id": 4,
-              "timestamp": "2025-03-29T13:48:11.690352+00:00",
+              "timestamp": "2025-03-31T12:31:50.292829+00:00",
               "unit": "bpm",
-              "value": 27
+              "value": 11
             }
           ]
         }
@@ -28467,12 +28246,6 @@
             "const": "min",
             "title": "Unit"
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -28555,12 +28328,6 @@
             ],
             "const": "count",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -28650,12 +28417,6 @@
             "const": "count",
             "title": "Unit",
             "description": "Measured in counts"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -29124,12 +28885,6 @@
             "title": "Unit",
             "description": "Measured in percentage (0-100)."
           },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
-          },
           "timestamp": {
             "type": "string",
             "format": "date-time",
@@ -29391,10 +29146,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "b1b697bb-2d1f-4375-af37-ca4803dc8d99",
+          "id": "9918ab64-1df8-4e4f-94b6-439be62e7d1f",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "2dbbbc04-70ba-41e5-9feb-f324a8805c8a",
+            "id": "6abb139d-eb0f-4473-a2ba-8c862ef2887c",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -29452,12 +29207,6 @@
             ],
             "const": "index",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -29596,7 +29345,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-03-29T13:46:10+00:00",
+              "created_on": "2025-03-31T12:29:49+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -29604,16 +29353,16 @@
               }
             }
           ],
-          "created_on": "2025-03-29T13:46:10+00:00",
+          "created_on": "2025-03-31T12:29:49+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-03-29T13:46:10+00:00",
+            "updated_at": "2025-03-31T12:29:49+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-03-29T13:46:10+00:00"
+            "updated_at": "2025-03-31T12:29:49+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -29686,12 +29435,6 @@
             "type": "string",
             "title": "Unit",
             "description": "Measured in mL/kg/min."
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -29778,12 +29521,6 @@
             ],
             "const": "cm",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -29893,9 +29630,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "cea7bb35-3f9b-4f18-b80d-45febc1dd131",
+          "appointment_id": "e3f19b28-c3db-430a-ba41-e9d6747e3c4c",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "173270da-3304-4c32-8a74-5bc96d4e5071",
+          "id": "04e1d9b5-c1bc-435d-a9c7-992d97785ffe",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -29941,12 +29678,6 @@
             "type": "string",
             "title": "Unit",
             "description": "Measured in milliters."
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -30019,12 +29750,6 @@
             ],
             "const": "count",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -30439,12 +30164,6 @@
             ],
             "const": "min",
             "title": "Unit"
-          },
-          "grouping": {
-            "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
-            "default": [
-              "unknown"
-            ]
           },
           "timestamp": {
             "type": "string",
@@ -30932,7 +30651,7 @@
               "third"
             ]
           },
-          "query_id": "598e2322-9a70-48e2-9730-11a47ef850aa",
+          "query_id": "55f6a64a-6625-4d1f-a925-9951e1b8e6c6",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -37193,28 +36912,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedWaistCircumferenceResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "cm",
-                    "value": 90
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedWaistCircumferenceResponse"
       },
       "GroupedLeanBodyMassResponse": {
         "properties": {
@@ -37259,28 +36957,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedLeanBodyMassResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "kg",
-                    "value": 50
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedLeanBodyMassResponse"
       },
       "GroupedBodyMassIndexResponse": {
         "properties": {
@@ -37325,28 +37002,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBodyMassIndexResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "index",
-                    "value": 21
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedBodyMassIndexResponse"
       },
       "GroupedBasalBodyTemperatureResponse": {
         "properties": {
@@ -37391,28 +37047,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBasalBodyTemperatureResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "°C",
-                    "value": 36.7
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedBasalBodyTemperatureResponse"
       },
       "GroupedHandwashingResponse": {
         "properties": {
@@ -37457,28 +37092,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedHandwashingResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "count",
-                    "value": 1
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedHandwashingResponse"
       },
       "GroupedDaylightExposureResponse": {
         "properties": {
@@ -37523,28 +37137,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedDaylightExposureResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "min",
-                    "value": 45
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedDaylightExposureResponse"
       },
       "GroupedUVExposureResponse": {
         "properties": {
@@ -37589,28 +37182,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedUVExposureResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "index",
-                    "value": 5
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedUVExposureResponse"
       },
       "GroupedFallResponse": {
         "properties": {
@@ -37655,28 +37227,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedFallResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "count",
-                    "value": 3
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedFallResponse"
       },
       "GroupedInhalerUsageResponse": {
         "properties": {
@@ -37721,28 +37272,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedInhalerUsageResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "count",
-                    "value": 2
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedInhalerUsageResponse"
       },
       "GroupedPeakExpiratoryFlowRateResponse": {
         "properties": {
@@ -37787,28 +37317,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedPeakExpiratoryFlowRateResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "L/min",
-                    "value": 450
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedPeakExpiratoryFlowRateResponse"
       },
       "GroupedForcedVitalCapacityResponse": {
         "properties": {
@@ -37853,28 +37362,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedForcedVitalCapacityResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "L",
-                    "value": 4.2
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedForcedVitalCapacityResponse"
       },
       "GroupedForcedExpiratoryVolume1Response": {
         "properties": {
@@ -37919,28 +37407,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedForcedExpiratoryVolume1Response",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "L",
-                    "value": 3.5
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedForcedExpiratoryVolume1Response"
       },
       "GroupedWheelchairPushResponse": {
         "properties": {
@@ -37985,28 +37452,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedWheelchairPushResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "count",
-                    "value": 52
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedWheelchairPushResponse"
       },
       "GroupedSleepBreathingDisturbanceResponse": {
         "properties": {
@@ -38051,29 +37497,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedSleepBreathingDisturbanceResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "type": "elevated",
-                    "unit": "count",
-                    "value": 12
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedSleepBreathingDisturbanceResponse"
       },
       "GroupedSleepApneaAlertResponse": {
         "properties": {
@@ -38118,28 +37542,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedSleepApneaAlertResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "count",
-                    "value": 1
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedSleepApneaAlertResponse"
       },
       "GroupedStandDurationResponse": {
         "properties": {
@@ -38184,28 +37587,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedStandDurationResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "min",
-                    "value": 15
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedStandDurationResponse"
       },
       "GroupedStandHourResponse": {
         "properties": {
@@ -38250,28 +37632,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedStandHourResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "count",
-                    "value": 1
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedStandHourResponse"
       },
       "GroupedHeartRateAlertResponse": {
         "properties": {
@@ -38316,28 +37677,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedHeartRateAlertResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:30:52+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "type": "irregular_rhythm",
-                    "unit": "count",
-                    "value": 1
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedHeartRateAlertResponse"
       },
       "GroupedAFibBurdenResponse": {
         "properties": {
@@ -38382,27 +37722,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedAFibBurdenResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:30:52+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "%",
-                    "value": 3
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedAFibBurdenResponse"
       },
       "GroupedWorkoutDurationResponse": {
         "properties": {
@@ -38447,28 +37767,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedWorkoutDurationResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:30:52+00:00",
-                    "intensity": "medium",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "min",
-                    "value": 48
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedWorkoutDurationResponse"
       },
       "GroupedVO2MaxResponse": {
         "properties": {
@@ -38513,27 +37812,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedVO2MaxResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "mL/kg/min",
-                    "value": 48
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedVO2MaxResponse"
       },
       "GroupedStressLevelResponse": {
         "properties": {
@@ -38578,26 +37857,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedStressLevelResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "%",
-                    "value": 35
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedStressLevelResponse"
       },
       "GroupedMindfulnessMinutesResponse": {
         "properties": {
@@ -38642,27 +37902,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedMindfulnessMinutesResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2025-03-29T13:51:11.020026+00:00",
-                    "start": "2023-02-13T14:57:24+00:00",
-                    "unit": "min",
-                    "value": 42
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedMindfulnessMinutesResponse"
       },
       "GroupedCaffeineResponse": {
         "properties": {
@@ -38707,27 +37947,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedCaffeineResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "g",
-                    "value": 42
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedCaffeineResponse"
       },
       "GroupedWaterResponse": {
         "properties": {
@@ -38772,27 +37992,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedWaterResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "ml",
-                    "value": 400
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedWaterResponse"
       },
       "GroupedStepsResponse": {
         "properties": {
@@ -38837,27 +38037,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedStepsResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "count",
-                    "value": 123
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedStepsResponse"
       },
       "GroupedFloorsClimbedResponse": {
         "properties": {
@@ -38902,27 +38082,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedFloorsClimbedResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "count",
-                    "value": 2
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedFloorsClimbedResponse"
       },
       "GroupedDistanceResponse": {
         "properties": {
@@ -38967,27 +38127,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedDistanceResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "m",
-                    "value": 5.6
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedDistanceResponse"
       },
       "GroupedCaloriesBasalResponse": {
         "properties": {
@@ -39032,27 +38172,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedCaloriesBasalResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "kcal",
-                    "value": 22.8
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedCaloriesBasalResponse"
       },
       "GroupedCaloriesActiveResponse": {
         "properties": {
@@ -39097,27 +38217,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedCaloriesActiveResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "kcal",
-                    "value": 184
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedCaloriesActiveResponse"
       },
       "GroupedRespiratoryRateResponse": {
         "properties": {
@@ -39162,26 +38262,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedRespiratoryRateResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "bpm",
-                    "value": 15.5
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedRespiratoryRateResponse"
       },
       "GroupedNoteResponse": {
         "properties": {
@@ -39226,31 +38307,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedNoteResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:30:52+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "tags": [
-                      "food",
-                      "exercise"
-                    ],
-                    "unit": "text",
-                    "value": "Lorem ipsum dolor sit amet"
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedNoteResponse"
       },
       "GroupedInsulinInjectionResponse": {
         "properties": {
@@ -39295,28 +38352,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedInsulinInjectionResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:30:52+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "type": "long_acting",
-                    "unit": "unit",
-                    "value": 60
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedInsulinInjectionResponse"
       },
       "GroupedIgeResponse": {
         "properties": {
@@ -39361,27 +38397,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedIgeResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "type": "baha_grass",
-                    "unit": "FSU",
-                    "value": 70
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedIgeResponse"
       },
       "GroupedIggResponse": {
         "properties": {
@@ -39426,27 +38442,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedIggResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "type": "dairy",
-                    "unit": "FSU",
-                    "value": 12
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedIggResponse"
       },
       "GroupedHypnogramResponse": {
         "properties": {
@@ -39491,27 +38487,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedHypnogramResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "stage",
-                    "value": 1
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedHypnogramResponse"
       },
       "GroupedHRVResponse": {
         "properties": {
@@ -39556,26 +38532,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedHRVResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "rmssd",
-                    "value": 48
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedHRVResponse"
       },
       "GroupedHeartRateResponse": {
         "properties": {
@@ -39620,26 +38577,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedHeartRateResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "bpm",
-                    "value": 70
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedHeartRateResponse"
       },
       "GroupedGlucoseResponse": {
         "properties": {
@@ -39684,27 +38622,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedGlucoseResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "type": "automatic | manual_scan",
-                    "unit": "mmol/L",
-                    "value": 0.5
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedGlucoseResponse"
       },
       "GroupedCholesterolResponse": {
         "properties": {
@@ -39749,45 +38667,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedCholesterolResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "type": "cholesterol/ldl",
-                    "unit": "mmol/L",
-                    "value": 0.6
-                  },
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "type": "cholesterol/hdl",
-                    "unit": "mmol/L",
-                    "value": 0.2
-                  },
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "type": "cholesterol/total",
-                    "unit": "mmol/L",
-                    "value": 0.7
-                  },
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "type": "cholesterol/triglycerides",
-                    "unit": "mmol/L",
-                    "value": 0.7
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedCholesterolResponse"
       },
       "GroupedCarbohydratesResponse": {
         "properties": {
@@ -39832,27 +38712,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedCarbohydratesResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:30:52+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "g",
-                    "value": 30
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedCarbohydratesResponse"
       },
       "GroupedBodyTemperatureDeltaResponse": {
         "properties": {
@@ -39897,28 +38757,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBodyTemperatureDeltaResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "sensor_location": "wrist",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "°C",
-                    "value": -1
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedBodyTemperatureDeltaResponse"
       },
       "GroupedBodyTemperatureResponse": {
         "properties": {
@@ -39963,28 +38802,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBodyTemperatureResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:30:52+00:00",
-                    "sensor_location": "eardrum",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "°C",
-                    "value": 65
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedBodyTemperatureResponse"
       },
       "GroupedBodyWeightResponse": {
         "properties": {
@@ -40029,26 +38847,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBodyWeightResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "kg",
-                    "value": 65
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedBodyWeightResponse"
       },
       "GroupedBodyFatResponse": {
         "properties": {
@@ -40093,26 +38892,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBodyFatResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "%",
-                    "value": 50
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedBodyFatResponse"
       },
       "GroupedBloodOxygenResponse": {
         "properties": {
@@ -40157,26 +38937,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBloodOxygenResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "unit": "%",
-                    "value": 98
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedBloodOxygenResponse"
       },
       "GroupedElectrocardiogramVoltageResponse": {
         "properties": {
@@ -40221,27 +38982,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedElectrocardiogramVoltageResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "timestamp": "2023-02-13T14:30:52+00:00",
-                    "type": "lead_1",
-                    "unit": "mV",
-                    "value": -373
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedElectrocardiogramVoltageResponse"
       },
       "GroupedBloodPressureResponse": {
         "properties": {
@@ -40286,27 +39027,7 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBloodPressureResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "diastolic": 75,
-                    "systolic": 125,
-                    "timestamp": "2025-03-29T13:46:11+00:00",
-                    "unit": "mmHg"
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
+        "title": "GroupedBloodPressureResponse"
       },
       "GroupedWaistCircumference": {
         "properties": {
