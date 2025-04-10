@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.146"
+    "version": "0.3.148"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -13442,9 +13442,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "86e91f20-7472-47c5-b785-10d99a2d5f2b",
-                  "user_id": "56f32f73-5784-4e6d-b9b6-c3fac02a2355",
-                  "order_id": "d2e19f75-9e7b-4091-9496-52f097e3a748",
+                  "id": "9b5d078c-1c14-4230-bc07-3342b032157b",
+                  "user_id": "11ea9673-ad15-4177-ba27-a2ef2a49eac4",
+                  "order_id": "06fd3c02-daa9-421d-8243-2f9d8e947230",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -21050,6 +21050,12 @@
             },
             "type": "array",
             "title": "Connections"
+          },
+          "wait_for_completion": {
+            "type": "boolean",
+            "title": "Wait For Completion",
+            "description": "\nWhether or not the endpoint should wait for the Bulk Op to complete before responding.\n\nWhen `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.\n\nOtherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use\nthe [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.\n",
+            "default": false
           }
         },
         "type": "object",
@@ -21207,6 +21213,12 @@
           },
           "provider": {
             "$ref": "#/components/schemas/OAuthProviders"
+          },
+          "wait_for_completion": {
+            "type": "boolean",
+            "title": "Wait For Completion",
+            "description": "\nWhether or not the endpoint should wait for the Bulk Op to complete before responding.\n\nWhen `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.\n\nOtherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use\nthe [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.\n",
+            "default": false
           }
         },
         "type": "object",
@@ -21878,18 +21890,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "5db927f2-0bf9-43c9-a15c-97e5758c8691",
+          "id": "af75cce7-6054-4815-8e45-35178b8ef034",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "dc78bc59-047a-40da-b2e1-768eed5934c6",
+          "order_id": "bf706d22-e275-4718-b4e3-90da31e5090b",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "b79415bd-7fe7-4b87-b1d8-56e3fa7751f1"
+          "user_id": "546bfdb2-1cd9-4d2b-9938-ae8261831856"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -21916,7 +21928,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "616e0e65-60e5-4b52-8187-4e30bead3f39",
+          "id": "61a088e5-22d5-4669-a07f-f8b4203d7474",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -21990,9 +22002,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "39c28422-3ad1-4a57-a197-985a9170b3f7",
+          "appointment_id": "31c13643-8227-40ef-a5df-d0f5b5af5d47",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "c44ed9a3-f76d-46ed-840e-0a4d429ec0e5",
+          "id": "c97e9602-0a4d-4c8d-a90e-d98b8068f427",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -22252,7 +22264,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-04-08T14:52:56+00:00",
+          "timestamp": "2025-04-10T12:37:19+00:00",
           "unit": "mmHg"
         }
       },
@@ -23383,12 +23395,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "707117a3-c4a4-496d-8a53-e2cef0e6f5a2",
+          "order_id": "6a06050f-908a-4f29-aa0e-5717b7414053",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "1b2b8b2d-52a1-467f-93b4-074d3844e18f",
+          "team_id": "9f561726-2f10-4420-95bc-a2ba2d3fcc87",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "ba7f3de8-1b5c-403a-a639-5f90dc8e8e82"
+          "user_id": "68e10a67-e2f7-469f-ab92-16043a8af8bc"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -26165,7 +26177,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-04-08T14:57:56.754815+00:00",
+          "end": "2025-04-10T12:42:19.009569+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -26546,8 +26558,8 @@
               "status": "collecting_sample.testkit.transit_customer"
             }
           ],
-          "health_insurace_id": "38da96c3-e52d-4e54-9ce2-cda2b27d5601",
-          "id": "dc7954e9-08dd-43bd-ac70-4c3c94e373ca",
+          "health_insurace_id": "6560081d-b4ed-414a-a095-be240b24b83f",
+          "id": "422f7473-d5e8-4a3a-b3af-0afb7e1a2f50",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -26571,9 +26583,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "066eace2-733a-456c-947b-490f19c131a6",
+          "team_id": "99562920-3f24-4eca-a361-5c0461666a70",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "e4d35b7b-399e-4c85-8a4b-9dace61bc852"
+          "user_id": "c35bab12-0def-4cc1-b667-30e27da0da8a"
         }
       },
       "ClientFacingOrderEvent": {
@@ -26653,6 +26665,61 @@
               }
             ],
             "title": "Email"
+          },
+          "medical_proxy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GuarantorDetails"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Parent/medical_proxy details. Required if patient is a minor."
+          },
+          "race": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Race"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "If not provided, will be set to 'Not Specified'"
+          },
+          "ethnicity": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Ethnicity"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "If not provided, will be set to 'Not Specified'"
+          },
+          "sexual_orientation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SexualOrientation"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "If not provided, will be set to 'Not Specified'"
+          },
+          "gender_identity": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GenderIdentity"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "If not provided, will be set to 'Not Specified'"
           }
         },
         "type": "object",
@@ -27405,7 +27472,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "04320712-687c-4195-b201-9f9627a0d7cc",
+          "id": "3d158518-12b0-4c18-aea3-c73125ad093e",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -28110,129 +28177,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-04-08T14:52:57.478912+00:00",
+              "timestamp": "2025-04-10T12:37:19.746787+00:00",
               "unit": "bpm",
-              "value": 118
+              "value": 124
             },
             {
               "id": 1,
-              "timestamp": "2025-04-08T14:53:27.478941+00:00",
+              "timestamp": "2025-04-10T12:37:49.746831+00:00",
               "unit": "bpm",
-              "value": 147
+              "value": 124
             },
             {
               "id": 2,
-              "timestamp": "2025-04-08T14:53:57.478969+00:00",
+              "timestamp": "2025-04-10T12:38:19.746859+00:00",
               "unit": "bpm",
-              "value": 72
+              "value": 136
             },
             {
               "id": 3,
-              "timestamp": "2025-04-08T14:54:27.479016+00:00",
+              "timestamp": "2025-04-10T12:38:49.746905+00:00",
               "unit": "bpm",
-              "value": 149
+              "value": 33
             },
             {
               "id": 4,
-              "timestamp": "2025-04-08T14:54:57.479046+00:00",
+              "timestamp": "2025-04-10T12:39:19.746934+00:00",
               "unit": "bpm",
-              "value": 131
+              "value": 168
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-04-08T14:52:57.478620+00:00",
+              "timestamp": "2025-04-10T12:37:19.746495+00:00",
               "unit": "rmssd",
-              "value": 29
+              "value": 79
             },
             {
               "id": 1,
-              "timestamp": "2025-04-08T14:53:27.478747+00:00",
+              "timestamp": "2025-04-10T12:37:49.746617+00:00",
               "unit": "rmssd",
-              "value": 93
+              "value": 73
             },
             {
               "id": 2,
-              "timestamp": "2025-04-08T14:53:57.478797+00:00",
+              "timestamp": "2025-04-10T12:38:19.746677+00:00",
               "unit": "rmssd",
-              "value": 91
+              "value": 11
             },
             {
               "id": 3,
-              "timestamp": "2025-04-08T14:54:27.478843+00:00",
+              "timestamp": "2025-04-10T12:38:49.746721+00:00",
               "unit": "rmssd",
-              "value": 72
+              "value": 63
             },
             {
               "id": 4,
-              "timestamp": "2025-04-08T14:54:57.478879+00:00",
+              "timestamp": "2025-04-10T12:39:19.746755+00:00",
               "unit": "rmssd",
-              "value": 54
+              "value": 18
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-04-08T14:52:57.479084+00:00",
+              "timestamp": "2025-04-10T12:37:19.746963+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 0
             },
             {
               "id": 1,
-              "timestamp": "2025-04-08T14:53:27.479128+00:00",
+              "timestamp": "2025-04-10T12:37:49.746990+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 4
             },
             {
               "id": 2,
-              "timestamp": "2025-04-08T14:53:57.479154+00:00",
-              "unit": "stage",
-              "value": 3
-            },
-            {
-              "id": 3,
-              "timestamp": "2025-04-08T14:54:27.479179+00:00",
+              "timestamp": "2025-04-10T12:38:19.747021+00:00",
               "unit": "stage",
               "value": -1
             },
             {
-              "id": 4,
-              "timestamp": "2025-04-08T14:54:57.479205+00:00",
+              "id": 3,
+              "timestamp": "2025-04-10T12:38:49.747046+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 0
+            },
+            {
+              "id": 4,
+              "timestamp": "2025-04-10T12:39:19.747072+00:00",
+              "unit": "stage",
+              "value": 0
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-04-08T14:52:57.479232+00:00",
-              "unit": "bpm",
-              "value": 8
-            },
-            {
-              "id": 1,
-              "timestamp": "2025-04-08T14:53:27.479256+00:00",
-              "unit": "bpm",
-              "value": 17
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-04-08T14:53:57.479280+00:00",
+              "timestamp": "2025-04-10T12:37:19.747097+00:00",
               "unit": "bpm",
               "value": 27
             },
             {
-              "id": 3,
-              "timestamp": "2025-04-08T14:54:27.479304+00:00",
+              "id": 1,
+              "timestamp": "2025-04-10T12:37:49.747121+00:00",
               "unit": "bpm",
               "value": 11
             },
             {
-              "id": 4,
-              "timestamp": "2025-04-08T14:54:57.479329+00:00",
+              "id": 2,
+              "timestamp": "2025-04-10T12:38:19.747145+00:00",
               "unit": "bpm",
-              "value": 10
+              "value": 21
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-04-10T12:38:49.747168+00:00",
+              "unit": "bpm",
+              "value": 21
+            },
+            {
+              "id": 4,
+              "timestamp": "2025-04-10T12:39:19.747192+00:00",
+              "unit": "bpm",
+              "value": 9
             }
           ]
         }
@@ -29293,10 +29360,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "ab554218-ef92-4cd4-b294-37a7920ad506",
+          "id": "3981fb2d-8d3d-4cfd-898e-bc1787f0c75a",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "31cf099a-5714-48dd-ad8d-c4ec04f39e52",
+            "id": "9f03976c-b6bf-49e0-b5ed-5291988cd792",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -29492,7 +29559,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-04-08T14:52:56+00:00",
+              "created_on": "2025-04-10T12:37:18+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -29500,16 +29567,16 @@
               }
             }
           ],
-          "created_on": "2025-04-08T14:52:56+00:00",
+          "created_on": "2025-04-10T12:37:18+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-04-08T14:52:56+00:00",
+            "updated_at": "2025-04-10T12:37:18+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-04-08T14:52:56+00:00"
+            "updated_at": "2025-04-10T12:37:18+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -29777,9 +29844,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "9c13b5ad-50e0-46a4-a72b-3561e9f4f473",
+          "appointment_id": "a2593ecb-50fe-46a0-a241-6dab0f084a59",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "ebb6cb86-e90d-4791-9fdf-b35406370c91",
+          "id": "f7b9f125-69f8-4aeb-a3af-629edd66d2f8",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -30798,7 +30865,7 @@
               "third"
             ]
           },
-          "query_id": "5a2604b1-6f08-477e-806d-d1e877309ebd",
+          "query_id": "e818a8ac-14a3-4e5d-a8d9-fc2c7b5109b2",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -31427,6 +31494,16 @@
         ],
         "title": "Energy"
       },
+      "Ethnicity": {
+        "type": "string",
+        "enum": [
+          "hispanic",
+          "non_hispanic",
+          "ashkenazi_jewish",
+          "other"
+        ],
+        "title": "Ethnicity"
+      },
       "EventDestinationPreferences": {
         "properties": {
           "preferred": {
@@ -31618,6 +31695,18 @@
         ],
         "title": "Gender"
       },
+      "GenderIdentity": {
+        "type": "string",
+        "enum": [
+          "male",
+          "female",
+          "female_to_male_ftm_transgender_male_trans_man",
+          "male_to_female_mtf_transgender_female_trans_woman",
+          "genderqueer",
+          "other"
+        ],
+        "title": "GenderIdentity"
+      },
       "GetMarkersResponse": {
         "properties": {
           "markers": {
@@ -31775,6 +31864,28 @@
           "phone_number": {
             "type": "string",
             "title": "Phone Number"
+          },
+          "household_income": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Household Income"
+          },
+          "household_size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Household Size"
           },
           "email": {
             "anyOf": [
@@ -33813,6 +33924,61 @@
             "type": "string",
             "format": "email",
             "title": "Email"
+          },
+          "medical_proxy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GuarantorDetails"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Parent/medical_proxy details. Required if patient is a minor."
+          },
+          "race": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Race"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "If not provided, will be set to 'Not Specified'"
+          },
+          "ethnicity": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Ethnicity"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "If not provided, will be set to 'Not Specified'"
+          },
+          "sexual_orientation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SexualOrientation"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "If not provided, will be set to 'Not Specified'"
+          },
+          "gender_identity": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GenderIdentity"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "If not provided, will be set to 'Not Specified'"
           }
         },
         "type": "object",
@@ -34632,6 +34798,18 @@
         ],
         "title": "QuestionType"
       },
+      "Race": {
+        "type": "string",
+        "enum": [
+          "african_american_or_black",
+          "asian",
+          "indigenous_native_american_alaska_native",
+          "other",
+          "pacific_islander_or_hawaiian",
+          "white_caucasian"
+        ],
+        "title": "Race"
+      },
       "RawActivity": {
         "properties": {
           "activity": {
@@ -35204,6 +35382,17 @@
           "protection_used"
         ],
         "title": "SexualActivityEntry"
+      },
+      "SexualOrientation": {
+        "type": "string",
+        "enum": [
+          "lesbian_gay_or_homosexual",
+          "heterosexual_or_straight",
+          "bisexual",
+          "dont_know",
+          "other"
+        ],
+        "title": "SexualOrientation"
       },
       "ShippingAddress": {
         "properties": {
@@ -36330,6 +36519,56 @@
           },
           "address": {
             "$ref": "#/components/schemas/Address"
+          },
+          "medical_proxy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GuarantorDetails"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "race": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Race"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ethnicity": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Ethnicity"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sexual_orientation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SexualOrientation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "gender_identity": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GenderIdentity"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -36373,6 +36612,56 @@
           },
           "address": {
             "$ref": "#/components/schemas/Address"
+          },
+          "medical_proxy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GuarantorDetails"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "race": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Race"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ethnicity": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Ethnicity"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sexual_orientation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SexualOrientation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "gender_identity": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GenderIdentity"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -37059,7 +37348,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedWaistCircumferenceResponse"
+        "title": "GroupedWaistCircumferenceResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "cm",
+                    "value": 90
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedLeanBodyMassResponse": {
         "properties": {
@@ -37104,7 +37414,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedLeanBodyMassResponse"
+        "title": "GroupedLeanBodyMassResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "kg",
+                    "value": 50
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedBodyMassIndexResponse": {
         "properties": {
@@ -37149,7 +37480,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBodyMassIndexResponse"
+        "title": "GroupedBodyMassIndexResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "index",
+                    "value": 21
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedBasalBodyTemperatureResponse": {
         "properties": {
@@ -37194,7 +37546,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBasalBodyTemperatureResponse"
+        "title": "GroupedBasalBodyTemperatureResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "°C",
+                    "value": 36.7
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedHandwashingResponse": {
         "properties": {
@@ -37239,7 +37612,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedHandwashingResponse"
+        "title": "GroupedHandwashingResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "count",
+                    "value": 1
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedDaylightExposureResponse": {
         "properties": {
@@ -37284,7 +37678,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedDaylightExposureResponse"
+        "title": "GroupedDaylightExposureResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "min",
+                    "value": 45
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedUVExposureResponse": {
         "properties": {
@@ -37329,7 +37744,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedUVExposureResponse"
+        "title": "GroupedUVExposureResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "index",
+                    "value": 5
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedFallResponse": {
         "properties": {
@@ -37374,7 +37810,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedFallResponse"
+        "title": "GroupedFallResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "count",
+                    "value": 3
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedInhalerUsageResponse": {
         "properties": {
@@ -37419,7 +37876,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedInhalerUsageResponse"
+        "title": "GroupedInhalerUsageResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "count",
+                    "value": 2
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedPeakExpiratoryFlowRateResponse": {
         "properties": {
@@ -37464,7 +37942,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedPeakExpiratoryFlowRateResponse"
+        "title": "GroupedPeakExpiratoryFlowRateResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "L/min",
+                    "value": 450
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedForcedVitalCapacityResponse": {
         "properties": {
@@ -37509,7 +38008,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedForcedVitalCapacityResponse"
+        "title": "GroupedForcedVitalCapacityResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "L",
+                    "value": 4.2
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedForcedExpiratoryVolume1Response": {
         "properties": {
@@ -37554,7 +38074,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedForcedExpiratoryVolume1Response"
+        "title": "GroupedForcedExpiratoryVolume1Response",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "L",
+                    "value": 3.5
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedWheelchairPushResponse": {
         "properties": {
@@ -37599,7 +38140,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedWheelchairPushResponse"
+        "title": "GroupedWheelchairPushResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "count",
+                    "value": 52
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedSleepBreathingDisturbanceResponse": {
         "properties": {
@@ -37644,7 +38206,29 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedSleepBreathingDisturbanceResponse"
+        "title": "GroupedSleepBreathingDisturbanceResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "elevated",
+                    "unit": "count",
+                    "value": 12
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedSleepApneaAlertResponse": {
         "properties": {
@@ -37689,7 +38273,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedSleepApneaAlertResponse"
+        "title": "GroupedSleepApneaAlertResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "count",
+                    "value": 1
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedStandDurationResponse": {
         "properties": {
@@ -37734,7 +38339,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedStandDurationResponse"
+        "title": "GroupedStandDurationResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "min",
+                    "value": 15
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedStandHourResponse": {
         "properties": {
@@ -37779,7 +38405,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedStandHourResponse"
+        "title": "GroupedStandHourResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "count",
+                    "value": 1
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedHeartRateAlertResponse": {
         "properties": {
@@ -37824,7 +38471,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedHeartRateAlertResponse"
+        "title": "GroupedHeartRateAlertResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:30:52+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "type": "irregular_rhythm",
+                    "unit": "count",
+                    "value": 1
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedAFibBurdenResponse": {
         "properties": {
@@ -37869,7 +38537,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedAFibBurdenResponse"
+        "title": "GroupedAFibBurdenResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:30:52+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "%",
+                    "value": 3
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedWorkoutDurationResponse": {
         "properties": {
@@ -37914,7 +38602,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedWorkoutDurationResponse"
+        "title": "GroupedWorkoutDurationResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:30:52+00:00",
+                    "intensity": "medium",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "min",
+                    "value": 48
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedVO2MaxResponse": {
         "properties": {
@@ -37959,7 +38668,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedVO2MaxResponse"
+        "title": "GroupedVO2MaxResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "mL/kg/min",
+                    "value": 48
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedStressLevelResponse": {
         "properties": {
@@ -38004,7 +38733,26 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedStressLevelResponse"
+        "title": "GroupedStressLevelResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "%",
+                    "value": 35
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedMindfulnessMinutesResponse": {
         "properties": {
@@ -38049,7 +38797,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedMindfulnessMinutesResponse"
+        "title": "GroupedMindfulnessMinutesResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2025-04-10T12:42:19.009569+00:00",
+                    "start": "2023-02-13T14:57:24+00:00",
+                    "unit": "min",
+                    "value": 42
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedCaffeineResponse": {
         "properties": {
@@ -38094,7 +38862,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedCaffeineResponse"
+        "title": "GroupedCaffeineResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "g",
+                    "value": 42
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedWaterResponse": {
         "properties": {
@@ -38139,7 +38927,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedWaterResponse"
+        "title": "GroupedWaterResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "ml",
+                    "value": 400
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedStepsResponse": {
         "properties": {
@@ -38184,7 +38992,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedStepsResponse"
+        "title": "GroupedStepsResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "count",
+                    "value": 123
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedFloorsClimbedResponse": {
         "properties": {
@@ -38229,7 +39057,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedFloorsClimbedResponse"
+        "title": "GroupedFloorsClimbedResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "count",
+                    "value": 2
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedDistanceResponse": {
         "properties": {
@@ -38274,7 +39122,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedDistanceResponse"
+        "title": "GroupedDistanceResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "m",
+                    "value": 5.6
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedCaloriesBasalResponse": {
         "properties": {
@@ -38319,7 +39187,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedCaloriesBasalResponse"
+        "title": "GroupedCaloriesBasalResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "kcal",
+                    "value": 22.8
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedCaloriesActiveResponse": {
         "properties": {
@@ -38364,7 +39252,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedCaloriesActiveResponse"
+        "title": "GroupedCaloriesActiveResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "kcal",
+                    "value": 184
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedRespiratoryRateResponse": {
         "properties": {
@@ -38409,7 +39317,26 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedRespiratoryRateResponse"
+        "title": "GroupedRespiratoryRateResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "bpm",
+                    "value": 15.5
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedNoteResponse": {
         "properties": {
@@ -38454,7 +39381,31 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedNoteResponse"
+        "title": "GroupedNoteResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:30:52+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "tags": [
+                      "food",
+                      "exercise"
+                    ],
+                    "unit": "text",
+                    "value": "Lorem ipsum dolor sit amet"
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedInsulinInjectionResponse": {
         "properties": {
@@ -38499,7 +39450,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedInsulinInjectionResponse"
+        "title": "GroupedInsulinInjectionResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:30:52+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "type": "long_acting",
+                    "unit": "unit",
+                    "value": 60
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedIgeResponse": {
         "properties": {
@@ -38544,7 +39516,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedIgeResponse"
+        "title": "GroupedIgeResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "baha_grass",
+                    "unit": "FSU",
+                    "value": 70
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedIggResponse": {
         "properties": {
@@ -38589,7 +39581,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedIggResponse"
+        "title": "GroupedIggResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "dairy",
+                    "unit": "FSU",
+                    "value": 12
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedHypnogramResponse": {
         "properties": {
@@ -38634,7 +39646,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedHypnogramResponse"
+        "title": "GroupedHypnogramResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "stage",
+                    "value": 1
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedHRVResponse": {
         "properties": {
@@ -38679,7 +39711,26 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedHRVResponse"
+        "title": "GroupedHRVResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "rmssd",
+                    "value": 48
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedHeartRateResponse": {
         "properties": {
@@ -38724,7 +39775,26 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedHeartRateResponse"
+        "title": "GroupedHeartRateResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "bpm",
+                    "value": 70
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedGlucoseResponse": {
         "properties": {
@@ -38769,7 +39839,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedGlucoseResponse"
+        "title": "GroupedGlucoseResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "automatic | manual_scan",
+                    "unit": "mmol/L",
+                    "value": 0.5
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedCholesterolResponse": {
         "properties": {
@@ -38814,7 +39904,45 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedCholesterolResponse"
+        "title": "GroupedCholesterolResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "cholesterol/ldl",
+                    "unit": "mmol/L",
+                    "value": 0.6
+                  },
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "cholesterol/hdl",
+                    "unit": "mmol/L",
+                    "value": 0.2
+                  },
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "cholesterol/total",
+                    "unit": "mmol/L",
+                    "value": 0.7
+                  },
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "cholesterol/triglycerides",
+                    "unit": "mmol/L",
+                    "value": 0.7
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedCarbohydratesResponse": {
         "properties": {
@@ -38859,7 +39987,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedCarbohydratesResponse"
+        "title": "GroupedCarbohydratesResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:30:52+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "g",
+                    "value": 30
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedBodyTemperatureDeltaResponse": {
         "properties": {
@@ -38904,7 +40052,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBodyTemperatureDeltaResponse"
+        "title": "GroupedBodyTemperatureDeltaResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "sensor_location": "wrist",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "°C",
+                    "value": -1
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedBodyTemperatureResponse": {
         "properties": {
@@ -38949,7 +40118,28 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBodyTemperatureResponse"
+        "title": "GroupedBodyTemperatureResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:30:52+00:00",
+                    "sensor_location": "eardrum",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "unit": "°C",
+                    "value": 65
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedBodyWeightResponse": {
         "properties": {
@@ -38994,7 +40184,26 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBodyWeightResponse"
+        "title": "GroupedBodyWeightResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "kg",
+                    "value": 65
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedBodyFatResponse": {
         "properties": {
@@ -39039,7 +40248,26 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBodyFatResponse"
+        "title": "GroupedBodyFatResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "%",
+                    "value": 50
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedBloodOxygenResponse": {
         "properties": {
@@ -39084,7 +40312,26 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBloodOxygenResponse"
+        "title": "GroupedBloodOxygenResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "%",
+                    "value": 98
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedElectrocardiogramVoltageResponse": {
         "properties": {
@@ -39129,7 +40376,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedElectrocardiogramVoltageResponse"
+        "title": "GroupedElectrocardiogramVoltageResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "type": "lead_1",
+                    "unit": "mV",
+                    "value": -373
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedBloodPressureResponse": {
         "properties": {
@@ -39174,7 +40441,27 @@
         "required": [
           "groups"
         ],
-        "title": "GroupedBloodPressureResponse"
+        "title": "GroupedBloodPressureResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "diastolic": 75,
+                    "systolic": 125,
+                    "timestamp": "2025-04-10T12:37:19+00:00",
+                    "unit": "mmHg"
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedWaistCircumference": {
         "properties": {
