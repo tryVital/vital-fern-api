@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.167"
+    "version": "0.3.170"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -13044,9 +13044,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "d9652835-6ace-43b5-96ed-ade0b8cfffc6",
-                  "user_id": "718a347a-df0a-4ddf-9e60-9c1dc8b11769",
-                  "order_id": "aaf7397c-04ba-4e6b-852d-0359e85b35eb",
+                  "id": "bcd6124d-7181-4c3a-b800-48b59d847188",
+                  "user_id": "9fdb0da9-e571-43e1-9b61-907f2831eb01",
+                  "order_id": "e53e9da6-8ea7-4767-a67e-b218a466467e",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -21120,6 +21120,7 @@
               "calendar_date": "2023-03-22",
               "calories_active": 2000,
               "calories_total": 100,
+              "created_at": "2023-02-27T20:31:24Z",
               "daily_movement": 200,
               "date": "2023-03-22T00:00:00+00:00",
               "floors_climbed": 10,
@@ -21141,6 +21142,7 @@
               "steps": 10000,
               "time_zone": "Europe/London",
               "timezone_offset": 3600,
+              "updated_at": "2023-02-28T01:22:38Z",
               "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537"
             }
           ]
@@ -21167,6 +21169,7 @@
               "body_mass_index": 22.3,
               "bone_mass_percentage": 4.3,
               "calendar_date": "2023-02-27",
+              "created_at": "2023-02-27T20:31:24Z",
               "date": "2023-02-27T12:31:24+00:00",
               "fat": 30,
               "height": 183,
@@ -21178,6 +21181,7 @@
                 "name": "Withings",
                 "slug": "withings"
               },
+              "updated_at": "2023-02-28T01:22:38Z",
               "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537",
               "visceral_fat_index": 4.5,
               "waist_circumference_centimeter": 86.36,
@@ -21272,16 +21276,16 @@
       },
       "ClientFacingActivity": {
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
           "user_id": {
             "type": "string",
             "format": "uuid",
             "title": "User Id",
             "description": "User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Id"
           },
           "date": {
             "type": "string",
@@ -21466,21 +21470,34 @@
               }
             ],
             "title": "Wheelchair Push"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
           }
         },
         "type": "object",
         "required": [
-          "user_id",
           "id",
+          "user_id",
           "date",
           "calendar_date",
-          "source"
+          "source",
+          "created_at",
+          "updated_at"
         ],
         "title": "Daily Activity",
         "example": {
           "calendar_date": "2023-03-22",
           "calories_active": 2000,
           "calories_total": 100,
+          "created_at": "2023-02-27T20:31:24Z",
           "daily_movement": 200,
           "date": "2023-03-22T00:00:00+00:00",
           "floors_climbed": 10,
@@ -21502,6 +21519,7 @@
           "steps": 10000,
           "time_zone": "Europe/London",
           "timezone_offset": 3600,
+          "updated_at": "2023-02-28T01:22:38Z",
           "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537"
         }
       },
@@ -21704,18 +21722,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "22e0cc72-f183-4f9c-acd4-471e65b140f8",
+          "id": "7b0807c4-c0b8-4c63-bbe2-eb67d14bca5b",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "f3e2d54e-0893-4a64-934a-894e7a037410",
+          "order_id": "dc9158d6-6b73-4bf8-9ae0-c7812e878642",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "9e00815f-c6b1-4bce-af57-f643476c8816"
+          "user_id": "f9c7a527-9ad0-4c28-b773-d436b59bebf5"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -21742,7 +21760,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "a6edd5e2-141a-4581-86a3-978efd2781be",
+          "id": "e24bc711-25c7-4a47-b1af-0db4a0906692",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -21817,9 +21835,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "8ed1ad51-3835-449b-9f9f-37476bf91f88",
+          "appointment_id": "77992184-f1b1-498d-b796-7697af6157d4",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "7ee018ff-ab82-4fb7-908d-bdbd0cfb76f2",
+          "id": "4823e809-4ac5-4d79-81ce-e1fb03a7c7b2",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -22073,22 +22091,22 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-04-15T20:08:51+00:00",
+          "timestamp": "2025-04-16T14:46:28+00:00",
           "unit": "mmHg"
         }
       },
       "ClientFacingBody": {
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
           "user_id": {
             "type": "string",
             "format": "uuid",
             "title": "User Id",
             "description": "User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Id"
           },
           "date": {
             "type": "string",
@@ -22210,21 +22228,34 @@
           },
           "source": {
             "$ref": "#/components/schemas/ClientFacingSource"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
           }
         },
         "type": "object",
         "required": [
-          "user_id",
           "id",
+          "user_id",
           "date",
           "calendar_date",
-          "source"
+          "source",
+          "created_at",
+          "updated_at"
         ],
         "title": "ClientFacingBody",
         "example": {
           "body_mass_index": 22.3,
           "bone_mass_percentage": 4.3,
           "calendar_date": "2023-02-27",
+          "created_at": "2023-02-27T20:31:24Z",
           "date": "2023-02-27T12:31:24+00:00",
           "fat": 30,
           "height": 183,
@@ -22236,6 +22267,7 @@
             "name": "Withings",
             "slug": "withings"
           },
+          "updated_at": "2023-02-28T01:22:38Z",
           "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537",
           "visceral_fat_index": 4.5,
           "waist_circumference_centimeter": 86.36,
@@ -23190,12 +23222,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "76d913cb-8155-49fa-88c7-24c3e1ee8819",
+          "order_id": "4569a5f4-7376-4d29-8125-2e4a87a4c9cd",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "ed5b4386-0a27-40ba-876a-9462f23113e0",
+          "team_id": "4d32ef86-40fa-492a-b8a1-a6b7be80b4cb",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "85119bc8-6585-4435-b845-c1494bcae0c7"
+          "user_id": "4255517d-23ac-4dbf-a371-503a55ed2a58"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -23539,14 +23571,12 @@
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Created At",
-            "default": "0001-01-01T00:00:00Z"
+            "title": "Created At"
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Updated At",
-            "default": "0001-01-01T00:00:00Z"
+            "title": "Updated At"
           },
           "user_id": {
             "type": "string",
@@ -23566,11 +23596,14 @@
           "source_provider",
           "source_type",
           "user_id",
-          "source"
+          "source",
+          "created_at",
+          "updated_at"
         ],
         "title": "Electrocardiogram",
         "example": {
           "classification": "sinus_rhythm",
+          "created_at": "2023-02-27T20:31:24Z",
           "heart_rate_mean": 73,
           "id": "f1b3b3b3-1b3b-1b3b-1b3b-1b3b3b3b3b3b",
           "sampling_frequency_hz": 505,
@@ -23583,6 +23616,7 @@
           "source_provider": "oura",
           "source_type": "ring",
           "time_zone": "America/Los_Angeles",
+          "updated_at": "2023-02-28T01:22:38Z",
           "user_id": "f1b3b3b3-1b3b-1b3b-1b3b-1b3b3b3b3b3b",
           "voltage_sample_count": 1600
         }
@@ -23606,6 +23640,7 @@
           "electrocardiogram": [
             {
               "classification": "sinus_rhythm",
+              "created_at": "2023-02-27T20:31:24Z",
               "heart_rate_mean": 73,
               "id": "f1b3b3b3-1b3b-1b3b-1b3b-1b3b3b3b3b3b",
               "sampling_frequency_hz": 505,
@@ -23618,6 +23653,7 @@
               "source_provider": "oura",
               "source_type": "ring",
               "time_zone": "America/Los_Angeles",
+              "updated_at": "2023-02-28T01:22:38Z",
               "user_id": "f1b3b3b3-1b3b-1b3b-1b3b-1b3b3b3b3b3b",
               "voltage_sample_count": 1600
             }
@@ -25588,7 +25624,7 @@
         "example": {
           "meals": [
             {
-              "created_at": "2019-08-24T14:15:22Z",
+              "created_at": "2023-02-27T20:31:24Z",
               "data": {
                 "Chiken coquet starter": {
                   "energy": {
@@ -25646,7 +25682,7 @@
               "source_app_id": "com.myfitnesspal.mfp",
               "source_id": 10,
               "timestamp": "2019-08-24T14:15:22Z",
-              "updated_at": "2019-08-24T14:15:22Z",
+              "updated_at": "2023-02-28T01:22:38Z",
               "user_id": "a169451c-8525-4352-b8ca-070dd449a1a5"
             }
           ]
@@ -25808,14 +25844,12 @@
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Created At",
-            "default": "0001-01-01T00:00:00Z"
+            "title": "Created At"
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Updated At",
-            "default": "0001-01-01T00:00:00Z"
+            "title": "Updated At"
           },
           "user_id": {
             "type": "string",
@@ -25835,13 +25869,16 @@
           "source_provider",
           "source_type",
           "user_id",
-          "source"
+          "source",
+          "created_at",
+          "updated_at"
         ],
         "title": "MenstrualCycle",
         "example": {
           "basal_body_temperature": [],
           "cervical_mucus": [],
           "contraceptive": [],
+          "created_at": "2023-02-27T20:31:24Z",
           "cycle_end": "2024-05-01",
           "detected_deviations": [],
           "home_pregnancy_test": [],
@@ -25884,6 +25921,7 @@
           "source_app_id": "com.apple.Health",
           "source_provider": "apple_health_kit",
           "source_type": "app",
+          "updated_at": "2023-02-28T01:22:38Z",
           "user_id": "cbd8b986-4225-4d36-8e2c-046ff2702769"
         }
       },
@@ -25964,7 +26002,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-04-15T20:13:51.200861+00:00",
+          "end": "2025-04-16T14:51:28.111780+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -26352,8 +26390,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "c6fcfd22-b1bd-454e-8cbf-d6ceaa3b9f18",
-          "id": "08cf21a3-927e-4d3f-a6ca-e2f5d76b404d",
+          "health_insurace_id": "e1a30614-94c6-4866-bd2a-56caf948734d",
+          "id": "ba163c72-2249-42ae-b3e4-a1e971e26aa2",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -26377,9 +26415,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "5a4a8f7b-877c-4034-b684-43e0642e0d93",
+          "team_id": "1bf3564a-c292-4fb9-ac2d-5f368dbeb6e5",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "d9d7b2e7-84d7-46d1-94c0-1ccfe3c6384a"
+          "user_id": "6234a1e5-c46d-46ba-a9c5-3facdd9a579d"
         }
       },
       "ClientFacingOrderEvent": {
@@ -27263,7 +27301,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "ffd628e4-e173-44e8-8459-21ee5b046699",
+          "id": "4b6c69ba-82bf-4b78-bc10-3fc2b4a8fb7b",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -27275,16 +27313,16 @@
       },
       "ClientFacingSleep": {
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
           "user_id": {
             "type": "string",
             "format": "uuid",
             "title": "User Id",
             "description": "User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Id"
           },
           "date": {
             "type": "string",
@@ -27512,13 +27550,24 @@
               {
                 "type": "null"
               }
-            ]
+            ],
+            "deprecated": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
           }
         },
         "type": "object",
         "required": [
-          "user_id",
           "id",
+          "user_id",
           "date",
           "calendar_date",
           "bedtime_start",
@@ -27530,7 +27579,9 @@
           "light",
           "rem",
           "deep",
-          "source"
+          "source",
+          "created_at",
+          "updated_at"
         ],
         "title": "Sleep Data",
         "example": {
@@ -27539,6 +27590,7 @@
           "bedtime_start": "2023-02-27T12:31:24+00:00",
           "bedtime_stop": "2023-02-27T12:31:24+00:00",
           "calendar_date": "2023-02-27",
+          "created_at": "2023-02-27T20:31:24Z",
           "date": "2023-02-27T12:31:24+00:00",
           "deep": 2400,
           "duration": 28800,
@@ -27558,6 +27610,7 @@
           "temperature_delta": -0.2,
           "timezone_offset": 2400,
           "total": 28800,
+          "updated_at": "2023-02-28T01:22:38Z",
           "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537"
         }
       },
@@ -27840,14 +27893,12 @@
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Created At",
-            "default": "0001-01-01T00:00:00Z"
+            "title": "Created At"
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Updated At",
-            "default": "0001-01-01T00:00:00Z"
+            "title": "Updated At"
           },
           "user_id": {
             "type": "string",
@@ -27870,10 +27921,13 @@
           "source_provider",
           "source_type",
           "user_id",
-          "source"
+          "source",
+          "created_at",
+          "updated_at"
         ],
         "title": "Sleep Cycle",
         "example": {
+          "created_at": "2023-02-27T20:31:24Z",
           "id": "f1b3b3b3-1b3b-1b3b-1b3b-1b3b3b3b3b3b",
           "session_end": "2022-01-01T08:00:00",
           "session_start": "2022-01-01T00:00:00",
@@ -27903,6 +27957,7 @@
             1
           ],
           "time_zone": "America/Los_Angeles",
+          "updated_at": "2023-02-28T01:22:38Z",
           "user_id": "f1b3b3b3-1b3b-1b3b-1b3b-1b3b3b3b3b3b"
         }
       },
@@ -27975,95 +28030,95 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-04-15T20:08:51.853345+00:00",
+              "timestamp": "2025-04-16T14:46:28.668859+00:00",
               "unit": "bpm",
-              "value": 98
+              "value": 44
             },
             {
               "id": 1,
-              "timestamp": "2025-04-15T20:09:21.853376+00:00",
-              "unit": "bpm",
-              "value": 123
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-04-15T20:09:51.853463+00:00",
-              "unit": "bpm",
-              "value": 172
-            },
-            {
-              "id": 3,
-              "timestamp": "2025-04-15T20:10:21.853537+00:00",
+              "timestamp": "2025-04-16T14:46:58.668890+00:00",
               "unit": "bpm",
               "value": 73
             },
             {
-              "id": 4,
-              "timestamp": "2025-04-15T20:10:51.853574+00:00",
+              "id": 2,
+              "timestamp": "2025-04-16T14:47:28.668919+00:00",
               "unit": "bpm",
-              "value": 185
+              "value": 109
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-04-16T14:47:58.668966+00:00",
+              "unit": "bpm",
+              "value": 126
+            },
+            {
+              "id": 4,
+              "timestamp": "2025-04-16T14:48:28.669001+00:00",
+              "unit": "bpm",
+              "value": 59
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-04-15T20:08:51.853041+00:00",
+              "timestamp": "2025-04-16T14:46:28.668557+00:00",
               "unit": "rmssd",
-              "value": 22
+              "value": 51
             },
             {
               "id": 1,
-              "timestamp": "2025-04-15T20:09:21.853165+00:00",
+              "timestamp": "2025-04-16T14:46:58.668674+00:00",
               "unit": "rmssd",
-              "value": 24
+              "value": 21
             },
             {
               "id": 2,
-              "timestamp": "2025-04-15T20:09:51.853217+00:00",
+              "timestamp": "2025-04-16T14:47:28.668722+00:00",
               "unit": "rmssd",
-              "value": 33
+              "value": 9
             },
             {
               "id": 3,
-              "timestamp": "2025-04-15T20:10:21.853265+00:00",
+              "timestamp": "2025-04-16T14:47:58.668766+00:00",
               "unit": "rmssd",
-              "value": 59
+              "value": 52
             },
             {
               "id": 4,
-              "timestamp": "2025-04-15T20:10:51.853310+00:00",
+              "timestamp": "2025-04-16T14:48:28.668802+00:00",
               "unit": "rmssd",
-              "value": 13
+              "value": 18
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-04-15T20:08:51.853604+00:00",
+              "timestamp": "2025-04-16T14:46:28.669034+00:00",
               "unit": "stage",
               "value": 2
             },
             {
               "id": 1,
-              "timestamp": "2025-04-15T20:09:21.853635+00:00",
+              "timestamp": "2025-04-16T14:46:58.669062+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 1
             },
             {
               "id": 2,
-              "timestamp": "2025-04-15T20:09:51.853660+00:00",
+              "timestamp": "2025-04-16T14:47:28.669087+00:00",
               "unit": "stage",
-              "value": 4
+              "value": 0
             },
             {
               "id": 3,
-              "timestamp": "2025-04-15T20:10:21.853684+00:00",
+              "timestamp": "2025-04-16T14:47:58.669113+00:00",
               "unit": "stage",
               "value": 2
             },
             {
               "id": 4,
-              "timestamp": "2025-04-15T20:10:51.853710+00:00",
+              "timestamp": "2025-04-16T14:48:28.669139+00:00",
               "unit": "stage",
               "value": 4
             }
@@ -28071,33 +28126,33 @@
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-04-15T20:08:51.853736+00:00",
-              "unit": "bpm",
-              "value": 18
-            },
-            {
-              "id": 1,
-              "timestamp": "2025-04-15T20:09:21.853766+00:00",
-              "unit": "bpm",
-              "value": 22
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-04-15T20:09:51.853797+00:00",
-              "unit": "bpm",
-              "value": 10
-            },
-            {
-              "id": 3,
-              "timestamp": "2025-04-15T20:10:21.853820+00:00",
+              "timestamp": "2025-04-16T14:46:28.669170+00:00",
               "unit": "bpm",
               "value": 20
             },
             {
-              "id": 4,
-              "timestamp": "2025-04-15T20:10:51.853843+00:00",
+              "id": 1,
+              "timestamp": "2025-04-16T14:46:58.669195+00:00",
               "unit": "bpm",
-              "value": 16
+              "value": 24
+            },
+            {
+              "id": 2,
+              "timestamp": "2025-04-16T14:47:28.669218+00:00",
+              "unit": "bpm",
+              "value": 14
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-04-16T14:47:58.669376+00:00",
+              "unit": "bpm",
+              "value": 25
+            },
+            {
+              "id": 4,
+              "timestamp": "2025-04-16T14:48:28.669406+00:00",
+              "unit": "bpm",
+              "value": 28
             }
           ]
         }
@@ -29147,10 +29202,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "d80a5569-74e3-42ea-bf61-6c2c6b5c270e",
+          "id": "252edeab-10a3-4e65-8452-44415757b02c",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "870c872a-a133-4007-825b-7feb4d3057d1",
+            "id": "6917dd59-8296-4eab-8eff-f48c7b23aae5",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -29343,7 +29398,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-04-15T20:08:50+00:00",
+              "created_on": "2025-04-16T14:46:27+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -29351,16 +29406,16 @@
               }
             }
           ],
-          "created_on": "2025-04-15T20:08:50+00:00",
+          "created_on": "2025-04-16T14:46:27+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-04-15T20:08:50+00:00",
+            "updated_at": "2025-04-16T14:46:27+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-04-15T20:08:50+00:00"
+            "updated_at": "2025-04-16T14:46:27+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -29622,9 +29677,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "9d9d0ff1-3b98-4643-be99-d9e9d70df51f",
+          "appointment_id": "b1f355b9-d4d5-4332-9703-969fb407e51d",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "ee685023-b960-48ab-9eb8-2b93a2f5e1ae",
+          "id": "11230e35-b735-4f22-a5d3-377e9039709d",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -29783,16 +29838,16 @@
       },
       "ClientFacingWorkout": {
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
           "user_id": {
             "type": "string",
             "format": "uuid",
             "title": "User Id",
             "description": "User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Id"
           },
           "title": {
             "anyOf": [
@@ -30055,17 +30110,29 @@
           "source": {
             "$ref": "#/components/schemas/ClientFacingSource",
             "description": "Source the data has come from."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
           }
         },
         "type": "object",
         "required": [
-          "user_id",
           "id",
+          "user_id",
           "calendar_date",
           "time_start",
           "time_end",
           "provider_id",
-          "source"
+          "source",
+          "created_at",
+          "updated_at"
         ],
         "title": "Workout Data",
         "example": {
@@ -30074,6 +30141,7 @@
           "average_watts": 100,
           "calendar_date": "2023-02-27",
           "calories": 300,
+          "created_at": "2023-02-27T20:31:24Z",
           "device_watts": 80,
           "distance": 1700,
           "elev_high": 20.2,
@@ -30104,6 +30172,7 @@
           "time_end": "2023-02-27T12:31:24+00:00",
           "time_start": "2023-02-27T11:31:24+00:00",
           "total_elevation_gain": 10,
+          "updated_at": "2023-02-28T01:22:38Z",
           "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537",
           "weighted_average_watts": 250
         }
@@ -30258,6 +30327,7 @@
         "example": {
           "sleep_cycle": [
             {
+              "created_at": "2023-02-27T20:31:24Z",
               "id": "f1b3b3b3-1b3b-1b3b-1b3b-1b3b3b3b3b3b",
               "session_end": "2022-01-01T08:00:00",
               "session_start": "2022-01-01T00:00:00",
@@ -30287,6 +30357,7 @@
                 1
               ],
               "time_zone": "America/Los_Angeles",
+              "updated_at": "2023-02-28T01:22:38Z",
               "user_id": "f1b3b3b3-1b3b-1b3b-1b3b-1b3b3b3b3b3b"
             }
           ]
@@ -30315,6 +30386,7 @@
               "bedtime_start": "2023-02-27T12:31:24+00:00",
               "bedtime_stop": "2023-02-27T12:31:24+00:00",
               "calendar_date": "2023-02-27",
+              "created_at": "2023-02-27T20:31:24Z",
               "date": "2023-02-27T12:31:24+00:00",
               "deep": 2400,
               "duration": 28800,
@@ -30334,6 +30406,7 @@
               "temperature_delta": -0.2,
               "timezone_offset": 2400,
               "total": 28800,
+              "updated_at": "2023-02-28T01:22:38Z",
               "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537"
             }
           ]
@@ -30412,6 +30485,7 @@
               "average_watts": 100,
               "calendar_date": "2023-02-27",
               "calories": 300,
+              "created_at": "2023-02-27T20:31:24Z",
               "device_watts": 80,
               "distance": 1700,
               "elev_high": 20.2,
@@ -30442,6 +30516,7 @@
               "time_end": "2023-02-27T12:31:24+00:00",
               "time_start": "2023-02-27T11:31:24+00:00",
               "total_elevation_gain": 10,
+              "updated_at": "2023-02-28T01:22:38Z",
               "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537",
               "weighted_average_watts": 250
             }
@@ -30682,7 +30757,7 @@
               "third"
             ]
           },
-          "query_id": "7e2db325-73e8-44c3-8cae-f9806834a05f",
+          "query_id": "db6abfd6-e2c4-47d7-946c-63ba9952dfc2",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -32946,7 +33021,7 @@
         ],
         "title": "MealInDBBase[ClientFacingSource]",
         "example": {
-          "created_at": "2019-08-24T14:15:22Z",
+          "created_at": "2023-02-27T20:31:24Z",
           "data": {
             "Chiken coquet starter": {
               "energy": {
@@ -33004,7 +33079,7 @@
           "source_app_id": "com.myfitnesspal.mfp",
           "source_id": 10,
           "timestamp": "2019-08-24T14:15:22Z",
-          "updated_at": "2019-08-24T14:15:22Z",
+          "updated_at": "2023-02-28T01:22:38Z",
           "user_id": "a169451c-8525-4352-b8ca-070dd449a1a5"
         }
       },
@@ -38908,7 +38983,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-04-15T20:13:51.200861+00:00",
+                    "end": "2025-04-16T14:51:28.111780+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -40554,7 +40629,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-04-15T20:08:51+00:00",
+                    "timestamp": "2025-04-16T14:46:28+00:00",
                     "unit": "mmHg"
                   }
                 ],
