@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.195"
+    "version": "0.3.197"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -2413,6 +2413,360 @@
         },
         "x-fern-sdk-group-name": "workouts",
         "x-fern-sdk-method-name": "get_by_workout_id"
+      }
+    },
+    "/v2/timeseries/{user_id}/workout_swimming_stroke/grouped": {
+      "get": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Workout Swimming Stroke",
+        "operationId": "get_workout_swimming_stroke_grouped",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+            "deprecated": true
+          },
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Next Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupedWorkoutSwimmingStrokeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "vitals",
+        "x-fern-sdk-method-name": "workout_swimming_stroke_grouped",
+        "x-fern-availability": "generally-available"
+      }
+    },
+    "/v2/timeseries/{user_id}/workout_distance/grouped": {
+      "get": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Workout Distance",
+        "operationId": "get_workout_distance_grouped",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+            "deprecated": true
+          },
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Next Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupedWorkoutDistanceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "vitals",
+        "x-fern-sdk-method-name": "workout_distance_grouped",
+        "x-fern-availability": "generally-available"
+      }
+    },
+    "/v2/timeseries/{user_id}/heart_rate_recovery_one_minute/grouped": {
+      "get": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Heart Rate Recovery One Minute",
+        "operationId": "get_heart_rate_recovery_one_minute_grouped",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+            "deprecated": true
+          },
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Next Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupedHeartRateRecoveryOneMinuteResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "vitals",
+        "x-fern-sdk-method-name": "heart_rate_recovery_one_minute_grouped",
+        "x-fern-availability": "generally-available"
       }
     },
     "/v2/timeseries/{user_id}/waist_circumference/grouped": {
@@ -13056,9 +13410,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "5dc69b1b-9304-4774-84fc-a8b71a27d72c",
-                  "user_id": "b56875d1-59ce-46aa-8f46-6aef31d0415e",
-                  "order_id": "e894d16a-5983-4d8a-8f88-d13a5f649389",
+                  "id": "b766fa9b-8cf8-4594-b0b9-36415e1a579b",
+                  "user_id": "b113e1b5-fcf1-4cec-9d66-bc353668a432",
+                  "order_id": "420e971c-ac94-41b2-bbac-94dc9178f535",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -19883,6 +20237,240 @@
           }
         }
       }
+    },
+    "daily.data.heart_rate_recovery_one_minute.*": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Heart Rate Recovery One Minute",
+        "operationId": "heart_rate_recovery_one_minutedaily_data_heart_rate_recovery_one_minute___post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingHeartRateRecoveryOneMinuteChanged"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.heart_rate_recovery_one_minute.created": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Heart Rate Recovery One Minute Historical Pull Completed",
+        "operationId": "heart_rate_recovery_one_minute_historical_pull_completedhistorical_data_heart_rate_recovery_one_minute_created_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingHeartRateRecoveryOneMinuteHistoricalPullCompleted"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "daily.data.workout_distance.*": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Workout Distance",
+        "operationId": "workout_distancedaily_data_workout_distance___post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWorkoutDistanceChanged"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.workout_distance.created": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Workout Distance Historical Pull Completed",
+        "operationId": "workout_distance_historical_pull_completedhistorical_data_workout_distance_created_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWorkoutDistanceHistoricalPullCompleted"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "daily.data.workout_swimming_stroke.*": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Workout Swimming Stroke",
+        "operationId": "workout_swimming_strokedaily_data_workout_swimming_stroke___post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWorkoutSwimmingStrokeChanged"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.workout_swimming_stroke.created": {
+      "post": {
+        "tags": [
+          "timeseries"
+        ],
+        "summary": "Workout Swimming Stroke Historical Pull Completed",
+        "operationId": "workout_swimming_stroke_historical_pull_completedhistorical_data_workout_swimming_stroke_created_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWorkoutSwimmingStrokeHistoricalPullCompleted"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -21734,18 +22322,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "d4a12e03-3637-4ecd-8494-dfa1fce3c7f0",
+          "id": "dcfe6dce-d844-41a3-8da8-f9b546d43a87",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "73c378d4-aeaf-4cc6-9dfd-cd700d055697",
+          "order_id": "669346e6-12f8-432d-8ff1-0e6a094f14d3",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "0890521b-b1c7-44cb-aafc-5775c392c150"
+          "user_id": "219455c8-f417-4b5b-bc28-f9848c40feba"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -21772,7 +22360,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "9a7c0e1c-4e33-45b6-ade3-862dc990fb2b",
+          "id": "23e26911-4258-45da-ac73-1021f821d37f",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -21847,9 +22435,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "c899ee1e-3aff-4bc7-9255-e63633d8058c",
+          "appointment_id": "899a8094-402f-47d8-8f80-afd3be4e496a",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "7c4fbdd9-bb53-4742-ade8-15ca7778fa14",
+          "id": "8840a722-72b2-4c55-bfbb-0dd3bca5a7c1",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -22075,7 +22663,9 @@
           "grouping": {
             "$ref": "#/components/schemas/_ClientFacingSampleGroupingKeys",
             "default": [
-              "unknown"
+              "unknown",
+              null,
+              null
             ]
           },
           "timestamp": {
@@ -22103,7 +22693,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-04-23T15:35:39+00:00",
+          "timestamp": "2025-04-25T15:37:04+00:00",
           "unit": "mmHg"
         }
       },
@@ -23234,12 +23824,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "dd05da99-c4ab-4f13-ac51-da115372e49a",
+          "order_id": "be7efb24-765b-48a8-98f9-de3b56146f90",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "f6191321-8aab-40a4-9c96-211cae1dd10c",
+          "team_id": "e1861385-a297-48ac-99d5-454f021ff003",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "f231d1a1-7234-4fb2-9bda-281278efe093"
+          "user_id": "ccf7bbe8-f607-4453-9c69-79747a24a706"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -24467,6 +25057,90 @@
           "type": "irregular_rhythm",
           "unit": "count",
           "value": 1
+        }
+      },
+      "ClientFacingHeartRateRecoveryOneMinuteSample": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "Deprecated"
+          },
+          "timezone_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone Offset",
+            "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection."
+          },
+          "unit": {
+            "type": "string",
+            "const": "count",
+            "title": "Unit"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "Depracated. The start time (inclusive) of the interval."
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start",
+            "description": "The start time (inclusive) of the interval."
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End",
+            "description": "The end time (exclusive) of the interval."
+          },
+          "value": {
+            "type": "number",
+            "title": "Value",
+            "description": "The recorded value for the interval."
+          }
+        },
+        "type": "object",
+        "required": [
+          "unit",
+          "timestamp",
+          "start",
+          "end",
+          "value"
+        ],
+        "title": "ClientFacingHeartRateRecoveryOneMinuteSample",
+        "example": {
+          "end": "2023-02-13T14:57:24+00:00",
+          "start": "2023-02-13T14:30:52+00:00",
+          "timestamp": "2023-02-13T14:30:52+00:00",
+          "unit": "count",
+          "value": 37
         }
       },
       "ClientFacingHeartRateTimeseries": {
@@ -26014,7 +26688,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-04-23T15:40:39.364339+00:00",
+          "end": "2025-04-25T15:42:04.399625+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -26402,8 +27076,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "4d0f491d-b874-4459-a839-a54e0b80d8d5",
-          "id": "9243344e-6fe6-41a8-b922-7ee6f0ef9aa7",
+          "health_insurace_id": "34de6cf6-adcb-4a6b-9186-2b0b92e392e0",
+          "id": "acd88b39-7b8a-4ab3-bd14-74f173b561d0",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -26427,9 +27101,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "bc1f01cd-2ada-4a7f-9adb-40ee2eb33d02",
+          "team_id": "5fd29fd6-d81f-4251-b5e3-2d1763992b7c",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "3257adbc-d7ca-4bd5-a0dc-2fa689be416c"
+          "user_id": "db148250-24de-4dda-b25c-7b3a0d003f1e"
         }
       },
       "ClientFacingOrderEvent": {
@@ -27327,7 +28001,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "1442b0db-0bf7-4f00-b359-1ac713d532d9",
+          "id": "e58fee5d-4d6a-4843-82c8-a8e6e35620bd",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -28056,129 +28730,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-04-23T15:35:39.888634+00:00",
+              "timestamp": "2025-04-25T15:37:04.954796+00:00",
               "unit": "bpm",
-              "value": 77
+              "value": 137
             },
             {
               "id": 1,
-              "timestamp": "2025-04-23T15:36:09.888664+00:00",
+              "timestamp": "2025-04-25T15:37:34.954838+00:00",
               "unit": "bpm",
-              "value": 189
+              "value": 157
             },
             {
               "id": 2,
-              "timestamp": "2025-04-23T15:36:39.888691+00:00",
+              "timestamp": "2025-04-25T15:38:04.954868+00:00",
               "unit": "bpm",
-              "value": 64
+              "value": 145
             },
             {
               "id": 3,
-              "timestamp": "2025-04-23T15:37:09.888732+00:00",
+              "timestamp": "2025-04-25T15:38:34.954910+00:00",
               "unit": "bpm",
-              "value": 49
+              "value": 91
             },
             {
               "id": 4,
-              "timestamp": "2025-04-23T15:37:39.888766+00:00",
+              "timestamp": "2025-04-25T15:39:04.954940+00:00",
               "unit": "bpm",
-              "value": 102
+              "value": 182
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-04-23T15:35:39.888393+00:00",
+              "timestamp": "2025-04-25T15:37:04.954545+00:00",
               "unit": "rmssd",
-              "value": 60
+              "value": 12
             },
             {
               "id": 1,
-              "timestamp": "2025-04-23T15:36:09.888476+00:00",
+              "timestamp": "2025-04-25T15:37:34.954630+00:00",
               "unit": "rmssd",
-              "value": 9
+              "value": 12
             },
             {
               "id": 2,
-              "timestamp": "2025-04-23T15:36:39.888522+00:00",
+              "timestamp": "2025-04-25T15:38:04.954677+00:00",
               "unit": "rmssd",
-              "value": 41
+              "value": 55
             },
             {
               "id": 3,
-              "timestamp": "2025-04-23T15:37:09.888565+00:00",
+              "timestamp": "2025-04-25T15:38:34.954721+00:00",
               "unit": "rmssd",
-              "value": 81
+              "value": 21
             },
             {
               "id": 4,
-              "timestamp": "2025-04-23T15:37:39.888600+00:00",
+              "timestamp": "2025-04-25T15:39:04.954762+00:00",
               "unit": "rmssd",
-              "value": 12
+              "value": 77
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-04-23T15:35:39.888795+00:00",
+              "timestamp": "2025-04-25T15:37:04.954968+00:00",
+              "unit": "stage",
+              "value": 2
+            },
+            {
+              "id": 1,
+              "timestamp": "2025-04-25T15:37:34.954994+00:00",
               "unit": "stage",
               "value": 4
             },
             {
-              "id": 1,
-              "timestamp": "2025-04-23T15:36:09.888820+00:00",
-              "unit": "stage",
-              "value": 2
-            },
-            {
               "id": 2,
-              "timestamp": "2025-04-23T15:36:39.888844+00:00",
+              "timestamp": "2025-04-25T15:38:04.955017+00:00",
               "unit": "stage",
-              "value": -1
+              "value": 0
             },
             {
               "id": 3,
-              "timestamp": "2025-04-23T15:37:09.888869+00:00",
+              "timestamp": "2025-04-25T15:38:34.955042+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 0
             },
             {
               "id": 4,
-              "timestamp": "2025-04-23T15:37:39.888898+00:00",
+              "timestamp": "2025-04-25T15:39:04.955107+00:00",
               "unit": "stage",
-              "value": 1
+              "value": 0
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-04-23T15:35:39.888925+00:00",
+              "timestamp": "2025-04-25T15:37:04.955136+00:00",
               "unit": "bpm",
-              "value": 23
+              "value": 17
             },
             {
               "id": 1,
-              "timestamp": "2025-04-23T15:36:09.888949+00:00",
+              "timestamp": "2025-04-25T15:37:34.955161+00:00",
               "unit": "bpm",
-              "value": 9
+              "value": 10
             },
             {
               "id": 2,
-              "timestamp": "2025-04-23T15:36:39.888972+00:00",
+              "timestamp": "2025-04-25T15:38:04.955188+00:00",
               "unit": "bpm",
               "value": 8
             },
             {
               "id": 3,
-              "timestamp": "2025-04-23T15:37:09.888994+00:00",
+              "timestamp": "2025-04-25T15:38:34.955211+00:00",
               "unit": "bpm",
-              "value": 22
+              "value": 29
             },
             {
               "id": 4,
-              "timestamp": "2025-04-23T15:37:39.889017+00:00",
+              "timestamp": "2025-04-25T15:39:04.955234+00:00",
               "unit": "bpm",
-              "value": 8
+              "value": 28
             }
           ]
         }
@@ -29228,10 +29902,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "4b876a1f-1b0b-4664-902e-72ea3c594487",
+          "id": "00430fe9-26b2-4de2-b678-beb54b9e2341",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "5cf1758d-3e79-4aed-87d8-8f4c5a4ee9de",
+            "id": "6aacfeda-4d80-4496-b7b6-289742dc35bc",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -29424,7 +30098,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-04-23T15:35:39+00:00",
+              "created_on": "2025-04-25T15:37:04+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -29432,16 +30106,16 @@
               }
             }
           ],
-          "created_on": "2025-04-23T15:35:39+00:00",
+          "created_on": "2025-04-25T15:37:04+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-04-23T15:35:39+00:00",
+            "updated_at": "2025-04-25T15:37:04+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-04-23T15:35:39+00:00"
+            "updated_at": "2025-04-25T15:37:04+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -29703,9 +30377,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "060682ee-9e23-4221-9a0a-9338788da6ed",
+          "appointment_id": "fbcf0374-89ec-4e9a-b376-abd0e1844378",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "6fed2665-9838-4850-9955-642cb9b394b3",
+          "id": "ed9c1ef5-30c0-481b-a56d-cab18aadaac2",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -30203,6 +30877,90 @@
           "weighted_average_watts": 250
         }
       },
+      "ClientFacingWorkoutDistanceSample": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "Deprecated"
+          },
+          "timezone_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone Offset",
+            "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection."
+          },
+          "unit": {
+            "type": "string",
+            "const": "m",
+            "title": "Unit"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "Depracated. The start time (inclusive) of the interval."
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start",
+            "description": "The start time (inclusive) of the interval."
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End",
+            "description": "The end time (exclusive) of the interval."
+          },
+          "value": {
+            "type": "number",
+            "title": "Value",
+            "description": "The recorded value for the interval."
+          }
+        },
+        "type": "object",
+        "required": [
+          "unit",
+          "timestamp",
+          "start",
+          "end",
+          "value"
+        ],
+        "title": "ClientFacingWorkoutDistanceSample",
+        "example": {
+          "end": "2023-02-13T14:57:24+00:00",
+          "start": "2023-02-13T14:30:52+00:00",
+          "timestamp": "2023-02-13T14:30:52+00:00",
+          "unit": "m",
+          "value": 37
+        }
+      },
       "ClientFacingWorkoutDurationSample": {
         "properties": {
           "id": {
@@ -30334,6 +31092,90 @@
         },
         "type": "object",
         "title": "ClientFacingWorkoutMap"
+      },
+      "ClientFacingWorkoutSwimmingStrokeSample": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "Deprecated"
+          },
+          "timezone_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone Offset",
+            "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection."
+          },
+          "unit": {
+            "type": "string",
+            "const": "count",
+            "title": "Unit"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "Depracated. The start time (inclusive) of the interval."
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start",
+            "description": "The start time (inclusive) of the interval."
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End",
+            "description": "The end time (exclusive) of the interval."
+          },
+          "value": {
+            "type": "number",
+            "title": "Value",
+            "description": "The recorded value for the interval."
+          }
+        },
+        "type": "object",
+        "required": [
+          "unit",
+          "timestamp",
+          "start",
+          "end",
+          "value"
+        ],
+        "title": "ClientFacingWorkoutSwimmingStrokeSample",
+        "example": {
+          "end": "2023-02-13T14:57:24+00:00",
+          "start": "2023-02-13T14:30:52+00:00",
+          "timestamp": "2023-02-13T14:30:52+00:00",
+          "unit": "count",
+          "value": 37
+        }
       },
       "ClientSleepCycleResponse": {
         "properties": {
@@ -30783,7 +31625,7 @@
               "third"
             ]
           },
-          "query_id": "def2d023-548d-436c-a6da-bbf5cacdb1cc",
+          "query_id": "399e5f7e-09f0-4be9-a5ab-33bc30a6cdc9",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -35335,9 +36177,12 @@
           "daylight_exposure",
           "handwashing",
           "basal_body_temperature",
+          "heart_rate_recovery_one_minute",
           "body_mass_index",
           "lean_body_mass",
           "waist_circumference",
+          "workout_distance",
+          "workout_swimming_stroke",
           "workout_duration",
           "insulin_injection",
           "carbohydrates",
@@ -36421,6 +37266,9 @@
           "body_mass_index",
           "lean_body_mass",
           "waist_circumference",
+          "heart_rate_recovery_one_minute",
+          "workout_distance",
+          "workout_swimming_stroke",
           "workout_duration",
           "insulin_injection",
           "carbohydrates",
@@ -37401,10 +38249,33 @@
               "lab"
             ],
             "title": "Source Type"
+          },
+          {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Workout Id"
+          },
+          {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sport"
           }
         ],
         "type": "array",
-        "maxItems": 1,
+        "maxItems": 3,
         "minItems": 1
       },
       "api__api_v1__endpoints__vital_api__lab_testing__orders__helpers__AppointmentCancelRequest": {
@@ -37530,6 +38401,204 @@
           "phone_number"
         ],
         "title": "PersonDetails"
+      },
+      "GroupedWorkoutSwimmingStrokeResponse": {
+        "properties": {
+          "groups": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/GroupedWorkoutSwimmingStroke"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Groups",
+            "description": "For each matching provider or lab, a list of grouped timeseries values."
+          },
+          "next": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data.",
+            "deprecated": true
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups"
+        ],
+        "title": "GroupedWorkoutSwimmingStrokeResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "count",
+                    "value": 37
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "GroupedWorkoutDistanceResponse": {
+        "properties": {
+          "groups": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/GroupedWorkoutDistance"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Groups",
+            "description": "For each matching provider or lab, a list of grouped timeseries values."
+          },
+          "next": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data.",
+            "deprecated": true
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups"
+        ],
+        "title": "GroupedWorkoutDistanceResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "m",
+                    "value": 37
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "GroupedHeartRateRecoveryOneMinuteResponse": {
+        "properties": {
+          "groups": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/GroupedHeartRateRecoveryOneMinute"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Groups",
+            "description": "For each matching provider or lab, a list of grouped timeseries values."
+          },
+          "next": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data.",
+            "deprecated": true
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor",
+            "description": "The cursor for fetching the next page, or `null` if there is no more data."
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups"
+        ],
+        "title": "GroupedHeartRateRecoveryOneMinuteResponse",
+        "example": {
+          "groups": {
+            "oura": [
+              {
+                "data": [
+                  {
+                    "end": "2023-02-13T14:57:24+00:00",
+                    "start": "2023-02-13T14:30:52+00:00",
+                    "timestamp": "2023-02-13T14:30:52+00:00",
+                    "unit": "count",
+                    "value": 37
+                  }
+                ],
+                "source": {
+                  "provider": "oura",
+                  "type": "ring"
+                }
+              }
+            ]
+          }
+        }
       },
       "GroupedWaistCircumferenceResponse": {
         "properties": {
@@ -39030,7 +40099,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-04-23T15:40:39.364339+00:00",
+                    "end": "2025-04-25T15:42:04.399625+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -40676,7 +41745,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-04-23T15:35:39+00:00",
+                    "timestamp": "2025-04-25T15:37:04+00:00",
                     "unit": "mmHg"
                   }
                 ],
@@ -40688,6 +41757,63 @@
             ]
           }
         }
+      },
+      "GroupedWorkoutSwimmingStroke": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingSource"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingWorkoutSwimmingStrokeSample"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "data"
+        ],
+        "title": "GroupedWorkoutSwimmingStroke"
+      },
+      "GroupedWorkoutDistance": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingSource"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingWorkoutDistanceSample"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "data"
+        ],
+        "title": "GroupedWorkoutDistance"
+      },
+      "GroupedHeartRateRecoveryOneMinute": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingSource"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingHeartRateRecoveryOneMinuteSample"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "data"
+        ],
+        "title": "GroupedHeartRateRecoveryOneMinute"
       },
       "GroupedWaistCircumference": {
         "properties": {
@@ -46221,6 +47347,237 @@
           "data"
         ],
         "title": "ClientFacingWaistCircumferenceHistoricalPullCompleted"
+      },
+      "ClientFacingHeartRateRecoveryOneMinuteChanged": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "daily.data.heart_rate_recovery_one_minute.created",
+              "daily.data.heart_rate_recovery_one_minute.updated"
+            ],
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/GroupedHeartRateRecoveryOneMinute"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingHeartRateRecoveryOneMinuteChanged"
+      },
+      "ClientFacingHeartRateRecoveryOneMinuteHistoricalPullCompleted": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.heart_rate_recovery_one_minute.created",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullCompleted"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingHeartRateRecoveryOneMinuteHistoricalPullCompleted"
+      },
+      "ClientFacingWorkoutDistanceChanged": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "daily.data.workout_distance.created",
+              "daily.data.workout_distance.updated"
+            ],
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/GroupedWorkoutDistance"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWorkoutDistanceChanged"
+      },
+      "ClientFacingWorkoutDistanceHistoricalPullCompleted": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.workout_distance.created",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullCompleted"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWorkoutDistanceHistoricalPullCompleted"
+      },
+      "ClientFacingWorkoutSwimmingStrokeChanged": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "daily.data.workout_swimming_stroke.created",
+              "daily.data.workout_swimming_stroke.updated"
+            ],
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/GroupedWorkoutSwimmingStroke"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWorkoutSwimmingStrokeChanged"
+      },
+      "ClientFacingWorkoutSwimmingStrokeHistoricalPullCompleted": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.workout_swimming_stroke.created",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullCompleted"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWorkoutSwimmingStrokeHistoricalPullCompleted"
       }
     },
     "securitySchemes": {
