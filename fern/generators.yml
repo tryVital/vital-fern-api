@@ -37,7 +37,7 @@ groups:
   python-sdk:
     generators:
       - name: fernapi/fern-python-sdk
-        version: 3.10.8
+        version: 4.18.2
         output:
           location: pypi
           package-name: vital
@@ -49,6 +49,7 @@ groups:
           inline_request_params: false
           pydantic_config:
             enum_type: "python_enums"
+            use_pydantic_field_aliases: true
   go-sdk:
     generators:
       - name: fernapi/fern-go-sdk
@@ -75,7 +76,7 @@ groups:
           location: local-file-system
           path: ../generated/node
       - name: fernapi/fern-python-sdk
-        version: 3.10.8
+        version: 4.18.2
         output:
           location: local-file-system
           path: ../generated/python
@@ -84,6 +85,7 @@ groups:
           inline_request_params: false
           pydantic_config:
             enum_type: "python_enums"
+            use_pydantic_field_aliases: true
       - name: fernapi/fern-go-sdk
         version: 0.25.0
         output:
