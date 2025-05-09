@@ -168,3 +168,55 @@ jobs:
               repo: context.repo.repo,
               tag_name: "${{ github.ref_name }}",
             });
+
+  notify_slack_on_failure:
+    needs: [fern-check, fern-generate-java, fern-generate-go, fern-generate-node, fern-generate-python]
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: Slack Notification
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Failed to create a release for the Fern API SDKs"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":x: Workflow failed: ${{ github.workflow }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Event:*\n${{ github.event_name }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text":{
+                        "type": "plain_text",
+                        "text": "Inspect Workflow Run"
+                      },
+                      "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
