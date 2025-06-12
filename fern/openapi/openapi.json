@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.310"
+    "version": "0.3.312"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -14047,9 +14047,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "addecee6-89a8-4f2a-ac4e-53b2525a37f5",
-                  "user_id": "48275b97-8b5f-419c-b2ed-a70265b92fda",
-                  "order_id": "08e4f763-ba65-4156-b5d6-903a78396e65",
+                  "id": "5acf2924-4084-4f92-ab2e-4fc7cebd200e",
+                  "user_id": "afe5f386-eab4-4c9d-9378-fcc6c1250d7b",
+                  "order_id": "dc0ecf83-996b-4911-a0ef-cbbdf7423e4e",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -21499,7 +21499,7 @@
                 "$ref": "#/components/schemas/BodyColumnExpr"
               },
               {
-                "$ref": "#/components/schemas/IndexColumnExpr"
+                "$ref": "#/components/schemas/MealColumnExpr"
               },
               {
                 "$ref": "#/components/schemas/SleepScoreValueMacroExpr"
@@ -21527,6 +21527,9 @@
               },
               {
                 "$ref": "#/components/schemas/NoteTimeseriesExpr"
+              },
+              {
+                "$ref": "#/components/schemas/IndexColumnExpr"
               }
             ],
             "title": "Arg"
@@ -22134,9 +22137,23 @@
                 "type": "string",
                 "enum": [
                   "source_provider",
-                  "source_type",
+                  "source_type"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "source_app_id"
+              },
+              {
+                "type": "string",
+                "enum": [
                   "source_workout_id",
-                  "source_sport",
+                  "source_sport"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
                   "timezone_offset",
                   "type"
                 ]
@@ -23204,18 +23221,18 @@
             }
           ],
           "iana_timezone": "America/New_York",
-          "id": "5511860c-4e87-4e32-a31e-895f29e409d9",
+          "id": "c207c328-9481-4a42-8395-99f2ff3074ef",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "3dcd453b-f103-4a94-8bb8-d6db1713e164",
+          "order_id": "99174110-8b6f-4c2f-9d43-649c11f3d7f9",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "889e01be-a566-4314-b649-d61926183e3d"
+          "user_id": "7c71fe7c-69b4-4b21-b35d-1dd1540996f5"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23242,7 +23259,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "efdd01cd-818b-4210-a256-0dcf2f8f7a6d",
+          "id": "4b47a3c7-9831-491b-a652-a6b25cc3a5ba",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23317,9 +23334,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "9b200129-e473-428d-aa65-b4859b3ef759",
+          "appointment_id": "9e761f17-f1f5-458b-bc5e-a025df3d1a7d",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "ce56c6c9-878b-40b0-8615-50926711607d",
+          "id": "00175206-2d18-42ad-8562-243f02cfcf8c",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -23575,7 +23592,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-06-12T11:11:41+00:00",
+          "timestamp": "2025-06-12T14:12:02+00:00",
           "unit": "mmHg"
         }
       },
@@ -24706,12 +24723,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "57397c99-aa6c-46da-808b-ca91019dbd7c",
+          "order_id": "fcd9478f-e906-4c87-bebf-8dbb2f3a835a",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "b80a8df7-73b0-4dfa-b02e-40fac4b84cbf",
+          "team_id": "7d079496-4bdb-4fa6-939c-d27280ec5b85",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "32d6cb44-236b-4769-b277-eb17044790e0"
+          "user_id": "937ad0de-fbfe-4147-a647-a62b5523594c"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -27651,7 +27668,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-06-12T11:16:41.582094+00:00",
+          "end": "2025-06-12T14:17:02.720493+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -27794,7 +27811,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "f4a402e9-8217-4c21-a3fb-07d06aeb0687",
+          "id": "a727cc25-ae6f-4aae-ab94-950c3500f0c7",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -28136,8 +28153,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "38a966e4-d3b7-4a84-8755-e3a517a13d17",
-          "id": "c1b03393-e0b0-477e-8cff-b38c7f5cf44f",
+          "health_insurace_id": "5d2e7243-921c-4937-a47a-de15e9bc2dce",
+          "id": "3466ecb9-7caf-4e35-b0f5-ee89cf286213",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -28161,9 +28178,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "6ddcc2a4-08a1-42e1-bc84-c331ccee79a5",
+          "team_id": "fa3b26c1-c7c5-4742-a5d1-43de0361bcae",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "f263b403-22e1-4961-95cc-d3304a59ea5f"
+          "user_id": "461c53a9-bb63-42e5-b329-3639de7e5a1a"
         }
       },
       "ClientFacingOrderEvent": {
@@ -29073,7 +29090,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "551fea1e-a8ca-452d-a809-8a6e21240f22",
+          "id": "c5cf44af-0159-4150-9c2d-58d2fa91eb78",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -29802,127 +29819,127 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-06-12T11:11:43.018368+00:00",
+              "timestamp": "2025-06-12T14:12:04.051863+00:00",
               "unit": "bpm",
-              "value": 67
+              "value": 54
             },
             {
               "id": 1,
-              "timestamp": "2025-06-12T11:12:13.018411+00:00",
+              "timestamp": "2025-06-12T14:12:34.051894+00:00",
               "unit": "bpm",
-              "value": 62
+              "value": 70
             },
             {
               "id": 2,
-              "timestamp": "2025-06-12T11:12:43.018443+00:00",
+              "timestamp": "2025-06-12T14:13:04.051928+00:00",
               "unit": "bpm",
-              "value": 118
+              "value": 87
             },
             {
               "id": 3,
-              "timestamp": "2025-06-12T11:13:13.018485+00:00",
+              "timestamp": "2025-06-12T14:13:34.051971+00:00",
               "unit": "bpm",
-              "value": 62
+              "value": 179
             },
             {
               "id": 4,
-              "timestamp": "2025-06-12T11:13:43.018514+00:00",
+              "timestamp": "2025-06-12T14:14:04.052001+00:00",
               "unit": "bpm",
-              "value": 111
+              "value": 57
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-06-12T11:11:43.018122+00:00",
+              "timestamp": "2025-06-12T14:12:04.051604+00:00",
               "unit": "rmssd",
-              "value": 0
+              "value": 91
             },
             {
               "id": 1,
-              "timestamp": "2025-06-12T11:12:13.018206+00:00",
+              "timestamp": "2025-06-12T14:12:34.051700+00:00",
               "unit": "rmssd",
-              "value": 63
+              "value": 30
             },
             {
               "id": 2,
-              "timestamp": "2025-06-12T11:12:43.018254+00:00",
+              "timestamp": "2025-06-12T14:13:04.051748+00:00",
               "unit": "rmssd",
-              "value": 3
+              "value": 33
             },
             {
               "id": 3,
-              "timestamp": "2025-06-12T11:13:13.018298+00:00",
+              "timestamp": "2025-06-12T14:13:34.051792+00:00",
               "unit": "rmssd",
-              "value": 78
+              "value": 66
             },
             {
               "id": 4,
-              "timestamp": "2025-06-12T11:13:43.018334+00:00",
+              "timestamp": "2025-06-12T14:14:04.051829+00:00",
               "unit": "rmssd",
-              "value": 77
+              "value": 69
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-06-12T11:11:43.018544+00:00",
+              "timestamp": "2025-06-12T14:12:04.052061+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 4
             },
             {
               "id": 1,
-              "timestamp": "2025-06-12T11:12:13.018571+00:00",
+              "timestamp": "2025-06-12T14:12:34.052093+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 0
             },
             {
               "id": 2,
-              "timestamp": "2025-06-12T11:12:43.018596+00:00",
+              "timestamp": "2025-06-12T14:13:04.052120+00:00",
               "unit": "stage",
-              "value": 3
+              "value": -1
             },
             {
               "id": 3,
-              "timestamp": "2025-06-12T11:13:13.018621+00:00",
+              "timestamp": "2025-06-12T14:13:34.052147+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 0
             },
             {
               "id": 4,
-              "timestamp": "2025-06-12T11:13:43.018647+00:00",
+              "timestamp": "2025-06-12T14:14:04.052179+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 2
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-06-12T11:11:43.018685+00:00",
+              "timestamp": "2025-06-12T14:12:04.052206+00:00",
               "unit": "bpm",
-              "value": 23
+              "value": 21
             },
             {
               "id": 1,
-              "timestamp": "2025-06-12T11:12:13.018710+00:00",
+              "timestamp": "2025-06-12T14:12:34.052233+00:00",
               "unit": "bpm",
               "value": 11
             },
             {
               "id": 2,
-              "timestamp": "2025-06-12T11:12:43.018734+00:00",
+              "timestamp": "2025-06-12T14:13:04.052257+00:00",
+              "unit": "bpm",
+              "value": 20
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-06-12T14:13:34.052281+00:00",
               "unit": "bpm",
               "value": 13
             },
             {
-              "id": 3,
-              "timestamp": "2025-06-12T11:13:13.018757+00:00",
-              "unit": "bpm",
-              "value": 17
-            },
-            {
               "id": 4,
-              "timestamp": "2025-06-12T11:13:43.018781+00:00",
+              "timestamp": "2025-06-12T14:14:04.052305+00:00",
               "unit": "bpm",
               "value": 21
             }
@@ -30974,10 +30991,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "86e2c092-86e3-4023-b18a-a2bb71d22570",
+          "id": "4e3154a7-0c43-42f4-915f-69159ab35ad4",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "011fbb7a-cce2-4cdd-a3dc-9dec07d3c207",
+            "id": "34a0ae94-7ed7-4718-9da0-fa801cc55fda",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31170,7 +31187,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-06-12T11:11:41+00:00",
+              "created_on": "2025-06-12T14:12:02+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -31178,16 +31195,16 @@
               }
             }
           ],
-          "created_on": "2025-06-12T11:11:41+00:00",
+          "created_on": "2025-06-12T14:12:02+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-06-12T11:11:41+00:00",
+            "updated_at": "2025-06-12T14:12:02+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-06-12T11:11:41+00:00"
+            "updated_at": "2025-06-12T14:12:02+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -31449,9 +31466,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "f1489c21-a233-48c2-8ae7-8ea45d5eb0df",
+          "appointment_id": "d7cb15ff-3348-4c58-81fb-0442e1b82cdd",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "5fc42ea1-5bbf-4d3c-9284-56e08794a6fa",
+          "id": "9e1be560-fe20-4b3f-84ed-b1bbb62a0d31",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -32697,7 +32714,7 @@
               "third"
             ]
           },
-          "query_id": "10da6b25-1763-4bbd-8984-14aec729ba92",
+          "query_id": "205bace8-b2ef-4de1-a394-d28c6bee5e5f",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -33384,9 +33401,23 @@
                 "type": "string",
                 "enum": [
                   "source_provider",
-                  "source_type",
+                  "source_type"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "source_app_id"
+              },
+              {
+                "type": "string",
+                "enum": [
                   "source_workout_id",
-                  "source_sport",
+                  "source_sport"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
                   "timezone_offset",
                   "type"
                 ]
@@ -34376,9 +34407,23 @@
                 "type": "string",
                 "enum": [
                   "source_provider",
-                  "source_type",
+                  "source_type"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "source_app_id"
+              },
+              {
+                "type": "string",
+                "enum": [
                   "source_workout_id",
-                  "source_sport",
+                  "source_sport"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
                   "timezone_offset",
                   "type"
                 ]
@@ -35126,6 +35171,69 @@
         "title": "MarkerType",
         "description": "ℹ️ This enum is non-exhaustive."
       },
+      "MealColumnExpr": {
+        "properties": {
+          "meal": {
+            "type": "string",
+            "enum": [
+              "calories",
+              "carbohydrate_gram",
+              "protein_gram",
+              "alcohol_gram",
+              "water_gram",
+              "fibre_gram",
+              "sugar_gram",
+              "cholesterol_gram",
+              "saturated_fat_gram",
+              "monounsaturated_fat_gram",
+              "polyunsaturated_fat_gram",
+              "omega3_fat_gram",
+              "omega6_fat_gram",
+              "total_fat_gram",
+              "sodium_milligram",
+              "potassium_milligram",
+              "calcium_milligram",
+              "phosphorus_milligram",
+              "magnesium_milligram",
+              "iron_milligram",
+              "zinc_milligram",
+              "fluoride_milligram",
+              "chloride_milligram",
+              "vitamin_a_milligram",
+              "vitamin_b1_milligram",
+              "riboflavin_milligram",
+              "niacin_milligram",
+              "pantothenic_acid_milligram",
+              "vitamin_b6_milligram",
+              "biotin_microgram",
+              "vitamin_b12_microgram",
+              "vitamin_c_milligram",
+              "vitamin_d_microgram",
+              "vitamin_e_milligram",
+              "vitamin_k_microgram",
+              "folic_acid_microgram",
+              "chromium_microgram",
+              "copper_milligram",
+              "iodine_microgram",
+              "manganese_milligram",
+              "molybdenum_microgram",
+              "selenium_microgram",
+              "date",
+              "name",
+              "source_type",
+              "source_provider",
+              "source_app_id"
+            ],
+            "title": "Meal",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "type": "object",
+        "required": [
+          "meal"
+        ],
+        "title": "MealColumnExpr"
+      },
       "MealInDBBase_ClientFacingSource_": {
         "properties": {
           "id": {
@@ -35569,9 +35677,23 @@
                 "type": "string",
                 "enum": [
                   "source_provider",
-                  "source_type",
+                  "source_type"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "source_app_id"
+              },
+              {
+                "type": "string",
+                "enum": [
                   "source_workout_id",
-                  "source_sport",
+                  "source_sport"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
                   "timezone_offset",
                   "type"
                 ]
@@ -36965,7 +37087,7 @@
                   "$ref": "#/components/schemas/BodyColumnExpr"
                 },
                 {
-                  "$ref": "#/components/schemas/IndexColumnExpr"
+                  "$ref": "#/components/schemas/MealColumnExpr"
                 },
                 {
                   "$ref": "#/components/schemas/SleepScoreValueMacroExpr"
@@ -36993,6 +37115,12 @@
                 },
                 {
                   "$ref": "#/components/schemas/NoteTimeseriesExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/IndexColumnExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/SourceColumnExpr"
                 }
               ]
             },
@@ -37007,16 +37135,56 @@
                 },
                 {
                   "$ref": "#/components/schemas/DatePartExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/SleepColumnExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/ActivityColumnExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/WorkoutColumnExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/BodyColumnExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/MealColumnExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/SleepScoreValueMacroExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/ChronotypeValueMacroExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/UnrecognizedValueMacroExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/DiscreteTimeseriesExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/IntervalTimeseriesExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/BloodPressureTimeseriesExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/TemperatureTimeseriesExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/WorkoutDurationTimeseriesExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/NoteTimeseriesExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/SourceColumnExpr"
                 }
               ]
             },
             "type": "array",
             "title": "Group By"
-          },
-          "split_by_source": {
-            "type": "boolean",
-            "title": "Split By Source",
-            "default": false
           }
         },
         "type": "object",
@@ -38468,6 +38636,38 @@
         },
         "description": "ℹ️ This enum is non-exhaustive."
       },
+      "SourceColumnExpr": {
+        "properties": {
+          "source": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "source_provider",
+                  "source_type"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "source_app_id"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "source_workout_id",
+                  "source_sport"
+                ]
+              }
+            ],
+            "title": "Source"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source"
+        ],
+        "title": "SourceColumnExpr"
+      },
       "SourceLink": {
         "properties": {
           "id": {
@@ -38612,9 +38812,23 @@
                 "type": "string",
                 "enum": [
                   "source_provider",
-                  "source_type",
+                  "source_type"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "source_app_id"
+              },
+              {
+                "type": "string",
+                "enum": [
                   "source_workout_id",
-                  "source_sport",
+                  "source_sport"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
                   "timezone_offset",
                   "type"
                 ]
@@ -39674,9 +39888,23 @@
                 "type": "string",
                 "enum": [
                   "source_provider",
-                  "source_type",
+                  "source_type"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "source_app_id"
+              },
+              {
+                "type": "string",
+                "enum": [
                   "source_workout_id",
-                  "source_sport",
+                  "source_sport"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
                   "timezone_offset",
                   "type"
                 ]
@@ -41652,7 +41880,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-06-12T11:16:41.582094+00:00",
+                    "end": "2025-06-12T14:17:02.720493+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -43298,7 +43526,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-06-12T11:11:41+00:00",
+                    "timestamp": "2025-06-12T14:12:02+00:00",
                     "unit": "mmHg"
                   }
                 ],
