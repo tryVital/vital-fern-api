@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.369"
+    "version": "0.3.373"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -14047,9 +14047,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "c240e766-8e87-4b4c-a518-da0f287d9edc",
-                  "user_id": "f54eaf94-43a0-4663-8a42-09d77bbb8172",
-                  "order_id": "e5b128f6-61e7-4b09-91b2-48d4972cc86e",
+                  "id": "93ea4cbc-2a5d-4b28-9b63-6737909891eb",
+                  "user_id": "4f47cc6a-7086-4b74-be1e-7c9b8a508b34",
+                  "order_id": "a64d68a5-516c-4553-bc9c-b7dbcd362d17",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -21343,6 +21343,7 @@
               "source_type",
               "source_provider",
               "source_app_id",
+              "source_device_id",
               "time_zone",
               "time_zone_offset"
             ],
@@ -21392,6 +21393,18 @@
           },
           "source": {
             "$ref": "#/components/schemas/ClientFacingProvider"
+          },
+          "source_device_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Device Id"
           },
           "created_at": {
             "type": "string",
@@ -22221,6 +22234,7 @@
               "source_type",
               "source_provider",
               "source_app_id",
+              "source_device_id",
               "time_zone"
             ],
             "title": "Body",
@@ -22294,6 +22308,18 @@
               }
             ],
             "title": "Priority"
+          },
+          "source_device_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Device Id"
           },
           "created_at": {
             "type": "string",
@@ -23260,18 +23286,18 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "6698b259-9313-4010-a3fc-ebc8080b6467",
+          "id": "4afb5b95-8e98-40e7-9b85-1d93693e5f10",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "3fd1c02b-15dd-418e-be4e-1c200cfb6308",
+          "order_id": "d5dd5cd7-50f8-4180-be85-829bc19dd9c4",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "5ee1e99a-5bd1-4d05-9937-6510b4c503bd"
+          "user_id": "13afb32d-40b7-4f2c-b63d-f9619bacf4e4"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23298,7 +23324,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "642bcf35-4ec4-4abd-9c60-5ef5640ce844",
+          "id": "1f040f6c-0943-4bd2-9a2e-0569bc8870cc",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23373,9 +23399,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "b2549d3b-2165-42e5-9482-191707154d27",
+          "appointment_id": "5c2955f6-ea99-4676-a11e-d1e47786dfdc",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "d6cb93ab-e43d-46cf-8b24-96e0b7cbd153",
+          "id": "a4004409-9e9b-4ab1-89ac-3c56b90696e9",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -23631,7 +23657,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-07-02T08:53:54+00:00",
+          "timestamp": "2025-07-02T15:49:51+00:00",
           "unit": "mmHg"
         }
       },
@@ -24762,12 +24788,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "1ba3456d-ec4b-4602-bcd1-0e60e6ee06e7",
+          "order_id": "476e060d-2192-4c92-924c-1374eb1b2169",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "3adfe8bf-900e-4e3d-9f3d-5d62419f5b97",
+          "team_id": "ccfedf53-f1e4-49f0-ad94-509c1cd2e9da",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "db63fb36-cd57-47a3-a16d-ffade2f2f8f4"
+          "user_id": "0b3d0033-ba54-4d13-a921-9d72adb723d4"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -27550,6 +27576,18 @@
             ],
             "title": "Source App Id"
           },
+          "source_device_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Device Id"
+          },
           "created_at": {
             "type": "string",
             "format": "date-time",
@@ -27709,7 +27747,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-07-02T08:58:54.191336+00:00",
+          "end": "2025-07-02T15:54:51.360379+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -27852,7 +27890,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "6dc75742-d670-4af5-9f06-8a2fa5ecdb75",
+          "id": "628a0938-c15a-436f-85cc-10bb97a28ff6",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -28194,8 +28232,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "84948ae3-15d7-482e-8e8c-b09548fcd6b0",
-          "id": "cfa798b9-48ff-46d6-ac4b-276d4758b9db",
+          "health_insurace_id": "5369b002-d468-4e2a-90c3-afef5a1861d2",
+          "id": "fb5761bf-bdb4-4fef-a600-b9dc5bdafa2d",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -28219,9 +28257,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "003a19cf-c30c-4712-be71-1f6ac2cfe6e1",
+          "team_id": "7246c731-fc03-4fde-bfd2-a3bb0e8e78fb",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "bfb6a589-1c7a-4e78-a9ec-c4e191664ecb"
+          "user_id": "65d10af0-ea09-45dc-b9da-e2390625cd22"
         }
       },
       "ClientFacingOrderEvent": {
@@ -29131,7 +29169,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "feee3ab1-fe4a-4f06-b936-47b9c45a7baa",
+          "id": "8a3891de-9d80-4da8-97da-46df630bbcf0",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -29861,129 +29899,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-07-02T08:53:55.452830+00:00",
+              "timestamp": "2025-07-02T15:49:52.748282+00:00",
               "unit": "bpm",
-              "value": 91
+              "value": 186
             },
             {
               "id": 1,
-              "timestamp": "2025-07-02T08:54:25.452856+00:00",
-              "unit": "bpm",
-              "value": 5
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-07-02T08:54:55.452879+00:00",
-              "unit": "bpm",
-              "value": 136
-            },
-            {
-              "id": 3,
-              "timestamp": "2025-07-02T08:55:25.452918+00:00",
+              "timestamp": "2025-07-02T15:50:22.748308+00:00",
               "unit": "bpm",
               "value": 16
             },
             {
-              "id": 4,
-              "timestamp": "2025-07-02T08:55:55.452942+00:00",
+              "id": 2,
+              "timestamp": "2025-07-02T15:50:52.748331+00:00",
               "unit": "bpm",
-              "value": 101
+              "value": 41
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-07-02T15:51:22.748374+00:00",
+              "unit": "bpm",
+              "value": 173
+            },
+            {
+              "id": 4,
+              "timestamp": "2025-07-02T15:51:52.748398+00:00",
+              "unit": "bpm",
+              "value": 67
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-07-02T08:53:55.452604+00:00",
+              "timestamp": "2025-07-02T15:49:52.748042+00:00",
               "unit": "rmssd",
-              "value": 31
+              "value": 90
             },
             {
               "id": 1,
-              "timestamp": "2025-07-02T08:54:25.452690+00:00",
+              "timestamp": "2025-07-02T15:50:22.748129+00:00",
               "unit": "rmssd",
-              "value": 84
+              "value": 73
             },
             {
               "id": 2,
-              "timestamp": "2025-07-02T08:54:55.452731+00:00",
+              "timestamp": "2025-07-02T15:50:52.748182+00:00",
               "unit": "rmssd",
-              "value": 11
+              "value": 57
             },
             {
               "id": 3,
-              "timestamp": "2025-07-02T08:55:25.452770+00:00",
+              "timestamp": "2025-07-02T15:51:22.748222+00:00",
               "unit": "rmssd",
-              "value": 64
+              "value": 66
             },
             {
               "id": 4,
-              "timestamp": "2025-07-02T08:55:55.452802+00:00",
+              "timestamp": "2025-07-02T15:51:52.748254+00:00",
               "unit": "rmssd",
-              "value": 91
+              "value": 48
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-07-02T08:53:55.452965+00:00",
+              "timestamp": "2025-07-02T15:49:52.748425+00:00",
               "unit": "stage",
               "value": 1
             },
             {
               "id": 1,
-              "timestamp": "2025-07-02T08:54:25.452986+00:00",
+              "timestamp": "2025-07-02T15:50:22.748447+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 3
             },
             {
               "id": 2,
-              "timestamp": "2025-07-02T08:54:55.453005+00:00",
+              "timestamp": "2025-07-02T15:50:52.748468+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 1
             },
             {
               "id": 3,
-              "timestamp": "2025-07-02T08:55:25.453042+00:00",
+              "timestamp": "2025-07-02T15:51:22.748488+00:00",
               "unit": "stage",
-              "value": -1
+              "value": 0
             },
             {
               "id": 4,
-              "timestamp": "2025-07-02T08:55:55.453068+00:00",
+              "timestamp": "2025-07-02T15:51:52.748510+00:00",
               "unit": "stage",
-              "value": 4
+              "value": -1
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-07-02T08:53:55.453091+00:00",
+              "timestamp": "2025-07-02T15:49:52.748531+00:00",
               "unit": "bpm",
-              "value": 9
+              "value": 30
             },
             {
               "id": 1,
-              "timestamp": "2025-07-02T08:54:25.453110+00:00",
+              "timestamp": "2025-07-02T15:50:22.748551+00:00",
               "unit": "bpm",
-              "value": 8
+              "value": 10
             },
             {
               "id": 2,
-              "timestamp": "2025-07-02T08:54:55.453134+00:00",
+              "timestamp": "2025-07-02T15:50:52.748570+00:00",
               "unit": "bpm",
-              "value": 8
+              "value": 29
             },
             {
               "id": 3,
-              "timestamp": "2025-07-02T08:55:25.453154+00:00",
+              "timestamp": "2025-07-02T15:51:22.748589+00:00",
               "unit": "bpm",
-              "value": 27
+              "value": 10
             },
             {
               "id": 4,
-              "timestamp": "2025-07-02T08:55:55.453174+00:00",
+              "timestamp": "2025-07-02T15:51:52.748613+00:00",
               "unit": "bpm",
-              "value": 14
+              "value": 11
             }
           ]
         }
@@ -31033,10 +31071,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "dc21b2b6-2dc6-4584-8cd9-3034778ed996",
+          "id": "22cb0f1d-4e87-473d-b383-1e6006882e6c",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "14fe8b0b-45bc-4287-8d55-394e5e733b1c",
+            "id": "fcd6953b-97c9-400c-bfc3-0fef7d0713a9",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31229,7 +31267,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-07-02T08:53:53+00:00",
+              "created_on": "2025-07-02T15:49:51+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -31237,16 +31275,16 @@
               }
             }
           ],
-          "created_on": "2025-07-02T08:53:53+00:00",
+          "created_on": "2025-07-02T15:49:51+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-07-02T08:53:53+00:00",
+            "updated_at": "2025-07-02T15:49:51+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-07-02T08:53:53+00:00"
+            "updated_at": "2025-07-02T15:49:51+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -31508,9 +31546,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "84b52e07-d0ca-4285-b4c6-bbbf54df1ef6",
+          "appointment_id": "9c0eb10c-d832-438a-aa63-e618c6c459e6",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "7ca68811-97ba-484d-a00f-5918b0376469",
+          "id": "4662eb8d-74dc-457f-b89b-0140f03bd740",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -32756,7 +32794,7 @@
               "third"
             ]
           },
-          "query_id": "c7024741-c8fc-44d9-b444-b970b2299f8a",
+          "query_id": "29ba4bf1-24db-48ec-a63a-1a0b493fd62a",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -35264,7 +35302,8 @@
               "name",
               "source_type",
               "source_provider",
-              "source_app_id"
+              "source_app_id",
+              "source_device_id"
             ],
             "title": "Meal",
             "description": "ℹ️ This enum is non-exhaustive."
@@ -35376,6 +35415,18 @@
               }
             ],
             "title": "Source App Id"
+          },
+          "source_device_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Device Id"
           }
         },
         "type": "object",
@@ -37410,6 +37461,7 @@
               },
               "priority_id": 1,
               "provider_id": "5e8271a3-e71b-4882-a94a-7e364694cd16",
+              "source_device_id": "550e8400-e29b-41d4-a716-446655440000",
               "source_id": 1,
               "timestamp": "2023-03-22T00:00:00+00:00",
               "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537"
@@ -37440,6 +37492,7 @@
               },
               "priority_id": 1,
               "provider_id": "5e8271a3-e71b-4882-a94a-7e364694cd16",
+              "source_device_id": "550e8400-e29b-41d4-a716-446655440000",
               "source_id": 1,
               "timestamp": "2023-02-27T12:31:24+00:00",
               "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537"
@@ -37521,6 +37574,7 @@
               },
               "priority_id": 1,
               "provider_id": "5e8271a3-e71b-4882-a94a-7e364694cd16",
+              "source_device_id": "550e8400-e29b-41d4-a716-446655440000",
               "source_id": 1,
               "timestamp": "2023-02-27T12:31:24+00:00",
               "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537"
@@ -38444,6 +38498,7 @@
               "source_type",
               "source_provider",
               "source_app_id",
+              "source_device_id",
               "time_zone"
             ],
             "title": "Sleep",
@@ -38550,6 +38605,18 @@
               }
             ],
             "title": "Priority"
+          },
+          "source_device_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Device Id"
           },
           "created_at": {
             "type": "string",
@@ -41963,7 +42030,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-07-02T08:58:54.191336+00:00",
+                    "end": "2025-07-02T15:54:51.360379+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -43609,7 +43676,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-07-02T08:53:54+00:00",
+                    "timestamp": "2025-07-02T15:49:51+00:00",
                     "unit": "mmHg"
                   }
                 ],
