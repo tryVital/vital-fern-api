@@ -3,9 +3,931 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.598"
+    "version": "0.3.599"
   },
   "paths": {
+    "/v2/user": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Teams Users",
+        "description": "GET All users for team.",
+        "operationId": "get_teams_users_v2_user_get",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Offset",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "title": "Limit",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedUsersResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_all"
+      },
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create User",
+        "description": "POST Create a Vital user given a client_user_id and returns the user_id.",
+        "operationId": "create_user_v2_user_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingUserKey"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientUserIDConflictResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "create"
+      }
+    },
+    "/v2/user/metrics": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Teams Metrics",
+        "description": "GET metrics for team.",
+        "operationId": "get_teams_metrics_v2_user_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricsResult"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_team_metrics"
+      }
+    },
+    "/v2/user/{user_id}/sign_in_token": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Sign In Token",
+        "operationId": "get_user_sign_in_token_v2_user__user_id__sign_in_token_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSignInTokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_user_sign_in_token"
+      }
+    },
+    "/v2/user/providers/{user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Connected Providers",
+        "description": "GET Users connected providers",
+        "operationId": "get_connected_providers_v2_user_providers__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ClientFacingProviderWithStatus"
+                    }
+                  },
+                  "propertyNames": {
+                    "const": "providers"
+                  },
+                  "title": "Response Get Connected Providers V2 User Providers  User Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_connected_providers"
+      }
+    },
+    "/v2/user/{user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User",
+        "description": "GET User details given the user_id.",
+        "operationId": "get_user_v2_user__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingUser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get"
+      },
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Patch User",
+        "operationId": "patch_user_v2_user__user_id__patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPatchBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "patch"
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete User",
+        "operationId": "delete_user_v2_user__user_id__delete",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSuccessResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "delete"
+      }
+    },
+    "/v2/user/{user_id}/info/latest": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Demographcis",
+        "operationId": "get_user_demographcis_v2_user__user_id__info_latest_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_latest_user_info"
+      }
+    },
+    "/v2/user/{user_id}/insurance": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create Insurance",
+        "operationId": "create_insurance_v2_user__user_id__insurance_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInsuranceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingInsurance"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "create_insurance"
+      }
+    },
+    "/v2/user/{user_id}/insurance/latest": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Latest Insurance",
+        "operationId": "get_latest_insurance_v2_user__user_id__insurance_latest_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingInsurance"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_latest_insurance"
+      }
+    },
+    "/v2/user/{user_id}/info": {
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create User Demographics",
+        "operationId": "create_user_demographics_v2_user__user_id__info_patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInfoCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "upsert_user_info"
+      }
+    },
+    "/v2/user/resolve/{client_user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User By Client User Id",
+        "description": "GET user_id from client_user_id.",
+        "operationId": "get_user_by_client_user_id_v2_user_resolve__client_user_id__get",
+        "parameters": [
+          {
+            "name": "client_user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.",
+              "title": "Client User Id"
+            },
+            "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingUser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_by_client_user_id"
+      }
+    },
+    "/v2/user/{user_id}/{provider}": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Deregister Provider",
+        "operationId": "deregister_provider_v2_user__user_id___provider__delete",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Providers",
+              "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
+            },
+            "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSuccessResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "deregister_provider"
+      }
+    },
+    "/v2/user/undo_delete": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Undo User Delete",
+        "operationId": "undo_user_delete_v2_user_undo_delete_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`.",
+              "title": "User Id"
+            },
+            "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`."
+          },
+          {
+            "name": "client_user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`.",
+              "title": "Client User Id"
+            },
+            "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSuccessResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "undo_delete"
+      }
+    },
+    "/v2/user/refresh/{user_id}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Refresh User Id",
+        "description": "Trigger a manual refresh for a specific user",
+        "operationId": "refresh_user_id_v2_user_refresh__user_id__post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 60,
+              "minimum": 5,
+              "default": 10,
+              "title": "Timeout"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Refresh User Id V2 User Refresh  User Id  Post",
+                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRefreshErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "refresh"
+      }
+    },
+    "/v2/user/{user_id}/device": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Devices",
+        "operationId": "get_user_devices_v2_user__user_id__device_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingDevice"
+                  },
+                  "title": "Response Get User Devices V2 User  User Id  Device Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_devices"
+      }
+    },
+    "/v2/user/{user_id}/device/{device_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Device",
+        "operationId": "get_user_device_v2_user__user_id__device__device_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "device_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Device Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingDevice"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_device"
+      }
+    },
     "/v2/link/bulk_op": {
       "get": {
         "tags": [
@@ -1172,928 +2094,6 @@
         },
         "x-fern-sdk-group-name": "link",
         "x-fern-sdk-method-name": "connect_demo_provider"
-      }
-    },
-    "/v2/user": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get Teams Users",
-        "description": "GET All users for team.",
-        "operationId": "get_teams_users_v2_user_get",
-        "parameters": [
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "title": "Offset",
-              "default": 0
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 500,
-              "title": "Limit",
-              "default": 100
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaginatedUsersResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_all"
-      },
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create User",
-        "description": "POST Create a Vital user given a client_user_id and returns the user_id.",
-        "operationId": "create_user_v2_user_post",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserCreateBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingUserKey"
-                }
-              }
-            }
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientUserIDConflictResponse"
-                }
-              }
-            },
-            "description": "Bad Request"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "create"
-      }
-    },
-    "/v2/user/metrics": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get Teams Metrics",
-        "description": "GET metrics for team.",
-        "operationId": "get_teams_metrics_v2_user_metrics_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MetricsResult"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_team_metrics"
-      }
-    },
-    "/v2/user/{user_id}/sign_in_token": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Sign In Token",
-        "operationId": "get_user_sign_in_token_v2_user__user_id__sign_in_token_post",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSignInTokenResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_user_sign_in_token"
-      }
-    },
-    "/v2/user/providers/{user_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get Connected Providers",
-        "description": "GET Users connected providers",
-        "operationId": "get_connected_providers_v2_user_providers__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ClientFacingProviderWithStatus"
-                    }
-                  },
-                  "propertyNames": {
-                    "const": "providers"
-                  },
-                  "title": "Response Get Connected Providers V2 User Providers  User Id  Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_connected_providers"
-      }
-    },
-    "/v2/user/{user_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User",
-        "description": "GET User details given the user_id.",
-        "operationId": "get_user_v2_user__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingUser"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get"
-      },
-      "patch": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Patch User",
-        "operationId": "patch_user_v2_user__user_id__patch",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserPatchBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "patch"
-      },
-      "delete": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Delete User",
-        "operationId": "delete_user_v2_user__user_id__delete",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSuccessResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "delete"
-      }
-    },
-    "/v2/user/{user_id}/info/latest": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Demographcis",
-        "operationId": "get_user_demographcis_v2_user__user_id__info_latest_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserInfo"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_latest_user_info"
-      }
-    },
-    "/v2/user/{user_id}/insurance": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create Insurance",
-        "operationId": "create_insurance_v2_user__user_id__insurance_post",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateInsuranceRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingInsurance"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "create_insurance"
-      }
-    },
-    "/v2/user/{user_id}/insurance/latest": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get Latest Insurance",
-        "operationId": "get_latest_insurance_v2_user__user_id__insurance_latest_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingInsurance"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_latest_insurance"
-      }
-    },
-    "/v2/user/{user_id}/info": {
-      "patch": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create User Demographics",
-        "operationId": "create_user_demographics_v2_user__user_id__info_patch",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserInfoCreateRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserInfo"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "upsert_user_info"
-      }
-    },
-    "/v2/user/resolve/{client_user_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User By Client User Id",
-        "description": "GET user_id from client_user_id.",
-        "operationId": "get_user_by_client_user_id_v2_user_resolve__client_user_id__get",
-        "parameters": [
-          {
-            "name": "client_user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.",
-              "title": "Client User Id"
-            },
-            "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingUser"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_by_client_user_id"
-      }
-    },
-    "/v2/user/{user_id}/{provider}": {
-      "delete": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Deregister Provider",
-        "operationId": "deregister_provider_v2_user__user_id___provider__delete",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/Providers",
-              "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
-            },
-            "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSuccessResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "deregister_provider"
-      }
-    },
-    "/v2/user/undo_delete": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Undo User Delete",
-        "operationId": "undo_user_delete_v2_user_undo_delete_post",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`.",
-              "title": "User Id"
-            },
-            "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`."
-          },
-          {
-            "name": "client_user_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`.",
-              "title": "Client User Id"
-            },
-            "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSuccessResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "undo_delete"
-      }
-    },
-    "/v2/user/refresh/{user_id}": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Refresh User Id",
-        "description": "Trigger a manual refresh for a specific user",
-        "operationId": "refresh_user_id_v2_user_refresh__user_id__post",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User Id"
-            }
-          },
-          {
-            "name": "timeout",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "number",
-              "maximum": 60,
-              "minimum": 5,
-              "default": 10,
-              "title": "Timeout"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "Response Refresh User Id V2 User Refresh  User Id  Post",
-                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
-                }
-              }
-            }
-          },
-          "202": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
-                }
-              }
-            },
-            "description": "Accepted"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRefreshErrorResponse"
-                }
-              }
-            },
-            "description": "Bad Request"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "refresh"
-      }
-    },
-    "/v2/user/{user_id}/device": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Devices",
-        "operationId": "get_user_devices_v2_user__user_id__device_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingDevice"
-                  },
-                  "title": "Response Get User Devices V2 User  User Id  Device Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_devices"
-      }
-    },
-    "/v2/user/{user_id}/device/{device_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Device",
-        "operationId": "get_user_device_v2_user__user_id__device__device_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "device_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Device Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingDevice"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_device"
       }
     },
     "/v2/providers": {
@@ -3369,17 +3369,29 @@
         "x-fern-sdk-method-name": "get"
       }
     },
-    "/v3/orders": {
+    "/v3/lab_tests": {
       "get": {
         "tags": [
-          "orders"
+          "lab_tests"
         ],
-        "summary": "Get Orders",
-        "description": "GET many orders with filters.",
-        "operationId": "get_orders_v3_orders_get",
+        "summary": "Get Lab Tests For Team",
+        "description": "GET all the lab tests the team has access to.",
+        "operationId": "get_lab_tests_for_team_v3_lab_tests_get",
+        "deprecated": true,
         "parameters": [
           {
-            "name": "search_input",
+            "name": "generation_method",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/LabTestGenerationMethodFilter",
+              "description": "Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.",
+              "default": "manual"
+            },
+            "description": "Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned."
+          },
+          {
+            "name": "lab_slug",
             "in": "query",
             "required": false,
             "schema": {
@@ -3391,86 +3403,28 @@
                   "type": "null"
                 }
               ],
-              "description": "Search by order id, user id, patient name, shipping dob, or shipping recipient name.",
-              "title": "Search Input"
+              "description": "Filter by the slug of the lab for these lab tests.",
+              "title": "Lab Slug"
             },
-            "description": "Search by order id, user id, patient name, shipping dob, or shipping recipient name."
+            "description": "Filter by the slug of the lab for these lab tests."
           },
           {
-            "name": "start_date",
+            "name": "collection_method",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [
                 {
-                  "type": "string",
-                  "format": "date-time"
+                  "$ref": "#/components/schemas/LabTestCollectionMethod"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
+              "description": "Filter by the collection method for these lab tests.",
+              "title": "Collection Method"
             },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          },
-          {
-            "name": "updated_start_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Updated Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "updated_end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Updated End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+            "description": "Filter by the collection method for these lab tests."
           },
           {
             "name": "status",
@@ -3479,19 +3433,76 @@
             "schema": {
               "anyOf": [
                 {
+                  "$ref": "#/components/schemas/LabTestStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by the status of these lab tests.",
+              "title": "Status"
+            },
+            "description": "Filter by the status of these lab tests."
+          },
+          {
+            "name": "marker_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/OrderLowLevelStatus"
+                    "type": "integer"
                   }
                 },
                 {
                   "type": "null"
                 }
               ],
-              "description": "Filter by low level status.",
-              "title": "Status"
+              "description": "Filter to only include lab tests containing these marker IDs.",
+              "title": "Marker Ids"
             },
-            "description": "Filter by low level status."
+            "description": "Filter to only include lab tests containing these marker IDs."
+          },
+          {
+            "name": "provider_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter to only include lab tests containing these provider IDs.",
+              "title": "Provider Ids"
+            },
+            "description": "Filter to only include lab tests containing these provider IDs."
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by the name of the lab test (a case-insensitive substring search).",
+              "title": "Name"
+            },
+            "description": "Filter by the name of the lab test (a case-insensitive substring search)."
           },
           {
             "name": "order_key",
@@ -3501,9 +3512,9 @@
               "anyOf": [
                 {
                   "enum": [
+                    "price",
                     "created_at",
-                    "patient_name",
-                    "last_status"
+                    "updated_at"
                   ],
                   "type": "string"
                 },
@@ -3511,35 +3522,206 @@
                   "type": "null"
                 }
               ],
-              "description": "Order key to sort by.",
               "title": "Order Key"
-            },
-            "description": "Order key to sort by."
+            }
           },
           {
             "name": "order_direction",
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                {
-                  "enum": [
-                    "asc",
-                    "desc"
-                  ],
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
+              "enum": [
+                "asc",
+                "desc"
               ],
-              "description": "Order direction to sort by.",
+              "type": "string",
+              "default": "asc",
               "title": "Order Direction"
-            },
-            "description": "Order direction to sort by."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingLabTest"
+                  },
+                  "title": "Response Get Lab Tests For Team V3 Lab Tests Get"
+                }
+              }
+            }
           },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get",
+        "x-fern-availability": "deprecated"
+      },
+      "post": {
+        "tags": [
+          "lab_tests"
+        ],
+        "summary": "Create Lab Test For Team",
+        "operationId": "create_lab_test_for_team_v3_lab_tests_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLabTestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingLabTest"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "create"
+      }
+    },
+    "/v3/lab_tests/{lab_test_id}": {
+      "patch": {
+        "tags": [
+          "lab_tests"
+        ],
+        "summary": "Update Lab Test For Team",
+        "operationId": "update_lab_test_for_team_v3_lab_tests__lab_test_id__patch",
+        "parameters": [
           {
-            "name": "order_type",
+            "name": "lab_test_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Lab Test Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLabTestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingLabTest"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "update_lab_test"
+      },
+      "get": {
+        "tags": [
+          "lab_tests"
+        ],
+        "summary": "Get Lab Test For Team",
+        "description": "GET all the lab tests the team has access to.",
+        "operationId": "get_lab_test_for_team_v3_lab_tests__lab_test_id__get",
+        "parameters": [
+          {
+            "name": "lab_test_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "The identifier Vital assigned to a lab test."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingLabTest"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_by_id"
+      }
+    },
+    "/v3/lab_tests/markers": {
+      "get": {
+        "tags": [
+          "lab_tests"
+        ],
+        "summary": "Get Markers",
+        "description": "GET all the markers for the given lab.",
+        "operationId": "get_markers_v3_lab_tests_markers_get",
+        "parameters": [
+          {
+            "name": "lab_id",
             "in": "query",
             "required": false,
             "schema": {
@@ -3547,20 +3729,32 @@
                 {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/LabTestCollectionMethod"
+                    "type": "integer"
                   }
                 },
                 {
                   "type": "null"
                 }
               ],
-              "description": "Filter by method used to perform the lab test.",
-              "title": "Order Type"
+              "description": "The identifier Vital assigned to a lab partner.",
+              "title": "Lab Id"
             },
-            "description": "Filter by method used to perform the lab test."
+            "description": "The identifier Vital assigned to a lab partner."
           },
           {
-            "name": "is_critical",
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The name or test code of an individual biomarker or a panel.",
+              "default": "",
+              "title": "Name"
+            },
+            "description": "The name or test code of an individual biomarker or a panel."
+          },
+          {
+            "name": "a_la_carte_enabled",
             "in": "query",
             "required": false,
             "schema": {
@@ -3572,126 +3766,8 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter by critical order status.",
-              "title": "Is Critical"
-            },
-            "description": "Filter by critical order status."
-          },
-          {
-            "name": "interpretation",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/Interpretation"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by result interpretation of the lab test.",
-              "title": "Interpretation"
-            },
-            "description": "Filter by result interpretation of the lab test."
-          },
-          {
-            "name": "order_activation_types",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OrderActivationType"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by activation type.",
-              "title": "Order Activation Types"
-            },
-            "description": "Filter by activation type."
-          },
-          {
-            "name": "user_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by user ID.",
-              "title": "User Id"
-            },
-            "description": "Filter by user ID."
-          },
-          {
-            "name": "patient_name",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by patient name.",
-              "title": "Patient Name"
-            },
-            "description": "Filter by patient name."
-          },
-          {
-            "name": "shipping_recipient_name",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by shipping recipient name.",
-              "title": "Shipping Recipient Name"
-            },
-            "description": "Filter by shipping recipient name."
-          },
-          {
-            "name": "order_ids",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "uuid"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by order ids.",
-              "title": "Order Ids"
-            },
-            "description": "Filter by order ids."
+              "title": "A La Carte Enabled"
+            }
           },
           {
             "name": "page",
@@ -3723,7 +3799,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetOrdersResponse"
+                  "$ref": "#/components/schemas/GetMarkersResponse"
                 }
               }
             }
@@ -3740,7 +3816,537 @@
           }
         },
         "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_orders"
+        "x-fern-sdk-method-name": "get_markers"
+      }
+    },
+    "/v3/lab_tests/list_order_set_markers": {
+      "post": {
+        "tags": [
+          "lab_tests"
+        ],
+        "summary": "Get Markers For Order Set",
+        "operationId": "get_markers_for_order_set_v3_lab_tests_list_order_set_markers_post",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Size"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderSetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetMarkersResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_markers_for_order_set"
+      }
+    },
+    "/v3/lab_tests/{lab_test_id}/markers": {
+      "get": {
+        "tags": [
+          "lab_tests"
+        ],
+        "summary": "Get Markers For Test",
+        "operationId": "get_markers_for_test_v3_lab_tests__lab_test_id__markers_get",
+        "parameters": [
+          {
+            "name": "lab_test_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "The identifier Vital assigned to a lab test."
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetMarkersResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_markers_for_lab_test"
+      }
+    },
+    "/v3/lab_tests/{lab_id}/markers/{provider_id}": {
+      "get": {
+        "tags": [
+          "lab_tests"
+        ],
+        "summary": "Get Markers By Provider Id",
+        "description": "GET a specific marker for the given lab and provider_id",
+        "operationId": "get_markers_by_provider_id_v3_lab_tests__lab_id__markers__provider_id__get",
+        "parameters": [
+          {
+            "name": "provider_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "The provider id assigned by a Lab."
+            }
+          },
+          {
+            "name": "lab_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "The identifier Vital assigned to a lab partner."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingMarker"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_markers_by_lab_and_provider_id"
+      }
+    },
+    "/v3/lab_tests/labs": {
+      "get": {
+        "tags": [
+          "lab_tests"
+        ],
+        "summary": "Get Labs",
+        "description": "GET all the labs.",
+        "operationId": "get_labs_v3_lab_tests_labs_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingLab"
+                  },
+                  "type": "array",
+                  "title": "Response Get Labs V3 Lab Tests Labs Get"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_labs"
+      }
+    },
+    "/v2/team/link/config": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Team Config",
+        "description": "Post teams.",
+        "operationId": "get_team_config_v2_team_link_config_get",
+        "parameters": [
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Team Config V2 Team Link Config Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_link_config",
+        "security": []
+      }
+    },
+    "/v2/team/{team_id}": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Team",
+        "description": "Get team.",
+        "operationId": "get_team_v2_team__team_id__get",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingTeam"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/team/users/search": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Search Team Users By Uuid Or Client User Id",
+        "description": "Search team users by user_id",
+        "operationId": "search_team_users_by_uuid_or_client_user_id_v2_team_users_search_get",
+        "parameters": [
+          {
+            "name": "query_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "title": "Query Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingUser"
+                  },
+                  "title": "Response Search Team Users By Uuid Or Client User Id V2 Team Users Search Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_user_by_id",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/team/svix/url": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Svix Webhook Url",
+        "operationId": "get_svix_webhook_url_v2_team_svix_url_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Svix Webhook Url V2 Team Svix Url Get"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_svix_url",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/team/source/priorities": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Source Priorities",
+        "description": "GET source priorities.",
+        "operationId": "get_source_priorities_v2_team_source_priorities_get",
+        "parameters": [
+          {
+            "name": "data_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PriorityResource"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Data Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Get Source Priorities V2 Team Source Priorities Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_source_priorities"
+      },
+      "patch": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Update Source Priorities",
+        "description": "Patch source priorities.",
+        "operationId": "update_source_priorities_v2_team_source_priorities_patch",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Update Source Priorities V2 Team Source Priorities Patch"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "update_source_priorities"
+      }
+    },
+    "/v2/team/{team_id}/physicians": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Team Physicians",
+        "operationId": "get_team_physicians_v2_team__team_id__physicians_get",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingPhysician"
+                  },
+                  "title": "Response Get Team Physicians V2 Team  Team Id  Physicians Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_physicians"
       }
     },
     "/v3/order/testkit/register": {
@@ -3995,9 +4601,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "ef662d39-65f0-42b0-a45f-b9d28cbb44cd",
-                  "user_id": "8aa6584f-4231-491c-b602-0fcbc8a2fc6b",
-                  "order_id": "a79c6af0-19b7-42bc-ac87-89ef5a7c3d5b",
+                  "id": "7d9599cc-eaaa-49ff-a704-b447495e47d3",
+                  "user_id": "504daace-85ca-4d9a-be7f-731f28a612b1",
+                  "order_id": "fd799d68-37d5-42d7-8357-5e7cf50c3482",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -5624,18 +6230,18 @@
         "x-fern-sdk-method-name": "update_on_site_collection_order_draw_completed"
       }
     },
-    "/v2/team/link/config": {
+    "/v3/orders": {
       "get": {
         "tags": [
-          "team"
+          "orders"
         ],
-        "summary": "Get Team Config",
-        "description": "Post teams.",
-        "operationId": "get_team_config_v2_team_link_config_get",
+        "summary": "Get Orders",
+        "description": "GET many orders with filters.",
+        "operationId": "get_orders_v3_orders_get",
         "parameters": [
           {
-            "name": "x-vital-link-token",
-            "in": "header",
+            "name": "search_input",
+            "in": "query",
             "required": false,
             "schema": {
               "anyOf": [
@@ -5646,263 +6252,329 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Get Team Config V2 Team Link Config Get"
-                }
-              }
-            }
+              "description": "Search by order id, user id, patient name, shipping dob, or shipping recipient name.",
+              "title": "Search Input"
+            },
+            "description": "Search by order id, user id, patient name, shipping dob, or shipping recipient name."
           },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_link_config",
-        "security": []
-      }
-    },
-    "/v2/team/{team_id}": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team",
-        "description": "Get team.",
-        "operationId": "get_team_v2_team__team_id__get",
-        "parameters": [
           {
-            "name": "team_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingTeam"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/users/search": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Search Team Users By Uuid Or Client User Id",
-        "description": "Search team users by user_id",
-        "operationId": "search_team_users_by_uuid_or_client_user_id_v2_team_users_search_get",
-        "parameters": [
-          {
-            "name": "query_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "minLength": 2,
-              "title": "Query Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingUser"
-                  },
-                  "title": "Response Search Team Users By Uuid Or Client User Id V2 Team Users Search Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_user_by_id",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/svix/url": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Svix Webhook Url",
-        "operationId": "get_svix_webhook_url_v2_team_svix_url_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Response Get Svix Webhook Url V2 Team Svix Url Get"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_svix_url",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/source/priorities": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Source Priorities",
-        "description": "GET source priorities.",
-        "operationId": "get_source_priorities_v2_team_source_priorities_get",
-        "parameters": [
-          {
-            "name": "data_type",
+            "name": "start_date",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [
                 {
-                  "$ref": "#/components/schemas/PriorityResource"
+                  "type": "string",
+                  "format": "date-time"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "title": "Data Type"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "additionalProperties": true
-                  },
-                  "title": "Response Get Source Priorities V2 Team Source Priorities Get"
-                }
-              }
-            }
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
           },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_source_priorities"
-      },
-      "patch": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Update Source Priorities",
-        "description": "Patch source priorities.",
-        "operationId": "update_source_priorities_v2_team_source_priorities_patch",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "additionalProperties": true
-                  },
-                  "title": "Response Update Source Priorities V2 Team Source Priorities Patch"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "update_source_priorities"
-      }
-    },
-    "/v2/team/{team_id}/physicians": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team Physicians",
-        "operationId": "get_team_physicians_v2_team__team_id__physicians_get",
-        "parameters": [
           {
-            "name": "team_id",
-            "in": "path",
-            "required": true,
+            "name": "end_date",
+            "in": "query",
+            "required": false,
             "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Team Id"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          },
+          {
+            "name": "updated_start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Updated Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "updated_end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Updated End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderLowLevelStatus"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by low level status.",
+              "title": "Status"
+            },
+            "description": "Filter by low level status."
+          },
+          {
+            "name": "order_key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "created_at",
+                    "patient_name",
+                    "last_status"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Order key to sort by.",
+              "title": "Order Key"
+            },
+            "description": "Order key to sort by."
+          },
+          {
+            "name": "order_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "asc",
+                    "desc"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Order direction to sort by.",
+              "title": "Order Direction"
+            },
+            "description": "Order direction to sort by."
+          },
+          {
+            "name": "order_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LabTestCollectionMethod"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by method used to perform the lab test.",
+              "title": "Order Type"
+            },
+            "description": "Filter by method used to perform the lab test."
+          },
+          {
+            "name": "is_critical",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by critical order status.",
+              "title": "Is Critical"
+            },
+            "description": "Filter by critical order status."
+          },
+          {
+            "name": "interpretation",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Interpretation"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by result interpretation of the lab test.",
+              "title": "Interpretation"
+            },
+            "description": "Filter by result interpretation of the lab test."
+          },
+          {
+            "name": "order_activation_types",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderActivationType"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by activation type.",
+              "title": "Order Activation Types"
+            },
+            "description": "Filter by activation type."
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by user ID.",
+              "title": "User Id"
+            },
+            "description": "Filter by user ID."
+          },
+          {
+            "name": "patient_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by patient name.",
+              "title": "Patient Name"
+            },
+            "description": "Filter by patient name."
+          },
+          {
+            "name": "shipping_recipient_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by shipping recipient name.",
+              "title": "Shipping Recipient Name"
+            },
+            "description": "Filter by shipping recipient name."
+          },
+          {
+            "name": "order_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by order ids.",
+              "title": "Order Ids"
+            },
+            "description": "Filter by order ids."
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Size"
             }
           }
         ],
@@ -5912,11 +6584,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingPhysician"
-                  },
-                  "title": "Response Get Team Physicians V2 Team  Team Id  Physicians Get"
+                  "$ref": "#/components/schemas/GetOrdersResponse"
                 }
               }
             }
@@ -5932,8 +6600,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_physicians"
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_orders"
       }
     },
     "/v2/timeseries/sleep/{sleep_id}/stream": {
@@ -15125,674 +15793,6 @@
         "x-fern-sdk-method-name": "get_user_historical_pulls"
       }
     },
-    "/v3/lab_tests": {
-      "get": {
-        "tags": [
-          "lab_tests"
-        ],
-        "summary": "Get Lab Tests For Team",
-        "description": "GET all the lab tests the team has access to.",
-        "operationId": "get_lab_tests_for_team_v3_lab_tests_get",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "generation_method",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/LabTestGenerationMethodFilter",
-              "description": "Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.",
-              "default": "manual"
-            },
-            "description": "Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned."
-          },
-          {
-            "name": "lab_slug",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by the slug of the lab for these lab tests.",
-              "title": "Lab Slug"
-            },
-            "description": "Filter by the slug of the lab for these lab tests."
-          },
-          {
-            "name": "collection_method",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/LabTestCollectionMethod"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by the collection method for these lab tests.",
-              "title": "Collection Method"
-            },
-            "description": "Filter by the collection method for these lab tests."
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/LabTestStatus"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by the status of these lab tests.",
-              "title": "Status"
-            },
-            "description": "Filter by the status of these lab tests."
-          },
-          {
-            "name": "marker_ids",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "integer"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter to only include lab tests containing these marker IDs.",
-              "title": "Marker Ids"
-            },
-            "description": "Filter to only include lab tests containing these marker IDs."
-          },
-          {
-            "name": "provider_ids",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter to only include lab tests containing these provider IDs.",
-              "title": "Provider Ids"
-            },
-            "description": "Filter to only include lab tests containing these provider IDs."
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by the name of the lab test (a case-insensitive substring search).",
-              "title": "Name"
-            },
-            "description": "Filter by the name of the lab test (a case-insensitive substring search)."
-          },
-          {
-            "name": "order_key",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "enum": [
-                    "price",
-                    "created_at",
-                    "updated_at"
-                  ],
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Order Key"
-            }
-          },
-          {
-            "name": "order_direction",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "enum": [
-                "asc",
-                "desc"
-              ],
-              "type": "string",
-              "default": "asc",
-              "title": "Order Direction"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingLabTest"
-                  },
-                  "title": "Response Get Lab Tests For Team V3 Lab Tests Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get",
-        "x-fern-availability": "deprecated"
-      },
-      "post": {
-        "tags": [
-          "lab_tests"
-        ],
-        "summary": "Create Lab Test For Team",
-        "operationId": "create_lab_test_for_team_v3_lab_tests_post",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateLabTestRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingLabTest"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "create"
-      }
-    },
-    "/v3/lab_tests/{lab_test_id}": {
-      "patch": {
-        "tags": [
-          "lab_tests"
-        ],
-        "summary": "Update Lab Test For Team",
-        "operationId": "update_lab_test_for_team_v3_lab_tests__lab_test_id__patch",
-        "parameters": [
-          {
-            "name": "lab_test_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Lab Test Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateLabTestRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingLabTest"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "update_lab_test"
-      },
-      "get": {
-        "tags": [
-          "lab_tests"
-        ],
-        "summary": "Get Lab Test For Team",
-        "description": "GET all the lab tests the team has access to.",
-        "operationId": "get_lab_test_for_team_v3_lab_tests__lab_test_id__get",
-        "parameters": [
-          {
-            "name": "lab_test_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "The identifier Vital assigned to a lab test."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingLabTest"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_by_id"
-      }
-    },
-    "/v3/lab_tests/markers": {
-      "get": {
-        "tags": [
-          "lab_tests"
-        ],
-        "summary": "Get Markers",
-        "description": "GET all the markers for the given lab.",
-        "operationId": "get_markers_v3_lab_tests_markers_get",
-        "parameters": [
-          {
-            "name": "lab_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "integer"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "The identifier Vital assigned to a lab partner.",
-              "title": "Lab Id"
-            },
-            "description": "The identifier Vital assigned to a lab partner."
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "The name or test code of an individual biomarker or a panel.",
-              "default": "",
-              "title": "Name"
-            },
-            "description": "The name or test code of an individual biomarker or a panel."
-          },
-          {
-            "name": "a_la_carte_enabled",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "A La Carte Enabled"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "default": 1,
-              "title": "Page"
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 100,
-              "minimum": 1,
-              "default": 50,
-              "title": "Size"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetMarkersResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_markers"
-      }
-    },
-    "/v3/lab_tests/list_order_set_markers": {
-      "post": {
-        "tags": [
-          "lab_tests"
-        ],
-        "summary": "Get Markers For Order Set",
-        "operationId": "get_markers_for_order_set_v3_lab_tests_list_order_set_markers_post",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "default": 1,
-              "title": "Page"
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 100,
-              "minimum": 1,
-              "default": 50,
-              "title": "Size"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrderSetRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetMarkersResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_markers_for_order_set"
-      }
-    },
-    "/v3/lab_tests/{lab_test_id}/markers": {
-      "get": {
-        "tags": [
-          "lab_tests"
-        ],
-        "summary": "Get Markers For Test",
-        "operationId": "get_markers_for_test_v3_lab_tests__lab_test_id__markers_get",
-        "parameters": [
-          {
-            "name": "lab_test_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "The identifier Vital assigned to a lab test."
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "default": 1,
-              "title": "Page"
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 100,
-              "minimum": 1,
-              "default": 50,
-              "title": "Size"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetMarkersResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_markers_for_lab_test"
-      }
-    },
-    "/v3/lab_tests/{lab_id}/markers/{provider_id}": {
-      "get": {
-        "tags": [
-          "lab_tests"
-        ],
-        "summary": "Get Markers By Provider Id",
-        "description": "GET a specific marker for the given lab and provider_id",
-        "operationId": "get_markers_by_provider_id_v3_lab_tests__lab_id__markers__provider_id__get",
-        "parameters": [
-          {
-            "name": "provider_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "The provider id assigned by a Lab."
-            }
-          },
-          {
-            "name": "lab_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "The identifier Vital assigned to a lab partner."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingMarker"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_markers_by_lab_and_provider_id"
-      }
-    },
-    "/v3/lab_tests/labs": {
-      "get": {
-        "tags": [
-          "lab_tests"
-        ],
-        "summary": "Get Labs",
-        "description": "GET all the labs.",
-        "operationId": "get_labs_v3_lab_tests_labs_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingLab"
-                  },
-                  "type": "array",
-                  "title": "Response Get Labs V3 Lab Tests Labs Get"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_labs"
-      }
-    },
     "/v3/lab_test": {
       "get": {
         "tags": [
@@ -23477,18 +23477,18 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "1a13f1a2-9fa8-420c-bd11-68d08ac25653",
+          "id": "695b68a1-a4ff-4e50-8372-9fe12e684bac",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "07669ab9-686f-4813-ae3f-8798c32139f7",
+          "order_id": "e7663a24-3c5d-4393-aefd-f6b318cd8b09",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "5fb089b2-8b63-4584-a964-cd21a7e8ec43"
+          "user_id": "bd376dab-9869-46e1-9b3d-fff2686bc9fa"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23515,7 +23515,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "08c7e051-a0f5-43df-8d16-1f1aa611e310",
+          "id": "2abac9d3-360c-48c1-a3b0-7665f8d9ec96",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23590,9 +23590,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "c8f1e2d1-67d7-4bec-a35d-1336be5f1eab",
+          "appointment_id": "f6cad3cd-9608-4ced-a93f-a3e3d91eee4e",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "c3b2105f-9c69-4fe7-aa5f-6c0f125c8e48",
+          "id": "c0d65941-0c8d-4f2b-ae9b-9e5c69a1195a",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -23849,7 +23849,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-09-18T15:11:36+00:00",
+          "timestamp": "2025-09-19T20:06:07+00:00",
           "unit": "mmHg"
         }
       },
@@ -24982,12 +24982,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "b76d3510-3fde-48d5-9ce0-d33ad18b8497",
+          "order_id": "6a5d7238-eb7b-44e2-a452-3a7f338c5f74",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "34b62337-8b2a-45e5-8e15-c609070f43fc",
+          "team_id": "73f544b6-ef3b-4920-b957-818d82e39ce1",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "8df5d465-6d8b-4eb6-b376-54a4c877698e"
+          "user_id": "c7a1a194-b2f9-449a-8169-8a927bb2ee35"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -28104,7 +28104,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-09-18T15:16:36.774948+00:00",
+          "end": "2025-09-19T20:11:07.414667+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -28247,7 +28247,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "304e112c-722c-4148-9db1-2286261d1618",
+          "id": "6cffeb2c-c959-4c09-8681-3ce1882423e3",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -28601,8 +28601,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "b6fc9066-901b-48de-88d6-2d69c7906288",
-          "id": "f2ef4f5d-c4e9-4ecd-b625-0935a78a4a0a",
+          "health_insurace_id": "1e6ef5a4-28a3-419c-9be9-69f7ea0d19b0",
+          "id": "a05d0e70-8d2e-4915-98a6-e551cdf938d4",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -28626,9 +28626,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "f1ad4d9f-2b11-43c4-9baa-b3571d1d4487",
+          "team_id": "0ec1d182-3a85-4918-a495-f580991c4d9a",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "eecbef4c-c94a-4d25-a5c4-e6ab0631957a"
+          "user_id": "c26786c7-bc23-4954-bdcc-5a616eaffbb5"
         }
       },
       "ClientFacingOrderEvent": {
@@ -29616,7 +29616,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "be042958-6417-4270-a94b-af95781ddb47",
+          "id": "8f8a111c-f949-474c-b0cf-8693dca0d1af",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -30361,129 +30361,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-09-18T15:11:37.737901+00:00",
+              "timestamp": "2025-09-19T20:06:08.475612+00:00",
               "unit": "bpm",
-              "value": 115
+              "value": 20
             },
             {
               "id": 1,
-              "timestamp": "2025-09-18T15:12:07.737938+00:00",
+              "timestamp": "2025-09-19T20:06:38.475691+00:00",
               "unit": "bpm",
-              "value": 119
+              "value": 173
             },
             {
               "id": 2,
-              "timestamp": "2025-09-18T15:12:37.737975+00:00",
+              "timestamp": "2025-09-19T20:07:08.475743+00:00",
               "unit": "bpm",
-              "value": 32
+              "value": 180
             },
             {
               "id": 3,
-              "timestamp": "2025-09-18T15:13:07.738023+00:00",
+              "timestamp": "2025-09-19T20:07:38.475792+00:00",
               "unit": "bpm",
-              "value": 149
+              "value": 74
             },
             {
               "id": 4,
-              "timestamp": "2025-09-18T15:13:37.738055+00:00",
+              "timestamp": "2025-09-19T20:08:08.475852+00:00",
               "unit": "bpm",
-              "value": 10
+              "value": 184
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-09-18T15:11:37.737612+00:00",
+              "timestamp": "2025-09-19T20:06:08.475329+00:00",
               "unit": "rmssd",
-              "value": 39
+              "value": 0
             },
             {
               "id": 1,
-              "timestamp": "2025-09-18T15:12:07.737723+00:00",
+              "timestamp": "2025-09-19T20:06:38.475418+00:00",
               "unit": "rmssd",
-              "value": 1
+              "value": 12
             },
             {
               "id": 2,
-              "timestamp": "2025-09-18T15:12:37.737778+00:00",
+              "timestamp": "2025-09-19T20:07:08.475488+00:00",
               "unit": "rmssd",
-              "value": 9
+              "value": 0
             },
             {
               "id": 3,
-              "timestamp": "2025-09-18T15:13:07.737825+00:00",
+              "timestamp": "2025-09-19T20:07:38.475540+00:00",
               "unit": "rmssd",
-              "value": 57
+              "value": 18
             },
             {
               "id": 4,
-              "timestamp": "2025-09-18T15:13:37.737863+00:00",
+              "timestamp": "2025-09-19T20:08:08.475578+00:00",
               "unit": "rmssd",
-              "value": 49
+              "value": 1
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-09-18T15:11:37.738085+00:00",
+              "timestamp": "2025-09-19T20:06:08.475893+00:00",
               "unit": "stage",
-              "value": 4
+              "value": 3
             },
             {
               "id": 1,
-              "timestamp": "2025-09-18T15:12:07.738112+00:00",
+              "timestamp": "2025-09-19T20:06:38.475925+00:00",
               "unit": "stage",
-              "value": 0
+              "value": -1
             },
             {
               "id": 2,
-              "timestamp": "2025-09-18T15:12:37.738149+00:00",
+              "timestamp": "2025-09-19T20:07:08.475954+00:00",
               "unit": "stage",
-              "value": 2
+              "value": -1
             },
             {
               "id": 3,
-              "timestamp": "2025-09-18T15:13:07.738189+00:00",
+              "timestamp": "2025-09-19T20:07:38.475982+00:00",
               "unit": "stage",
-              "value": 4
+              "value": -1
             },
             {
               "id": 4,
-              "timestamp": "2025-09-18T15:13:37.738220+00:00",
+              "timestamp": "2025-09-19T20:08:08.476009+00:00",
               "unit": "stage",
-              "value": -1
+              "value": 4
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-09-18T15:11:37.738249+00:00",
+              "timestamp": "2025-09-19T20:06:08.476037+00:00",
+              "unit": "bpm",
+              "value": 22
+            },
+            {
+              "id": 1,
+              "timestamp": "2025-09-19T20:06:38.476062+00:00",
+              "unit": "bpm",
+              "value": 24
+            },
+            {
+              "id": 2,
+              "timestamp": "2025-09-19T20:07:08.476086+00:00",
               "unit": "bpm",
               "value": 29
             },
             {
-              "id": 1,
-              "timestamp": "2025-09-18T15:12:07.738276+00:00",
-              "unit": "bpm",
-              "value": 25
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-09-18T15:12:37.738302+00:00",
-              "unit": "bpm",
-              "value": 10
-            },
-            {
               "id": 3,
-              "timestamp": "2025-09-18T15:13:07.738329+00:00",
+              "timestamp": "2025-09-19T20:07:38.476138+00:00",
               "unit": "bpm",
-              "value": 9
+              "value": 24
             },
             {
               "id": 4,
-              "timestamp": "2025-09-18T15:13:37.738355+00:00",
+              "timestamp": "2025-09-19T20:08:08.476175+00:00",
               "unit": "bpm",
-              "value": 25
+              "value": 18
             }
           ]
         }
@@ -31546,10 +31546,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "a703c1db-988d-4840-b68a-5f3ef264f22d",
+          "id": "a5271166-e747-4f03-baed-72583e679bbd",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "cf4cf618-489e-4b02-ba2d-9c802ec120d1",
+            "id": "78e9411a-e065-4b07-94c1-7f1894fe97a6",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31742,7 +31742,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-09-18T15:11:36+00:00",
+              "created_on": "2025-09-19T20:06:06+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -31750,16 +31750,16 @@
               }
             }
           ],
-          "created_on": "2025-09-18T15:11:36+00:00",
+          "created_on": "2025-09-19T20:06:06+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-09-18T15:11:36+00:00",
+            "updated_at": "2025-09-19T20:06:06+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-09-18T15:11:36+00:00"
+            "updated_at": "2025-09-19T20:06:06+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -32021,9 +32021,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "3d5ddf31-ab6e-425f-a510-c945ed493ef1",
+          "appointment_id": "7a103f36-9b15-4808-bc55-c42ab9d16547",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "f7c823c3-96c2-4a78-82e9-68d32a10c0fb",
+          "id": "0ba75af9-4a15-4bef-b2bb-16502d033f48",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -33273,7 +33273,7 @@
               "third"
             ]
           },
-          "query_id": "90bae904-1cee-42f6-bc38-3da4dbd232a2",
+          "query_id": "ff1f976f-4bbc-44f7-9296-027b02d536b5",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -42627,7 +42627,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-09-18T15:16:36.774948+00:00",
+                    "end": "2025-09-19T20:11:07.414667+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -44273,7 +44273,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-09-18T15:11:36+00:00",
+                    "timestamp": "2025-09-19T20:06:07+00:00",
                     "unit": "mmHg"
                   }
                 ],
