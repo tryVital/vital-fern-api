@@ -3,7 +3,7 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.613"
+    "version": "0.3.615"
   },
   "paths": {
     "/v2/user": {
@@ -928,17 +928,18 @@
         "x-fern-sdk-method-name": "get_device"
       }
     },
-    "/v2/link/bulk_op": {
+    "/v2/team/link/config": {
       "get": {
         "tags": [
-          "link"
+          "team"
         ],
-        "summary": "List Bulk Ops",
-        "operationId": "list_bulk_ops_v2_link_bulk_op_get",
+        "summary": "Get Team Config",
+        "description": "Post teams.",
+        "operationId": "get_team_config_v2_team_link_config_get",
         "parameters": [
           {
-            "name": "next_cursor",
-            "in": "query",
+            "name": "x-vital-link-token",
+            "in": "header",
             "required": false,
             "schema": {
               "anyOf": [
@@ -949,38 +950,7 @@
                   "type": "null"
                 }
               ],
-              "title": "Next Cursor"
-            }
-          },
-          {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 50,
-              "minimum": 0,
-              "default": 10,
-              "title": "Page Size"
-            }
-          },
-          {
-            "name": "team_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "const": "infer_from_context",
-                  "type": "string"
-                }
-              ],
-              "default": "infer_from_context",
-              "title": "Team Id"
+              "title": "X-Vital-Link-Token"
             }
           }
         ],
@@ -990,359 +960,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BulkOpsResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "list_bulk_ops",
-        "x-fern-availability": "beta"
-      }
-    },
-    "/v2/link/bulk_import": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Bulk Import Connections",
-        "operationId": "bulk_import_connections_v2_link_bulk_import_post",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "const": "infer_from_context",
-                  "type": "string"
-                }
-              ],
-              "default": "infer_from_context",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkImportConnectionsBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BulkImportConnectionsResponse"
-                }
-              }
-            }
-          },
-          "202": {
-            "description": "Accepted"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "bulk_import",
-        "x-fern-availability": "beta"
-      }
-    },
-    "/v2/link/bulk_trigger_historical_pull": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Bulk Trigger Historical Pull",
-        "operationId": "bulk_trigger_historical_pull_v2_link_bulk_trigger_historical_pull_post",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "const": "infer_from_context",
-                  "type": "string"
-                }
-              ],
-              "default": "infer_from_context",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkTriggerHistoricalPullBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "202": {
-            "description": "Accepted"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "bulk_trigger_historical_pull",
-        "x-fern-availability": "beta"
-      }
-    },
-    "/v2/link/bulk_export": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Bulk Export Connections",
-        "operationId": "bulk_export_connections_v2_link_bulk_export_post",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "const": "infer_from_context",
-                  "type": "string"
-                }
-              ],
-              "default": "infer_from_context",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkExportConnectionsBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BulkExportConnectionsResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "bulk_export",
-        "x-fern-availability": "beta"
-      }
-    },
-    "/v2/link/bulk_pause": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Bulk Pause Connections",
-        "operationId": "bulk_pause_connections_v2_link_bulk_pause_post",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "const": "infer_from_context",
-                  "type": "string"
-                }
-              ],
-              "default": "infer_from_context",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkPauseConnectionsBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "bulk_pause",
-        "x-fern-availability": "beta"
-      }
-    },
-    "/v2/link/token": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Generate Vital Link Token",
-        "description": "Endpoint to generate a user link token, to be used throughout the vital\nlink process. The vital link token is a one time use token, that\nexpires after 10 minutes. If you would like vital-link widget to launch\nwith a specific provider, pass in a provider in the body. If you would\nlike to redirect to a custom url after successful or error connection,\npass in your own custom redirect_url parameter.",
-        "operationId": "generate_vital_link_token_v2_link_token_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LinkTokenExchange"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LinkTokenExchangeResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "token"
-      }
-    },
-    "/v2/link/token/isValid": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Check Token Valid",
-        "operationId": "check_token_valid_v2_link_token_isValid_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LinkTokenValidationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "additionalProperties": true,
                   "type": "object",
-                  "title": "Response Check Token Valid V2 Link Token Isvalid Post"
+                  "additionalProperties": true,
+                  "title": "Response Get Team Config V2 Team Link Config Get"
                 }
               }
             }
@@ -1358,49 +978,29 @@
             }
           }
         },
-        "deprecated": true,
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "is_token_valid",
-        "x-fern-availability": "deprecated"
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_link_config",
+        "security": []
       }
     },
-    "/v2/link/code/create": {
-      "post": {
+    "/v2/team/{team_id}": {
+      "get": {
         "tags": [
-          "link"
+          "team"
         ],
-        "summary": "Create Token",
-        "description": "Generate a token to invite a user of Vital mobile app to your team",
-        "operationId": "create_token_v2_link_code_create_post",
+        "summary": "Get Team",
+        "description": "Get team.",
+        "operationId": "get_team_v2_team__team_id__get",
         "parameters": [
           {
-            "name": "user_id",
-            "in": "query",
+            "name": "team_id",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string",
               "format": "uuid",
-              "title": "User Id"
+              "title": "Team Id"
             }
-          },
-          {
-            "name": "expires_at",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "When the link code should expire. Defaults to server time plus 1 hour.",
-              "title": "Expires At"
-            },
-            "description": "When the link code should expire. Defaults to server time plus 1 hour."
           }
         ],
         "responses": {
@@ -1409,7 +1009,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/VitalTokenCreatedResponse"
+                  "$ref": "#/components/schemas/ClientFacingTeam"
                 }
               }
             }
@@ -1425,539 +1025,28 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "code_create"
-      }
-    },
-    "/v2/link/start": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Start Connect Process",
-        "description": "REQUEST_SOURCE: VITAL-LINK\nStart link token process",
-        "operationId": "start_connect_process_v2_link_start_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BeginLinkTokenRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Response Start Connect Process V2 Link Start Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": true,
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "start_connect",
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get",
         "x-fern-availability": "deprecated"
       }
     },
-    "/v2/link/state": {
+    "/v2/team/users/search": {
       "get": {
         "tags": [
-          "link"
+          "team"
         ],
-        "summary": "Check Link Token State",
-        "description": "REQUEST_SOURCE: VITAL-LINK\nCheck link token state - can be hit continuously used as heartbeat",
-        "operationId": "check_link_token_state_v2_link_state_get",
-        "deprecated": true,
+        "summary": "Search Team Users By Uuid Or Client User Id",
+        "description": "Search team users by user_id",
+        "operationId": "search_team_users_by_uuid_or_client_user_id_v2_team_users_search_get",
         "parameters": [
           {
-            "name": "x-vital-link-token",
-            "in": "header",
+            "name": "query_id",
+            "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Check Link Token State V2 Link State Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "token_state",
-        "x-fern-availability": "deprecated",
-        "security": []
-      }
-    },
-    "/v2/link/auth/email": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Legacy Connect Email Auth",
-        "description": "Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.",
-        "operationId": "legacy_connect_email_auth_v2_link_auth_email_post",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmailAuthLink"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "email_auth",
-        "x-fern-availability": "deprecated",
-        "security": []
-      }
-    },
-    "/v2/link/auth": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Legacy Connect Password Auth",
-        "description": "Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.",
-        "operationId": "legacy_connect_password_auth_v2_link_auth_post",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PasswordAuthLink"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "password_auth",
-        "x-fern-availability": "deprecated",
-        "security": []
-      }
-    },
-    "/v2/link/provider/oauth/{oauth_provider}": {
-      "get": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Generate Oauth Link Endpoint",
-        "description": "This endpoint generates an OAuth link for oauth provider",
-        "operationId": "generate_oauth_link",
-        "parameters": [
-          {
-            "name": "oauth_provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/OAuthProviders"
-            }
-          },
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Source"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "generate_oauth_link",
-        "security": []
-      }
-    },
-    "/v2/link/provider/password/{provider}": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Connect Password Provider",
-        "description": "This connects auth providers that are password based.",
-        "operationId": "connect_password_provider_v2_link_provider_password__provider__post",
-        "parameters": [
-          {
-            "name": "provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/PasswordProviders",
-              "title": "Providers that require password auth, whoop, renpho, peloton, zwift"
-            }
-          },
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IndividualProviderData"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProviderLinkResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "connect_password_provider",
-        "security": []
-      }
-    },
-    "/v2/link/provider/password/{provider}/complete_mfa": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Complete Password Provider Mfa",
-        "description": "This connects auth providers that are password based.",
-        "operationId": "complete_password_provider_mfa_v2_link_provider_password__provider__complete_mfa_post",
-        "parameters": [
-          {
-            "name": "provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/PasswordProviders",
-              "title": "Providers that require password auth, whoop, renpho, peloton, zwift"
-            }
-          },
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CompletePasswordProviderMFABody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProviderLinkResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "complete_password_provider_mfa",
-        "security": []
-      }
-    },
-    "/v2/link/provider/email/{provider}": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Connect Email Auth Provider",
-        "description": "This connects auth providers that are email based.",
-        "operationId": "connect_email_auth_provider_v2_link_provider_email__provider__post",
-        "parameters": [
-          {
-            "name": "provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/EmailProviders",
-              "title": "Email providers that require emails freestyle_auth"
-            }
-          },
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmailProviderAuthLink"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "connect_email_auth_provider",
-        "security": []
-      }
-    },
-    "/v2/link/providers": {
-      "get": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Get Providers",
-        "description": "GET List of all available providers given the generated link token.",
-        "operationId": "get_providers_v2_link_providers_get",
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
+              "type": "string",
+              "minLength": 2,
+              "title": "Query Id"
             }
           }
         ],
@@ -1969,9 +1058,9 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/SourceLink"
+                    "$ref": "#/components/schemas/ClientFacingUser"
                   },
-                  "title": "Response Get Providers V2 Link Providers Get"
+                  "title": "Response Search Team Users By Uuid Or Client User Id V2 Team Users Search Get"
                 }
               }
             }
@@ -1987,96 +1076,75 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "get_all_providers",
-        "security": []
-      }
-    },
-    "/v2/link/provider/manual/{provider}": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Create Manual Connected Source",
-        "operationId": "create_manual_connected_source_v2_link_provider_manual__provider__post",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/ManualProviders",
-              "title": "Providers that are manually added devices, such as ble devices and generated data"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ManualConnectionData"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "boolean"
-                  },
-                  "title": "Response Create Manual Connected Source V2 Link Provider Manual  Provider  Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "connect_manual_provider",
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_user_by_id",
         "x-fern-availability": "deprecated"
       }
     },
-    "/v2/link/connect/demo": {
-      "post": {
+    "/v2/team/svix/url": {
+      "get": {
         "tags": [
-          "link"
+          "team"
         ],
-        "summary": "Create Demo Connection",
-        "description": "POST Connect the given Vital user to a demo provider.",
-        "operationId": "create_demo_connection_v2_link_connect_demo_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DemoConnectionCreationPayload"
-              }
-            }
-          },
-          "required": true
-        },
+        "summary": "Get Svix Webhook Url",
+        "operationId": "get_svix_webhook_url_v2_team_svix_url_get",
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DemoConnectionStatus"
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Svix Webhook Url V2 Team Svix Url Get"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_svix_url",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/team/source/priorities": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Source Priorities",
+        "description": "GET source priorities.",
+        "operationId": "get_source_priorities_v2_team_source_priorities_get",
+        "parameters": [
+          {
+            "name": "data_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PriorityResource"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Data Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Get Source Priorities V2 Team Source Priorities Get"
                 }
               }
             }
@@ -2092,8 +1160,140 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "connect_demo_provider"
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_source_priorities"
+      },
+      "patch": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Update Source Priorities",
+        "description": "Patch source priorities.",
+        "operationId": "update_source_priorities_v2_team_source_priorities_patch",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Update Source Priorities V2 Team Source Priorities Patch"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "update_source_priorities"
+      }
+    },
+    "/v2/team/{team_id}/physicians": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Team Physicians",
+        "operationId": "get_team_physicians_v2_team__team_id__physicians_get",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingPhysician"
+                  },
+                  "title": "Response Get Team Physicians V2 Team  Team Id  Physicians Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_physicians"
+      }
+    },
+    "/v2/providers": {
+      "get": {
+        "tags": [
+          "providers"
+        ],
+        "summary": "Get List Of Providers",
+        "description": "Get Provider list",
+        "operationId": "get_list_of_providers_v2_providers_get",
+        "parameters": [
+          {
+            "name": "source_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Source Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingProviderDetailed"
+                  },
+                  "title": "Response Get List Of Providers V2 Providers Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "providers",
+        "x-fern-sdk-method-name": "get_all"
       }
     },
     "/v2/timeseries/sleep/{sleep_id}/stream": {
@@ -11050,6 +10250,1548 @@
         "x-fern-availability": "deprecated"
       }
     },
+    "/v2/link/bulk_op": {
+      "get": {
+        "tags": [
+          "link"
+        ],
+        "summary": "List Bulk Ops",
+        "operationId": "list_bulk_ops_v2_link_bulk_op_get",
+        "parameters": [
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Next Cursor"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "minimum": 0,
+              "default": 10,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
+                }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkOpsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "list_bulk_ops",
+        "x-fern-availability": "beta"
+      }
+    },
+    "/v2/link/bulk_import": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Bulk Import Connections",
+        "operationId": "bulk_import_connections_v2_link_bulk_import_post",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
+                }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkImportConnectionsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkImportConnectionsResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "bulk_import",
+        "x-fern-availability": "beta"
+      }
+    },
+    "/v2/link/bulk_trigger_historical_pull": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Bulk Trigger Historical Pull",
+        "operationId": "bulk_trigger_historical_pull_v2_link_bulk_trigger_historical_pull_post",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
+                }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkTriggerHistoricalPullBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "bulk_trigger_historical_pull",
+        "x-fern-availability": "beta"
+      }
+    },
+    "/v2/link/bulk_export": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Bulk Export Connections",
+        "operationId": "bulk_export_connections_v2_link_bulk_export_post",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
+                }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkExportConnectionsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkExportConnectionsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "bulk_export",
+        "x-fern-availability": "beta"
+      }
+    },
+    "/v2/link/bulk_pause": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Bulk Pause Connections",
+        "operationId": "bulk_pause_connections_v2_link_bulk_pause_post",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
+                }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkPauseConnectionsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "bulk_pause",
+        "x-fern-availability": "beta"
+      }
+    },
+    "/v2/link/token": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Generate Vital Link Token",
+        "description": "Endpoint to generate a user link token, to be used throughout the vital\nlink process. The vital link token is a one time use token, that\nexpires after 10 minutes. If you would like vital-link widget to launch\nwith a specific provider, pass in a provider in the body. If you would\nlike to redirect to a custom url after successful or error connection,\npass in your own custom redirect_url parameter.",
+        "operationId": "generate_vital_link_token_v2_link_token_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkTokenExchange"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkTokenExchangeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "token"
+      }
+    },
+    "/v2/link/token/isValid": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Check Token Valid",
+        "operationId": "check_token_valid_v2_link_token_isValid_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkTokenValidationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Check Token Valid V2 Link Token Isvalid Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "is_token_valid",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/link/code/create": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Create Token",
+        "description": "Generate a token to invite a user of Vital mobile app to your team",
+        "operationId": "create_token_v2_link_code_create_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "expires_at",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "When the link code should expire. Defaults to server time plus 1 hour.",
+              "title": "Expires At"
+            },
+            "description": "When the link code should expire. Defaults to server time plus 1 hour."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VitalTokenCreatedResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "code_create"
+      }
+    },
+    "/v2/link/start": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Start Connect Process",
+        "description": "REQUEST_SOURCE: VITAL-LINK\nStart link token process",
+        "operationId": "start_connect_process_v2_link_start_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BeginLinkTokenRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Start Connect Process V2 Link Start Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "start_connect",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/link/state": {
+      "get": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Check Link Token State",
+        "description": "REQUEST_SOURCE: VITAL-LINK\nCheck link token state - can be hit continuously used as heartbeat",
+        "operationId": "check_link_token_state_v2_link_state_get",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Check Link Token State V2 Link State Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "token_state",
+        "x-fern-availability": "deprecated",
+        "security": []
+      }
+    },
+    "/v2/link/auth/email": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Legacy Connect Email Auth",
+        "description": "Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.",
+        "operationId": "legacy_connect_email_auth_v2_link_auth_email_post",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailAuthLink"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "email_auth",
+        "x-fern-availability": "deprecated",
+        "security": []
+      }
+    },
+    "/v2/link/auth": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Legacy Connect Password Auth",
+        "description": "Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.",
+        "operationId": "legacy_connect_password_auth_v2_link_auth_post",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordAuthLink"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "password_auth",
+        "x-fern-availability": "deprecated",
+        "security": []
+      }
+    },
+    "/v2/link/provider/oauth/{oauth_provider}": {
+      "get": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Generate Oauth Link Endpoint",
+        "description": "This endpoint generates an OAuth link for oauth provider",
+        "operationId": "generate_oauth_link",
+        "parameters": [
+          {
+            "name": "oauth_provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OAuthProviders"
+            }
+          },
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Source"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "generate_oauth_link",
+        "security": []
+      }
+    },
+    "/v2/link/provider/password/{provider}": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Connect Password Provider",
+        "description": "This connects auth providers that are password based.",
+        "operationId": "connect_password_provider_v2_link_provider_password__provider__post",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PasswordProviders",
+              "title": "Providers that require password auth, whoop, renpho, peloton, zwift"
+            }
+          },
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IndividualProviderData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderLinkResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "connect_password_provider",
+        "security": []
+      }
+    },
+    "/v2/link/provider/password/{provider}/complete_mfa": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Complete Password Provider Mfa",
+        "description": "This connects auth providers that are password based.",
+        "operationId": "complete_password_provider_mfa_v2_link_provider_password__provider__complete_mfa_post",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PasswordProviders",
+              "title": "Providers that require password auth, whoop, renpho, peloton, zwift"
+            }
+          },
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompletePasswordProviderMFABody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderLinkResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "complete_password_provider_mfa",
+        "security": []
+      }
+    },
+    "/v2/link/provider/email/{provider}": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Connect Email Auth Provider",
+        "description": "This connects auth providers that are email based.",
+        "operationId": "connect_email_auth_provider_v2_link_provider_email__provider__post",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/EmailProviders",
+              "title": "Email providers that require emails freestyle_auth"
+            }
+          },
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailProviderAuthLink"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "connect_email_auth_provider",
+        "security": []
+      }
+    },
+    "/v2/link/providers": {
+      "get": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Get Providers",
+        "description": "GET List of all available providers given the generated link token.",
+        "operationId": "get_providers_v2_link_providers_get",
+        "parameters": [
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SourceLink"
+                  },
+                  "title": "Response Get Providers V2 Link Providers Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "get_all_providers",
+        "security": []
+      }
+    },
+    "/v2/link/provider/manual/{provider}": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Create Manual Connected Source",
+        "operationId": "create_manual_connected_source_v2_link_provider_manual__provider__post",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ManualProviders",
+              "title": "Providers that are manually added devices, such as ble devices and generated data"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManualConnectionData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "boolean"
+                  },
+                  "title": "Response Create Manual Connected Source V2 Link Provider Manual  Provider  Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "connect_manual_provider",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/link/connect/demo": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Create Demo Connection",
+        "description": "POST Connect the given Vital user to a demo provider.",
+        "operationId": "create_demo_connection_v2_link_connect_demo_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DemoConnectionCreationPayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemoConnectionStatus"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "connect_demo_provider"
+      }
+    },
+    "/v3/orders": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Get Orders",
+        "description": "GET many orders with filters.",
+        "operationId": "get_orders_v3_orders_get",
+        "parameters": [
+          {
+            "name": "search_input",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Search by order id, user id, patient name, shipping dob, or shipping recipient name.",
+              "title": "Search Input"
+            },
+            "description": "Search by order id, user id, patient name, shipping dob, or shipping recipient name."
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          },
+          {
+            "name": "updated_start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Updated Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "updated_end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Updated End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderLowLevelStatus"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by low level status.",
+              "title": "Status"
+            },
+            "description": "Filter by low level status."
+          },
+          {
+            "name": "order_key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "created_at",
+                    "patient_name",
+                    "last_status"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Order key to sort by.",
+              "title": "Order Key"
+            },
+            "description": "Order key to sort by."
+          },
+          {
+            "name": "order_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "asc",
+                    "desc"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Order direction to sort by.",
+              "title": "Order Direction"
+            },
+            "description": "Order direction to sort by."
+          },
+          {
+            "name": "order_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LabTestCollectionMethod"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by method used to perform the lab test.",
+              "title": "Order Type"
+            },
+            "description": "Filter by method used to perform the lab test."
+          },
+          {
+            "name": "is_critical",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by critical order status.",
+              "title": "Is Critical"
+            },
+            "description": "Filter by critical order status."
+          },
+          {
+            "name": "interpretation",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Interpretation"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by result interpretation of the lab test.",
+              "title": "Interpretation"
+            },
+            "description": "Filter by result interpretation of the lab test."
+          },
+          {
+            "name": "order_activation_types",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderActivationType"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by activation type.",
+              "title": "Order Activation Types"
+            },
+            "description": "Filter by activation type."
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by user ID.",
+              "title": "User Id"
+            },
+            "description": "Filter by user ID."
+          },
+          {
+            "name": "patient_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by patient name.",
+              "title": "Patient Name"
+            },
+            "description": "Filter by patient name."
+          },
+          {
+            "name": "shipping_recipient_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by shipping recipient name.",
+              "title": "Shipping Recipient Name"
+            },
+            "description": "Filter by shipping recipient name."
+          },
+          {
+            "name": "order_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by order ids.",
+              "title": "Order Ids"
+            },
+            "description": "Filter by order ids."
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOrdersResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_orders"
+      }
+    },
     "/v2/summary/electrocardiogram/{user_id}": {
       "get": {
         "tags": [
@@ -12267,748 +13009,6 @@
         "x-fern-sdk-method-name": "get"
       }
     },
-    "/v2/providers": {
-      "get": {
-        "tags": [
-          "providers"
-        ],
-        "summary": "Get List Of Providers",
-        "description": "Get Provider list",
-        "operationId": "get_list_of_providers_v2_providers_get",
-        "parameters": [
-          {
-            "name": "source_type",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Source Type"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingProviderDetailed"
-                  },
-                  "title": "Response Get List Of Providers V2 Providers Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "providers",
-        "x-fern-sdk-method-name": "get_all"
-      }
-    },
-    "/v3/orders": {
-      "get": {
-        "tags": [
-          "orders"
-        ],
-        "summary": "Get Orders",
-        "description": "GET many orders with filters.",
-        "operationId": "get_orders_v3_orders_get",
-        "parameters": [
-          {
-            "name": "search_input",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Search by order id, user id, patient name, shipping dob, or shipping recipient name.",
-              "title": "Search Input"
-            },
-            "description": "Search by order id, user id, patient name, shipping dob, or shipping recipient name."
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          },
-          {
-            "name": "updated_start_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Updated Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "updated_end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Updated End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OrderLowLevelStatus"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by low level status.",
-              "title": "Status"
-            },
-            "description": "Filter by low level status."
-          },
-          {
-            "name": "order_key",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "enum": [
-                    "created_at",
-                    "patient_name",
-                    "last_status"
-                  ],
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Order key to sort by.",
-              "title": "Order Key"
-            },
-            "description": "Order key to sort by."
-          },
-          {
-            "name": "order_direction",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "enum": [
-                    "asc",
-                    "desc"
-                  ],
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Order direction to sort by.",
-              "title": "Order Direction"
-            },
-            "description": "Order direction to sort by."
-          },
-          {
-            "name": "order_type",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/LabTestCollectionMethod"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by method used to perform the lab test.",
-              "title": "Order Type"
-            },
-            "description": "Filter by method used to perform the lab test."
-          },
-          {
-            "name": "is_critical",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by critical order status.",
-              "title": "Is Critical"
-            },
-            "description": "Filter by critical order status."
-          },
-          {
-            "name": "interpretation",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/Interpretation"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by result interpretation of the lab test.",
-              "title": "Interpretation"
-            },
-            "description": "Filter by result interpretation of the lab test."
-          },
-          {
-            "name": "order_activation_types",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OrderActivationType"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by activation type.",
-              "title": "Order Activation Types"
-            },
-            "description": "Filter by activation type."
-          },
-          {
-            "name": "user_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by user ID.",
-              "title": "User Id"
-            },
-            "description": "Filter by user ID."
-          },
-          {
-            "name": "patient_name",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by patient name.",
-              "title": "Patient Name"
-            },
-            "description": "Filter by patient name."
-          },
-          {
-            "name": "shipping_recipient_name",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by shipping recipient name.",
-              "title": "Shipping Recipient Name"
-            },
-            "description": "Filter by shipping recipient name."
-          },
-          {
-            "name": "order_ids",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "uuid"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by order ids.",
-              "title": "Order Ids"
-            },
-            "description": "Filter by order ids."
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "default": 1,
-              "title": "Page"
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 100,
-              "minimum": 1,
-              "default": 50,
-              "title": "Size"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetOrdersResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_orders"
-      }
-    },
-    "/v2/team/link/config": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team Config",
-        "description": "Post teams.",
-        "operationId": "get_team_config_v2_team_link_config_get",
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Get Team Config V2 Team Link Config Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_link_config",
-        "security": []
-      }
-    },
-    "/v2/team/{team_id}": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team",
-        "description": "Get team.",
-        "operationId": "get_team_v2_team__team_id__get",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingTeam"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/users/search": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Search Team Users By Uuid Or Client User Id",
-        "description": "Search team users by user_id",
-        "operationId": "search_team_users_by_uuid_or_client_user_id_v2_team_users_search_get",
-        "parameters": [
-          {
-            "name": "query_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "minLength": 2,
-              "title": "Query Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingUser"
-                  },
-                  "title": "Response Search Team Users By Uuid Or Client User Id V2 Team Users Search Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_user_by_id",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/svix/url": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Svix Webhook Url",
-        "operationId": "get_svix_webhook_url_v2_team_svix_url_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Response Get Svix Webhook Url V2 Team Svix Url Get"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_svix_url",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/source/priorities": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Source Priorities",
-        "description": "GET source priorities.",
-        "operationId": "get_source_priorities_v2_team_source_priorities_get",
-        "parameters": [
-          {
-            "name": "data_type",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/PriorityResource"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Data Type"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "additionalProperties": true
-                  },
-                  "title": "Response Get Source Priorities V2 Team Source Priorities Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_source_priorities"
-      },
-      "patch": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Update Source Priorities",
-        "description": "Patch source priorities.",
-        "operationId": "update_source_priorities_v2_team_source_priorities_patch",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "additionalProperties": true
-                  },
-                  "title": "Response Update Source Priorities V2 Team Source Priorities Patch"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "update_source_priorities"
-      }
-    },
-    "/v2/team/{team_id}/physicians": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team Physicians",
-        "operationId": "get_team_physicians_v2_team__team_id__physicians_get",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingPhysician"
-                  },
-                  "title": "Response Get Team Physicians V2 Team  Team Id  Physicians Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_physicians"
-      }
-    },
     "/v3/order/testkit/register": {
       "post": {
         "tags": [
@@ -13261,9 +13261,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "5e3c02b2-a6fd-4081-a5f9-0bb14549aa8f",
-                  "user_id": "e07644d1-8c4a-4fe0-b230-20cd7703aca8",
-                  "order_id": "75910e4b-3d7d-4e88-b803-4f2a6185b7cd",
+                  "id": "b4fb0ee6-016c-41ab-b3f8-11f98976da74",
+                  "user_id": "490c636b-e148-467d-b171-549e0f02a669",
+                  "order_id": "d7208e59-634e-4cba-a496-6c0c7b363cae",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -14890,6 +14890,241 @@
         "x-fern-sdk-method-name": "update_on_site_collection_order_draw_completed"
       }
     },
+    "/v2/introspect/resources": {
+      "get": {
+        "tags": [
+          "introspect"
+        ],
+        "summary": "Introspect Resources",
+        "operationId": "introspect_resources_v2_introspect_resources_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by user ID.",
+              "title": "User Id"
+            },
+            "description": "Filter by user ID."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Providers"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Provider"
+            }
+          },
+          {
+            "name": "user_limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "User Limit"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "deprecated": true,
+              "title": "Cursor"
+            },
+            "deprecated": true
+          },
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Next Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResourcesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "introspect",
+        "x-fern-sdk-method-name": "get_user_resources"
+      }
+    },
+    "/v2/introspect/historical_pull": {
+      "get": {
+        "tags": [
+          "introspect"
+        ],
+        "summary": "Introspect Historical Pulls",
+        "operationId": "introspect_historical_pulls_v2_introspect_historical_pull_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by user ID.",
+              "title": "User Id"
+            },
+            "description": "Filter by user ID."
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Providers"
+                },
+                {
+                  "$ref": "#/components/schemas/Labs"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Provider"
+            }
+          },
+          {
+            "name": "user_limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "User Limit"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "deprecated": true,
+              "title": "Cursor"
+            },
+            "deprecated": true
+          },
+          {
+            "name": "next_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
+              "title": "Next Cursor"
+            },
+            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserHistoricalPullsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "introspect",
+        "x-fern-sdk-method-name": "get_user_historical_pulls"
+      }
+    },
     "/v3/lab_tests": {
       "get": {
         "tags": [
@@ -15556,241 +15791,6 @@
         },
         "x-fern-sdk-group-name": "lab_tests",
         "x-fern-sdk-method-name": "get_labs"
-      }
-    },
-    "/v2/introspect/resources": {
-      "get": {
-        "tags": [
-          "introspect"
-        ],
-        "summary": "Introspect Resources",
-        "operationId": "introspect_resources_v2_introspect_resources_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by user ID.",
-              "title": "User Id"
-            },
-            "description": "Filter by user ID."
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/Providers"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Provider"
-            }
-          },
-          {
-            "name": "user_limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "default": 50,
-              "title": "User Limit"
-            }
-          },
-          {
-            "name": "cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "deprecated": true,
-              "title": "Cursor"
-            },
-            "deprecated": true
-          },
-          {
-            "name": "next_cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
-              "title": "Next Cursor"
-            },
-            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResourcesResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "introspect",
-        "x-fern-sdk-method-name": "get_user_resources"
-      }
-    },
-    "/v2/introspect/historical_pull": {
-      "get": {
-        "tags": [
-          "introspect"
-        ],
-        "summary": "Introspect Historical Pulls",
-        "operationId": "introspect_historical_pulls_v2_introspect_historical_pull_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter by user ID.",
-              "title": "User Id"
-            },
-            "description": "Filter by user ID."
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/Providers"
-                },
-                {
-                  "$ref": "#/components/schemas/Labs"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Provider"
-            }
-          },
-          {
-            "name": "user_limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "default": 50,
-              "title": "User Limit"
-            }
-          },
-          {
-            "name": "cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "deprecated": true,
-              "title": "Cursor"
-            },
-            "deprecated": true
-          },
-          {
-            "name": "next_cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
-              "title": "Next Cursor"
-            },
-            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserHistoricalPullsResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "introspect",
-        "x-fern-sdk-method-name": "get_user_historical_pulls"
       }
     },
     "/v3/lab_test": {
@@ -23522,18 +23522,18 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "3632c257-7021-43f4-804b-cd89c271ff41",
+          "id": "4d77c127-0c26-44c2-a692-26d87130783b",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "6eec06f6-f651-4a7a-bfc8-fd40b56b0542",
+          "order_id": "45453ef2-fd51-4bf8-be8b-eee808d15f67",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "d0c313c5-1e29-4c25-b3a6-1ff22e11ccf3"
+          "user_id": "12b4bc7e-4837-4a37-abc5-49b5f4670bca"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23560,7 +23560,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "73f84d02-d553-475d-aa08-732e260e633a",
+          "id": "f6d281ac-e7ac-414e-b13a-1bb43cdd9492",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23635,9 +23635,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "a9ad0f1b-b075-4353-9819-4fbd4fc95395",
+          "appointment_id": "d5182a56-50dc-4ba9-a552-5c2dd9c8c17c",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "36083bc3-de4b-40a5-a702-3ffe47df683d",
+          "id": "140a882d-5422-4294-afaa-a80c75676257",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -23894,7 +23894,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-09-23T16:48:36+00:00",
+          "timestamp": "2025-09-23T19:27:41+00:00",
           "unit": "mmHg"
         }
       },
@@ -25027,12 +25027,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "32b8c3a7-fce0-42e8-b43d-b49f2adbcd25",
+          "order_id": "cfb3c2bb-5633-4f03-abb3-5ee842cfa77c",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "1de9f53d-8f79-4ce5-9048-a6a412752eaf",
+          "team_id": "2d650d1b-6c45-4caa-b573-68987f94ee8b",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "00f400be-4c02-4ac2-9e74-9ec4b6e3ca38"
+          "user_id": "025f5cce-20c9-4e39-a04f-e05ea27575ed"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -28149,7 +28149,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-09-23T16:53:36.441839+00:00",
+          "end": "2025-09-23T19:32:41.657677+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -28292,7 +28292,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "403cc922-8b03-4d8a-a902-35c75b9c47cb",
+          "id": "40b8e53b-8133-4756-bbd8-601786e995c7",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -28646,8 +28646,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "910732b1-3e82-4781-9019-66592559a1fd",
-          "id": "8b5aa669-a054-40f5-a238-653f50c398a2",
+          "health_insurace_id": "1cedef74-a7b9-4502-9fb4-1d8a10759450",
+          "id": "839a9edb-0ca9-426d-8150-9654307774c1",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -28671,9 +28671,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "4522931b-2e25-4568-bfa3-22e19e28fe71",
+          "team_id": "5dce71d0-2990-4d52-b58b-d4abfc1cb800",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "5076030d-1ee3-46bc-871b-366df57fe883"
+          "user_id": "6c56a143-4e15-4303-b32b-4a615209236e"
         }
       },
       "ClientFacingOrderEvent": {
@@ -29661,7 +29661,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "1727fc10-f1b2-48ec-a220-44c4ae03bbd5",
+          "id": "aa4c0978-8ee0-4937-ae06-1802ff98b2a2",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -30406,129 +30406,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-09-23T16:48:36.711072+00:00",
-              "unit": "bpm",
-              "value": 59
-            },
-            {
-              "id": 1,
-              "timestamp": "2025-09-23T16:49:06.711093+00:00",
-              "unit": "bpm",
-              "value": 103
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-09-23T16:49:36.711114+00:00",
-              "unit": "bpm",
-              "value": 44
-            },
-            {
-              "id": 3,
-              "timestamp": "2025-09-23T16:50:06.711148+00:00",
+              "timestamp": "2025-09-23T19:27:42.550513+00:00",
               "unit": "bpm",
               "value": 135
             },
             {
-              "id": 4,
-              "timestamp": "2025-09-23T16:50:36.711170+00:00",
+              "id": 1,
+              "timestamp": "2025-09-23T19:28:12.550546+00:00",
               "unit": "bpm",
-              "value": 188
+              "value": 176
+            },
+            {
+              "id": 2,
+              "timestamp": "2025-09-23T19:28:42.550577+00:00",
+              "unit": "bpm",
+              "value": 135
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-09-23T19:29:12.550625+00:00",
+              "unit": "bpm",
+              "value": 175
+            },
+            {
+              "id": 4,
+              "timestamp": "2025-09-23T19:29:42.550656+00:00",
+              "unit": "bpm",
+              "value": 160
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-09-23T16:48:36.710863+00:00",
+              "timestamp": "2025-09-23T19:27:42.550245+00:00",
               "unit": "rmssd",
-              "value": 1
+              "value": 21
             },
             {
               "id": 1,
-              "timestamp": "2025-09-23T16:49:06.710953+00:00",
+              "timestamp": "2025-09-23T19:28:12.550342+00:00",
               "unit": "rmssd",
-              "value": 79
+              "value": 61
             },
             {
               "id": 2,
-              "timestamp": "2025-09-23T16:49:36.710989+00:00",
+              "timestamp": "2025-09-23T19:28:42.550390+00:00",
               "unit": "rmssd",
-              "value": 60
+              "value": 81
             },
             {
               "id": 3,
-              "timestamp": "2025-09-23T16:50:06.711021+00:00",
+              "timestamp": "2025-09-23T19:29:12.550439+00:00",
               "unit": "rmssd",
               "value": 39
             },
             {
               "id": 4,
-              "timestamp": "2025-09-23T16:50:36.711047+00:00",
+              "timestamp": "2025-09-23T19:29:42.550477+00:00",
               "unit": "rmssd",
-              "value": 51
+              "value": 13
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-09-23T16:48:36.711202+00:00",
+              "timestamp": "2025-09-23T19:27:42.550685+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 3
             },
             {
               "id": 1,
-              "timestamp": "2025-09-23T16:49:06.711222+00:00",
+              "timestamp": "2025-09-23T19:28:12.550712+00:00",
               "unit": "stage",
-              "value": 0
+              "value": 3
             },
             {
               "id": 2,
-              "timestamp": "2025-09-23T16:49:36.711240+00:00",
+              "timestamp": "2025-09-23T19:28:42.550742+00:00",
               "unit": "stage",
               "value": 2
             },
             {
               "id": 3,
-              "timestamp": "2025-09-23T16:50:06.711257+00:00",
+              "timestamp": "2025-09-23T19:29:12.550769+00:00",
               "unit": "stage",
               "value": 4
             },
             {
               "id": 4,
-              "timestamp": "2025-09-23T16:50:36.711275+00:00",
+              "timestamp": "2025-09-23T19:29:42.550796+00:00",
               "unit": "stage",
-              "value": 1
+              "value": 3
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-09-23T16:48:36.711293+00:00",
+              "timestamp": "2025-09-23T19:27:42.550823+00:00",
               "unit": "bpm",
-              "value": 22
+              "value": 14
             },
             {
               "id": 1,
-              "timestamp": "2025-09-23T16:49:06.711309+00:00",
+              "timestamp": "2025-09-23T19:28:12.550848+00:00",
               "unit": "bpm",
-              "value": 22
+              "value": 18
             },
             {
               "id": 2,
-              "timestamp": "2025-09-23T16:49:36.711325+00:00",
+              "timestamp": "2025-09-23T19:28:42.550872+00:00",
               "unit": "bpm",
-              "value": 24
+              "value": 27
             },
             {
               "id": 3,
-              "timestamp": "2025-09-23T16:50:06.711341+00:00",
+              "timestamp": "2025-09-23T19:29:12.550897+00:00",
               "unit": "bpm",
-              "value": 15
+              "value": 16
             },
             {
               "id": 4,
-              "timestamp": "2025-09-23T16:50:36.711357+00:00",
+              "timestamp": "2025-09-23T19:29:42.550922+00:00",
               "unit": "bpm",
-              "value": 23
+              "value": 15
             }
           ]
         }
@@ -31591,10 +31591,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "4431660f-f5d4-4b2f-bc99-c99cedab66a4",
+          "id": "80b4ddbb-150c-4aaf-accc-17b6fa535caf",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "d5ed1dfa-88de-410e-a7ec-dea679ba6964",
+            "id": "8b79e057-f5a4-49a1-acb9-9224cdbce4d5",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31787,7 +31787,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-09-23T16:48:35+00:00",
+              "created_on": "2025-09-23T19:27:43+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -31795,16 +31795,16 @@
               }
             }
           ],
-          "created_on": "2025-09-23T16:48:35+00:00",
+          "created_on": "2025-09-23T19:27:43+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-09-23T16:48:35+00:00",
+            "updated_at": "2025-09-23T19:27:43+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-09-23T16:48:35+00:00"
+            "updated_at": "2025-09-23T19:27:43+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -32066,9 +32066,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "d33c0057-a8b7-459d-a4fc-9aaf6a2d306d",
+          "appointment_id": "bf0132a1-76d0-4784-b410-4405753f5d44",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "512efb8f-b6f8-4b22-a00c-2da497baeaa4",
+          "id": "ed63c2bb-f4fd-434f-b4a8-d4173e5ca70c",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -33318,7 +33318,7 @@
               "third"
             ]
           },
-          "query_id": "8db6cab9-903e-4812-985f-7245a2b2e0c0",
+          "query_id": "724db158-f06e-41eb-9590-f2f32abe0a42",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -42685,7 +42685,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-09-23T16:53:36.441839+00:00",
+                    "end": "2025-09-23T19:32:41.657677+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -44331,7 +44331,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-09-23T16:48:36+00:00",
+                    "timestamp": "2025-09-23T19:27:41+00:00",
                     "unit": "mmHg"
                   }
                 ],
