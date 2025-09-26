@@ -3,1233 +3,9 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.627"
+    "version": "0.3.629"
   },
   "paths": {
-    "/v2/link/bulk_op": {
-      "get": {
-        "tags": [
-          "link"
-        ],
-        "summary": "List Bulk Ops",
-        "operationId": "list_bulk_ops_v2_link_bulk_op_get",
-        "parameters": [
-          {
-            "name": "next_cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Next Cursor"
-            }
-          },
-          {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 50,
-              "minimum": 0,
-              "default": 10,
-              "title": "Page Size"
-            }
-          },
-          {
-            "name": "team_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "const": "infer_from_context",
-                  "type": "string"
-                }
-              ],
-              "default": "infer_from_context",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BulkOpsResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "list_bulk_ops",
-        "x-fern-availability": "beta"
-      }
-    },
-    "/v2/link/bulk_import": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Bulk Import Connections",
-        "operationId": "bulk_import_connections_v2_link_bulk_import_post",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "const": "infer_from_context",
-                  "type": "string"
-                }
-              ],
-              "default": "infer_from_context",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkImportConnectionsBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BulkImportConnectionsResponse"
-                }
-              }
-            }
-          },
-          "202": {
-            "description": "Accepted"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "bulk_import",
-        "x-fern-availability": "beta"
-      }
-    },
-    "/v2/link/bulk_trigger_historical_pull": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Bulk Trigger Historical Pull",
-        "operationId": "bulk_trigger_historical_pull_v2_link_bulk_trigger_historical_pull_post",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "const": "infer_from_context",
-                  "type": "string"
-                }
-              ],
-              "default": "infer_from_context",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkTriggerHistoricalPullBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "202": {
-            "description": "Accepted"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "bulk_trigger_historical_pull",
-        "x-fern-availability": "beta"
-      }
-    },
-    "/v2/link/bulk_export": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Bulk Export Connections",
-        "operationId": "bulk_export_connections_v2_link_bulk_export_post",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "const": "infer_from_context",
-                  "type": "string"
-                }
-              ],
-              "default": "infer_from_context",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkExportConnectionsBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BulkExportConnectionsResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "bulk_export",
-        "x-fern-availability": "beta"
-      }
-    },
-    "/v2/link/bulk_pause": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Bulk Pause Connections",
-        "operationId": "bulk_pause_connections_v2_link_bulk_pause_post",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "const": "infer_from_context",
-                  "type": "string"
-                }
-              ],
-              "default": "infer_from_context",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BulkPauseConnectionsBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "bulk_pause",
-        "x-fern-availability": "beta"
-      }
-    },
-    "/v2/link/token": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Generate Vital Link Token",
-        "description": "Endpoint to generate a user link token, to be used throughout the vital\nlink process. The vital link token is a one time use token, that\nexpires after 10 minutes. If you would like vital-link widget to launch\nwith a specific provider, pass in a provider in the body. If you would\nlike to redirect to a custom url after successful or error connection,\npass in your own custom redirect_url parameter.",
-        "operationId": "generate_vital_link_token_v2_link_token_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LinkTokenExchange"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LinkTokenExchangeResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "token"
-      }
-    },
-    "/v2/link/token/isValid": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Check Token Valid",
-        "operationId": "check_token_valid_v2_link_token_isValid_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LinkTokenValidationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Response Check Token Valid V2 Link Token Isvalid Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": true,
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "is_token_valid",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/link/code/create": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Create Token",
-        "description": "Generate a token to invite a user of Vital mobile app to your team",
-        "operationId": "create_token_v2_link_code_create_post",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User Id"
-            }
-          },
-          {
-            "name": "expires_at",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "When the link code should expire. Defaults to server time plus 1 hour.",
-              "title": "Expires At"
-            },
-            "description": "When the link code should expire. Defaults to server time plus 1 hour."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/VitalTokenCreatedResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "code_create"
-      }
-    },
-    "/v2/link/start": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Start Connect Process",
-        "description": "REQUEST_SOURCE: VITAL-LINK\nStart link token process",
-        "operationId": "start_connect_process_v2_link_start_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BeginLinkTokenRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Response Start Connect Process V2 Link Start Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": true,
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "start_connect",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/link/state": {
-      "get": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Check Link Token State",
-        "description": "REQUEST_SOURCE: VITAL-LINK\nCheck link token state - can be hit continuously used as heartbeat",
-        "operationId": "check_link_token_state_v2_link_state_get",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Check Link Token State V2 Link State Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "token_state",
-        "x-fern-availability": "deprecated",
-        "security": []
-      }
-    },
-    "/v2/link/auth/email": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Legacy Connect Email Auth",
-        "description": "Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.",
-        "operationId": "legacy_connect_email_auth_v2_link_auth_email_post",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmailAuthLink"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "email_auth",
-        "x-fern-availability": "deprecated",
-        "security": []
-      }
-    },
-    "/v2/link/auth": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Legacy Connect Password Auth",
-        "description": "Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.",
-        "operationId": "legacy_connect_password_auth_v2_link_auth_post",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PasswordAuthLink"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "password_auth",
-        "x-fern-availability": "deprecated",
-        "security": []
-      }
-    },
-    "/v2/link/provider/oauth/{oauth_provider}": {
-      "get": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Generate Oauth Link Endpoint",
-        "description": "This endpoint generates an OAuth link for oauth provider",
-        "operationId": "generate_oauth_link",
-        "parameters": [
-          {
-            "name": "oauth_provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/OAuthProviders"
-            }
-          },
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Source"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "generate_oauth_link",
-        "security": []
-      }
-    },
-    "/v2/link/provider/password/{provider}": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Connect Password Provider",
-        "description": "This connects auth providers that are password based.",
-        "operationId": "connect_password_provider_v2_link_provider_password__provider__post",
-        "parameters": [
-          {
-            "name": "provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/PasswordProviders",
-              "title": "Providers that require password auth, whoop, renpho, peloton, zwift"
-            }
-          },
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IndividualProviderData"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProviderLinkResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "connect_password_provider",
-        "security": []
-      }
-    },
-    "/v2/link/provider/password/{provider}/complete_mfa": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Complete Password Provider Mfa",
-        "description": "This connects auth providers that are password based.",
-        "operationId": "complete_password_provider_mfa_v2_link_provider_password__provider__complete_mfa_post",
-        "parameters": [
-          {
-            "name": "provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/PasswordProviders",
-              "title": "Providers that require password auth, whoop, renpho, peloton, zwift"
-            }
-          },
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CompletePasswordProviderMFABody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProviderLinkResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "complete_password_provider_mfa",
-        "security": []
-      }
-    },
-    "/v2/link/provider/email/{provider}": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Connect Email Auth Provider",
-        "description": "This connects auth providers that are email based.",
-        "operationId": "connect_email_auth_provider_v2_link_provider_email__provider__post",
-        "parameters": [
-          {
-            "name": "provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/EmailProviders",
-              "title": "Email providers that require emails freestyle_auth"
-            }
-          },
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmailProviderAuthLink"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "connect_email_auth_provider",
-        "security": []
-      }
-    },
-    "/v2/link/providers": {
-      "get": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Get Providers",
-        "description": "GET List of all available providers given the generated link token.",
-        "operationId": "get_providers_v2_link_providers_get",
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SourceLink"
-                  },
-                  "title": "Response Get Providers V2 Link Providers Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "get_all_providers",
-        "security": []
-      }
-    },
-    "/v2/link/provider/manual/{provider}": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Create Manual Connected Source",
-        "operationId": "create_manual_connected_source_v2_link_provider_manual__provider__post",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/ManualProviders",
-              "title": "Providers that are manually added devices, such as ble devices and generated data"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ManualConnectionData"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "boolean"
-                  },
-                  "title": "Response Create Manual Connected Source V2 Link Provider Manual  Provider  Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "connect_manual_provider",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/link/connect/demo": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Create Demo Connection",
-        "description": "POST Connect the given Vital user to a demo provider.",
-        "operationId": "create_demo_connection_v2_link_connect_demo_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DemoConnectionCreationPayload"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DemoConnectionStatus"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "connect_demo_provider"
-      }
-    },
-    "/v2/providers": {
-      "get": {
-        "tags": [
-          "providers"
-        ],
-        "summary": "Get List Of Providers",
-        "description": "Get Provider list",
-        "operationId": "get_list_of_providers_v2_providers_get",
-        "parameters": [
-          {
-            "name": "source_type",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Source Type"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingProviderDetailed"
-                  },
-                  "title": "Response Get List Of Providers V2 Providers Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "providers",
-        "x-fern-sdk-method-name": "get_all"
-      }
-    },
     "/v2/user": {
       "get": {
         "tags": [
@@ -3369,1085 +2145,60 @@
         "x-fern-sdk-method-name": "get"
       }
     },
-    "/v3/order/testkit/register": {
-      "post": {
+    "/v2/link/bulk_op": {
+      "get": {
         "tags": [
-          "order"
+          "link"
         ],
-        "summary": "Register Testkit",
-        "operationId": "register_testkit_v3_order_testkit_register_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterTestkitRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PostOrderResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "testkit",
-        "x-fern-sdk-method-name": "register"
-      }
-    },
-    "/v3/order/testkit": {
-      "post": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Create Testkit Order",
-        "description": "Creates an order for an unregistered testkit",
-        "operationId": "create_testkit_order_v3_order_testkit_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRegistrableTestkitOrderRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PostOrderResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "testkit",
-        "x-fern-sdk-method-name": "create_order"
-      }
-    },
-    "/v3/order/phlebotomy/appointment/availability": {
-      "post": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Order Appointment Availability",
-        "description": "Return the available time slots to book an appointment with a phlebotomist\nfor the given address and order.",
-        "operationId": "get_order_appointment_availability_v3_order_phlebotomy_appointment_availability_post",
+        "summary": "List Bulk Ops",
+        "operationId": "list_bulk_ops_v2_link_bulk_op_get",
         "parameters": [
           {
-            "name": "start_date",
+            "name": "next_cursor",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [
                 {
-                  "type": "string",
-                  "format": "date"
+                  "type": "string"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "description": "Start date for appointment availability",
-              "title": "Start Date"
-            },
-            "description": "Start date for appointment availability"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/USAddress",
-                "description": "At-home phlebotomy appointment address."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppointmentAvailabilitySlots"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_phlebotomy_appointment_availability"
-      }
-    },
-    "/v3/order/{order_id}/phlebotomy/appointment/book": {
-      "post": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Book Phlebotomy Appointment",
-        "description": "Book an at-home phlebotomy appointment.",
-        "operationId": "book_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_book_post",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AppointmentBookingRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingAppointment"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "book_phlebotomy_appointment"
-      }
-    },
-    "/v3/order/{order_id}/phlebotomy/appointment/request": {
-      "post": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Request Phlebotomy Appointment",
-        "description": "Request an at-home phlebotomy appointment.",
-        "operationId": "request_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_request_post",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestAppointmentRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingAppointment"
-                },
-                "example": {
-                  "id": "aecafc26-2f1f-4565-8a40-26a901e2ba31",
-                  "user_id": "bc4a58ad-3b1d-4926-b017-2858fc0a2e9f",
-                  "order_id": "22886e79-8fc5-4cb2-811d-8e276c6c0052",
-                  "address": {
-                    "first_line": "123 Main St.",
-                    "second_line": "Apt. 208",
-                    "city": "San Francisco",
-                    "state": "CA",
-                    "zip_code": "91189",
-                    "country": "United States"
-                  },
-                  "location": {
-                    "lng": -122.4194155,
-                    "lat": 37.7749295
-                  },
-                  "type": "phlebotomy",
-                  "provider": "phlebfinders",
-                  "status": "pending",
-                  "event_status": "pending",
-                  "provider_id": "123",
-                  "can_reschedule": false,
-                  "event_data": {
-                    "description": "Metadata field containing provider specific data, like cancellation reason or origin"
-                  },
-                  "events": [
-                    {
-                      "created_at": "2022-01-01T00:00:00Z",
-                      "status": "pending"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "request_phlebotomy_appointment"
-      }
-    },
-    "/v3/order/{order_id}/phlebotomy/appointment/reschedule": {
-      "patch": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Reschedule Phlebotomy Appointment",
-        "description": "Reschedule a previously booked at-home phlebotomy appointment.",
-        "operationId": "reschedule_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_reschedule_patch",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AppointmentRescheduleRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingAppointment"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "reschedule_phlebotomy_appointment"
-      }
-    },
-    "/v3/order/{order_id}/phlebotomy/appointment/cancel": {
-      "patch": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Cancel Phlebotomy Appointment",
-        "description": "Cancel a previously booked at-home phlebotomy appointment.",
-        "operationId": "cancel_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_cancel_patch",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/api__api_v1__endpoints__vital_api__lab_testing__orders__helpers__AppointmentCancelRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingAppointment"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "cancel_phlebotomy_appointment"
-      }
-    },
-    "/v3/order/phlebotomy/appointment/cancellation-reasons": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Phlebotomy Appointment Cancellation Reasons",
-        "description": "Get the list of reasons for cancelling an at-home phlebotomy appointment.",
-        "operationId": "get_phlebotomy_appointment_cancellation_reasons_v3_order_phlebotomy_appointment_cancellation_reasons_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingAppointmentCancellationReason"
-                  },
-                  "type": "array",
-                  "title": "Response Get Phlebotomy Appointment Cancellation Reasons V3 Order Phlebotomy Appointment Cancellation Reasons Get"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_phlebotomy_appointment_cancellation_reason"
-      }
-    },
-    "/v3/order/{order_id}/phlebotomy/appointment": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Phlebotomy Appointment",
-        "description": "Get the appointment associated with an order.",
-        "operationId": "get_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_get",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingAppointment"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_phlebotomy_appointment"
-      }
-    },
-    "/v3/order/area/info": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Area Info",
-        "description": "GET information about an area with respect to lab-testing.\n\nInformation returned:\n* Whether a given zip code is served by our Phlebotomy network.\n* List of Lab locations in the area.",
-        "operationId": "get_area_info_v3_order_area_info_get",
-        "parameters": [
-          {
-            "name": "zip_code",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "pattern": "^\\d{5}$",
-              "description": "Zip code of the area to check",
-              "title": "Zip Code"
-            },
-            "description": "Zip code of the area to check"
-          },
-          {
-            "name": "radius",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/AllowedRadius",
-              "description": "Radius in which to search in miles",
-              "default": "25"
-            },
-            "description": "Radius in which to search in miles"
-          },
-          {
-            "name": "lab",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/ClientFacingLabs"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Lab to check for PSCs",
-              "deprecated": true,
-              "title": "Lab"
-            },
-            "description": "Lab to check for PSCs",
-            "deprecated": true
-          },
-          {
-            "name": "labs",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingLabs"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "List of labs to check for PSCs",
-              "title": "Labs"
-            },
-            "description": "List of labs to check for PSCs"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AreaInfo"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_area_info"
-      }
-    },
-    "/v3/order/psc/info": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Psc Info",
-        "operationId": "get_psc_info_v3_order_psc_info_get",
-        "parameters": [
-          {
-            "name": "zip_code",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "pattern": "^\\d{5}$",
-              "description": "Zip code of the area to check",
-              "title": "Zip Code"
-            },
-            "description": "Zip code of the area to check"
-          },
-          {
-            "name": "lab_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "description": "Lab ID to check for PSCs",
-              "title": "Lab Id"
-            },
-            "description": "Lab ID to check for PSCs"
-          },
-          {
-            "name": "radius",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/AllowedRadius",
-              "description": "Radius in which to search in miles. Note that we limit to 30 PSCs.",
-              "default": "25"
-            },
-            "description": "Radius in which to search in miles. Note that we limit to 30 PSCs."
-          },
-          {
-            "name": "capabilities",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/LabLocationCapability"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter for only locations with certain capabilities",
-              "title": "Capabilities"
-            },
-            "description": "Filter for only locations with certain capabilities"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PSCInfo"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_psc_info"
-      }
-    },
-    "/v3/order/{order_id}/psc/info": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Order Psc Info",
-        "operationId": "get_order_psc_info_v3_order__order_id__psc_info_get",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          },
-          {
-            "name": "radius",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/AllowedRadius",
-              "description": "Radius in which to search in miles",
-              "default": "25"
-            },
-            "description": "Radius in which to search in miles"
-          },
-          {
-            "name": "capabilities",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/LabLocationCapability"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Filter for only locations with certain capabilities",
-              "title": "Capabilities"
-            },
-            "description": "Filter for only locations with certain capabilities"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PSCInfo"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_order_psc_info"
-      }
-    },
-    "/v3/order/{order_id}/result/pdf": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Lab Test Result",
-        "description": "This endpoint returns the lab results for the order.",
-        "operationId": "get_lab_test_result_v3_order__order_id__result_pdf_get",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Order Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "PDF with results",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "Response Get Lab Test Result V3 Order  Order Id  Result Pdf Get"
-                }
-              },
-              "application/pdf": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_result_pdf",
-        "x-fern-streaming": true
-      }
-    },
-    "/v3/order/{order_id}/result/metadata": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Lab Test Result Metadata",
-        "description": "Return metadata related to order results, such as lab metadata,\nprovider and sample dates.",
-        "operationId": "get_lab_test_result_metadata_v3_order__order_id__result_metadata_get",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Order Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LabResultsMetadata"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_result_metadata"
-      }
-    },
-    "/v3/order/{order_id}/result": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Lab Test Result Raw",
-        "description": "Return both metadata and raw json test data",
-        "operationId": "get_lab_test_result_raw_v3_order__order_id__result_get",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Order Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LabResultsRaw"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_result_raw"
-      }
-    },
-    "/v3/order/{order_id}/labels/pdf": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Order Labels",
-        "description": "This endpoint returns the printed labels for the order.",
-        "operationId": "get_order_labels_v3_order__order_id__labels_pdf_get",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Order Id"
+              "title": "Next Cursor"
             }
           },
           {
-            "name": "number_of_labels",
+            "name": "page_size",
             "in": "query",
             "required": false,
             "schema": {
               "type": "integer",
-              "description": "Number of labels to generate",
-              "default": 3,
-              "title": "Number Of Labels"
-            },
-            "description": "Number of labels to generate"
-          },
-          {
-            "name": "collection_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "description": "Collection date",
-              "title": "Collection Date"
-            },
-            "description": "Collection date"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "PDF with labels",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "Response Get Order Labels V3 Order  Order Id  Labels Pdf Get"
-                }
-              },
-              "application/pdf": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
+              "maximum": 50,
+              "minimum": 0,
+              "default": 10,
+              "title": "Page Size"
             }
           },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
                 }
-              }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
             }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_labels_pdf",
-        "x-fern-streaming": true
-      }
-    },
-    "/v3/order/psc/appointment/availability": {
-      "post": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Psc Appointment Availability",
-        "operationId": "get_psc_appointment_availability_v3_order_psc_appointment_availability_post",
-        "parameters": [
-          {
-            "name": "lab",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/AppointmentPSCLabs",
-              "description": "Lab to check for availability"
-            },
-            "description": "Lab to check for availability"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Start date for appointment availability",
-              "title": "Start Date"
-            },
-            "description": "Start date for appointment availability"
-          },
-          {
-            "name": "site_codes",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "List of site codes to fetch availability for",
-              "title": "Site Codes"
-            },
-            "description": "List of site codes to fetch availability for"
-          },
-          {
-            "name": "zip_code",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "pattern": "^\\d{5}$"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Zip code of the area to check",
-              "title": "Zip Code"
-            },
-            "description": "Zip code of the area to check"
-          },
-          {
-            "name": "radius",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/AllowedRadius"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Radius in which to search. (meters)",
-              "default": "25",
-              "title": "Radius"
-            },
-            "description": "Radius in which to search. (meters)"
           }
         ],
         "responses": {
@@ -4456,7 +2207,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AppointmentAvailabilitySlots"
+                  "$ref": "#/components/schemas/BulkOpsResponse"
                 }
               }
             }
@@ -4472,29 +2223,37 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_psc_appointment_availability"
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "list_bulk_ops",
+        "x-fern-availability": "beta"
       }
     },
-    "/v3/order/{order_id}/psc/appointment/book": {
+    "/v2/link/bulk_import": {
       "post": {
         "tags": [
-          "order"
+          "link"
         ],
-        "summary": "Book Phlebotomy Appointment",
-        "operationId": "book_phlebotomy_appointment_v3_order__order_id__psc_appointment_book_post",
+        "summary": "Bulk Import Connections",
+        "operationId": "bulk_import_connections_v2_link_bulk_import_post",
         "parameters": [
           {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
+            "name": "team_id",
+            "in": "query",
+            "required": false,
             "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
+                }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
+            }
           }
         ],
         "requestBody": {
@@ -4502,7 +2261,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AppointmentBookingRequest"
+                "$ref": "#/components/schemas/BulkImportConnectionsBody"
               }
             }
           }
@@ -4513,10 +2272,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                  "$ref": "#/components/schemas/BulkImportConnectionsResponse"
                 }
               }
             }
+          },
+          "202": {
+            "description": "Accepted"
           },
           "422": {
             "description": "Validation Error",
@@ -4529,212 +2291,218 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "book_psc_appointment"
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "bulk_import",
+        "x-fern-availability": "beta"
       }
     },
-    "/v3/order/{order_id}/psc/appointment/reschedule": {
-      "patch": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Reschedule Phlebotomy Appointment",
-        "operationId": "reschedule_phlebotomy_appointment_v3_order__order_id__psc_appointment_reschedule_patch",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AppointmentRescheduleRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingAppointment"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "reschedule_psc_appointment"
-      }
-    },
-    "/v3/order/{order_id}/psc/appointment/cancel": {
-      "patch": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Cancel Phlebotomy Appointment",
-        "operationId": "cancel_phlebotomy_appointment_v3_order__order_id__psc_appointment_cancel_patch",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/vital_core__clients__lab_test__getlabs__schema__AppointmentCancelRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingAppointment"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "cancel_psc_appointment"
-      }
-    },
-    "/v3/order/psc/appointment/cancellation-reasons": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Phlebotomy Appointment Cancellation Reasons",
-        "operationId": "get_phlebotomy_appointment_cancellation_reasons_v3_order_psc_appointment_cancellation_reasons_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingAppointmentCancellationReason"
-                  },
-                  "type": "array",
-                  "title": "Response Get Phlebotomy Appointment Cancellation Reasons V3 Order Psc Appointment Cancellation Reasons Get"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_psc_appointment_cancellation_reason"
-      }
-    },
-    "/v3/order/{order_id}/psc/appointment": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Phlebotomy Appointment",
-        "description": "Get the appointment associated with an order.",
-        "operationId": "get_phlebotomy_appointment_v3_order__order_id__psc_appointment_get",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingAppointment"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_psc_appointment"
-      }
-    },
-    "/v3/order/resend_events": {
+    "/v2/link/bulk_trigger_historical_pull": {
       "post": {
         "tags": [
-          "order"
+          "link"
         ],
-        "summary": "Resend Order Webhook",
-        "description": "Replay a webhook for a given set of orders",
-        "operationId": "resend_order_webhook_v3_order_resend_events_post",
+        "summary": "Bulk Trigger Historical Pull",
+        "operationId": "bulk_trigger_historical_pull_v2_link_bulk_trigger_historical_pull_post",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
+                }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkTriggerHistoricalPullBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "bulk_trigger_historical_pull",
+        "x-fern-availability": "beta"
+      }
+    },
+    "/v2/link/bulk_export": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Bulk Export Connections",
+        "operationId": "bulk_export_connections_v2_link_bulk_export_post",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
+                }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkExportConnectionsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkExportConnectionsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "bulk_export",
+        "x-fern-availability": "beta"
+      }
+    },
+    "/v2/link/bulk_pause": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Bulk Pause Connections",
+        "operationId": "bulk_pause_connections_v2_link_bulk_pause_post",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
+                }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkPauseConnectionsBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "bulk_pause",
+        "x-fern-availability": "beta"
+      }
+    },
+    "/v2/link/token": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Generate Vital Link Token",
+        "description": "Endpoint to generate a user link token, to be used throughout the vital\nlink process. The vital link token is a one time use token, that\nexpires after 10 minutes. If you would like vital-link widget to launch\nwith a specific provider, pass in a provider in the body. If you would\nlike to redirect to a custom url after successful or error connection,\npass in your own custom redirect_url parameter.",
+        "operationId": "generate_vital_link_token_v2_link_token_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ResendWebhookBody"
+                "$ref": "#/components/schemas/LinkTokenExchange"
               }
             }
           },
@@ -4746,7 +2514,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResendWebhookResponse"
+                  "$ref": "#/components/schemas/LinkTokenExchangeResponse"
                 }
               }
             }
@@ -4762,43 +2530,36 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "order",
-        "x-fern-sdk-method-name": "resend_events"
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "token"
       }
     },
-    "/v3/order/{order_id}/collection_instruction_pdf": {
-      "get": {
+    "/v2/link/token/isValid": {
+      "post": {
         "tags": [
-          "order"
+          "link"
         ],
-        "summary": "Get Order Collection Instructions Url",
-        "description": "GET collection instructions for an order",
-        "operationId": "get_order_collection_instructions_url_v3_order__order_id__collection_instruction_pdf_get",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
+        "summary": "Check Token Valid",
+        "operationId": "check_token_valid_v2_link_token_isValid_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkTokenValidationRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
-            "description": "PDF with collection instructions",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
-              },
-              "application/pdf": {
                 "schema": {
-                  "type": "string",
-                  "format": "binary"
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Check Token Valid V2 Link Token Isvalid Post"
                 }
               }
             }
@@ -4814,137 +2575,49 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_order_collection_instruction_pdf",
-        "x-fern-streaming": true
+        "deprecated": true,
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "is_token_valid",
+        "x-fern-availability": "deprecated"
       }
     },
-    "/v3/order/{order_id}/requisition/pdf": {
-      "get": {
+    "/v2/link/code/create": {
+      "post": {
         "tags": [
-          "order"
+          "link"
         ],
-        "summary": "Get Order Requisition Url",
-        "description": "GET requisition pdf for an order",
-        "operationId": "get_order_requisition_url_v3_order__order_id__requisition_pdf_get",
+        "summary": "Create Token",
+        "description": "Generate a token to invite a user of Vital mobile app to your team",
+        "operationId": "create_token_v2_link_code_create_post",
         "parameters": [
           {
-            "name": "order_id",
-            "in": "path",
+            "name": "user_id",
+            "in": "query",
             "required": true,
             "schema": {
               "type": "string",
               "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "PDF with requisition form",
-            "content": {
-              "application/json": {
-                "schema": {}
-              },
-              "application/pdf": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
+              "title": "User Id"
             }
           },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_order_requistion_pdf",
-        "x-fern-streaming": true
-      }
-    },
-    "/v3/order/{order_id}/abn_pdf": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Order Abn",
-        "description": "GET ABN pdf for an order",
-        "operationId": "get_order_abn_v3_order__order_id__abn_pdf_get",
-        "parameters": [
           {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
+            "name": "expires_at",
+            "in": "query",
+            "required": false,
             "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "PDF with ABN form",
-            "content": {
-              "application/json": {
-                "schema": {}
-              },
-              "application/pdf": {
-                "schema": {
+              "anyOf": [
+                {
                   "type": "string",
-                  "format": "binary"
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
                 }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_order_abn_pdf",
-        "x-fern-streaming": true
-      }
-    },
-    "/v3/order/{order_id}": {
-      "get": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Get Order",
-        "description": "GET individual order by ID.",
-        "operationId": "get_order_v3_order__order_id__get",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
+              ],
+              "description": "When the link code should expire. Defaults to server time plus 1 hour.",
+              "title": "Expires At"
             },
-            "description": "Your Order ID."
+            "description": "When the link code should expire. Defaults to server time plus 1 hour."
           }
         ],
         "responses": {
@@ -4953,7 +2626,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ClientFacingOrder"
+                  "$ref": "#/components/schemas/VitalTokenCreatedResponse"
                 }
               }
             }
@@ -4969,20 +2642,70 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "get_order"
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "code_create"
       }
     },
-    "/v3/order": {
+    "/v2/link/start": {
       "post": {
         "tags": [
-          "order"
+          "link"
         ],
-        "summary": "Create Order",
-        "operationId": "create_order_v3_order_post",
+        "summary": "Start Connect Process",
+        "description": "REQUEST_SOURCE: VITAL-LINK\nStart link token process",
+        "operationId": "start_connect_process_v2_link_start_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BeginLinkTokenRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Start Connect Process V2 Link Start Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "start_connect",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/link/state": {
+      "get": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Check Link Token State",
+        "description": "REQUEST_SOURCE: VITAL-LINK\nCheck link token state - can be hit continuously used as heartbeat",
+        "operationId": "check_link_token_state_v2_link_state_get",
+        "deprecated": true,
         "parameters": [
           {
-            "name": "X-Idempotency-Key",
+            "name": "x-vital-link-token",
             "in": "header",
             "required": false,
             "schema": {
@@ -4994,27 +2717,19 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Idempotency-Key"
+              "title": "X-Vital-Link-Token"
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateOrderRequestCompatible"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PostOrderResponse"
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Check Link Token State V2 Link State Get"
                 }
               }
             }
@@ -5030,22 +2745,543 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "create_order"
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "token_state",
+        "x-fern-availability": "deprecated",
+        "security": []
       }
     },
-    "/v3/order/import": {
+    "/v2/link/auth/email": {
       "post": {
         "tags": [
-          "order"
+          "link"
         ],
-        "summary": "Import Order",
-        "operationId": "import_order_v3_order_import_post",
+        "summary": "Legacy Connect Email Auth",
+        "description": "Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.",
+        "operationId": "legacy_connect_email_auth_v2_link_auth_email_post",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailAuthLink"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "email_auth",
+        "x-fern-availability": "deprecated",
+        "security": []
+      }
+    },
+    "/v2/link/auth": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Legacy Connect Password Auth",
+        "description": "Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.",
+        "operationId": "legacy_connect_password_auth_v2_link_auth_post",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordAuthLink"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "password_auth",
+        "x-fern-availability": "deprecated",
+        "security": []
+      }
+    },
+    "/v2/link/provider/oauth/{oauth_provider}": {
+      "get": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Generate Oauth Link Endpoint",
+        "description": "This endpoint generates an OAuth link for oauth provider",
+        "operationId": "generate_oauth_link",
+        "parameters": [
+          {
+            "name": "oauth_provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OAuthProviders"
+            }
+          },
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Source"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "generate_oauth_link",
+        "security": []
+      }
+    },
+    "/v2/link/provider/password/{provider}": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Connect Password Provider",
+        "description": "This connects auth providers that are password based.",
+        "operationId": "connect_password_provider_v2_link_provider_password__provider__post",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PasswordProviders",
+              "title": "Providers that require password auth, whoop, renpho, peloton, zwift"
+            }
+          },
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IndividualProviderData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderLinkResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "connect_password_provider",
+        "security": []
+      }
+    },
+    "/v2/link/provider/password/{provider}/complete_mfa": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Complete Password Provider Mfa",
+        "description": "This connects auth providers that are password based.",
+        "operationId": "complete_password_provider_mfa_v2_link_provider_password__provider__complete_mfa_post",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PasswordProviders",
+              "title": "Providers that require password auth, whoop, renpho, peloton, zwift"
+            }
+          },
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompletePasswordProviderMFABody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderLinkResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "complete_password_provider_mfa",
+        "security": []
+      }
+    },
+    "/v2/link/provider/email/{provider}": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Connect Email Auth Provider",
+        "description": "This connects auth providers that are email based.",
+        "operationId": "connect_email_auth_provider_v2_link_provider_email__provider__post",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/EmailProviders",
+              "title": "Email providers that require emails freestyle_auth"
+            }
+          },
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailProviderAuthLink"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "connect_email_auth_provider",
+        "security": []
+      }
+    },
+    "/v2/link/providers": {
+      "get": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Get Providers",
+        "description": "GET List of all available providers given the generated link token.",
+        "operationId": "get_providers_v2_link_providers_get",
+        "parameters": [
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SourceLink"
+                  },
+                  "title": "Response Get Providers V2 Link Providers Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "get_all_providers",
+        "security": []
+      }
+    },
+    "/v2/link/provider/manual/{provider}": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Create Manual Connected Source",
+        "operationId": "create_manual_connected_source_v2_link_provider_manual__provider__post",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ManualProviders",
+              "title": "Providers that are manually added devices, such as ble devices and generated data"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManualConnectionData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "boolean"
+                  },
+                  "title": "Response Create Manual Connected Source V2 Link Provider Manual  Provider  Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "connect_manual_provider",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/link/connect/demo": {
+      "post": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Create Demo Connection",
+        "description": "POST Connect the given Vital user to a demo provider.",
+        "operationId": "create_demo_connection_v2_link_connect_demo_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ImportOrderBody"
+                "$ref": "#/components/schemas/DemoConnectionCreationPayload"
               }
             }
           },
@@ -5057,7 +3293,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PostOrderResponse"
+                  "$ref": "#/components/schemas/DemoConnectionStatus"
                 }
               }
             }
@@ -5073,199 +3309,8 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "import_order"
-      }
-    },
-    "/v3/order/{order_id}/cancel": {
-      "post": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Cancel Order",
-        "description": "POST cancel order",
-        "operationId": "cancel_order_v3_order__order_id__cancel_post",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PostOrderResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "cancel_order"
-      }
-    },
-    "/v3/order/{order_id}/test": {
-      "post": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Order Process Simulate",
-        "description": "Get available test kits.",
-        "operationId": "order_process_simulate_v3_order__order_id__test_post",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Order Id"
-            }
-          },
-          {
-            "name": "final_status",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/OrderStatus"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Final Status"
-            }
-          },
-          {
-            "name": "delay",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Delay"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "anyOf": [
-                  {
-                    "$ref": "#/components/schemas/SimulationFlags"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
-                "title": "Flags"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "Response Order Process Simulate V3 Order  Order Id  Test Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "simulate_order_process"
-      }
-    },
-    "/v3/order/{order_id}/draw_completed": {
-      "patch": {
-        "tags": [
-          "order"
-        ],
-        "summary": "Update On Site Collection Order Draw Completed",
-        "description": "PATCH update on site collection order when draw is completed",
-        "operationId": "update_on_site_collection_order_draw_completed_v3_order__order_id__draw_completed_patch",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Your Order ID.",
-              "title": "Order Id"
-            },
-            "description": "Your Order ID."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PostOrderResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "lab_tests",
-        "x-fern-sdk-method-name": "update_on_site_collection_order_draw_completed"
+        "x-fern-sdk-group-name": "link",
+        "x-fern-sdk-method-name": "connect_demo_provider"
       }
     },
     "/v2/timeseries/sleep/{sleep_id}/stream": {
@@ -14220,6 +12265,1961 @@
         "x-fern-sdk-group-name": "vitals",
         "x-fern-sdk-method-name": "blood_pressure",
         "x-fern-availability": "deprecated"
+      }
+    },
+    "/v3/order/testkit/register": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Register Testkit",
+        "operationId": "register_testkit_v3_order_testkit_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterTestkitRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostOrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "testkit",
+        "x-fern-sdk-method-name": "register"
+      }
+    },
+    "/v3/order/testkit": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Create Testkit Order",
+        "description": "Creates an order for an unregistered testkit",
+        "operationId": "create_testkit_order_v3_order_testkit_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRegistrableTestkitOrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostOrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "testkit",
+        "x-fern-sdk-method-name": "create_order"
+      }
+    },
+    "/v3/order/phlebotomy/appointment/availability": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Order Appointment Availability",
+        "description": "Return the available time slots to book an appointment with a phlebotomist\nfor the given address and order.",
+        "operationId": "get_order_appointment_availability_v3_order_phlebotomy_appointment_availability_post",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Start date for appointment availability",
+              "title": "Start Date"
+            },
+            "description": "Start date for appointment availability"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/USAddress",
+                "description": "At-home phlebotomy appointment address."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentAvailabilitySlots"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_phlebotomy_appointment_availability"
+      }
+    },
+    "/v3/order/{order_id}/phlebotomy/appointment/book": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Book Phlebotomy Appointment",
+        "description": "Book an at-home phlebotomy appointment.",
+        "operationId": "book_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_book_post",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentBookingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "book_phlebotomy_appointment"
+      }
+    },
+    "/v3/order/{order_id}/phlebotomy/appointment/request": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Request Phlebotomy Appointment",
+        "description": "Request an at-home phlebotomy appointment.",
+        "operationId": "request_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_request_post",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestAppointmentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                },
+                "example": {
+                  "id": "3c57984e-a2f3-446d-8373-0b2a6f41129d",
+                  "user_id": "b235f55b-1297-4250-9055-3693bd692708",
+                  "order_id": "a5787b35-6554-4f9d-824c-ff8c0f41b96e",
+                  "address": {
+                    "first_line": "123 Main St.",
+                    "second_line": "Apt. 208",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "zip_code": "91189",
+                    "country": "United States"
+                  },
+                  "location": {
+                    "lng": -122.4194155,
+                    "lat": 37.7749295
+                  },
+                  "type": "phlebotomy",
+                  "provider": "phlebfinders",
+                  "status": "pending",
+                  "event_status": "pending",
+                  "provider_id": "123",
+                  "can_reschedule": false,
+                  "event_data": {
+                    "description": "Metadata field containing provider specific data, like cancellation reason or origin"
+                  },
+                  "events": [
+                    {
+                      "created_at": "2022-01-01T00:00:00Z",
+                      "status": "pending"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "request_phlebotomy_appointment"
+      }
+    },
+    "/v3/order/{order_id}/phlebotomy/appointment/reschedule": {
+      "patch": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Reschedule Phlebotomy Appointment",
+        "description": "Reschedule a previously booked at-home phlebotomy appointment.",
+        "operationId": "reschedule_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_reschedule_patch",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentRescheduleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "reschedule_phlebotomy_appointment"
+      }
+    },
+    "/v3/order/{order_id}/phlebotomy/appointment/cancel": {
+      "patch": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Cancel Phlebotomy Appointment",
+        "description": "Cancel a previously booked at-home phlebotomy appointment.",
+        "operationId": "cancel_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_cancel_patch",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api__api_v1__endpoints__vital_api__lab_testing__orders__helpers__AppointmentCancelRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "cancel_phlebotomy_appointment"
+      }
+    },
+    "/v3/order/phlebotomy/appointment/cancellation-reasons": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Phlebotomy Appointment Cancellation Reasons",
+        "description": "Get the list of reasons for cancelling an at-home phlebotomy appointment.",
+        "operationId": "get_phlebotomy_appointment_cancellation_reasons_v3_order_phlebotomy_appointment_cancellation_reasons_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingAppointmentCancellationReason"
+                  },
+                  "type": "array",
+                  "title": "Response Get Phlebotomy Appointment Cancellation Reasons V3 Order Phlebotomy Appointment Cancellation Reasons Get"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_phlebotomy_appointment_cancellation_reason"
+      }
+    },
+    "/v3/order/{order_id}/phlebotomy/appointment": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Phlebotomy Appointment",
+        "description": "Get the appointment associated with an order.",
+        "operationId": "get_phlebotomy_appointment_v3_order__order_id__phlebotomy_appointment_get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_phlebotomy_appointment"
+      }
+    },
+    "/v3/order/area/info": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Area Info",
+        "description": "GET information about an area with respect to lab-testing.\n\nInformation returned:\n* Whether a given zip code is served by our Phlebotomy network.\n* List of Lab locations in the area.",
+        "operationId": "get_area_info_v3_order_area_info_get",
+        "parameters": [
+          {
+            "name": "zip_code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{5}$",
+              "description": "Zip code of the area to check",
+              "title": "Zip Code"
+            },
+            "description": "Zip code of the area to check"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/AllowedRadius",
+              "description": "Radius in which to search in miles",
+              "default": "25"
+            },
+            "description": "Radius in which to search in miles"
+          },
+          {
+            "name": "lab",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ClientFacingLabs"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Lab to check for PSCs",
+              "deprecated": true,
+              "title": "Lab"
+            },
+            "description": "Lab to check for PSCs",
+            "deprecated": true
+          },
+          {
+            "name": "labs",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingLabs"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "List of labs to check for PSCs",
+              "title": "Labs"
+            },
+            "description": "List of labs to check for PSCs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AreaInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_area_info"
+      }
+    },
+    "/v3/order/psc/info": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Psc Info",
+        "operationId": "get_psc_info_v3_order_psc_info_get",
+        "parameters": [
+          {
+            "name": "zip_code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{5}$",
+              "description": "Zip code of the area to check",
+              "title": "Zip Code"
+            },
+            "description": "Zip code of the area to check"
+          },
+          {
+            "name": "lab_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Lab ID to check for PSCs",
+              "title": "Lab Id"
+            },
+            "description": "Lab ID to check for PSCs"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/AllowedRadius",
+              "description": "Radius in which to search in miles. Note that we limit to 30 PSCs.",
+              "default": "25"
+            },
+            "description": "Radius in which to search in miles. Note that we limit to 30 PSCs."
+          },
+          {
+            "name": "capabilities",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LabLocationCapability"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter for only locations with certain capabilities",
+              "title": "Capabilities"
+            },
+            "description": "Filter for only locations with certain capabilities"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PSCInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_psc_info"
+      }
+    },
+    "/v3/order/{order_id}/psc/info": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Order Psc Info",
+        "operationId": "get_order_psc_info_v3_order__order_id__psc_info_get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/AllowedRadius",
+              "description": "Radius in which to search in miles",
+              "default": "25"
+            },
+            "description": "Radius in which to search in miles"
+          },
+          {
+            "name": "capabilities",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LabLocationCapability"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter for only locations with certain capabilities",
+              "title": "Capabilities"
+            },
+            "description": "Filter for only locations with certain capabilities"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PSCInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_order_psc_info"
+      }
+    },
+    "/v3/order/{order_id}/result/pdf": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Lab Test Result",
+        "description": "This endpoint returns the lab results for the order.",
+        "operationId": "get_lab_test_result_v3_order__order_id__result_pdf_get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Order Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PDF with results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Lab Test Result V3 Order  Order Id  Result Pdf Get"
+                }
+              },
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_result_pdf",
+        "x-fern-streaming": true
+      }
+    },
+    "/v3/order/{order_id}/result/metadata": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Lab Test Result Metadata",
+        "description": "Return metadata related to order results, such as lab metadata,\nprovider and sample dates.",
+        "operationId": "get_lab_test_result_metadata_v3_order__order_id__result_metadata_get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Order Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LabResultsMetadata"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_result_metadata"
+      }
+    },
+    "/v3/order/{order_id}/result": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Lab Test Result Raw",
+        "description": "Return both metadata and raw json test data",
+        "operationId": "get_lab_test_result_raw_v3_order__order_id__result_get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Order Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LabResultsRaw"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_result_raw"
+      }
+    },
+    "/v3/order/{order_id}/labels/pdf": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Order Labels",
+        "description": "This endpoint returns the printed labels for the order.",
+        "operationId": "get_order_labels_v3_order__order_id__labels_pdf_get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Order Id"
+            }
+          },
+          {
+            "name": "number_of_labels",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Number of labels to generate",
+              "default": 3,
+              "title": "Number Of Labels"
+            },
+            "description": "Number of labels to generate"
+          },
+          {
+            "name": "collection_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Collection date",
+              "title": "Collection Date"
+            },
+            "description": "Collection date"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PDF with labels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Order Labels V3 Order  Order Id  Labels Pdf Get"
+                }
+              },
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_labels_pdf",
+        "x-fern-streaming": true
+      }
+    },
+    "/v3/order/psc/appointment/availability": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Psc Appointment Availability",
+        "operationId": "get_psc_appointment_availability_v3_order_psc_appointment_availability_post",
+        "parameters": [
+          {
+            "name": "lab",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/AppointmentPSCLabs",
+              "description": "Lab to check for availability"
+            },
+            "description": "Lab to check for availability"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Start date for appointment availability",
+              "title": "Start Date"
+            },
+            "description": "Start date for appointment availability"
+          },
+          {
+            "name": "site_codes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "List of site codes to fetch availability for",
+              "title": "Site Codes"
+            },
+            "description": "List of site codes to fetch availability for"
+          },
+          {
+            "name": "zip_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^\\d{5}$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Zip code of the area to check",
+              "title": "Zip Code"
+            },
+            "description": "Zip code of the area to check"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/AllowedRadius"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Radius in which to search. (meters)",
+              "default": "25",
+              "title": "Radius"
+            },
+            "description": "Radius in which to search. (meters)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentAvailabilitySlots"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_psc_appointment_availability"
+      }
+    },
+    "/v3/order/{order_id}/psc/appointment/book": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Book Phlebotomy Appointment",
+        "operationId": "book_phlebotomy_appointment_v3_order__order_id__psc_appointment_book_post",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentBookingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "book_psc_appointment"
+      }
+    },
+    "/v3/order/{order_id}/psc/appointment/reschedule": {
+      "patch": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Reschedule Phlebotomy Appointment",
+        "operationId": "reschedule_phlebotomy_appointment_v3_order__order_id__psc_appointment_reschedule_patch",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentRescheduleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "reschedule_psc_appointment"
+      }
+    },
+    "/v3/order/{order_id}/psc/appointment/cancel": {
+      "patch": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Cancel Phlebotomy Appointment",
+        "operationId": "cancel_phlebotomy_appointment_v3_order__order_id__psc_appointment_cancel_patch",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/vital_core__clients__lab_test__getlabs__schema__AppointmentCancelRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "cancel_psc_appointment"
+      }
+    },
+    "/v3/order/psc/appointment/cancellation-reasons": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Phlebotomy Appointment Cancellation Reasons",
+        "operationId": "get_phlebotomy_appointment_cancellation_reasons_v3_order_psc_appointment_cancellation_reasons_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingAppointmentCancellationReason"
+                  },
+                  "type": "array",
+                  "title": "Response Get Phlebotomy Appointment Cancellation Reasons V3 Order Psc Appointment Cancellation Reasons Get"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_psc_appointment_cancellation_reason"
+      }
+    },
+    "/v3/order/{order_id}/psc/appointment": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Phlebotomy Appointment",
+        "description": "Get the appointment associated with an order.",
+        "operationId": "get_phlebotomy_appointment_v3_order__order_id__psc_appointment_get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingAppointment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_psc_appointment"
+      }
+    },
+    "/v3/order/resend_events": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Resend Order Webhook",
+        "description": "Replay a webhook for a given set of orders",
+        "operationId": "resend_order_webhook_v3_order_resend_events_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResendWebhookBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResendWebhookResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "order",
+        "x-fern-sdk-method-name": "resend_events"
+      }
+    },
+    "/v3/order/{order_id}/collection_instruction_pdf": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Order Collection Instructions Url",
+        "description": "GET collection instructions for an order",
+        "operationId": "get_order_collection_instructions_url_v3_order__order_id__collection_instruction_pdf_get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PDF with collection instructions",
+            "content": {
+              "application/json": {
+                "schema": {}
+              },
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_order_collection_instruction_pdf",
+        "x-fern-streaming": true
+      }
+    },
+    "/v3/order/{order_id}/requisition/pdf": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Order Requisition Url",
+        "description": "GET requisition pdf for an order",
+        "operationId": "get_order_requisition_url_v3_order__order_id__requisition_pdf_get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PDF with requisition form",
+            "content": {
+              "application/json": {
+                "schema": {}
+              },
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_order_requistion_pdf",
+        "x-fern-streaming": true
+      }
+    },
+    "/v3/order/{order_id}/abn_pdf": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Order Abn",
+        "description": "GET ABN pdf for an order",
+        "operationId": "get_order_abn_v3_order__order_id__abn_pdf_get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PDF with ABN form",
+            "content": {
+              "application/json": {
+                "schema": {}
+              },
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_order_abn_pdf",
+        "x-fern-streaming": true
+      }
+    },
+    "/v3/order/{order_id}": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Order",
+        "description": "GET individual order by ID.",
+        "operationId": "get_order_v3_order__order_id__get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingOrder"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_order"
+      }
+    },
+    "/v3/order": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Create Order",
+        "operationId": "create_order_v3_order_post",
+        "parameters": [
+          {
+            "name": "X-Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderRequestCompatible"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostOrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "create_order"
+      }
+    },
+    "/v3/order/import": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Import Order",
+        "operationId": "import_order_v3_order_import_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImportOrderBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostOrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "import_order"
+      }
+    },
+    "/v3/order/{order_id}/cancel": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Cancel Order",
+        "description": "POST cancel order",
+        "operationId": "cancel_order_v3_order__order_id__cancel_post",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostOrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "cancel_order"
+      }
+    },
+    "/v3/order/{order_id}/test": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Order Process Simulate",
+        "description": "Get available test kits.",
+        "operationId": "order_process_simulate_v3_order__order_id__test_post",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Order Id"
+            }
+          },
+          {
+            "name": "final_status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/OrderStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Final Status"
+            }
+          },
+          {
+            "name": "delay",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Delay"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/SimulationFlags"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Flags"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Order Process Simulate V3 Order  Order Id  Test Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "simulate_order_process"
+      }
+    },
+    "/v3/order/{order_id}/draw_completed": {
+      "patch": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Update On Site Collection Order Draw Completed",
+        "description": "PATCH update on site collection order when draw is completed",
+        "operationId": "update_on_site_collection_order_draw_completed_v3_order__order_id__draw_completed_patch",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Your Order ID.",
+              "title": "Order Id"
+            },
+            "description": "Your Order ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostOrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "update_on_site_collection_order_draw_completed"
+      }
+    },
+    "/v2/providers": {
+      "get": {
+        "tags": [
+          "providers"
+        ],
+        "summary": "Get List Of Providers",
+        "description": "Get Provider list",
+        "operationId": "get_list_of_providers_v2_providers_get",
+        "parameters": [
+          {
+            "name": "source_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Source Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingProviderDetailed"
+                  },
+                  "title": "Response Get List Of Providers V2 Providers Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "providers",
+        "x-fern-sdk-method-name": "get_all"
       }
     },
     "/v2/team/link/config": {
@@ -23541,18 +23541,18 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "e0fbc361-e182-4f2b-a505-cb9306bdc92e",
+          "id": "1cccfad1-4634-4a55-b753-47e18b1ab59d",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "3a72d651-7618-4369-a173-e1cf1aeca2e8",
+          "order_id": "1e5f96c7-a621-405b-9beb-ba9c6cc0040d",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "6f559680-d0dd-40a7-b2d9-ec21fe7e5b44"
+          "user_id": "7ee62bb4-35a1-403f-88d0-5cacaf2cd49b"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23579,7 +23579,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "33f590fb-5490-4949-bdc9-441a443b0204",
+          "id": "15577c68-1008-4319-8092-2a92ccd4f5f9",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23654,9 +23654,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "2e7174ef-bccd-404e-b0ea-0bd2ab93cb6f",
+          "appointment_id": "1ccb757f-d053-4b69-ad39-481f26d4dea2",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "4ae63edc-9c80-4f3b-8c75-d53becd7d063",
+          "id": "f5652d48-562d-4be6-900a-0f19c240d0c8",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -23913,7 +23913,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-09-26T08:32:17+00:00",
+          "timestamp": "2025-09-26T10:09:47+00:00",
           "unit": "mmHg"
         }
       },
@@ -25046,12 +25046,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "1dc3bcfc-8cc0-45a7-824a-a5b6d0ef94ab",
+          "order_id": "ed271865-f777-4950-a094-cc592f588194",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "34ec0735-f551-40f9-b77b-8bc97405face",
+          "team_id": "493c7dc6-849b-4028-b19b-9415cae7fe1d",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "98cc3828-d313-4926-b419-d1f6e371e18b"
+          "user_id": "e7a4a8c6-6478-4579-9840-b56bf611831f"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -28168,7 +28168,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-09-26T08:37:17.029739+00:00",
+          "end": "2025-09-26T10:14:47.009631+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -28311,7 +28311,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "bf139021-2918-4ece-b096-d27c6e25199f",
+          "id": "8cc477d4-70ba-4ca3-8399-b3f450116883",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -28665,8 +28665,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "78a6da6e-bc27-4e40-aa33-24d58b7c5997",
-          "id": "b46f3f96-9b3a-415b-8cac-c26c95e0ea2d",
+          "health_insurace_id": "7840c042-a8bf-4f43-a053-f6f1e5851468",
+          "id": "16023faf-5ed6-4572-b5bd-7f969b7b6d98",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -28690,9 +28690,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "a389572b-5a64-4c00-a505-8afcfc0048e3",
+          "team_id": "8ed4a697-19f1-40fe-8982-1a8eb6c58692",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "7b22f55c-9d66-40d3-a878-0b54cca9e7cf"
+          "user_id": "0bf83fc0-833d-4193-8466-62a585d682c3"
         }
       },
       "ClientFacingOrderEvent": {
@@ -29680,7 +29680,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "e59cc5df-1e35-45fa-9c57-5ef26abb4594",
+          "id": "fa5bf001-6134-4586-9a51-77c3a53119bc",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -30425,95 +30425,95 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-09-26T08:32:17.951329+00:00",
+              "timestamp": "2025-09-26T10:09:47.901219+00:00",
               "unit": "bpm",
-              "value": 116
+              "value": 104
             },
             {
               "id": 1,
-              "timestamp": "2025-09-26T08:32:47.951361+00:00",
+              "timestamp": "2025-09-26T10:10:17.901253+00:00",
               "unit": "bpm",
-              "value": 62
+              "value": 153
             },
             {
               "id": 2,
-              "timestamp": "2025-09-26T08:33:17.951390+00:00",
+              "timestamp": "2025-09-26T10:10:47.901292+00:00",
               "unit": "bpm",
-              "value": 12
+              "value": 115
             },
             {
               "id": 3,
-              "timestamp": "2025-09-26T08:33:47.951435+00:00",
+              "timestamp": "2025-09-26T10:11:17.901339+00:00",
               "unit": "bpm",
-              "value": 186
+              "value": 154
             },
             {
               "id": 4,
-              "timestamp": "2025-09-26T08:34:17.951465+00:00",
+              "timestamp": "2025-09-26T10:11:47.901370+00:00",
               "unit": "bpm",
-              "value": 30
+              "value": 9
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-09-26T08:32:17.951052+00:00",
+              "timestamp": "2025-09-26T10:09:47.900949+00:00",
               "unit": "rmssd",
-              "value": 93
+              "value": 67
             },
             {
               "id": 1,
-              "timestamp": "2025-09-26T08:32:47.951155+00:00",
+              "timestamp": "2025-09-26T10:10:17.901042+00:00",
               "unit": "rmssd",
-              "value": 7
+              "value": 41
             },
             {
               "id": 2,
-              "timestamp": "2025-09-26T08:33:17.951203+00:00",
+              "timestamp": "2025-09-26T10:10:47.901089+00:00",
               "unit": "rmssd",
-              "value": 57
+              "value": 77
             },
             {
               "id": 3,
-              "timestamp": "2025-09-26T08:33:47.951256+00:00",
+              "timestamp": "2025-09-26T10:11:17.901140+00:00",
               "unit": "rmssd",
-              "value": 31
+              "value": 19
             },
             {
               "id": 4,
-              "timestamp": "2025-09-26T08:34:17.951294+00:00",
+              "timestamp": "2025-09-26T10:11:47.901178+00:00",
               "unit": "rmssd",
-              "value": 50
+              "value": 66
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-09-26T08:32:17.951504+00:00",
+              "timestamp": "2025-09-26T10:09:47.901399+00:00",
               "unit": "stage",
-              "value": 0
+              "value": 3
             },
             {
               "id": 1,
-              "timestamp": "2025-09-26T08:32:47.951530+00:00",
+              "timestamp": "2025-09-26T10:10:17.901427+00:00",
               "unit": "stage",
               "value": 2
             },
             {
               "id": 2,
-              "timestamp": "2025-09-26T08:33:17.951554+00:00",
+              "timestamp": "2025-09-26T10:10:47.901453+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 2
             },
             {
               "id": 3,
-              "timestamp": "2025-09-26T08:33:47.951578+00:00",
+              "timestamp": "2025-09-26T10:11:17.901480+00:00",
               "unit": "stage",
               "value": -1
             },
             {
               "id": 4,
-              "timestamp": "2025-09-26T08:34:17.951602+00:00",
+              "timestamp": "2025-09-26T10:11:47.901517+00:00",
               "unit": "stage",
               "value": -1
             }
@@ -30521,33 +30521,33 @@
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-09-26T08:32:17.951627+00:00",
+              "timestamp": "2025-09-26T10:09:47.901545+00:00",
               "unit": "bpm",
-              "value": 27
+              "value": 30
             },
             {
               "id": 1,
-              "timestamp": "2025-09-26T08:32:47.951650+00:00",
+              "timestamp": "2025-09-26T10:10:17.901571+00:00",
               "unit": "bpm",
-              "value": 18
+              "value": 13
             },
             {
               "id": 2,
-              "timestamp": "2025-09-26T08:33:17.951672+00:00",
+              "timestamp": "2025-09-26T10:10:47.901595+00:00",
               "unit": "bpm",
-              "value": 28
+              "value": 23
             },
             {
               "id": 3,
-              "timestamp": "2025-09-26T08:33:47.951694+00:00",
+              "timestamp": "2025-09-26T10:11:17.901619+00:00",
               "unit": "bpm",
-              "value": 12
+              "value": 17
             },
             {
               "id": 4,
-              "timestamp": "2025-09-26T08:34:17.951716+00:00",
+              "timestamp": "2025-09-26T10:11:47.901643+00:00",
               "unit": "bpm",
-              "value": 28
+              "value": 27
             }
           ]
         }
@@ -31610,10 +31610,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "07b7c2cf-7c21-41b5-bbe5-64bddc7bb13e",
+          "id": "e337ce16-11b3-4010-9a56-be014fe9e6e9",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "7d5e8e8d-7370-4b80-b607-697413c7fe92",
+            "id": "99a252b0-e120-4159-afc5-19b6c0fb4a72",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31806,7 +31806,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-09-26T08:32:19+00:00",
+              "created_on": "2025-09-26T10:09:48+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -31814,16 +31814,16 @@
               }
             }
           ],
-          "created_on": "2025-09-26T08:32:19+00:00",
+          "created_on": "2025-09-26T10:09:48+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-09-26T08:32:19+00:00",
+            "updated_at": "2025-09-26T10:09:48+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-09-26T08:32:19+00:00"
+            "updated_at": "2025-09-26T10:09:48+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -32085,9 +32085,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "2ef8e5c8-19a3-4816-8f5f-0e52d3dbc7a5",
+          "appointment_id": "6a4c2ac2-29c7-4592-871e-d23df1a6ac07",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "7907e9e4-538c-4f9f-94cc-2b06a7950171",
+          "id": "2b416c06-e84b-4019-bf54-6945e42fcc83",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -33337,7 +33337,7 @@
               "third"
             ]
           },
-          "query_id": "970ec06d-baa7-4d80-814e-55661e68af41",
+          "query_id": "22ea0361-4b0e-4f8f-a684-3ffdaa5b3f0a",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -42716,7 +42716,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-09-26T08:37:17.029739+00:00",
+                    "end": "2025-09-26T10:14:47.009631+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -44362,7 +44362,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-09-26T08:32:17+00:00",
+                    "timestamp": "2025-09-26T10:09:47+00:00",
                     "unit": "mmHg"
                   }
                 ],
