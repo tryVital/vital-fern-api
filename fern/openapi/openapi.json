@@ -3,9 +3,1243 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.633"
+    "version": "0.3.635"
   },
   "paths": {
+    "/v2/user": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Teams Users",
+        "description": "GET All users for team.",
+        "operationId": "get_teams_users_v2_user_get",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Offset",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "title": "Limit",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedUsersResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_all"
+      },
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create User",
+        "description": "POST Create a Vital user given a client_user_id and returns the user_id.",
+        "operationId": "create_user_v2_user_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingUserKey"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientUserIDConflictResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "create"
+      }
+    },
+    "/v2/user/metrics": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Teams Metrics",
+        "description": "GET metrics for team.",
+        "operationId": "get_teams_metrics_v2_user_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricsResult"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_team_metrics"
+      }
+    },
+    "/v2/user/{user_id}/sign_in_token": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Sign In Token",
+        "operationId": "get_user_sign_in_token_v2_user__user_id__sign_in_token_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSignInTokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_user_sign_in_token"
+      }
+    },
+    "/v2/user/providers/{user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Connected Providers",
+        "description": "GET Users connected providers",
+        "operationId": "get_connected_providers_v2_user_providers__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ClientFacingProviderWithStatus"
+                    }
+                  },
+                  "propertyNames": {
+                    "const": "providers"
+                  },
+                  "title": "Response Get Connected Providers V2 User Providers  User Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_connected_providers"
+      }
+    },
+    "/v2/user/{user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User",
+        "description": "GET User details given the user_id.",
+        "operationId": "get_user_v2_user__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingUser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get"
+      },
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Patch User",
+        "operationId": "patch_user_v2_user__user_id__patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPatchBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "patch"
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete User",
+        "operationId": "delete_user_v2_user__user_id__delete",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSuccessResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "delete"
+      }
+    },
+    "/v2/user/{user_id}/info/latest": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Demographcis",
+        "operationId": "get_user_demographcis_v2_user__user_id__info_latest_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_latest_user_info"
+      }
+    },
+    "/v2/user/{user_id}/insurance": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create Insurance",
+        "operationId": "create_insurance_v2_user__user_id__insurance_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInsuranceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingInsurance"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "create_insurance"
+      }
+    },
+    "/v2/user/{user_id}/insurance/latest": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Latest Insurance",
+        "operationId": "get_latest_insurance_v2_user__user_id__insurance_latest_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingInsurance"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_latest_insurance"
+      }
+    },
+    "/v2/user/{user_id}/info": {
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create User Demographics",
+        "operationId": "create_user_demographics_v2_user__user_id__info_patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInfoCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "upsert_user_info"
+      }
+    },
+    "/v2/user/resolve/{client_user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User By Client User Id",
+        "description": "GET user_id from client_user_id.",
+        "operationId": "get_user_by_client_user_id_v2_user_resolve__client_user_id__get",
+        "parameters": [
+          {
+            "name": "client_user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.",
+              "title": "Client User Id"
+            },
+            "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingUser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_by_client_user_id"
+      }
+    },
+    "/v2/user/{user_id}/{provider}": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Deregister Provider",
+        "operationId": "deregister_provider_v2_user__user_id___provider__delete",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Providers",
+              "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
+            },
+            "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSuccessResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "deregister_provider"
+      }
+    },
+    "/v2/user/undo_delete": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Undo User Delete",
+        "operationId": "undo_user_delete_v2_user_undo_delete_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`.",
+              "title": "User Id"
+            },
+            "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`."
+          },
+          {
+            "name": "client_user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`.",
+              "title": "Client User Id"
+            },
+            "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSuccessResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "undo_delete"
+      }
+    },
+    "/v2/user/refresh/{user_id}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Refresh User Id",
+        "description": "Trigger a manual refresh for a specific user",
+        "operationId": "refresh_user_id_v2_user_refresh__user_id__post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 60,
+              "minimum": 5,
+              "default": 10,
+              "title": "Timeout"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Refresh User Id V2 User Refresh  User Id  Post",
+                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRefreshErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "refresh"
+      }
+    },
+    "/v2/user/{user_id}/device": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Devices",
+        "operationId": "get_user_devices_v2_user__user_id__device_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingDevice"
+                  },
+                  "title": "Response Get User Devices V2 User  User Id  Device Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_devices"
+      }
+    },
+    "/v2/user/{user_id}/device/{device_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Device",
+        "operationId": "get_user_device_v2_user__user_id__device__device_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "device_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Device Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingDevice"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_device"
+      }
+    },
+    "/v2/team/link/config": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Team Config",
+        "description": "Post teams.",
+        "operationId": "get_team_config_v2_team_link_config_get",
+        "parameters": [
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Team Config V2 Team Link Config Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_link_config",
+        "security": []
+      }
+    },
+    "/v2/team/{team_id}": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Team",
+        "description": "Get team.",
+        "operationId": "get_team_v2_team__team_id__get",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingTeam"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/team/users/search": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Search Team Users By Uuid Or Client User Id",
+        "description": "Search team users by user_id",
+        "operationId": "search_team_users_by_uuid_or_client_user_id_v2_team_users_search_get",
+        "parameters": [
+          {
+            "name": "query_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "title": "Query Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingUser"
+                  },
+                  "title": "Response Search Team Users By Uuid Or Client User Id V2 Team Users Search Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_user_by_id",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/team/svix/url": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Svix Webhook Url",
+        "operationId": "get_svix_webhook_url_v2_team_svix_url_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Svix Webhook Url V2 Team Svix Url Get"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_svix_url",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/team/source/priorities": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Source Priorities",
+        "description": "GET source priorities.",
+        "operationId": "get_source_priorities_v2_team_source_priorities_get",
+        "parameters": [
+          {
+            "name": "data_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PriorityResource"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Data Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Get Source Priorities V2 Team Source Priorities Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_source_priorities"
+      },
+      "patch": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Update Source Priorities",
+        "description": "Patch source priorities.",
+        "operationId": "update_source_priorities_v2_team_source_priorities_patch",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Update Source Priorities V2 Team Source Priorities Patch"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "update_source_priorities"
+      }
+    },
+    "/v2/team/{team_id}/physicians": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Team Physicians",
+        "operationId": "get_team_physicians_v2_team__team_id__physicians_get",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingPhysician"
+                  },
+                  "title": "Response Get Team Physicians V2 Team  Team Id  Physicians Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_physicians"
+      }
+    },
     "/v2/link/bulk_op": {
       "get": {
         "tags": [
@@ -1230,156 +2464,65 @@
         "x-fern-sdk-method-name": "get_all"
       }
     },
-    "/v2/user": {
+    "/v2/summary/electrocardiogram/{user_id}": {
       "get": {
         "tags": [
-          "user"
+          "summary"
         ],
-        "summary": "Get Teams Users",
-        "description": "GET All users for team.",
-        "operationId": "get_teams_users_v2_user_get",
+        "summary": "Get User Electrocardiogram",
+        "description": "Get electrocardiogram summary for user_id",
+        "operationId": "get_user_electrocardiogram_v2_summary_electrocardiogram__user_id__get",
         "parameters": [
           {
-            "name": "offset",
-            "in": "query",
-            "required": false,
+            "name": "user_id",
+            "in": "path",
+            "required": true,
             "schema": {
-              "type": "integer",
-              "title": "Offset",
-              "default": 0
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
             }
           },
           {
-            "name": "limit",
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "Start date in YYYY-MM-DD",
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
-              "maximum": 500,
-              "title": "Limit",
-              "default": 100
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaginatedUsersResponse"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
                 }
-              }
+              ],
+              "description": "End date (inclusive) in YYYY-MM-DD",
+              "title": "End Date"
             }
           },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_all"
-      },
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create User",
-        "description": "POST Create a Vital user given a client_user_id and returns the user_id.",
-        "operationId": "create_user_v2_user_post",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserCreateBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingUserKey"
-                }
-              }
-            }
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientUserIDConflictResponse"
-                }
-              }
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
             },
-            "description": "Bad Request"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "create"
-      }
-    },
-    "/v2/user/metrics": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get Teams Metrics",
-        "description": "GET metrics for team.",
-        "operationId": "get_teams_metrics_v2_user_metrics_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MetricsResult"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_team_metrics"
-      }
-    },
-    "/v2/user/{user_id}/sign_in_token": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Sign In Token",
-        "operationId": "get_user_sign_in_token_v2_user__user_id__sign_in_token_post",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
+            "description": "Provider oura/strava etc"
           }
         ],
         "responses": {
@@ -1388,7 +2531,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserSignInTokenResponse"
+                  "$ref": "#/components/schemas/ClientFacingElectrocardiogramResponse"
                 }
               }
             }
@@ -1404,163 +2547,18 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_user_sign_in_token"
-      }
-    },
-    "/v2/user/providers/{user_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get Connected Providers",
-        "description": "GET Users connected providers",
-        "operationId": "get_connected_providers_v2_user_providers__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ClientFacingProviderWithStatus"
-                    }
-                  },
-                  "propertyNames": {
-                    "const": "providers"
-                  },
-                  "title": "Response Get Connected Providers V2 User Providers  User Id  Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_connected_providers"
-      }
-    },
-    "/v2/user/{user_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User",
-        "description": "GET User details given the user_id.",
-        "operationId": "get_user_v2_user__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingUser"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-group-name": "electrocardiogram",
         "x-fern-sdk-method-name": "get"
-      },
-      "patch": {
+      }
+    },
+    "/v2/summary/sleep_cycle/{user_id}": {
+      "get": {
         "tags": [
-          "user"
+          "summary"
         ],
-        "summary": "Patch User",
-        "operationId": "patch_user_v2_user__user_id__patch",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserPatchBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "patch"
-      },
-      "delete": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Delete User",
-        "operationId": "delete_user_v2_user__user_id__delete",
+        "summary": "Get User Sleep Cycle",
+        "description": "Get sleep cycle for user_id",
+        "operationId": "get_user_sleep_cycle_v2_summary_sleep_cycle__user_id__get",
         "parameters": [
           {
             "name": "user_id",
@@ -1571,249 +2569,47 @@
               "format": "uuid",
               "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSuccessResponse"
-                }
-              }
-            }
           },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "delete"
-      }
-    },
-    "/v2/user/{user_id}/info/latest": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Demographcis",
-        "operationId": "get_user_demographcis_v2_user__user_id__info_latest_get",
-        "parameters": [
           {
-            "name": "user_id",
-            "in": "path",
+            "name": "start_date",
+            "in": "query",
             "required": true,
             "schema": {
               "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserInfo"
-                }
-              }
+              "format": "date",
+              "description": "Start date in YYYY-MM-DD",
+              "title": "Start Date"
             }
           },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_latest_user_info"
-      }
-    },
-    "/v2/user/{user_id}/insurance": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create Insurance",
-        "operationId": "create_insurance_v2_user__user_id__insurance_post",
-        "parameters": [
           {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
+            "name": "end_date",
+            "in": "query",
+            "required": false,
             "schema": {
-              "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateInsuranceRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingInsurance"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
                 }
-              }
+              ],
+              "description": "End date (inclusive) in YYYY-MM-DD",
+              "title": "End Date"
             }
           },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "create_insurance"
-      }
-    },
-    "/v2/user/{user_id}/insurance/latest": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get Latest Insurance",
-        "operationId": "get_latest_insurance_v2_user__user_id__insurance_latest_get",
-        "parameters": [
           {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
+            "name": "provider",
+            "in": "query",
+            "required": false,
             "schema": {
               "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingInsurance"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_latest_insurance"
-      }
-    },
-    "/v2/user/{user_id}/info": {
-      "patch": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create User Demographics",
-        "operationId": "create_user_demographics_v2_user__user_id__info_patch",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserInfoCreateRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserInfo"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "upsert_user_info"
-      }
-    },
-    "/v2/user/resolve/{client_user_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User By Client User Id",
-        "description": "GET user_id from client_user_id.",
-        "operationId": "get_user_by_client_user_id_v2_user_resolve__client_user_id__get",
-        "parameters": [
-          {
-            "name": "client_user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.",
-              "title": "Client User Id"
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
             },
-            "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id."
+            "description": "Provider oura/strava etc"
           }
         ],
         "responses": {
@@ -1822,7 +2618,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ClientFacingUser"
+                  "$ref": "#/components/schemas/ClientSleepCycleResponse"
                 }
               }
             }
@@ -1838,17 +2634,18 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_by_client_user_id"
+        "x-fern-sdk-group-name": "sleep_cycle",
+        "x-fern-sdk-method-name": "get"
       }
     },
-    "/v2/user/{user_id}/{provider}": {
-      "delete": {
+    "/v2/summary/profile/{user_id}": {
+      "get": {
         "tags": [
-          "user"
+          "summary"
         ],
-        "summary": "Deregister Provider",
-        "operationId": "deregister_provider_v2_user__user_id___provider__delete",
+        "summary": "Get User Profile",
+        "description": "Get profile for user_id",
+        "operationId": "get_user_profile_v2_summary_profile__user_id__get",
         "parameters": [
           {
             "name": "user_id",
@@ -1862,13 +2659,15 @@
           },
           {
             "name": "provider",
-            "in": "path",
-            "required": true,
+            "in": "query",
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/Providers",
-              "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
             },
-            "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
+            "description": "Provider oura/strava etc"
           }
         ],
         "responses": {
@@ -1877,7 +2676,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserSuccessResponse"
+                  "$ref": "#/components/schemas/ClientFacingProfile"
                 }
               }
             }
@@ -1893,39 +2692,170 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "deregister_provider"
+        "x-fern-sdk-group-name": "profile",
+        "x-fern-sdk-method-name": "get"
       }
     },
-    "/v2/user/undo_delete": {
-      "post": {
+    "/v2/summary/profile/{user_id}/raw": {
+      "get": {
         "tags": [
-          "user"
+          "summary"
         ],
-        "summary": "Undo User Delete",
-        "operationId": "undo_user_delete_v2_user_undo_delete_post",
+        "summary": "Get User Profile Raw",
+        "description": "Get raw profile for user_id",
+        "operationId": "get_user_profile_raw_v2_summary_profile__user_id__raw_get",
         "parameters": [
           {
             "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`.",
-              "title": "User Id"
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
             },
-            "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`."
+            "description": "Provider oura/strava etc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RawProfile"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "profile",
+        "x-fern-sdk-method-name": "get_raw"
+      }
+    },
+    "/v2/summary/devices/{user_id}/raw": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Get User Devices Raw",
+        "description": "Get Devices for user_id",
+        "operationId": "get_user_devices_raw_v2_summary_devices__user_id__raw_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
           },
           {
-            "name": "client_user_id",
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RawDevices"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "devices",
+        "x-fern-sdk-method-name": "get_raw"
+      }
+    },
+    "/v2/summary/activity/{user_id}": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Get User Activity",
+        "description": "Get activity summary for user_id",
+        "operationId": "get_user_activity_v2_summary_activity__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
             "in": "query",
             "required": false,
             "schema": {
@@ -1937,10 +2867,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`.",
-              "title": "Client User Id"
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
             },
-            "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`."
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
           }
         ],
         "responses": {
@@ -1949,7 +2879,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserSuccessResponse"
+                  "$ref": "#/components/schemas/ClientActivityResponse"
                 }
               }
             }
@@ -1965,18 +2895,18 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "undo_delete"
+        "x-fern-sdk-group-name": "activity",
+        "x-fern-sdk-method-name": "get"
       }
     },
-    "/v2/user/refresh/{user_id}": {
-      "post": {
+    "/v2/summary/activity/{user_id}/raw": {
+      "get": {
         "tags": [
-          "user"
+          "summary"
         ],
-        "summary": "Refresh User Id",
-        "description": "Trigger a manual refresh for a specific user",
-        "operationId": "refresh_user_id_v2_user_refresh__user_id__post",
+        "summary": "Get User Activity Raw",
+        "description": "Get raw activity summary for user_id",
+        "operationId": "get_user_activity_raw_v2_summary_activity__user_id__raw_get",
         "parameters": [
           {
             "name": "user_id",
@@ -1985,86 +2915,49 @@
             "schema": {
               "type": "string",
               "format": "uuid",
-              "title": "User Id"
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
             }
           },
           {
-            "name": "timeout",
+            "name": "provider",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "number",
-              "maximum": 60,
-              "minimum": 5,
-              "default": 10,
-              "title": "Timeout"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "Response Refresh User Id V2 User Refresh  User Id  Post",
-                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
-                }
-              }
-            }
-          },
-          "202": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
-                }
-              }
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
             },
-            "description": "Accepted"
+            "description": "Provider oura/strava etc"
           },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRefreshErrorResponse"
-                }
-              }
-            },
-            "description": "Bad Request"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "refresh"
-      }
-    },
-    "/v2/user/{user_id}/device": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Devices",
-        "operationId": "get_user_devices_v2_user__user_id__device_get",
-        "parameters": [
           {
-            "name": "user_id",
-            "in": "path",
+            "name": "start_date",
+            "in": "query",
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
           }
         ],
         "responses": {
@@ -2073,11 +2966,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingDevice"
-                  },
-                  "title": "Response Get User Devices V2 User  User Id  Device Get"
+                  "$ref": "#/components/schemas/RawActivity"
                 }
               }
             }
@@ -2093,17 +2982,18 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_devices"
+        "x-fern-sdk-group-name": "activity",
+        "x-fern-sdk-method-name": "get_raw"
       }
     },
-    "/v2/user/{user_id}/device/{device_id}": {
+    "/v2/summary/workouts/{user_id}": {
       "get": {
         "tags": [
-          "user"
+          "summary"
         ],
-        "summary": "Get User Device",
-        "operationId": "get_user_device_v2_user__user_id__device__device_id__get",
+        "summary": "Get User Workouts",
+        "description": "Get workout summary for user_id",
+        "operationId": "get_user_workouts_v2_summary_workouts__user_id__get",
         "parameters": [
           {
             "name": "user_id",
@@ -2116,14 +3006,45 @@
             }
           },
           {
-            "name": "device_id",
-            "in": "path",
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
-              "title": "Device Id"
-            }
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
           }
         ],
         "responses": {
@@ -2132,7 +3053,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ClientFacingDevice"
+                  "$ref": "#/components/schemas/ClientWorkoutResponse"
                 }
               }
             }
@@ -2148,8 +3069,616 @@
             }
           }
         },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_device"
+        "x-fern-sdk-group-name": "workouts",
+        "x-fern-sdk-method-name": "get"
+      }
+    },
+    "/v2/summary/workouts/{user_id}/raw": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Get User Workouts Raw",
+        "description": "Get raw workout summary for user_id",
+        "operationId": "get_user_workouts_raw_v2_summary_workouts__user_id__raw_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RawWorkout"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "workouts",
+        "x-fern-sdk-method-name": "get_raw"
+      }
+    },
+    "/v2/summary/sleep/{user_id}": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Get User Sleep",
+        "description": "Get sleep summary for user_id",
+        "operationId": "get_user_sleep_v2_summary_sleep__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientSleepResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "sleep",
+        "x-fern-sdk-method-name": "get"
+      }
+    },
+    "/v2/summary/sleep/{user_id}/raw": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Get User Sleep Raw",
+        "description": "Get raw sleep summary for user_id",
+        "operationId": "get_user_sleep_raw_v2_summary_sleep__user_id__raw_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RawSleep"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "sleep",
+        "x-fern-sdk-method-name": "get_raw"
+      }
+    },
+    "/v2/summary/body/{user_id}": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Get User Body",
+        "description": "Get Body summary for user_id",
+        "operationId": "get_user_body_v2_summary_body__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientBodyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "body",
+        "x-fern-sdk-method-name": "get"
+      }
+    },
+    "/v2/summary/body/{user_id}/raw": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Get User Body Raw",
+        "description": "Get raw Body summary for user_id",
+        "operationId": "get_user_body_raw_v2_summary_body__user_id__raw_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RawBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "body",
+        "x-fern-sdk-method-name": "get_raw"
+      }
+    },
+    "/v2/summary/meal/{user_id}": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Get Meals",
+        "description": "Get user's meals",
+        "operationId": "get_meals_v2_summary_meal__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
+              "title": "Start Date"
+            },
+            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
+              "title": "End Date"
+            },
+            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingMealResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "meal",
+        "x-fern-sdk-method-name": "get"
+      }
+    },
+    "/v2/summary/menstrual_cycle/{user_id}": {
+      "get": {
+        "tags": [
+          "summary"
+        ],
+        "summary": "Get User Menstrual Cycles",
+        "operationId": "get_user_menstrual_cycles_v2_summary_menstrual_cycle__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Provider oura/strava etc",
+              "default": "",
+              "title": "Provider"
+            },
+            "description": "Provider oura/strava etc"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "Start date in YYYY-MM-DD",
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "End date (inclusive) in YYYY-MM-DD",
+              "title": "End Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenstrualCycleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "menstrual_cycle",
+        "x-fern-sdk-method-name": "get"
       }
     },
     "/v2/timeseries/sleep/{sleep_id}/stream": {
@@ -11106,1535 +12635,6 @@
         "x-fern-availability": "deprecated"
       }
     },
-    "/v2/summary/electrocardiogram/{user_id}": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Electrocardiogram",
-        "description": "Get electrocardiogram summary for user_id",
-        "operationId": "get_user_electrocardiogram_v2_summary_electrocardiogram__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date",
-              "description": "Start date in YYYY-MM-DD",
-              "title": "Start Date"
-            }
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "End date (inclusive) in YYYY-MM-DD",
-              "title": "End Date"
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingElectrocardiogramResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "electrocardiogram",
-        "x-fern-sdk-method-name": "get"
-      }
-    },
-    "/v2/summary/sleep_cycle/{user_id}": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Sleep Cycle",
-        "description": "Get sleep cycle for user_id",
-        "operationId": "get_user_sleep_cycle_v2_summary_sleep_cycle__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date",
-              "description": "Start date in YYYY-MM-DD",
-              "title": "Start Date"
-            }
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "End date (inclusive) in YYYY-MM-DD",
-              "title": "End Date"
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientSleepCycleResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "sleep_cycle",
-        "x-fern-sdk-method-name": "get"
-      }
-    },
-    "/v2/summary/profile/{user_id}": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Profile",
-        "description": "Get profile for user_id",
-        "operationId": "get_user_profile_v2_summary_profile__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingProfile"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "profile",
-        "x-fern-sdk-method-name": "get"
-      }
-    },
-    "/v2/summary/profile/{user_id}/raw": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Profile Raw",
-        "description": "Get raw profile for user_id",
-        "operationId": "get_user_profile_raw_v2_summary_profile__user_id__raw_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RawProfile"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "profile",
-        "x-fern-sdk-method-name": "get_raw"
-      }
-    },
-    "/v2/summary/devices/{user_id}/raw": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Devices Raw",
-        "description": "Get Devices for user_id",
-        "operationId": "get_user_devices_raw_v2_summary_devices__user_id__raw_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RawDevices"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "devices",
-        "x-fern-sdk-method-name": "get_raw"
-      }
-    },
-    "/v2/summary/activity/{user_id}": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Activity",
-        "description": "Get activity summary for user_id",
-        "operationId": "get_user_activity_v2_summary_activity__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientActivityResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "activity",
-        "x-fern-sdk-method-name": "get"
-      }
-    },
-    "/v2/summary/activity/{user_id}/raw": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Activity Raw",
-        "description": "Get raw activity summary for user_id",
-        "operationId": "get_user_activity_raw_v2_summary_activity__user_id__raw_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RawActivity"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "activity",
-        "x-fern-sdk-method-name": "get_raw"
-      }
-    },
-    "/v2/summary/workouts/{user_id}": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Workouts",
-        "description": "Get workout summary for user_id",
-        "operationId": "get_user_workouts_v2_summary_workouts__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientWorkoutResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "workouts",
-        "x-fern-sdk-method-name": "get"
-      }
-    },
-    "/v2/summary/workouts/{user_id}/raw": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Workouts Raw",
-        "description": "Get raw workout summary for user_id",
-        "operationId": "get_user_workouts_raw_v2_summary_workouts__user_id__raw_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RawWorkout"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "workouts",
-        "x-fern-sdk-method-name": "get_raw"
-      }
-    },
-    "/v2/summary/sleep/{user_id}": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Sleep",
-        "description": "Get sleep summary for user_id",
-        "operationId": "get_user_sleep_v2_summary_sleep__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientSleepResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "sleep",
-        "x-fern-sdk-method-name": "get"
-      }
-    },
-    "/v2/summary/sleep/{user_id}/raw": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Sleep Raw",
-        "description": "Get raw sleep summary for user_id",
-        "operationId": "get_user_sleep_raw_v2_summary_sleep__user_id__raw_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RawSleep"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "sleep",
-        "x-fern-sdk-method-name": "get_raw"
-      }
-    },
-    "/v2/summary/body/{user_id}": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Body",
-        "description": "Get Body summary for user_id",
-        "operationId": "get_user_body_v2_summary_body__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientBodyResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "body",
-        "x-fern-sdk-method-name": "get"
-      }
-    },
-    "/v2/summary/body/{user_id}/raw": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Body Raw",
-        "description": "Get raw Body summary for user_id",
-        "operationId": "get_user_body_raw_v2_summary_body__user_id__raw_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RawBody"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "body",
-        "x-fern-sdk-method-name": "get_raw"
-      }
-    },
-    "/v2/summary/meal/{user_id}": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get Meals",
-        "description": "Get user's meals",
-        "operationId": "get_meals_v2_summary_meal__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingMealResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "meal",
-        "x-fern-sdk-method-name": "get"
-      }
-    },
-    "/v2/summary/menstrual_cycle/{user_id}": {
-      "get": {
-        "tags": [
-          "summary"
-        ],
-        "summary": "Get User Menstrual Cycles",
-        "operationId": "get_user_menstrual_cycles_v2_summary_menstrual_cycle__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date",
-              "description": "Start date in YYYY-MM-DD",
-              "title": "Start Date"
-            }
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "date"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "End date (inclusive) in YYYY-MM-DD",
-              "title": "End Date"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MenstrualCycleResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "menstrual_cycle",
-        "x-fern-sdk-method-name": "get"
-      }
-    },
-    "/v2/team/link/config": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team Config",
-        "description": "Post teams.",
-        "operationId": "get_team_config_v2_team_link_config_get",
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Get Team Config V2 Team Link Config Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_link_config",
-        "security": []
-      }
-    },
-    "/v2/team/{team_id}": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team",
-        "description": "Get team.",
-        "operationId": "get_team_v2_team__team_id__get",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingTeam"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/users/search": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Search Team Users By Uuid Or Client User Id",
-        "description": "Search team users by user_id",
-        "operationId": "search_team_users_by_uuid_or_client_user_id_v2_team_users_search_get",
-        "parameters": [
-          {
-            "name": "query_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "minLength": 2,
-              "title": "Query Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingUser"
-                  },
-                  "title": "Response Search Team Users By Uuid Or Client User Id V2 Team Users Search Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_user_by_id",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/svix/url": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Svix Webhook Url",
-        "operationId": "get_svix_webhook_url_v2_team_svix_url_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Response Get Svix Webhook Url V2 Team Svix Url Get"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_svix_url",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/source/priorities": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Source Priorities",
-        "description": "GET source priorities.",
-        "operationId": "get_source_priorities_v2_team_source_priorities_get",
-        "parameters": [
-          {
-            "name": "data_type",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/PriorityResource"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Data Type"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "additionalProperties": true
-                  },
-                  "title": "Response Get Source Priorities V2 Team Source Priorities Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_source_priorities"
-      },
-      "patch": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Update Source Priorities",
-        "description": "Patch source priorities.",
-        "operationId": "update_source_priorities_v2_team_source_priorities_patch",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "additionalProperties": true
-                  },
-                  "title": "Response Update Source Priorities V2 Team Source Priorities Patch"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "update_source_priorities"
-      }
-    },
-    "/v2/team/{team_id}/physicians": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team Physicians",
-        "operationId": "get_team_physicians_v2_team__team_id__physicians_get",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingPhysician"
-                  },
-                  "title": "Response Get Team Physicians V2 Team  Team Id  Physicians Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_physicians"
-      }
-    },
     "/v2/introspect/resources": {
       "get": {
         "tags": [
@@ -14437,9 +14437,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "a8e70287-cd9b-4137-b5ce-1bb502278c39",
-                  "user_id": "14b6fa8b-a4fa-46de-9d18-c7699abd571f",
-                  "order_id": "8b09abda-3fd7-4a43-959b-39fdb58df0f9",
+                  "id": "88c7a9a2-6e25-46a5-897e-1a106d7f2614",
+                  "user_id": "c4253296-4df4-454c-8678-53f1905d7250",
+                  "order_id": "9cfcda72-82cc-4994-a63b-8b97c6350181",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -23541,18 +23541,18 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "dfc413e4-dfd2-4fed-a91b-0c85e2cea095",
+          "id": "bc2d5081-63e3-48f8-a057-334bc643e524",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "c2fc63a9-aa0a-4eea-aa53-1148c46496da",
+          "order_id": "8a299e51-66cb-45dc-9c6e-09b1f14c6543",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "429dbfff-da4b-4086-8ba7-9b293fe31987"
+          "user_id": "d9a1987d-394c-4912-a350-2f892cc11195"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23579,7 +23579,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "af05c8a0-1c41-4e8f-a02e-2cc0c163ad40",
+          "id": "1e85c5c6-91f6-4197-b682-5bed4c04f031",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23654,9 +23654,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "bac1f0d8-2d34-42a4-9f52-181e214d0522",
+          "appointment_id": "af8234d4-147f-4d7e-aa07-ef506f7b2f21",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "5c7f29bb-36eb-47f8-bac9-1dad7066a51a",
+          "id": "4e2c6fea-2a9e-4f15-af42-16b885fce947",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -23913,7 +23913,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-09-29T10:25:22+00:00",
+          "timestamp": "2025-09-29T12:50:43+00:00",
           "unit": "mmHg"
         }
       },
@@ -25046,12 +25046,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "9f29bb73-e795-42c8-9b8e-08f2eb9ddfe5",
+          "order_id": "de29b546-94e3-4fac-a49a-6fcaed407023",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "d36bc0a4-1430-4721-afd4-24dc84615f9f",
+          "team_id": "38b0cba8-de31-4915-9f32-26386d86fd53",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "f0db5ff7-5892-462a-89e0-3c9a3b031b9e"
+          "user_id": "d1bfe0d1-3901-464a-ab06-910bed0e11ee"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -25170,7 +25170,8 @@
               "chest_strap",
               "ring",
               "lab",
-              "exercise_machine"
+              "exercise_machine",
+              "earphone"
             ],
             "title": "Source Type",
             "description": "ℹ️ This enum is non-exhaustive."
@@ -25480,7 +25481,8 @@
               "chest_strap",
               "ring",
               "lab",
-              "exercise_machine"
+              "exercise_machine",
+              "earphone"
             ],
             "title": "Source Type",
             "description": "ℹ️ This enum is non-exhaustive."
@@ -27980,7 +27982,8 @@
               "chest_strap",
               "ring",
               "lab",
-              "exercise_machine"
+              "exercise_machine",
+              "earphone"
             ],
             "title": "Source Type",
             "description": "ℹ️ This enum is non-exhaustive."
@@ -28168,7 +28171,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-09-29T10:30:22.565666+00:00",
+          "end": "2025-09-29T12:55:42.941493+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -28311,7 +28314,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "6c24ff09-efe0-4866-82db-0547fc001f30",
+          "id": "4c9103c3-e1d8-471d-b42f-f3565098eafb",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -28665,8 +28668,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "53199cd2-25ee-4259-986d-68a73abdb487",
-          "id": "d3a56b12-0e89-47b5-9c2c-e5d6838e1c48",
+          "health_insurace_id": "b8e03ede-60a2-49e4-b4fc-960685103db3",
+          "id": "2d43db56-8a4b-4831-8d9a-f733f478470c",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -28690,9 +28693,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "c57d386a-2214-4c07-989b-f655d778b5c8",
+          "team_id": "90eff51e-4d56-4026-b886-997d7f55fe42",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "f1eb487c-7d88-4dcc-8360-0fa904d35d4d"
+          "user_id": "ab73fa66-7051-42c1-89b1-ff0f9672efed"
         }
       },
       "ClientFacingOrderEvent": {
@@ -29680,7 +29683,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "06980b16-e5e4-408e-b7c0-2f8938bf84a5",
+          "id": "8ce3040e-9bf4-4734-9527-e8b6760c0ec9",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -30256,7 +30259,8 @@
               "chest_strap",
               "ring",
               "lab",
-              "exercise_machine"
+              "exercise_machine",
+              "earphone"
             ],
             "title": "Source Type",
             "description": "ℹ️ This enum is non-exhaustive."
@@ -30425,129 +30429,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-09-29T10:25:22.919228+00:00",
+              "timestamp": "2025-09-29T12:50:43.110338+00:00",
               "unit": "bpm",
-              "value": 99
+              "value": 86
             },
             {
               "id": 1,
-              "timestamp": "2025-09-29T10:25:52.919259+00:00",
+              "timestamp": "2025-09-29T12:51:13.110360+00:00",
               "unit": "bpm",
-              "value": 21
+              "value": 57
             },
             {
               "id": 2,
-              "timestamp": "2025-09-29T10:26:22.919288+00:00",
+              "timestamp": "2025-09-29T12:51:43.110379+00:00",
               "unit": "bpm",
-              "value": 101
+              "value": 151
             },
             {
               "id": 3,
-              "timestamp": "2025-09-29T10:26:52.919333+00:00",
+              "timestamp": "2025-09-29T12:52:13.110421+00:00",
               "unit": "bpm",
-              "value": 22
+              "value": 43
             },
             {
               "id": 4,
-              "timestamp": "2025-09-29T10:27:22.919365+00:00",
+              "timestamp": "2025-09-29T12:52:43.110444+00:00",
               "unit": "bpm",
-              "value": 95
+              "value": 24
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-09-29T10:25:22.918955+00:00",
+              "timestamp": "2025-09-29T12:50:43.110134+00:00",
               "unit": "rmssd",
-              "value": 55
+              "value": 39
             },
             {
               "id": 1,
-              "timestamp": "2025-09-29T10:25:52.919055+00:00",
-              "unit": "rmssd",
-              "value": 32
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-09-29T10:26:22.919107+00:00",
+              "timestamp": "2025-09-29T12:51:13.110214+00:00",
               "unit": "rmssd",
               "value": 11
             },
             {
-              "id": 3,
-              "timestamp": "2025-09-29T10:26:52.919156+00:00",
+              "id": 2,
+              "timestamp": "2025-09-29T12:51:43.110252+00:00",
               "unit": "rmssd",
-              "value": 63
+              "value": 30
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-09-29T12:52:13.110287+00:00",
+              "unit": "rmssd",
+              "value": 48
             },
             {
               "id": 4,
-              "timestamp": "2025-09-29T10:27:22.919193+00:00",
+              "timestamp": "2025-09-29T12:52:43.110314+00:00",
               "unit": "rmssd",
-              "value": 71
+              "value": 36
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-09-29T10:25:22.919394+00:00",
+              "timestamp": "2025-09-29T12:50:43.110468+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 0
             },
             {
               "id": 1,
-              "timestamp": "2025-09-29T10:25:52.919419+00:00",
-              "unit": "stage",
-              "value": 3
-            },
-            {
-              "id": 2,
-              "timestamp": "2025-09-29T10:26:22.919444+00:00",
+              "timestamp": "2025-09-29T12:51:13.110488+00:00",
               "unit": "stage",
               "value": -1
             },
             {
-              "id": 3,
-              "timestamp": "2025-09-29T10:26:52.919469+00:00",
+              "id": 2,
+              "timestamp": "2025-09-29T12:51:43.110505+00:00",
               "unit": "stage",
-              "value": 1
+              "value": 0
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-09-29T12:52:13.110522+00:00",
+              "unit": "stage",
+              "value": 4
             },
             {
               "id": 4,
-              "timestamp": "2025-09-29T10:27:22.919493+00:00",
+              "timestamp": "2025-09-29T12:52:43.110540+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 1
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-09-29T10:25:22.919518+00:00",
+              "timestamp": "2025-09-29T12:50:43.110558+00:00",
               "unit": "bpm",
-              "value": 8
+              "value": 14
             },
             {
               "id": 1,
-              "timestamp": "2025-09-29T10:25:52.919542+00:00",
+              "timestamp": "2025-09-29T12:51:13.110574+00:00",
               "unit": "bpm",
-              "value": 26
+              "value": 17
             },
             {
               "id": 2,
-              "timestamp": "2025-09-29T10:26:22.919564+00:00",
+              "timestamp": "2025-09-29T12:51:43.110588+00:00",
               "unit": "bpm",
-              "value": 30
+              "value": 12
             },
             {
               "id": 3,
-              "timestamp": "2025-09-29T10:26:52.919587+00:00",
+              "timestamp": "2025-09-29T12:52:13.110603+00:00",
               "unit": "bpm",
-              "value": 18
+              "value": 28
             },
             {
               "id": 4,
-              "timestamp": "2025-09-29T10:27:22.919610+00:00",
+              "timestamp": "2025-09-29T12:52:43.110619+00:00",
               "unit": "bpm",
-              "value": 8
+              "value": 9
             }
           ]
         }
@@ -31610,10 +31614,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "b1d8e6a6-f3c8-4f34-af4c-a22350927acb",
+          "id": "6cf4ea99-ef92-4ad4-8fe4-069e300fc9f2",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "bb84e541-0d76-4219-8627-be5a130f920e",
+            "id": "1b296869-d888-4f93-acbb-4c0c2e4c75ca",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31806,7 +31810,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-09-29T10:25:23+00:00",
+              "created_on": "2025-09-29T12:50:41+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -31814,16 +31818,16 @@
               }
             }
           ],
-          "created_on": "2025-09-29T10:25:23+00:00",
+          "created_on": "2025-09-29T12:50:41+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-09-29T10:25:23+00:00",
+            "updated_at": "2025-09-29T12:50:41+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-09-29T10:25:23+00:00"
+            "updated_at": "2025-09-29T12:50:41+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -32085,9 +32089,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "c6bc6d9d-f463-45a0-961e-1060c283ba64",
+          "appointment_id": "b0459b27-ce71-4416-98cb-88bb63d68671",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "77803992-07fb-4c87-99f1-f90530c2e7d6",
+          "id": "07f2374d-3fa9-40f9-acb3-7bb9661308ce",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -33337,7 +33341,7 @@
               "third"
             ]
           },
-          "query_id": "0d86dc02-5ed5-41b5-aea7-467bf88a2af3",
+          "query_id": "b856e6fd-a361-4868-b2a3-16b894977931",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -40851,7 +40855,8 @@
               "chest_strap",
               "ring",
               "lab",
-              "exercise_machine"
+              "exercise_machine",
+              "earphone"
             ],
             "title": "Source Type"
           },
@@ -42716,7 +42721,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-09-29T10:30:22.565666+00:00",
+                    "end": "2025-09-29T12:55:42.941493+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -44362,7 +44367,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-09-29T10:25:22+00:00",
+                    "timestamp": "2025-09-29T12:50:43+00:00",
                     "unit": "mmHg"
                   }
                 ],
