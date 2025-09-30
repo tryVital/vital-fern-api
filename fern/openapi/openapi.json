@@ -3,9 +3,65 @@
   "info": {
     "title": "Vital API",
     "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.638"
+    "version": "0.3.645"
   },
   "paths": {
+    "/v2/providers": {
+      "get": {
+        "tags": [
+          "providers"
+        ],
+        "summary": "Get List Of Providers",
+        "description": "Get Provider list",
+        "operationId": "get_list_of_providers_v2_providers_get",
+        "parameters": [
+          {
+            "name": "source_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Source Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingProviderDetailed"
+                  },
+                  "title": "Response Get List Of Providers V2 Providers Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "providers",
+        "x-fern-sdk-method-name": "get_all"
+      }
+    },
     "/v2/user": {
       "get": {
         "tags": [
@@ -2094,374 +2150,6 @@
         },
         "x-fern-sdk-group-name": "link",
         "x-fern-sdk-method-name": "connect_demo_provider"
-      }
-    },
-    "/v2/providers": {
-      "get": {
-        "tags": [
-          "providers"
-        ],
-        "summary": "Get List Of Providers",
-        "description": "Get Provider list",
-        "operationId": "get_list_of_providers_v2_providers_get",
-        "parameters": [
-          {
-            "name": "source_type",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Source Type"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingProviderDetailed"
-                  },
-                  "title": "Response Get List Of Providers V2 Providers Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "providers",
-        "x-fern-sdk-method-name": "get_all"
-      }
-    },
-    "/v2/team/link/config": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team Config",
-        "description": "Post teams.",
-        "operationId": "get_team_config_v2_team_link_config_get",
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Get Team Config V2 Team Link Config Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_link_config",
-        "security": []
-      }
-    },
-    "/v2/team/{team_id}": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team",
-        "description": "Get team.",
-        "operationId": "get_team_v2_team__team_id__get",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingTeam"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/users/search": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Search Team Users By Uuid Or Client User Id",
-        "description": "Search team users by user_id",
-        "operationId": "search_team_users_by_uuid_or_client_user_id_v2_team_users_search_get",
-        "parameters": [
-          {
-            "name": "query_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "minLength": 2,
-              "title": "Query Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingUser"
-                  },
-                  "title": "Response Search Team Users By Uuid Or Client User Id V2 Team Users Search Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_user_by_id",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/svix/url": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Svix Webhook Url",
-        "operationId": "get_svix_webhook_url_v2_team_svix_url_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Response Get Svix Webhook Url V2 Team Svix Url Get"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_svix_url",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/team/source/priorities": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Source Priorities",
-        "description": "GET source priorities.",
-        "operationId": "get_source_priorities_v2_team_source_priorities_get",
-        "parameters": [
-          {
-            "name": "data_type",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/PriorityResource"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Data Type"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "additionalProperties": true
-                  },
-                  "title": "Response Get Source Priorities V2 Team Source Priorities Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_source_priorities"
-      },
-      "patch": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Update Source Priorities",
-        "description": "Patch source priorities.",
-        "operationId": "update_source_priorities_v2_team_source_priorities_patch",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "additionalProperties": true
-                  },
-                  "title": "Response Update Source Priorities V2 Team Source Priorities Patch"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "update_source_priorities"
-      }
-    },
-    "/v2/team/{team_id}/physicians": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team Physicians",
-        "operationId": "get_team_physicians_v2_team__team_id__physicians_get",
-        "parameters": [
-          {
-            "name": "team_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Team Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingPhysician"
-                  },
-                  "title": "Response Get Team Physicians V2 Team  Team Id  Physicians Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_physicians"
       }
     },
     "/v2/summary/electrocardiogram/{user_id}": {
@@ -12635,6 +12323,318 @@
         "x-fern-availability": "deprecated"
       }
     },
+    "/v2/team/link/config": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Team Config",
+        "description": "Post teams.",
+        "operationId": "get_team_config_v2_team_link_config_get",
+        "parameters": [
+          {
+            "name": "x-vital-link-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Vital-Link-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Team Config V2 Team Link Config Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_link_config",
+        "security": []
+      }
+    },
+    "/v2/team/{team_id}": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Team",
+        "description": "Get team.",
+        "operationId": "get_team_v2_team__team_id__get",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingTeam"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/team/users/search": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Search Team Users By Uuid Or Client User Id",
+        "description": "Search team users by user_id",
+        "operationId": "search_team_users_by_uuid_or_client_user_id_v2_team_users_search_get",
+        "parameters": [
+          {
+            "name": "query_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "title": "Query Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingUser"
+                  },
+                  "title": "Response Search Team Users By Uuid Or Client User Id V2 Team Users Search Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_user_by_id",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/team/svix/url": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Svix Webhook Url",
+        "operationId": "get_svix_webhook_url_v2_team_svix_url_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Svix Webhook Url V2 Team Svix Url Get"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_svix_url",
+        "x-fern-availability": "deprecated"
+      }
+    },
+    "/v2/team/source/priorities": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Source Priorities",
+        "description": "GET source priorities.",
+        "operationId": "get_source_priorities_v2_team_source_priorities_get",
+        "parameters": [
+          {
+            "name": "data_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PriorityResource"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Data Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Get Source Priorities V2 Team Source Priorities Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_source_priorities"
+      },
+      "patch": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Update Source Priorities",
+        "description": "Patch source priorities.",
+        "operationId": "update_source_priorities_v2_team_source_priorities_patch",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Update Source Priorities V2 Team Source Priorities Patch"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "update_source_priorities"
+      }
+    },
+    "/v2/team/{team_id}/physicians": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Get Team Physicians",
+        "operationId": "get_team_physicians_v2_team__team_id__physicians_get",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingPhysician"
+                  },
+                  "title": "Response Get Team Physicians V2 Team  Team Id  Physicians Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "team",
+        "x-fern-sdk-method-name": "get_physicians"
+      }
+    },
     "/v2/introspect/resources": {
       "get": {
         "tags": [
@@ -14437,9 +14437,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "06acba56-90ae-4460-b420-f92673670664",
-                  "user_id": "1d5ba86c-c2c7-463f-b838-629751675936",
-                  "order_id": "3a08acd1-cf2d-4588-8410-93d26a2cb684",
+                  "id": "b55a5d5e-3ff9-4cc5-9110-5d30e6ba7480",
+                  "user_id": "9b221620-e09c-4f9b-be74-a0df890653fe",
+                  "order_id": "235d3d1b-ece8-4ebe-a143-d42e16f2705a",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -23541,18 +23541,18 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "45b4be70-6e27-4425-8b51-3de626efaa74",
+          "id": "9400c0e2-a716-461d-8518-c14000b073be",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "1b6d0eea-e309-4c09-a5f3-6d8fa266273b",
+          "order_id": "efb0de01-45f1-4e53-b5c2-317cca843cc1",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "e144a0fe-f3e8-4e85-ad39-b1d739a35fd5"
+          "user_id": "65ddd14c-08a3-49d2-90cd-1daa72883db1"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23579,7 +23579,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "6b2771d4-7e80-4a55-8893-d75f8b769837",
+          "id": "446030ee-639d-47cb-88be-e40105af1a05",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23654,9 +23654,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "f37e2260-0f53-4c7b-9c5f-23018e9c7858",
+          "appointment_id": "c9e01919-d1ee-46ae-a423-536494505952",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "6f8a5683-d094-40ec-8030-edb418513c18",
+          "id": "ed9f90e3-63be-411c-a69c-57a7eaa513ce",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -23913,7 +23913,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-09-29T17:35:39+00:00",
+          "timestamp": "2025-09-30T11:35:12+00:00",
           "unit": "mmHg"
         }
       },
@@ -25046,12 +25046,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "3eddd833-87ec-444b-b284-c366f97fd62c",
+          "order_id": "824b30ca-0f10-4ee6-99f7-8c82d4818f63",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "9525048a-3f6a-4995-b04b-1289b25b9b6a",
+          "team_id": "ffe7f33a-b11a-4cf8-a8d7-12848b70c656",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "3ae2ed0c-7d89-47b0-a036-623f237b6cc9"
+          "user_id": "02e2fb02-94cf-4091-99ba-b84f2be51948"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -28171,7 +28171,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-09-29T17:40:39.401275+00:00",
+          "end": "2025-09-30T11:40:12.137284+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -28314,7 +28314,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "e1ebf5a9-1e84-4ceb-9eeb-05da5b12b444",
+          "id": "419a56a6-f4aa-41c2-95cd-914110a47657",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -28668,8 +28668,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "dc137ff1-1393-41cf-b7da-81097c59134b",
-          "id": "47a7db93-2c53-455e-a691-8208b4d0b28e",
+          "health_insurace_id": "8d70372b-2ab8-435c-8c7d-5094ab2c486b",
+          "id": "e45bd0e6-22ca-425c-89dc-935b87ebccfa",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -28693,9 +28693,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "b61eb712-fe2f-4da6-ac77-e403e1b2b10b",
+          "team_id": "5f7c2546-6be0-4077-a185-4a9bbabaf347",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "e05dca46-f024-48e9-906e-22685a554776"
+          "user_id": "38a648da-813c-4748-955d-bcaf0001bd03"
         }
       },
       "ClientFacingOrderEvent": {
@@ -29683,7 +29683,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "d024ca77-664f-492f-9dd4-9dde52e5c651",
+          "id": "65cb8167-760c-4d97-93b3-715807017244",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -30429,129 +30429,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-09-29T17:35:39.630874+00:00",
+              "timestamp": "2025-09-30T11:35:12.420682+00:00",
               "unit": "bpm",
-              "value": 164
+              "value": 52
             },
             {
               "id": 1,
-              "timestamp": "2025-09-29T17:36:09.630899+00:00",
+              "timestamp": "2025-09-30T11:35:42.420719+00:00",
               "unit": "bpm",
-              "value": 51
+              "value": 162
             },
             {
               "id": 2,
-              "timestamp": "2025-09-29T17:36:39.630920+00:00",
+              "timestamp": "2025-09-30T11:36:12.420751+00:00",
               "unit": "bpm",
-              "value": 147
+              "value": 42
             },
             {
               "id": 3,
-              "timestamp": "2025-09-29T17:37:09.630957+00:00",
+              "timestamp": "2025-09-30T11:36:42.420831+00:00",
               "unit": "bpm",
-              "value": 66
+              "value": 80
             },
             {
               "id": 4,
-              "timestamp": "2025-09-29T17:37:39.630978+00:00",
+              "timestamp": "2025-09-30T11:37:12.420862+00:00",
               "unit": "bpm",
-              "value": 84
+              "value": 30
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-09-29T17:35:39.630638+00:00",
+              "timestamp": "2025-09-30T11:35:12.420342+00:00",
               "unit": "rmssd",
-              "value": 61
+              "value": 40
             },
             {
               "id": 1,
-              "timestamp": "2025-09-29T17:36:09.630732+00:00",
+              "timestamp": "2025-09-30T11:35:42.420471+00:00",
               "unit": "rmssd",
-              "value": 79
+              "value": 94
             },
             {
               "id": 2,
-              "timestamp": "2025-09-29T17:36:39.630769+00:00",
+              "timestamp": "2025-09-30T11:36:12.420527+00:00",
               "unit": "rmssd",
-              "value": 7
+              "value": 59
             },
             {
               "id": 3,
-              "timestamp": "2025-09-29T17:37:09.630809+00:00",
+              "timestamp": "2025-09-30T11:36:42.420583+00:00",
               "unit": "rmssd",
-              "value": 74
+              "value": 67
             },
             {
               "id": 4,
-              "timestamp": "2025-09-29T17:37:39.630847+00:00",
+              "timestamp": "2025-09-30T11:37:12.420622+00:00",
               "unit": "rmssd",
-              "value": 51
+              "value": 78
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-09-29T17:35:39.630998+00:00",
+              "timestamp": "2025-09-30T11:35:12.420891+00:00",
               "unit": "stage",
               "value": 0
             },
             {
               "id": 1,
-              "timestamp": "2025-09-29T17:36:09.631018+00:00",
+              "timestamp": "2025-09-30T11:35:42.420921+00:00",
               "unit": "stage",
-              "value": 0
+              "value": 2
             },
             {
               "id": 2,
-              "timestamp": "2025-09-29T17:36:39.631035+00:00",
+              "timestamp": "2025-09-30T11:36:12.420945+00:00",
               "unit": "stage",
-              "value": 1
+              "value": -1
             },
             {
               "id": 3,
-              "timestamp": "2025-09-29T17:37:09.631052+00:00",
+              "timestamp": "2025-09-30T11:36:42.420970+00:00",
               "unit": "stage",
-              "value": 1
+              "value": 3
             },
             {
               "id": 4,
-              "timestamp": "2025-09-29T17:37:39.631070+00:00",
+              "timestamp": "2025-09-30T11:37:12.420995+00:00",
               "unit": "stage",
-              "value": 1
+              "value": 0
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-09-29T17:35:39.631087+00:00",
+              "timestamp": "2025-09-30T11:35:12.421021+00:00",
               "unit": "bpm",
-              "value": 23
+              "value": 15
             },
             {
               "id": 1,
-              "timestamp": "2025-09-29T17:36:09.631104+00:00",
+              "timestamp": "2025-09-30T11:35:42.421045+00:00",
               "unit": "bpm",
-              "value": 16
+              "value": 21
             },
             {
               "id": 2,
-              "timestamp": "2025-09-29T17:36:39.631119+00:00",
+              "timestamp": "2025-09-30T11:36:12.421067+00:00",
               "unit": "bpm",
-              "value": 12
+              "value": 10
             },
             {
               "id": 3,
-              "timestamp": "2025-09-29T17:37:09.631135+00:00",
+              "timestamp": "2025-09-30T11:36:42.421090+00:00",
               "unit": "bpm",
-              "value": 12
+              "value": 11
             },
             {
               "id": 4,
-              "timestamp": "2025-09-29T17:37:39.631151+00:00",
+              "timestamp": "2025-09-30T11:37:12.421113+00:00",
               "unit": "bpm",
-              "value": 10
+              "value": 19
             }
           ]
         }
@@ -31614,10 +31614,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "f0150b4e-7b9a-4c33-8cec-364bf4842bb9",
+          "id": "69dfe508-2bcc-49a8-9529-f6858d10ba5c",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "6fe05ec7-b829-49e4-a3c2-cc35fd78f8ed",
+            "id": "74eb5416-7b9b-4921-94d4-ef013b07042c",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31810,7 +31810,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-09-29T17:35:32+00:00",
+              "created_on": "2025-09-30T11:35:31+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -31818,16 +31818,16 @@
               }
             }
           ],
-          "created_on": "2025-09-29T17:35:32+00:00",
+          "created_on": "2025-09-30T11:35:31+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-09-29T17:35:32+00:00",
+            "updated_at": "2025-09-30T11:35:31+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-09-29T17:35:32+00:00"
+            "updated_at": "2025-09-30T11:35:31+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -32089,9 +32089,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "85c6b22d-c350-43dc-9394-9aece07ea934",
+          "appointment_id": "67d099b7-3299-4ed7-b194-e792a50cf207",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "7933d3ef-47f2-4a6e-b48d-d3aa45cd6d46",
+          "id": "84d771e3-0969-4c79-bea8-d21a174847eb",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -33341,7 +33341,7 @@
               "third"
             ]
           },
-          "query_id": "97906d7d-5102-4302-8be6-0b485bf34764",
+          "query_id": "018f95ea-2630-400e-ab78-193046b87351",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -42721,7 +42721,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-09-29T17:40:39.401275+00:00",
+                    "end": "2025-09-30T11:40:12.137284+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -44367,7 +44367,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-09-29T17:35:39+00:00",
+                    "timestamp": "2025-09-30T11:35:12+00:00",
                     "unit": "mmHg"
                   }
                 ],
