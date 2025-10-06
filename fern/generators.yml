@@ -13,9 +13,14 @@ groups:
         output:
           location: maven
           coordinate: io.tryvital:vital-java
-          username: ${MAVEN_USERNAME}
-          password: ${MAVEN_PASSWORD}
-          url: https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/
+          username: ${JRELEASER_DEPLOY_MAVEN_MAVENCENTRAL_USERNAME}
+          password: ${JRELEASER_DEPLOY_MAVEN_MAVENCENTRAL_PASSWORD}
+          signature:
+            keyId: ${GPG_KEYID}
+            password: ${JRELEASER_GPG_PASSPHRASE}
+            secretKey: ${JRELEASER_GPG_SECRET_KEY}
+        config:
+          publish-to: central
         github:
           repository: tryVital/vital-java
         config:
