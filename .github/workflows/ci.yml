@@ -32,8 +32,11 @@ jobs:
       - name: Release Java SDK
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
-          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+          JRELEASER_DEPLOY_MAVEN_MAVENCENTRAL_USERNAME: ${{ secrets.JRELEASER_DEPLOY_MAVEN_MAVENCENTRAL_USERNAME }}
+          JRELEASER_DEPLOY_MAVEN_MAVENCENTRAL_PASSWORD: ${{ secrets.JRELEASER_DEPLOY_MAVEN_MAVENCENTRAL_PASSWORD }}
+          GPG_KEYID: ${{ secrets.GPG_KEYID }}
+          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
         run: |
           tag=${{ github.ref_name }}
           prefix="java@"
