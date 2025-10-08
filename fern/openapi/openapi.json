@@ -1,989 +1,11 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Vital API",
-    "description": "API for at-home health Wearables and Lab test API for digital health companies.",
-    "version": "0.3.675"
+    "title": "Junction API",
+    "description": "https://docs.junction.com/",
+    "version": "0.3.678"
   },
   "paths": {
-    "/v2/providers": {
-      "get": {
-        "tags": [
-          "providers"
-        ],
-        "summary": "Get List Of Providers",
-        "description": "Get Provider list",
-        "operationId": "get_list_of_providers_v2_providers_get",
-        "parameters": [
-          {
-            "name": "source_type",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Source Type"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingProviderDetailed"
-                  },
-                  "title": "Response Get List Of Providers V2 Providers Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "providers",
-        "x-fern-sdk-method-name": "get_all"
-      }
-    },
-    "/v2/user": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get Teams Users",
-        "description": "GET All users for team.",
-        "operationId": "get_teams_users_v2_user_get",
-        "parameters": [
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "title": "Offset",
-              "default": 0
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 500,
-              "title": "Limit",
-              "default": 100
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaginatedUsersResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_all"
-      },
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create User",
-        "description": "POST Create a Vital user given a client_user_id and returns the user_id.",
-        "operationId": "create_user_v2_user_post",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserCreateBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingUserKey"
-                }
-              }
-            }
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientUserIDConflictResponse"
-                }
-              }
-            },
-            "description": "Bad Request"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "create"
-      }
-    },
-    "/v2/user/metrics": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get Teams Metrics",
-        "description": "GET metrics for team.",
-        "operationId": "get_teams_metrics_v2_user_metrics_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MetricsResult"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_team_metrics"
-      }
-    },
-    "/v2/user/{user_id}/sign_in_token": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Sign In Token",
-        "operationId": "get_user_sign_in_token_v2_user__user_id__sign_in_token_post",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSignInTokenResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_user_sign_in_token"
-      }
-    },
-    "/v2/user/providers/{user_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get Connected Providers",
-        "description": "GET Users connected providers",
-        "operationId": "get_connected_providers_v2_user_providers__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ClientFacingProviderWithStatus"
-                    }
-                  },
-                  "propertyNames": {
-                    "const": "providers"
-                  },
-                  "title": "Response Get Connected Providers V2 User Providers  User Id  Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_connected_providers"
-      }
-    },
-    "/v2/user/{user_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User",
-        "description": "GET User details given the user_id.",
-        "operationId": "get_user_v2_user__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingUser"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get"
-      },
-      "patch": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Patch User",
-        "operationId": "patch_user_v2_user__user_id__patch",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserPatchBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "patch"
-      },
-      "delete": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Delete User",
-        "operationId": "delete_user_v2_user__user_id__delete",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSuccessResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "delete"
-      }
-    },
-    "/v2/user/{user_id}/info/latest": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Demographcis",
-        "operationId": "get_user_demographcis_v2_user__user_id__info_latest_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserInfo"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_latest_user_info"
-      }
-    },
-    "/v2/user/{user_id}/insurance": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create Insurance",
-        "operationId": "create_insurance_v2_user__user_id__insurance_post",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateInsuranceRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingInsurance"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "create_insurance"
-      }
-    },
-    "/v2/user/{user_id}/insurance/latest": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get Latest Insurance",
-        "operationId": "get_latest_insurance_v2_user__user_id__insurance_latest_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingInsurance"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_latest_insurance"
-      }
-    },
-    "/v2/user/{user_id}/info": {
-      "patch": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create User Demographics",
-        "operationId": "create_user_demographics_v2_user__user_id__info_patch",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "User Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserInfoCreateRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserInfo"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "upsert_user_info"
-      }
-    },
-    "/v2/user/resolve/{client_user_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User By Client User Id",
-        "description": "GET user_id from client_user_id.",
-        "operationId": "get_user_by_client_user_id_v2_user_resolve__client_user_id__get",
-        "parameters": [
-          {
-            "name": "client_user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.",
-              "title": "Client User Id"
-            },
-            "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingUser"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_by_client_user_id"
-      }
-    },
-    "/v2/user/{user_id}/{provider}": {
-      "delete": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Deregister Provider",
-        "operationId": "deregister_provider_v2_user__user_id___provider__delete",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/Providers",
-              "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
-            },
-            "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSuccessResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "deregister_provider"
-      }
-    },
-    "/v2/user/undo_delete": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Undo User Delete",
-        "operationId": "undo_user_delete_v2_user_undo_delete_post",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`.",
-              "title": "User Id"
-            },
-            "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`."
-          },
-          {
-            "name": "client_user_id",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`.",
-              "title": "Client User Id"
-            },
-            "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSuccessResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "undo_delete"
-      }
-    },
-    "/v2/user/refresh/{user_id}": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Refresh User Id",
-        "description": "Trigger a manual refresh for a specific user",
-        "operationId": "refresh_user_id_v2_user_refresh__user_id__post",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User Id"
-            }
-          },
-          {
-            "name": "timeout",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "number",
-              "maximum": 60,
-              "minimum": 5,
-              "default": 10,
-              "title": "Timeout"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "Response Refresh User Id V2 User Refresh  User Id  Post",
-                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
-                }
-              }
-            }
-          },
-          "202": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
-                }
-              }
-            },
-            "description": "Accepted"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRefreshErrorResponse"
-                }
-              }
-            },
-            "description": "Bad Request"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "refresh"
-      }
-    },
-    "/v2/user/{user_id}/device": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Devices",
-        "operationId": "get_user_devices_v2_user__user_id__device_get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingDevice"
-                  },
-                  "title": "Response Get User Devices V2 User  User Id  Device Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_devices"
-      }
-    },
-    "/v2/user/{user_id}/device/{device_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Device",
-        "operationId": "get_user_device_v2_user__user_id__device__device_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "device_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Device Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingDevice"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_device"
-      }
-    },
     "/v2/link/bulk_op": {
       "get": {
         "tags": [
@@ -12323,6 +11345,928 @@
         "x-fern-availability": "deprecated"
       }
     },
+    "/v2/user": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Teams Users",
+        "description": "GET All users for team.",
+        "operationId": "get_teams_users_v2_user_get",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Offset",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "title": "Limit",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedUsersResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_all"
+      },
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create User",
+        "description": "POST Create a Vital user given a client_user_id and returns the user_id.",
+        "operationId": "create_user_v2_user_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingUserKey"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientUserIDConflictResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "create"
+      }
+    },
+    "/v2/user/metrics": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Teams Metrics",
+        "description": "GET metrics for team.",
+        "operationId": "get_teams_metrics_v2_user_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricsResult"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_team_metrics"
+      }
+    },
+    "/v2/user/{user_id}/sign_in_token": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Sign In Token",
+        "operationId": "get_user_sign_in_token_v2_user__user_id__sign_in_token_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSignInTokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_user_sign_in_token"
+      }
+    },
+    "/v2/user/providers/{user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Connected Providers",
+        "description": "GET Users connected providers",
+        "operationId": "get_connected_providers_v2_user_providers__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ClientFacingProviderWithStatus"
+                    }
+                  },
+                  "propertyNames": {
+                    "const": "providers"
+                  },
+                  "title": "Response Get Connected Providers V2 User Providers  User Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_connected_providers"
+      }
+    },
+    "/v2/user/{user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User",
+        "description": "GET User details given the user_id.",
+        "operationId": "get_user_v2_user__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingUser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get"
+      },
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Patch User",
+        "operationId": "patch_user_v2_user__user_id__patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPatchBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "patch"
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete User",
+        "operationId": "delete_user_v2_user__user_id__delete",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSuccessResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "delete"
+      }
+    },
+    "/v2/user/{user_id}/info/latest": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Demographcis",
+        "operationId": "get_user_demographcis_v2_user__user_id__info_latest_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_latest_user_info"
+      }
+    },
+    "/v2/user/{user_id}/insurance": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create Insurance",
+        "operationId": "create_insurance_v2_user__user_id__insurance_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInsuranceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingInsurance"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "create_insurance"
+      }
+    },
+    "/v2/user/{user_id}/insurance/latest": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Latest Insurance",
+        "operationId": "get_latest_insurance_v2_user__user_id__insurance_latest_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingInsurance"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_latest_insurance"
+      }
+    },
+    "/v2/user/{user_id}/info": {
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create User Demographics",
+        "operationId": "create_user_demographics_v2_user__user_id__info_patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInfoCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "upsert_user_info"
+      }
+    },
+    "/v2/user/resolve/{client_user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User By Client User Id",
+        "description": "GET user_id from client_user_id.",
+        "operationId": "get_user_by_client_user_id_v2_user_resolve__client_user_id__get",
+        "parameters": [
+          {
+            "name": "client_user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.",
+              "title": "Client User Id"
+            },
+            "description": "A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingUser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_by_client_user_id"
+      }
+    },
+    "/v2/user/{user_id}/{provider}": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Deregister Provider",
+        "operationId": "deregister_provider_v2_user__user_id___provider__delete",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Providers",
+              "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
+            },
+            "description": "Provider slug. e.g., `oura`, `fitbit`, `garmin`."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSuccessResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "deregister_provider"
+      }
+    },
+    "/v2/user/undo_delete": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Undo User Delete",
+        "operationId": "undo_user_delete_v2_user_undo_delete_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`.",
+              "title": "User Id"
+            },
+            "description": "User ID to undo deletion. Mutually exclusive with `client_user_id`."
+          },
+          {
+            "name": "client_user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`.",
+              "title": "Client User Id"
+            },
+            "description": "Client User ID to undo deletion. Mutually exclusive with `user_id`."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSuccessResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "undo_delete"
+      }
+    },
+    "/v2/user/refresh/{user_id}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Refresh User Id",
+        "description": "Trigger a manual refresh for a specific user",
+        "operationId": "refresh_user_id_v2_user_refresh__user_id__post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 60,
+              "minimum": 5,
+              "default": 10,
+              "title": "Timeout"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Refresh User Id V2 User Refresh  User Id  Post",
+                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRefreshSuccessResponse"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRefreshErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "refresh"
+      }
+    },
+    "/v2/user/{user_id}/device": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Devices",
+        "operationId": "get_user_devices_v2_user__user_id__device_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingDevice"
+                  },
+                  "title": "Response Get User Devices V2 User  User Id  Device Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_devices"
+      }
+    },
+    "/v2/user/{user_id}/device/{device_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Device",
+        "operationId": "get_user_device_v2_user__user_id__device__device_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          },
+          {
+            "name": "device_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Device Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingDevice"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_device"
+      }
+    },
     "/v2/team/link/config": {
       "get": {
         "tags": [
@@ -12633,6 +12577,62 @@
         },
         "x-fern-sdk-group-name": "team",
         "x-fern-sdk-method-name": "get_physicians"
+      }
+    },
+    "/v2/providers": {
+      "get": {
+        "tags": [
+          "providers"
+        ],
+        "summary": "Get List Of Providers",
+        "description": "Get Provider list",
+        "operationId": "get_list_of_providers_v2_providers_get",
+        "parameters": [
+          {
+            "name": "source_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Source Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientFacingProviderDetailed"
+                  },
+                  "title": "Response Get List Of Providers V2 Providers Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "providers",
+        "x-fern-sdk-method-name": "get_all"
       }
     },
     "/v2/introspect/resources": {
@@ -14513,9 +14513,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "e69b280e-ecce-4d7b-b0e6-f7013ea17253",
-                  "user_id": "6b89efb1-bf54-4445-8894-e868ac541ff4",
-                  "order_id": "721f3584-7ee7-4b0c-bf00-e3c53a579ee1",
+                  "id": "be017474-8938-490c-ae2a-5bcf11a063bd",
+                  "user_id": "e8a4e8a0-666b-428c-b0dc-b373ca5bebe4",
+                  "order_id": "513a5c27-b920-41b2-941d-cb203a26d16a",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -23654,18 +23654,18 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "300b57f7-06e9-406a-98a7-f2e626463638",
+          "id": "ca4ef0c0-5688-4ba5-8eb9-4305d4fe8be4",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "2816f79c-240d-439b-8a65-5fffe2713eac",
+          "order_id": "c11064e0-e6f7-43dd-9f11-278ebcecac69",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "bef64798-aff7-4eaf-bcd2-1969c40ae14a"
+          "user_id": "3a277f7c-fd07-4a57-b857-a232faafcb5e"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23692,7 +23692,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "ea1f76cd-5d50-4817-8cd2-f222275938aa",
+          "id": "1e873909-ff30-4231-a3b5-000513d7d7f7",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23767,9 +23767,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "71ae76ff-0a20-4dc7-af9d-ee20a767465d",
+          "appointment_id": "f5524619-c6d8-40ed-81eb-5abd7e309028",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "81387193-5bb3-4e3e-a2fe-ae38f6e589c1",
+          "id": "ca4be158-f310-49e8-91b4-8c937e1bd207",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -24026,7 +24026,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-10-07T14:05:26+00:00",
+          "timestamp": "2025-10-08T10:54:38+00:00",
           "unit": "mmHg"
         }
       },
@@ -25159,12 +25159,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "ca922731-46e7-4ff3-a661-ba6ad1875de4",
+          "order_id": "1ee45848-0684-4b77-84e4-919eef85d595",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "708b40ea-a15e-40c9-80ea-c0e2f302a566",
+          "team_id": "430dff06-6468-4781-bb3e-0787ad52be87",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "2778116f-54ae-4462-ab81-e932464932b1"
+          "user_id": "06ee800d-ff77-4a1b-8730-9185f176df66"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -28284,7 +28284,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-10-07T14:10:26.768111+00:00",
+          "end": "2025-10-08T10:59:38.583832+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -28427,7 +28427,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "c6f2f132-767c-40c8-afdf-2ce2164ffef8",
+          "id": "73eb4e20-bb86-4782-9b3e-049afd1f5803",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -28781,8 +28781,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "b16083a3-ec7b-4f29-b235-719e2f8a8760",
-          "id": "379d2fb4-d0cb-4f03-ae75-f036aa9e1638",
+          "health_insurace_id": "9e14e2f8-30bb-42ae-b70a-e81b20505c33",
+          "id": "580f1fcb-2e8f-483d-ab1a-f1ffa7714606",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -28806,9 +28806,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "ddf51a90-1300-4380-8477-15945b13a2f5",
+          "team_id": "f5592ea6-a7ac-46da-ac13-2d4824206064",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "c8db56c0-6ed1-4cd2-b634-f26524bcf352"
+          "user_id": "fa2d16b2-832b-4d89-b9c3-ecf37510f6ee"
         }
       },
       "ClientFacingOrderEvent": {
@@ -29796,7 +29796,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "e80bebde-0851-4969-a932-1e390300b02a",
+          "id": "081e8fc0-c497-47eb-b8c2-83a7145261af",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -30542,129 +30542,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-10-07T14:05:27.013103+00:00",
+              "timestamp": "2025-10-08T10:54:38.699072+00:00",
               "unit": "bpm",
-              "value": 65
+              "value": 70
             },
             {
               "id": 1,
-              "timestamp": "2025-10-07T14:05:57.013135+00:00",
+              "timestamp": "2025-10-08T10:55:08.699094+00:00",
               "unit": "bpm",
-              "value": 130
+              "value": 148
             },
             {
               "id": 2,
-              "timestamp": "2025-10-07T14:06:27.013165+00:00",
+              "timestamp": "2025-10-08T10:55:38.699114+00:00",
               "unit": "bpm",
-              "value": 60
+              "value": 145
             },
             {
               "id": 3,
-              "timestamp": "2025-10-07T14:06:57.013211+00:00",
+              "timestamp": "2025-10-08T10:56:08.699146+00:00",
               "unit": "bpm",
-              "value": 7
+              "value": 180
             },
             {
               "id": 4,
-              "timestamp": "2025-10-07T14:07:27.013242+00:00",
+              "timestamp": "2025-10-08T10:56:38.699167+00:00",
               "unit": "bpm",
-              "value": 67
+              "value": 174
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-10-07T14:05:27.012772+00:00",
+              "timestamp": "2025-10-08T10:54:38.698850+00:00",
               "unit": "rmssd",
-              "value": 11
+              "value": 79
             },
             {
               "id": 1,
-              "timestamp": "2025-10-07T14:05:57.012903+00:00",
+              "timestamp": "2025-10-08T10:55:08.698952+00:00",
               "unit": "rmssd",
-              "value": 19
+              "value": 63
             },
             {
               "id": 2,
-              "timestamp": "2025-10-07T14:06:27.012964+00:00",
+              "timestamp": "2025-10-08T10:55:38.698987+00:00",
               "unit": "rmssd",
-              "value": 42
+              "value": 48
             },
             {
               "id": 3,
-              "timestamp": "2025-10-07T14:06:57.013028+00:00",
+              "timestamp": "2025-10-08T10:56:08.699024+00:00",
               "unit": "rmssd",
-              "value": 23
+              "value": 63
             },
             {
               "id": 4,
-              "timestamp": "2025-10-07T14:07:27.013067+00:00",
+              "timestamp": "2025-10-08T10:56:38.699049+00:00",
               "unit": "rmssd",
-              "value": 10
+              "value": 50
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-10-07T14:05:27.013275+00:00",
+              "timestamp": "2025-10-08T10:54:38.699186+00:00",
               "unit": "stage",
               "value": 4
             },
             {
               "id": 1,
-              "timestamp": "2025-10-07T14:05:57.013333+00:00",
+              "timestamp": "2025-10-08T10:55:08.699202+00:00",
               "unit": "stage",
               "value": 0
             },
             {
               "id": 2,
-              "timestamp": "2025-10-07T14:06:27.013361+00:00",
+              "timestamp": "2025-10-08T10:55:38.699217+00:00",
               "unit": "stage",
-              "value": 4
+              "value": 3
             },
             {
               "id": 3,
-              "timestamp": "2025-10-07T14:06:57.013388+00:00",
+              "timestamp": "2025-10-08T10:56:08.699236+00:00",
               "unit": "stage",
-              "value": 4
+              "value": -1
             },
             {
               "id": 4,
-              "timestamp": "2025-10-07T14:07:27.013414+00:00",
+              "timestamp": "2025-10-08T10:56:38.699253+00:00",
               "unit": "stage",
-              "value": 0
+              "value": 2
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-10-07T14:05:27.013442+00:00",
+              "timestamp": "2025-10-08T10:54:38.699269+00:00",
               "unit": "bpm",
               "value": 11
             },
             {
               "id": 1,
-              "timestamp": "2025-10-07T14:05:57.013471+00:00",
+              "timestamp": "2025-10-08T10:55:08.699284+00:00",
               "unit": "bpm",
-              "value": 10
+              "value": 27
             },
             {
               "id": 2,
-              "timestamp": "2025-10-07T14:06:27.013498+00:00",
+              "timestamp": "2025-10-08T10:55:38.699300+00:00",
+              "unit": "bpm",
+              "value": 14
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-10-08T10:56:08.699317+00:00",
               "unit": "bpm",
               "value": 30
             },
             {
-              "id": 3,
-              "timestamp": "2025-10-07T14:06:57.013523+00:00",
-              "unit": "bpm",
-              "value": 10
-            },
-            {
               "id": 4,
-              "timestamp": "2025-10-07T14:07:27.013547+00:00",
+              "timestamp": "2025-10-08T10:56:38.699334+00:00",
               "unit": "bpm",
-              "value": 25
+              "value": 14
             }
           ]
         }
@@ -31727,10 +31727,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "10832a8f-ec56-4095-802f-d6563564fcaf",
+          "id": "0af63647-b222-4038-bfdf-bde24c63a0cd",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "540f6a44-3999-4ce5-bc5a-a6fa2fb5b70c",
+            "id": "d91f536c-b731-43e4-b133-a5c38fad1746",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31923,7 +31923,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-10-07T14:05:30+00:00",
+              "created_on": "2025-10-08T10:54:39+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -31931,16 +31931,16 @@
               }
             }
           ],
-          "created_on": "2025-10-07T14:05:30+00:00",
+          "created_on": "2025-10-08T10:54:39+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-10-07T14:05:30+00:00",
+            "updated_at": "2025-10-08T10:54:39+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-10-07T14:05:30+00:00"
+            "updated_at": "2025-10-08T10:54:39+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -32202,9 +32202,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "55e6599a-0a2d-4f4d-94f3-ef20dff142d3",
+          "appointment_id": "a82b23a7-091a-4223-ad20-e70ac69744cf",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "edd1c380-efc9-4c7b-9656-5496d758f7a4",
+          "id": "2ce0ab8f-b611-4e8c-aeb1-f78a34034c97",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -33454,7 +33454,7 @@
               "third"
             ]
           },
-          "query_id": "3d9c867d-5246-4c2a-bd80-ef43c3bc7334",
+          "query_id": "5a716c69-73c3-40ef-bb3b-59df93895e58",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -42884,7 +42884,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-10-07T14:10:26.768111+00:00",
+                    "end": "2025-10-08T10:59:38.583832+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -44530,7 +44530,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-10-07T14:05:26+00:00",
+                    "timestamp": "2025-10-08T10:54:38+00:00",
                     "unit": "mmHg"
                   }
                 ],
