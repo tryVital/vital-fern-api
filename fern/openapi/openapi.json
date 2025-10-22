@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.3.823"
+    "version": "0.3.825"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -11478,51 +11478,6 @@
         "x-fern-sdk-method-name": "get_team_metrics"
       }
     },
-    "/v2/user/{user_id}/sign_in_token": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User Sign In Token",
-        "operationId": "get_user_sign_in_token_v2_user__user_id__sign_in_token_post",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSignInTokenResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get_user_sign_in_token"
-      }
-    },
     "/v2/user/providers/{user_id}": {
       "get": {
         "tags": [
@@ -11577,141 +11532,6 @@
         },
         "x-fern-sdk-group-name": "user",
         "x-fern-sdk-method-name": "get_connected_providers"
-      }
-    },
-    "/v2/user/{user_id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get User",
-        "description": "GET User details given the user_id.",
-        "operationId": "get_user_v2_user__user_id__get",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientFacingUser"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "get"
-      },
-      "patch": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Patch User",
-        "operationId": "patch_user_v2_user__user_id__patch",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserPatchBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "patch"
-      },
-      "delete": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Delete User",
-        "operationId": "delete_user_v2_user__user_id__delete",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserSuccessResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "user",
-        "x-fern-sdk-method-name": "delete"
       }
     },
     "/v2/user/{user_id}/info/latest": {
@@ -12010,6 +11830,140 @@
         },
         "x-fern-sdk-group-name": "user",
         "x-fern-sdk-method-name": "deregister_provider"
+      }
+    },
+    "/v2/user/{user_id}": {
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Patch User",
+        "operationId": "patch_user_v2_user__user_id__patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPatchBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "patch"
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete User",
+        "operationId": "delete_user_v2_user__user_id__delete",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSuccessResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "delete"
+      },
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User",
+        "operationId": "get_user_v2_user__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientFacingUser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get"
       }
     },
     "/v2/user/undo_delete": {
@@ -14513,9 +14467,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "7dc5519a-5fd7-4791-ab39-e48b3572b44b",
-                  "user_id": "fce2e472-86e7-4cf0-8679-8827b764e2d4",
-                  "order_id": "8b827013-9601-4c4a-8662-7294a66e0aa5",
+                  "id": "d5aad657-f583-433e-9c48-e127e3f87144",
+                  "user_id": "569be4a8-ccfc-4e24-bf88-4d4ae94e6594",
+                  "order_id": "f551abde-56b5-4a7d-8d96-80d8daeffaa5",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -16653,6 +16607,106 @@
         "x-fern-sdk-group-name": "aggregate",
         "x-fern-sdk-method-name": "get_task_history_for_continuous_query",
         "x-fern-availability": "beta"
+      }
+    },
+    "/v2/user/{user_id}/sign_in_token": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Sign In Token",
+        "operationId": "get_user_sign_in_token_v2_user__user_id__sign_in_token_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSignInTokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "get_user_sign_in_token"
+      }
+    },
+    "/v2/user/{user_id}/create_portal_url": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create User Portal Url",
+        "operationId": "create_user_portal_url_v2_user__user_id__create_portal_url_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserPortalURLBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateUserPortalURLResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "user",
+        "x-fern-sdk-method-name": "create_portal_url"
       }
     }
   },
@@ -23655,18 +23709,18 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "d740691a-fa78-4e3c-84d6-5c06acf27dd1",
+          "id": "1f2869e4-4d5e-4cf7-94cd-eec4969d0852",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "dbfb047d-ee13-4139-ac41-a905ccc6a508",
+          "order_id": "c4acacfc-750a-432b-9484-af41d3b94923",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "dd733f07-ce40-4f13-b922-233ddd9eb0b4"
+          "user_id": "1cadf7b1-2be8-435f-a623-2bbdcd1266e8"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23693,7 +23747,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "59ea27b8-5ba8-4acd-af5e-448722fc480e",
+          "id": "d8865679-b9fb-4175-a1ff-260ad98fb14b",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23768,9 +23822,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "c2e47ba8-e070-4984-a69b-2d7713a87ea4",
+          "appointment_id": "9d68f3ce-3bfa-4454-80bb-eae2e1b7a47a",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "00064a7d-b917-478e-abd6-e1c0f4cc3b3e",
+          "id": "22b0123f-c4bd-4cc7-ab1f-cbf392f314da",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -24027,7 +24081,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-10-22T08:25:08+00:00",
+          "timestamp": "2025-10-22T11:43:22+00:00",
           "unit": "mmHg"
         }
       },
@@ -25154,12 +25208,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "6d5dba0f-f257-46fc-ba6d-811d5a8642a5",
+          "order_id": "d0f8eb27-cfcd-458e-bcbe-0749054914f7",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "ae4acfc1-bf4f-46ec-b757-616a45fb21fa",
+          "team_id": "e3192b67-b9b8-4a16-9805-c5ae03c6ce04",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "665dd599-0bf8-42ba-ad6b-e93de13659bf"
+          "user_id": "01762a25-64f8-4e90-afb4-7c50767d2094"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -28267,7 +28321,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-10-22T08:30:07.743852+00:00",
+          "end": "2025-10-22T11:48:22.654606+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -28410,7 +28464,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "e54216a6-6f43-4098-8c62-c043c79413f3",
+          "id": "0451f2fe-8606-4656-aa5b-42a3d4971978",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -28764,8 +28818,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "7ab55986-707e-466f-ad4f-35490f779052",
-          "id": "bcb3bec7-689e-479d-87eb-94b14376e099",
+          "health_insurace_id": "db02bdfb-f9c1-4bf6-9b66-5c1c55bf5042",
+          "id": "e3697f19-070e-4271-b23f-05bfb79ebd29",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -28789,9 +28843,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "f64f2045-5a57-49ec-82b4-b094ec8610dc",
+          "team_id": "bff7c584-79f3-452d-9015-e38bf1c3a06c",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "a235dcc4-f797-4858-80ae-1beab644443a"
+          "user_id": "9d6fbf99-417d-481b-941b-86d94c2310b9"
         }
       },
       "ClientFacingOrderEvent": {
@@ -29779,7 +29833,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "0fdf0cad-04e7-4f9b-95a5-54c7663933e6",
+          "id": "9891d351-fd85-4d3f-a8ef-550a92900bc6",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -30525,129 +30579,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-10-22T08:25:07.908414+00:00",
+              "timestamp": "2025-10-22T11:43:22.839484+00:00",
               "unit": "bpm",
-              "value": 176
+              "value": 28
             },
             {
               "id": 1,
-              "timestamp": "2025-10-22T08:25:37.908439+00:00",
+              "timestamp": "2025-10-22T11:43:52.839510+00:00",
               "unit": "bpm",
-              "value": 77
+              "value": 177
             },
             {
               "id": 2,
-              "timestamp": "2025-10-22T08:26:07.908461+00:00",
+              "timestamp": "2025-10-22T11:44:22.839533+00:00",
               "unit": "bpm",
-              "value": 30
+              "value": 164
             },
             {
               "id": 3,
-              "timestamp": "2025-10-22T08:26:37.908495+00:00",
+              "timestamp": "2025-10-22T11:44:52.839567+00:00",
               "unit": "bpm",
-              "value": 15
+              "value": 74
             },
             {
               "id": 4,
-              "timestamp": "2025-10-22T08:27:07.908517+00:00",
+              "timestamp": "2025-10-22T11:45:22.839589+00:00",
               "unit": "bpm",
-              "value": 178
+              "value": 148
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-10-22T08:25:07.908163+00:00",
+              "timestamp": "2025-10-22T11:43:22.839261+00:00",
               "unit": "rmssd",
-              "value": 15
+              "value": 43
             },
             {
               "id": 1,
-              "timestamp": "2025-10-22T08:25:37.908243+00:00",
+              "timestamp": "2025-10-22T11:43:52.839346+00:00",
               "unit": "rmssd",
-              "value": 87
+              "value": 19
             },
             {
               "id": 2,
-              "timestamp": "2025-10-22T08:26:07.908290+00:00",
+              "timestamp": "2025-10-22T11:44:22.839386+00:00",
               "unit": "rmssd",
-              "value": 3
+              "value": 94
             },
             {
               "id": 3,
-              "timestamp": "2025-10-22T08:26:37.908355+00:00",
+              "timestamp": "2025-10-22T11:44:52.839428+00:00",
               "unit": "rmssd",
-              "value": 13
+              "value": 8
             },
             {
               "id": 4,
-              "timestamp": "2025-10-22T08:27:07.908387+00:00",
+              "timestamp": "2025-10-22T11:45:22.839457+00:00",
               "unit": "rmssd",
-              "value": 55
+              "value": 38
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-10-22T08:25:07.908538+00:00",
+              "timestamp": "2025-10-22T11:43:22.839611+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 4
             },
             {
               "id": 1,
-              "timestamp": "2025-10-22T08:25:37.908557+00:00",
+              "timestamp": "2025-10-22T11:43:52.839667+00:00",
+              "unit": "stage",
+              "value": -1
+            },
+            {
+              "id": 2,
+              "timestamp": "2025-10-22T11:44:22.839700+00:00",
+              "unit": "stage",
+              "value": 1
+            },
+            {
+              "id": 3,
+              "timestamp": "2025-10-22T11:44:52.839727+00:00",
               "unit": "stage",
               "value": 3
             },
             {
-              "id": 2,
-              "timestamp": "2025-10-22T08:26:07.908574+00:00",
-              "unit": "stage",
-              "value": 0
-            },
-            {
-              "id": 3,
-              "timestamp": "2025-10-22T08:26:37.908593+00:00",
-              "unit": "stage",
-              "value": 2
-            },
-            {
               "id": 4,
-              "timestamp": "2025-10-22T08:27:07.908611+00:00",
+              "timestamp": "2025-10-22T11:45:22.839748+00:00",
               "unit": "stage",
-              "value": 0
+              "value": 3
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-10-22T08:25:07.908634+00:00",
+              "timestamp": "2025-10-22T11:43:22.839774+00:00",
               "unit": "bpm",
-              "value": 24
+              "value": 14
             },
             {
               "id": 1,
-              "timestamp": "2025-10-22T08:25:37.908653+00:00",
+              "timestamp": "2025-10-22T11:43:52.839794+00:00",
+              "unit": "bpm",
+              "value": 17
+            },
+            {
+              "id": 2,
+              "timestamp": "2025-10-22T11:44:22.839812+00:00",
               "unit": "bpm",
               "value": 26
             },
             {
-              "id": 2,
-              "timestamp": "2025-10-22T08:26:07.908675+00:00",
-              "unit": "bpm",
-              "value": 29
-            },
-            {
               "id": 3,
-              "timestamp": "2025-10-22T08:26:37.908705+00:00",
+              "timestamp": "2025-10-22T11:44:52.839830+00:00",
               "unit": "bpm",
-              "value": 11
+              "value": 22
             },
             {
               "id": 4,
-              "timestamp": "2025-10-22T08:27:07.908733+00:00",
+              "timestamp": "2025-10-22T11:45:22.839847+00:00",
               "unit": "bpm",
-              "value": 27
+              "value": 18
             }
           ]
         }
@@ -31721,10 +31775,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "16f8f1a8-6a2b-4fdf-9c4f-8ffd1937224e",
+          "id": "0f45bc8b-b117-489c-afd0-380e99b20c7c",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "aa777bec-64b7-4f6b-b832-8bbefd046a72",
+            "id": "af998214-5994-4085-8cad-90365bb8799b",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31917,7 +31971,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-10-22T08:25:08+00:00",
+              "created_on": "2025-10-22T11:43:23+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -31925,16 +31979,16 @@
               }
             }
           ],
-          "created_on": "2025-10-22T08:25:08+00:00",
+          "created_on": "2025-10-22T11:43:23+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-10-22T08:25:08+00:00",
+            "updated_at": "2025-10-22T11:43:23+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-10-22T08:25:08+00:00"
+            "updated_at": "2025-10-22T11:43:23+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -32196,9 +32250,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "78468aad-e816-4c50-aded-cd861b63a5e8",
+          "appointment_id": "1730adae-6329-45b5-8df0-456e603bb523",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "01157c9a-8005-49de-9f5f-89eb39251d30",
+          "id": "aba271c9-02bb-4e93-86ef-73315b1e1629",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -33448,7 +33502,7 @@
               "third"
             ]
           },
-          "query_id": "fc220e86-04b4-47fb-8d4f-2c47b5abaf59",
+          "query_id": "46fc74ad-37b5-4a86-aa2a-73834aabd8c1",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -33939,6 +33993,55 @@
           "shipping_details"
         ],
         "title": "CreateRegistrableTestkitOrderRequest"
+      },
+      "CreateUserPortalURLBody": {
+        "properties": {
+          "context": {
+            "type": "string",
+            "enum": [
+              "launch",
+              "communications"
+            ],
+            "title": "Context",
+            "description": "`launch`: Generates a short-lived (minutes) portal URL that is intended for launching a user from your\nauthenticated web context directly into the Junction User Portal. This URL is not suitable for asynchronous\ncommunications due to its verbosity as well as short-lived nature.\n\n`communications`: Generates a long-lived (weeks) but shortened portal URL that is suitable for Emails, SMS\nmessages and other communication channels. Users may be asked to verify their identity with Email and SMS\nauthentication, e.g., when they open a short link on a new device. ℹ️ This enum is non-exhaustive."
+          },
+          "order_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Order Id",
+            "description": "If specified, the generated URL will deeplink to the specified Order."
+          }
+        },
+        "type": "object",
+        "required": [
+          "context"
+        ],
+        "title": "CreateUserPortalURLBody"
+      },
+      "CreateUserPortalURLResponse": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "expires_in": {
+            "type": "integer",
+            "title": "Expires In"
+          }
+        },
+        "type": "object",
+        "required": [
+          "url",
+          "expires_in"
+        ],
+        "title": "CreateUserPortalURLResponse"
       },
       "DatePartExpr": {
         "properties": {
@@ -42888,7 +42991,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-10-22T08:30:07.743852+00:00",
+                    "end": "2025-10-22T11:48:22.654606+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -44534,7 +44637,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-10-22T08:25:08+00:00",
+                    "timestamp": "2025-10-22T11:43:22+00:00",
                     "unit": "mmHg"
                   }
                 ],
