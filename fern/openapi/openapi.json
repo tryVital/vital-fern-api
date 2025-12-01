@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.3.969"
+    "version": "0.3.972"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -14467,9 +14467,9 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "807c467f-7cdd-4128-9b0f-967df58cea73",
-                  "user_id": "68a19964-4bb6-478e-8c74-421335edbc70",
-                  "order_id": "ad1d6713-fa72-45b6-8d2f-ff8bf5ba0398",
+                  "id": "ac1699c3-c173-43e8-afc6-f1e38ca03eeb",
+                  "user_id": "6efe8ca0-62bf-480d-9ea8-b44d5c90ac67",
+                  "order_id": "80d88452-ed99-438c-a183-4394bd0b4c3c",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -16450,6 +16450,98 @@
         },
         "x-fern-sdk-group-name": "payor",
         "x-fern-sdk-method-name": "create_payor"
+      }
+    },
+    "/lab_report/v1/parser/job": {
+      "post": {
+        "tags": [
+          "lab_report"
+        ],
+        "summary": "Create Lab Report Parser Job",
+        "description": "Creates a parse job, uploads the file to provider, persists the job row,\nand starts the ParseLabReport. Returns a generated job_id.",
+        "operationId": "CreateLabReportParserJob",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_CreateLabReportParserJob"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParsingJob"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_report",
+        "x-fern-sdk-method-name": "parser_create_job",
+        "x-fern-availability": "beta"
+      }
+    },
+    "/lab_report/v1/parser/job/{job_id}": {
+      "get": {
+        "tags": [
+          "lab_report"
+        ],
+        "summary": "Get Lab Report Parser Job",
+        "description": "Retrieves the parse job status and stored result if completed.\n\nReturns:\n    ParseLabResultJobResponse with job status and parsed data (if complete)",
+        "operationId": "get_lab_report_parser_job_lab_report_v1_parser_job__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParsingJob"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_report",
+        "x-fern-sdk-method-name": "parser_get_job",
+        "x-fern-availability": "beta"
       }
     },
     "/aggregate/v1/user/{user_id}/query": {
@@ -22842,6 +22934,25 @@
         ],
         "title": "BodyV2InDB"
       },
+      "Body_CreateLabReportParserJob": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          },
+          "needs_human_review": {
+            "type": "boolean",
+            "title": "Needs Human Review",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_CreateLabReportParserJob"
+      },
       "BulkExportConnectionsBody": {
         "properties": {
           "user_ids": {
@@ -23938,18 +24049,18 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "b4906fd4-45ca-4673-bf67-8e034d1fc15c",
+          "id": "0ba7ce4d-5f92-4071-a123-97fe678853f2",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "87ffaa0d-055d-4eea-8e8c-ff9bdae8ff1c",
+          "order_id": "0163f8d7-2e85-4c59-ac9e-ae74ac6b5985",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "b73bd2eb-a440-44aa-b26d-229f314b91f8"
+          "user_id": "189cf03b-163f-4a1e-b9e4-b03efd74442c"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23976,7 +24087,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "e13f022e-d780-4646-a0f4-5171b660f16f",
+          "id": "b39b5de1-db67-4a68-a9df-40a65b6d5b51",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -24091,9 +24202,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "8b1c2849-2502-42f1-af4f-bc2692bf4519",
+          "appointment_id": "e3e7de9b-0cc5-4549-b494-648347660a1c",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "253b9d8a-42fd-48db-bb42-39722cddb01b",
+          "id": "da260d33-7d2d-42b4-81cf-27e842d37801",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -24581,7 +24692,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2025-11-27T16:36:06+00:00",
+          "timestamp": "2025-12-01T10:16:19+00:00",
           "unit": "mmHg"
         }
       },
@@ -26442,12 +26553,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "e468f91a-12ce-4cbb-8994-87ff798aa508",
+          "order_id": "92338087-6af6-4de3-b129-64468b8d928e",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "9f1ef38c-505c-4a36-9615-0a847ce8f14f",
+          "team_id": "e4cc6a85-8325-4389-b7ca-606a91362f89",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "c7899cd9-d140-4f3c-a646-0ec00ce5de44"
+          "user_id": "dabd5eb0-5152-4520-affc-1e426d0fc7c3"
         }
       },
       "ClientFacingCriticalResultIdentified": {
@@ -31408,7 +31519,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2025-11-27T16:41:05.950431+00:00",
+          "end": "2025-12-01T10:21:19.171320+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -31628,7 +31739,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "9828e74d-d403-4b9a-a010-bd8dc16d7f6a",
+          "id": "ac8226f3-a73b-46a3-9008-a66680d97563",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -31982,8 +32093,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "21d7bbee-f8be-4f6f-a045-18e749ba9eb9",
-          "id": "afa23eae-1506-46e8-a526-af764e55ea8c",
+          "health_insurace_id": "15200892-cb06-49e6-825c-94c9380ba645",
+          "id": "ae5751df-43e7-4d6f-b4e9-928118d82d46",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -32007,9 +32118,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "a9aa990d-2ac8-4b1c-b743-c2f21384d8b6",
+          "team_id": "b0d063ad-cf0d-4c1b-9065-04178d63b6aa",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "4e3b4286-61e7-4e18-8a87-ae39aa1d26f0"
+          "user_id": "60aa869d-15c7-4c51-9d7b-367839d13740"
         }
       },
       "ClientFacingOrderChanged": {
@@ -33342,7 +33453,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "c7659065-15d6-4109-9bce-9a9f8be4695e",
+          "id": "b1bff081-35c3-4af3-9ae1-a68fd30db4e3",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -34396,95 +34507,95 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2025-11-27T16:36:06.071763+00:00",
+              "timestamp": "2025-12-01T10:16:19.293490+00:00",
               "unit": "bpm",
-              "value": 160
+              "value": 7
             },
             {
               "id": 1,
-              "timestamp": "2025-11-27T16:36:36.071787+00:00",
+              "timestamp": "2025-12-01T10:16:49.293514+00:00",
               "unit": "bpm",
-              "value": 62
+              "value": 188
             },
             {
               "id": 2,
-              "timestamp": "2025-11-27T16:37:06.071810+00:00",
+              "timestamp": "2025-12-01T10:17:19.293535+00:00",
               "unit": "bpm",
-              "value": 25
+              "value": 1
             },
             {
               "id": 3,
-              "timestamp": "2025-11-27T16:37:36.071845+00:00",
+              "timestamp": "2025-12-01T10:17:49.293569+00:00",
               "unit": "bpm",
-              "value": 120
+              "value": 42
             },
             {
               "id": 4,
-              "timestamp": "2025-11-27T16:38:06.071867+00:00",
+              "timestamp": "2025-12-01T10:18:19.293591+00:00",
               "unit": "bpm",
-              "value": 117
+              "value": 125
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2025-11-27T16:36:06.071530+00:00",
+              "timestamp": "2025-12-01T10:16:19.293270+00:00",
               "unit": "rmssd",
-              "value": 81
+              "value": 8
             },
             {
               "id": 1,
-              "timestamp": "2025-11-27T16:36:36.071630+00:00",
+              "timestamp": "2025-12-01T10:16:49.293357+00:00",
               "unit": "rmssd",
-              "value": 100
+              "value": 18
             },
             {
               "id": 2,
-              "timestamp": "2025-11-27T16:37:06.071667+00:00",
+              "timestamp": "2025-12-01T10:17:19.293394+00:00",
               "unit": "rmssd",
-              "value": 21
+              "value": 83
             },
             {
               "id": 3,
-              "timestamp": "2025-11-27T16:37:36.071706+00:00",
+              "timestamp": "2025-12-01T10:17:49.293433+00:00",
               "unit": "rmssd",
-              "value": 63
+              "value": 23
             },
             {
               "id": 4,
-              "timestamp": "2025-11-27T16:38:06.071735+00:00",
+              "timestamp": "2025-12-01T10:18:19.293462+00:00",
               "unit": "rmssd",
-              "value": 25
+              "value": 74
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2025-11-27T16:36:06.071889+00:00",
+              "timestamp": "2025-12-01T10:16:19.293612+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 1
             },
             {
               "id": 1,
-              "timestamp": "2025-11-27T16:36:36.071909+00:00",
+              "timestamp": "2025-12-01T10:16:49.293631+00:00",
               "unit": "stage",
               "value": 0
             },
             {
               "id": 2,
-              "timestamp": "2025-11-27T16:37:06.071927+00:00",
+              "timestamp": "2025-12-01T10:17:19.293649+00:00",
               "unit": "stage",
               "value": 1
             },
             {
               "id": 3,
-              "timestamp": "2025-11-27T16:37:36.071945+00:00",
+              "timestamp": "2025-12-01T10:17:49.293666+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 1
             },
             {
               "id": 4,
-              "timestamp": "2025-11-27T16:38:06.071964+00:00",
+              "timestamp": "2025-12-01T10:18:19.293685+00:00",
               "unit": "stage",
               "value": 3
             }
@@ -34492,33 +34603,33 @@
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2025-11-27T16:36:06.071982+00:00",
+              "timestamp": "2025-12-01T10:16:19.293703+00:00",
               "unit": "bpm",
-              "value": 12
+              "value": 26
             },
             {
               "id": 1,
-              "timestamp": "2025-11-27T16:36:36.072000+00:00",
+              "timestamp": "2025-12-01T10:16:49.293720+00:00",
               "unit": "bpm",
-              "value": 10
+              "value": 14
             },
             {
               "id": 2,
-              "timestamp": "2025-11-27T16:37:06.072017+00:00",
+              "timestamp": "2025-12-01T10:17:19.293737+00:00",
               "unit": "bpm",
-              "value": 25
+              "value": 21
             },
             {
               "id": 3,
-              "timestamp": "2025-11-27T16:37:36.072035+00:00",
+              "timestamp": "2025-12-01T10:17:49.293754+00:00",
               "unit": "bpm",
-              "value": 13
+              "value": 8
             },
             {
               "id": 4,
-              "timestamp": "2025-11-27T16:38:06.072053+00:00",
+              "timestamp": "2025-12-01T10:18:19.293783+00:00",
               "unit": "bpm",
-              "value": 22
+              "value": 24
             }
           ]
         }
@@ -35900,10 +36011,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "ad40db9f-2253-4f1b-97f0-a6835acaa580",
+          "id": "a56dd4c0-1f9c-46c0-b137-f3c908bd297e",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "31e3629f-f45d-4350-a0dd-9ffa1ee1f1ac",
+            "id": "43867fa2-f29b-44da-bffe-ce9f60d3437a",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -36096,7 +36207,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2025-11-27T16:36:06+00:00",
+              "created_on": "2025-12-01T10:16:20+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -36104,16 +36215,16 @@
               }
             }
           ],
-          "created_on": "2025-11-27T16:36:06+00:00",
+          "created_on": "2025-12-01T10:16:20+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2025-11-27T16:36:06+00:00",
+            "updated_at": "2025-12-01T10:16:20+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2025-11-27T16:36:06+00:00"
+            "updated_at": "2025-12-01T10:16:20+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -36606,9 +36717,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "aafd0c4e-053e-4ea7-bba1-d68469d1c4b0",
+          "appointment_id": "70e5e6bc-dcbb-4bb2-a23e-cf0d7ad55104",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "f8bb1367-8a8d-4443-8afd-832a2fe97424",
+          "id": "5346b806-50dc-4f3e-a7b7-1384bcfb732d",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -38474,7 +38585,7 @@
               "third"
             ]
           },
-          "query_id": "e02267d2-5f4c-4a02-b2c2-6114e56704ab",
+          "query_id": "7c7b3ac3-21f9-46b7-8a89-b53bad56ccab",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -40298,7 +40409,8 @@
         "enum": [
           "normal",
           "abnormal",
-          "critical"
+          "critical",
+          "unknown"
         ],
         "title": "Interpretation",
         "description": "ℹ️ This enum is non-exhaustive."
@@ -40498,6 +40610,138 @@
           "first_line"
         ],
         "title": "LabLocationMetadata"
+      },
+      "LabReportResult": {
+        "properties": {
+          "test_name": {
+            "type": "string",
+            "title": "Test Name"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LabReportResultType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "units": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Units"
+          },
+          "max_reference_range": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Reference Range"
+          },
+          "min_reference_range": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Reference Range"
+          },
+          "source_panel_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Panel Name"
+          },
+          "loinc_matches": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/LoincMatch"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loinc Matches"
+          },
+          "interpretation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Interpretation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "is_above_max_range": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Above Max Range"
+          },
+          "is_below_min_range": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Below Min Range"
+          }
+        },
+        "type": "object",
+        "required": [
+          "test_name",
+          "value"
+        ],
+        "title": "LabReportResult"
+      },
+      "LabReportResultType": {
+        "type": "string",
+        "enum": [
+          "numeric",
+          "range",
+          "comment",
+          "boolean",
+          "duration",
+          "percentage",
+          "ratio"
+        ],
+        "title": "LabReportResultType",
+        "description": "ℹ️ This enum is non-exhaustive."
       },
       "LabResultsMetadata": {
         "properties": {
@@ -40983,6 +41227,42 @@
           "lat"
         ],
         "title": "LngLat"
+      },
+      "LoincMatch": {
+        "properties": {
+          "loinc_code": {
+            "type": "string",
+            "title": "Loinc Code"
+          },
+          "loinc_name": {
+            "type": "string",
+            "title": "Loinc Name"
+          },
+          "loinc_component": {
+            "type": "string",
+            "title": "Loinc Component"
+          },
+          "sample_type": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sample Type",
+            "default": []
+          },
+          "confidence_score": {
+            "type": "number",
+            "title": "Confidence Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loinc_code",
+          "loinc_name",
+          "loinc_component",
+          "confidence_score"
+        ],
+        "title": "LoincMatch"
       },
       "Macros": {
         "properties": {
@@ -42034,6 +42314,75 @@
           "slug"
         ],
         "title": "ParentBiomarkerData"
+      },
+      "ParsedLabReportData": {
+        "properties": {
+          "metadata": {
+            "$ref": "#/components/schemas/ResultMetadata"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/LabReportResult"
+            },
+            "type": "array",
+            "title": "Results"
+          }
+        },
+        "type": "object",
+        "required": [
+          "metadata",
+          "results"
+        ],
+        "title": "ParsedLabReportData"
+      },
+      "ParsingJob": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Job Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ParsingJobStatus"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ParsedLabReportData"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "needs_human_review": {
+            "type": "boolean",
+            "title": "Needs Human Review"
+          },
+          "is_reviewed": {
+            "type": "boolean",
+            "title": "Is Reviewed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id",
+          "status",
+          "needs_human_review",
+          "is_reviewed"
+        ],
+        "title": "ParsingJob"
+      },
+      "ParsingJobStatus": {
+        "type": "string",
+        "enum": [
+          "upload_pending",
+          "started",
+          "completed",
+          "failed"
+        ],
+        "title": "ParsingJobStatus",
+        "description": "ℹ️ This enum is non-exhaustive."
       },
       "PasswordAuthLink": {
         "properties": {
@@ -43886,6 +44235,70 @@
         ],
         "title": "ResponsibleRelationship",
         "description": "ℹ️ This enum is non-exhaustive."
+      },
+      "ResultMetadata": {
+        "properties": {
+          "patient_first_name": {
+            "type": "string",
+            "title": "Patient First Name"
+          },
+          "patient_last_name": {
+            "type": "string",
+            "title": "Patient Last Name"
+          },
+          "dob": {
+            "type": "string",
+            "title": "Dob"
+          },
+          "lab_name": {
+            "type": "string",
+            "title": "Lab Name"
+          },
+          "date_reported": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Reported"
+          },
+          "date_collected": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Collected"
+          },
+          "specimen_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Specimen Number"
+          }
+        },
+        "type": "object",
+        "required": [
+          "patient_first_name",
+          "patient_last_name",
+          "dob",
+          "lab_name",
+          "date_reported",
+          "date_collected",
+          "specimen_number"
+        ],
+        "title": "ResultMetadata"
       },
       "ResultType": {
         "type": "string",
@@ -48075,7 +48488,7 @@
               {
                 "data": [
                   {
-                    "end": "2025-11-27T16:41:05.950431+00:00",
+                    "end": "2025-12-01T10:21:19.171320+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -49721,7 +50134,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2025-11-27T16:36:06+00:00",
+                    "timestamp": "2025-12-01T10:16:19+00:00",
                     "unit": "mmHg"
                   }
                 ],
