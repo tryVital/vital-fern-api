@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://schema.buildwithfern.dev/generators-yml.json
+
 default-group: publish
 api:
   specs:
@@ -5,6 +7,16 @@ api:
       overrides: ./openapi/overrides.yml
       settings:
         title-as-schema-name: false
+        coerce-enums-to-literals: true
+        type-dates-as-strings: true
+        object-query-parameters: false
+        idiomatic-request-names: false
+        respect-nullable-schemas: false
+        wrap-references-to-nullable-in-optional: true
+        coerce-optional-schemas-to-nullable: true
+        inline-path-parameters: false
+  settings:
+    path-parameter-order: spec-order
 groups:
   java-sdk:
     generators:
@@ -53,7 +65,7 @@ groups:
           client_class_name: Vital
           inline_request_params: false
           pydantic_config:
-            enum_type: "forward_compatible_python_enums"
+            enum_type: forward_compatible_python_enums
             use_pydantic_field_aliases: true
   go-sdk:
     generators:
@@ -91,7 +103,7 @@ groups:
           client_class_name: Vital
           inline_request_params: false
           pydantic_config:
-            enum_type: "forward_compatible_python_enums"
+            enum_type: forward_compatible_python_enums
             use_pydantic_field_aliases: true
       - name: fernapi/fern-go-sdk
         version: 0.25.0
