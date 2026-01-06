@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://schema.buildwithfern.dev/generators-yml.json
 default-group: publish
 api:
   specs:
@@ -5,12 +6,21 @@ api:
       overrides: ./openapi/overrides.yml
       settings:
         title-as-schema-name: false
-        coerce-enums-to-literals: false
+        coerce-enums-to-literals: true
+        type-dates-as-strings: true
+        object-query-parameters: false
+        idiomatic-request-names: false
+        respect-nullable-schemas: false
+        wrap-references-to-nullable-in-optional: true
+        coerce-optional-schemas-to-nullable: true
+        inline-path-parameters: false
+  settings:
+    path-parameter-order: spec-order
 groups:
   java-sdk:
     generators:
       - name: fernapi/fern-java-sdk
-        version: 2.43.3
+        version: 3.27.4
         output:
           location: maven
           coordinate: io.tryvital:vital-java
@@ -24,17 +34,38 @@ groups:
           publish-to: central
           base-api-exception-class-name: ApiError
           client-class-name: Vital
+
+          # 3.0.0 backwards compatibility settings
+          enable-forward-compatible-enums: false
         github:
           repository: tryVital/vital-java
           mode: pull-request
+        smart-casing: false
   node-sdk:
     generators:
-      - name: fernapi/fern-typescript-node-sdk
-        version: 0.41.2
+      - name: fernapi/fern-typescript-sdk
+        version: 3.43.1
         config:
           namespaceExport: Vital
-          extraDevDependencies:
-            typescript: 4.7.4
+
+          # 1.0.0 backwards compatibility settings
+          inlineFileProperties: false
+          inlinePathParameters: false
+          enableInlineTypes: false
+          noSerdeLayer: false
+          omitUndefined: false
+          skipResponseValidation: false
+          # useLegacyExports: true    # disable because it's better
+
+          # 2.0.0 backwards compatibility settings
+          # streamType: wrapper       # disable because it's better
+          # fileResponseType: stream  # disable because it's better
+          # formDataSupport: Node16   # disable because it's better
+          # fetchSupport: node-fetch  # disable because it's better
+
+          # 3.0.0 backwards compatibility settings
+          # packageManager: yarn      # disable because it's better
+          # testFramework: jest       # disable because it's better
         output:
           location: npm
           package-name: '@tryvital/vital-node'
@@ -42,10 +73,11 @@ groups:
         github:
           repository: tryVital/vital-node
           mode: pull-request
+        smart-casing: false
   python-sdk:
     generators:
       - name: fernapi/fern-python-sdk
-        version: 4.18.2
+        version: 4.46.6
         output:
           location: pypi
           package-name: vital
@@ -57,38 +89,62 @@ groups:
           client_class_name: Vital
           inline_request_params: false
           pydantic_config:
-            enum_type: "forward_compatible_python_enums"
+            enum_type: forward_compatible_python_enums
             use_pydantic_field_aliases: true
+        smart-casing: false
   go-sdk:
     generators:
       - name: fernapi/fern-go-sdk
-        version: 1.15.1
+        version: 1.21.8
         github:
           repository: tryVital/vital-go
           mode: pull-request
         config:
           enableWireTests: false
+        smart-casing: false
   local-preview:
     generators:
       - name: fernapi/fern-java-sdk
-        version: 2.43.3
+        version: 3.27.4
         output:
           location: local-file-system
           path: ../generated/java
         config:
           base-api-exception-class-name: ApiError
           client-class-name: Vital
-      - name: fernapi/fern-typescript-node-sdk
-        version: 0.41.2
+
+          # 3.0.0 backwards compatibility settings
+          enable-forward-compatible-enums: false
+        smart-casing: false
+      - name: fernapi/fern-typescript-sdk
+        version: 3.43.1
         config:
           namespaceExport: Vital
-          extraDevDependencies:
-            typescript: 4.7.4
+
+          # 1.0.0 backwards compatibility settings
+          inlineFileProperties: false
+          inlinePathParameters: false
+          enableInlineTypes: false
+          noSerdeLayer: false
+          omitUndefined: false
+          skipResponseValidation: false
+          # useLegacyExports: true    # disable because it's better
+
+          # 2.0.0 backwards compatibility settings
+          # streamType: wrapper       # disable because it's better
+          # fileResponseType: stream  # disable because it's better
+          # formDataSupport: Node16   # disable because it's better
+          # fetchSupport: node-fetch  # disable because it's better
+
+          # 3.0.0 backwards compatibility settings
+          # packageManager: yarn      # disable because it's better
+          # testFramework: jest       # disable because it's better
         output:
           location: local-file-system
           path: ../generated/node
+        smart-casing: false
       - name: fernapi/fern-python-sdk
-        version: 4.18.2
+        version: 4.46.6
         output:
           location: local-file-system
           path: ../generated/python
@@ -96,19 +152,22 @@ groups:
           client_class_name: Vital
           inline_request_params: false
           pydantic_config:
-            enum_type: "forward_compatible_python_enums"
+            enum_type: forward_compatible_python_enums
             use_pydantic_field_aliases: true
+        smart-casing: false
       - name: fernapi/fern-go-sdk
-        version: 0.25.0
+        version: 1.21.8
         output:
           location: local-file-system
           path: ../generated/go
         config:
           enableWireTest: false
+        smart-casing: false
   postman:
     generators:
       - name: fernapi/fern-postman
-        version: 0.0.45
+        version: 0.4.3
         output:
           location: local-file-system
           path: ../postman
+        smart-casing: false
