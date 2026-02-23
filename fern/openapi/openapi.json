@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.4.224"
+    "version": "0.4.227"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -13596,6 +13596,202 @@
         "x-fern-sdk-method-name": "get_labs"
       }
     },
+    "/v3/compendium/search": {
+      "post": {
+        "tags": [
+          "compendium"
+        ],
+        "summary": "Search Compendium",
+        "operationId": "search_compendium_v3_compendium_search_post",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
+                }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchCompendiumBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchCompendiumResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "compendium",
+        "x-fern-sdk-method-name": "search"
+      }
+    },
+    "/v3/compendium/convert": {
+      "post": {
+        "tags": [
+          "compendium"
+        ],
+        "summary": "Convert Compendium",
+        "operationId": "convert_compendium_v3_compendium_convert_post",
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "const": "infer_from_context",
+                  "type": "string"
+                }
+              ],
+              "default": "infer_from_context",
+              "title": "Team Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConvertCompendiumBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConvertCompendiumResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "compendium",
+        "x-fern-sdk-method-name": "convert"
+      }
+    },
+    "/v3/lab_test/lab_account": {
+      "get": {
+        "tags": [
+          "lab_account"
+        ],
+        "summary": "Get Team Lab Accounts",
+        "operationId": "get_team_lab_accounts_v3_lab_test_lab_account_get",
+        "parameters": [
+          {
+            "name": "lab_account_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lab Account Id"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LabAccountStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTeamLabAccountsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_account",
+        "x-fern-sdk-method-name": "get_team_lab_accounts"
+      }
+    },
     "/v3/lab_test": {
       "get": {
         "tags": [
@@ -14656,10 +14852,10 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "cba5c014-28fe-493e-a705-e3c8ab394007",
-                  "user_id": "421b53b5-49cb-44f6-bb09-7967761593da",
-                  "order_id": "233406b9-8898-4433-999e-5a156d57724d",
-                  "order_transaction_id": "aa748a80-aa04-4872-929f-b37e6092428c",
+                  "id": "722d0288-5d36-44fa-ac52-b7e3b1f81c92",
+                  "user_id": "9ffe153a-db35-4287-9410-080174694ee7",
+                  "order_id": "70bcc611-5e3b-4552-8ced-9d1884b2e675",
+                  "order_transaction_id": "a4d3dd5e-1729-412f-86f4-ac265d61744f",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -16697,7 +16893,7 @@
           "lab_report"
         ],
         "summary": "Create Lab Report Parser Job",
-        "description": "Creates a parse job, uploads the file to provider, persists the job row,\nand starts the ParseLabReport. Returns a generated job_id.",
+        "description": "Creates a parse job, uploads the file(s) to provider, persists the job row,\nand starts the ParseLabReport. Returns a generated job_id.",
         "operationId": "CreateLabReportParserJob",
         "requestBody": {
           "content": {
@@ -18144,6 +18340,84 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ClientFacingCriticalResultIdentified"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "lab_report.parsing_job.created": {
+      "post": {
+        "tags": [
+          "lab-testing"
+        ],
+        "summary": "Lab Report Parsing Job Created",
+        "operationId": "lab_report_parsing_job_createdlab_report_parsing_job_created_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingLabReportParsingJobCreatedEvent"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "lab_report.parsing_job.updated": {
+      "post": {
+        "tags": [
+          "lab-testing"
+        ],
+        "summary": "Lab Report Parsing Job Updated",
+        "operationId": "lab_report_parsing_job_updatedlab_report_parsing_job_updated_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingLabReportParsingJobUpdatedEvent"
               }
             }
           },
@@ -23214,8 +23488,11 @@
       "Body_CreateLabReportParserJob": {
         "properties": {
           "file": {
-            "type": "string",
-            "format": "binary",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "type": "array",
             "title": "File"
           },
           "user_id": {
@@ -23492,6 +23769,69 @@
           "provider"
         ],
         "title": "BulkTriggerHistoricalPullBody"
+      },
+      "CanonicalCandidate": {
+        "properties": {
+          "loinc_set_hash": {
+            "type": "string",
+            "title": "Loinc Set Hash"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "aliases": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Aliases"
+          },
+          "loinc_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Loinc Codes"
+          },
+          "provider_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Provider Ids"
+          },
+          "loinc_components": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Loinc Components"
+          },
+          "loinc_groups": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Loinc Groups"
+          },
+          "popularity_score": {
+            "type": "number",
+            "title": "Popularity Score"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loinc_set_hash",
+          "display_name",
+          "popularity_score",
+          "confidence"
+        ],
+        "title": "CanonicalCandidate"
       },
       "CervicalMucusEntry": {
         "properties": {
@@ -24346,19 +24686,19 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "c4881801-3b6b-4b17-9abd-c0d4045ba524",
+          "id": "5676cb04-854d-4b49-bf39-540b6c0ecff0",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "db8e11b0-7529-49e5-8826-d0783a2f7df1",
-          "order_transaction_id": "09a85bd2-89e2-43a9-ab7d-95b3a3076cb6",
+          "order_id": "6dc61a5d-6595-437c-a9e5-557d310310cd",
+          "order_transaction_id": "46db9289-d929-4677-b4d2-c647223c95ff",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "6ea99464-ffdb-4768-8a99-63a668dabcb6"
+          "user_id": "a2758351-64d9-4d00-b4e9-1dd2c6538f5c"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -24385,7 +24725,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "208da3ef-366f-4f7c-b95c-67400f5f07d5",
+          "id": "b6be1a0e-c209-4059-95ab-9d5504a2c9aa",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -24500,9 +24840,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "8068f071-5924-4457-a675-68ef2ac39a4d",
+          "appointment_id": "46f65996-5385-431c-a91d-3f1237dbacd2",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "6525fae2-a26a-4db9-893e-339328f2bd59",
+          "id": "4bbbb962-8f75-4f3f-8e8b-d84d5ae11fbc",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -24990,7 +25330,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2026-02-18T20:30:47+00:00",
+          "timestamp": "2026-02-23T13:25:26+00:00",
           "unit": "mmHg"
         }
       },
@@ -26851,12 +27191,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "abcd4d2d-7e28-4b08-83ea-e9590b886c37",
+          "order_id": "89a90ab3-9362-492e-b021-385b91c7874d",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "374d517e-1f07-4823-8747-cef721a837bf",
+          "team_id": "2a4e8fb8-39e0-4e85-8930-239d94e75d61",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "e8cb4fa4-b0cc-4896-b580-04cc09b399be"
+          "user_id": "e997c9dc-6a76-4df0-b0bb-9a46c46509e7"
         }
       },
       "ClientFacingCriticalResultIdentified": {
@@ -30414,6 +30754,97 @@
           "zipcode": "91789"
         }
       },
+      "ClientFacingLabAccount": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "lab": {
+            "$ref": "#/components/schemas/Labs"
+          },
+          "org_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Org Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LabAccountStatus"
+          },
+          "delegated_flow": {
+            "$ref": "#/components/schemas/LabAccountDelegatedFlow"
+          },
+          "provider_account_id": {
+            "type": "string",
+            "title": "Provider Account Id"
+          },
+          "account_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Account Name"
+          },
+          "business_units": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Units"
+          },
+          "allowed_billing": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/USState"
+              },
+              "type": "array"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/Billing"
+            },
+            "type": "object",
+            "title": "Allowed Billing"
+          },
+          "team_id_allowlist": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Team Id Allowlist"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "lab",
+          "status",
+          "delegated_flow",
+          "provider_account_id",
+          "allowed_billing",
+          "team_id_allowlist"
+        ],
+        "title": "ClientFacingLabAccount"
+      },
       "ClientFacingLabLocation": {
         "properties": {
           "metadata": {
@@ -30455,6 +30886,80 @@
           "capabilities"
         ],
         "title": "ClientFacingLabLocation"
+      },
+      "ClientFacingLabReportParsingJobCreatedEvent": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "lab_report.parsing_job.created",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ParsingJob"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingLabReportParsingJobCreatedEvent"
+      },
+      "ClientFacingLabReportParsingJobUpdatedEvent": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "lab_report.parsing_job.updated",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ParsingJob"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingLabReportParsingJobUpdatedEvent"
       },
       "ClientFacingLabTest": {
         "properties": {
@@ -31823,7 +32328,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2026-02-18T20:35:47.668742+00:00",
+          "end": "2026-02-23T13:30:26.115325+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -32043,7 +32548,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "b5647c96-6472-4a5c-8f71-a2f9e5c6feff",
+          "id": "ef52e4ac-15cd-4b19-a925-c6b4134e7529",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -32417,8 +32922,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "048c7698-e2a5-400c-87b9-fbbf5ce55a00",
-          "id": "b1648ecd-f337-4dad-b03b-e33edaaa29d1",
+          "health_insurace_id": "6f72f7e2-9cda-429c-81a1-c5ae027d8c5d",
+          "id": "d835cfdd-a34c-4ccd-8dc5-d956571ca4ac",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -32465,9 +32970,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "9e3a711e-de3c-406f-9f00-d84e4771e825",
+          "team_id": "0d659da4-9951-4ff4-ad1d-ba542ccfd605",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "b00de803-da02-4644-b95b-8b75fda79fde"
+          "user_id": "6eeecf20-a814-4fde-83d3-9f091a26926e"
         }
       },
       "ClientFacingOrderChanged": {
@@ -33898,7 +34403,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "12cab8d7-4897-4a9e-baf6-6166064466b3",
+          "id": "49bef1c6-18bf-4b72-814e-1ae649c97bc3",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -34952,129 +35457,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2026-02-18T20:30:47.786513+00:00",
+              "timestamp": "2026-02-23T13:25:26.232316+00:00",
               "unit": "bpm",
-              "value": 146
+              "value": 165
             },
             {
               "id": 1,
-              "timestamp": "2026-02-18T20:31:17.786537+00:00",
+              "timestamp": "2026-02-23T13:25:56.232341+00:00",
               "unit": "bpm",
-              "value": 122
+              "value": 164
             },
             {
               "id": 2,
-              "timestamp": "2026-02-18T20:31:47.786560+00:00",
+              "timestamp": "2026-02-23T13:26:26.232368+00:00",
               "unit": "bpm",
-              "value": 175
+              "value": 136
             },
             {
               "id": 3,
-              "timestamp": "2026-02-18T20:32:17.786594+00:00",
+              "timestamp": "2026-02-23T13:26:56.232404+00:00",
               "unit": "bpm",
-              "value": 101
+              "value": 37
             },
             {
               "id": 4,
-              "timestamp": "2026-02-18T20:32:47.786615+00:00",
+              "timestamp": "2026-02-23T13:27:26.232427+00:00",
               "unit": "bpm",
-              "value": 52
+              "value": 148
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2026-02-18T20:30:47.786295+00:00",
+              "timestamp": "2026-02-23T13:25:26.232102+00:00",
               "unit": "rmssd",
-              "value": 26
+              "value": 56
             },
             {
               "id": 1,
-              "timestamp": "2026-02-18T20:31:17.786385+00:00",
+              "timestamp": "2026-02-23T13:25:56.232184+00:00",
               "unit": "rmssd",
-              "value": 31
+              "value": 99
             },
             {
               "id": 2,
-              "timestamp": "2026-02-18T20:31:47.786422+00:00",
+              "timestamp": "2026-02-23T13:26:26.232226+00:00",
               "unit": "rmssd",
-              "value": 80
+              "value": 62
             },
             {
               "id": 3,
-              "timestamp": "2026-02-18T20:32:17.786459+00:00",
+              "timestamp": "2026-02-23T13:26:56.232262+00:00",
               "unit": "rmssd",
-              "value": 64
+              "value": 4
             },
             {
               "id": 4,
-              "timestamp": "2026-02-18T20:32:47.786487+00:00",
+              "timestamp": "2026-02-23T13:27:26.232290+00:00",
               "unit": "rmssd",
-              "value": 4
+              "value": 31
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2026-02-18T20:30:47.786641+00:00",
+              "timestamp": "2026-02-23T13:25:26.232449+00:00",
               "unit": "stage",
-              "value": -1
+              "value": 3
             },
             {
               "id": 1,
-              "timestamp": "2026-02-18T20:31:17.786660+00:00",
+              "timestamp": "2026-02-23T13:25:56.232467+00:00",
               "unit": "stage",
-              "value": 0
+              "value": 4
             },
             {
               "id": 2,
-              "timestamp": "2026-02-18T20:31:47.786678+00:00",
+              "timestamp": "2026-02-23T13:26:26.232485+00:00",
               "unit": "stage",
               "value": 0
             },
             {
               "id": 3,
-              "timestamp": "2026-02-18T20:32:17.786695+00:00",
+              "timestamp": "2026-02-23T13:26:56.232504+00:00",
               "unit": "stage",
-              "value": 1
+              "value": 0
             },
             {
               "id": 4,
-              "timestamp": "2026-02-18T20:32:47.786714+00:00",
+              "timestamp": "2026-02-23T13:27:26.232523+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 0
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2026-02-18T20:30:47.786733+00:00",
+              "timestamp": "2026-02-23T13:25:26.232542+00:00",
               "unit": "bpm",
-              "value": 9
+              "value": 21
             },
             {
               "id": 1,
-              "timestamp": "2026-02-18T20:31:17.786750+00:00",
+              "timestamp": "2026-02-23T13:25:56.232560+00:00",
               "unit": "bpm",
-              "value": 23
+              "value": 14
             },
             {
               "id": 2,
-              "timestamp": "2026-02-18T20:31:47.786767+00:00",
+              "timestamp": "2026-02-23T13:26:26.232577+00:00",
               "unit": "bpm",
-              "value": 25
+              "value": 8
             },
             {
               "id": 3,
-              "timestamp": "2026-02-18T20:32:17.786784+00:00",
+              "timestamp": "2026-02-23T13:26:56.232594+00:00",
               "unit": "bpm",
-              "value": 9
+              "value": 19
             },
             {
               "id": 4,
-              "timestamp": "2026-02-18T20:32:47.786800+00:00",
+              "timestamp": "2026-02-23T13:27:26.232615+00:00",
               "unit": "bpm",
-              "value": 27
+              "value": 30
             }
           ]
         }
@@ -36456,10 +36961,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "da57fc33-57e9-4628-a8be-b1e83fecbfe8",
+          "id": "29c8c70c-01d4-42ee-84eb-fb9aaaccace6",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "3f33aced-8c9f-45cd-87bf-a3973d245bc8",
+            "id": "61653faa-03d9-40de-8302-5628437506b2",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -36652,7 +37157,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2026-02-18T20:30:48+00:00",
+              "created_on": "2026-02-23T13:25:27+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -36660,16 +37165,16 @@
               }
             }
           ],
-          "created_on": "2026-02-18T20:30:48+00:00",
+          "created_on": "2026-02-23T13:25:27+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2026-02-18T20:30:48+00:00",
+            "updated_at": "2026-02-23T13:25:27+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2026-02-18T20:30:48+00:00"
+            "updated_at": "2026-02-23T13:25:27+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -37162,9 +37667,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "5904a391-16d8-4537-a8c7-11d30624ffbe",
+          "appointment_id": "c250e748-e534-47a8-abcf-c481290bef6e",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "4b86ab47-bb4f-44db-b2f8-d671ecfcd740",
+          "id": "b8d936d4-e794-492d-92e6-540536bfff1b",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -38857,6 +39362,17 @@
         ],
         "title": "CompanyDetails"
       },
+      "CompendiumSearchLabs": {
+        "type": "string",
+        "enum": [
+          "labcorp",
+          "quest",
+          "bioreference",
+          "sonora_quest"
+        ],
+        "title": "CompendiumSearchLabs",
+        "description": "ℹ️ This enum is non-exhaustive."
+      },
       "CompletePasswordProviderMFABody": {
         "properties": {
           "mfa_code": {
@@ -39030,7 +39546,7 @@
               "third"
             ]
           },
-          "query_id": "e7112eb5-31fd-463d-8fb4-7431173955d5",
+          "query_id": "3863cc64-358d-4504-b9a0-4fad8d401654",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -39169,6 +39685,118 @@
           "type"
         ],
         "title": "ContraceptiveEntry"
+      },
+      "ConvertCompendiumBody": {
+        "properties": {
+          "lab_test_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lab Test Id"
+          },
+          "provider_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Ids"
+          },
+          "target_lab": {
+            "$ref": "#/components/schemas/CompendiumSearchLabs"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "default": 3
+          }
+        },
+        "type": "object",
+        "required": [
+          "target_lab"
+        ],
+        "title": "ConvertCompendiumBody"
+      },
+      "ConvertCompendiumResponse": {
+        "properties": {
+          "source_lab_test_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Lab Test Id"
+          },
+          "source_lab_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Lab Id"
+          },
+          "target_lab_id": {
+            "type": "integer",
+            "title": "Target Lab Id"
+          },
+          "target_lab_slug": {
+            "type": "string",
+            "title": "Target Lab Slug"
+          },
+          "source_provider_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Provider Ids"
+          },
+          "converted_provider_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Converted Provider Ids"
+          },
+          "unresolved_provider_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Unresolved Provider Ids"
+          },
+          "by_source_provider_id": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ProviderIdConversionResponse"
+            },
+            "type": "object",
+            "title": "By Source Provider Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target_lab_id",
+          "target_lab_slug"
+        ],
+        "title": "ConvertCompendiumResponse"
       },
       "CreateInsuranceRequest": {
         "properties": {
@@ -40327,6 +40955,19 @@
         ],
         "title": "GetOrdersResponse"
       },
+      "GetTeamLabAccountsResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ClientFacingLabAccount"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "title": "GetTeamLabAccountsResponse"
+      },
       "GroupKeyColumnExpr": {
         "properties": {
           "group_key": {
@@ -41004,6 +41645,27 @@
           "content_type"
         ],
         "title": "Jpeg"
+      },
+      "LabAccountDelegatedFlow": {
+        "type": "string",
+        "enum": [
+          "order_delegated",
+          "result_delegated",
+          "fully_delegated",
+          "not_delegated"
+        ],
+        "title": "LabAccountDelegatedFlow",
+        "description": "Describes which parts of the lab testing flow are delegated to the customer.\n\n- ORDER_DELEGATED: Ordering using client's physicians, critical result follow up via Junction\n- RESULT_DELEGATED: Ordering using Junction's Physician Network, critical results handled by client\n- FULLY_DELEGATED: Order and critical results handled by client\n- NOT_DELEGATED: Junction handles both ordering and results ℹ️ This enum is non-exhaustive."
+      },
+      "LabAccountStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "pending",
+          "suspended"
+        ],
+        "title": "LabAccountStatus",
+        "description": "ℹ️ This enum is non-exhaustive."
       },
       "LabLocationCapability": {
         "type": "string",
@@ -41886,7 +42548,8 @@
           "onetouch_ble",
           "apple_health_kit",
           "manual",
-          "health_connect"
+          "health_connect",
+          "samsung_health"
         ],
         "title": "ManualProviders",
         "description": "ℹ️ This enum is non-exhaustive."
@@ -42914,12 +43577,6 @@
             "format": "uuid",
             "title": "Id"
           },
-          "job_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Job Id",
-            "deprecated": true
-          },
           "status": {
             "$ref": "#/components/schemas/ParsingJobStatus"
           },
@@ -42955,7 +43612,6 @@
         "type": "object",
         "required": [
           "id",
-          "job_id",
           "status",
           "needs_human_review",
           "is_reviewed"
@@ -43369,6 +44025,106 @@
         },
         "type": "object",
         "title": "PayorSearchRequest"
+      },
+      "PerLabCandidate": {
+        "properties": {
+          "marker_id": {
+            "type": "integer",
+            "title": "Marker Id"
+          },
+          "lab_id": {
+            "type": "integer",
+            "title": "Lab Id"
+          },
+          "lab_slug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lab Slug"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "result_names": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Result Names"
+          },
+          "provider_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Id"
+          },
+          "loinc_set_hash": {
+            "type": "string",
+            "title": "Loinc Set Hash"
+          },
+          "loinc_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Loinc Codes"
+          },
+          "loinc_components": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Loinc Components"
+          },
+          "loinc_groups": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Loinc Groups"
+          },
+          "relation": {
+            "type": "string",
+            "title": "Relation"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "reason_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reason Codes"
+          },
+          "marker_popularity_score": {
+            "type": "number",
+            "title": "Marker Popularity Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "marker_id",
+          "lab_id",
+          "name",
+          "loinc_set_hash",
+          "relation",
+          "confidence",
+          "marker_popularity_score"
+        ],
+        "title": "PerLabCandidate"
       },
       "PerformingLaboratory": {
         "properties": {
@@ -43876,6 +44632,26 @@
           "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537"
         }
       },
+      "ProviderIdConversionResponse": {
+        "properties": {
+          "source_provider_id": {
+            "type": "string",
+            "title": "Source Provider Id"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/PerLabCandidate"
+            },
+            "type": "array",
+            "title": "Candidates"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_provider_id"
+        ],
+        "title": "ProviderIdConversionResponse"
+      },
       "ProviderLinkResponse": {
         "properties": {
           "state": {
@@ -44040,6 +44816,7 @@
           "hammerhead",
           "my_fitness_pal",
           "health_connect",
+          "samsung_health",
           "polar",
           "cronometer",
           "kardia",
@@ -44656,6 +45433,35 @@
         ],
         "title": "RegisterTestkitRequest"
       },
+      "RelatedCandidate": {
+        "properties": {
+          "canonical": {
+            "$ref": "#/components/schemas/CanonicalCandidate"
+          },
+          "relation": {
+            "type": "string",
+            "title": "Relation"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "reason_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reason Codes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "canonical",
+          "relation",
+          "confidence"
+        ],
+        "title": "RelatedCandidate"
+      },
       "RelativeTimeframe": {
         "properties": {
           "type": {
@@ -45095,6 +45901,119 @@
           "optional"
         ],
         "title": "ScopeRequirements[str]"
+      },
+      "SearchCompendiumBody": {
+        "properties": {
+          "mode": {
+            "$ref": "#/components/schemas/SearchMode"
+          },
+          "query": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Query"
+          },
+          "loinc_set_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loinc Set Hash"
+          },
+          "labs": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/CompendiumSearchLabs"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Labs"
+          },
+          "include_related": {
+            "type": "boolean",
+            "title": "Include Related",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "default": 3
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode"
+        ],
+        "title": "SearchCompendiumBody"
+      },
+      "SearchCompendiumResponse": {
+        "properties": {
+          "mode": {
+            "$ref": "#/components/schemas/SearchMode"
+          },
+          "selected_canonical": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CanonicalCandidate"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "canonical_candidates": {
+            "items": {
+              "$ref": "#/components/schemas/CanonicalCandidate"
+            },
+            "type": "array",
+            "title": "Canonical Candidates"
+          },
+          "per_lab": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/PerLabCandidate"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Per Lab"
+          },
+          "related": {
+            "items": {
+              "$ref": "#/components/schemas/RelatedCandidate"
+            },
+            "type": "array",
+            "title": "Related"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode"
+        ],
+        "title": "SearchCompendiumResponse"
+      },
+      "SearchMode": {
+        "type": "string",
+        "enum": [
+          "canonical",
+          "crosswalk"
+        ],
+        "title": "SearchMode",
+        "description": "ℹ️ This enum is non-exhaustive."
       },
       "Sex": {
         "type": "string",
@@ -46245,6 +47164,63 @@
           "zip_code"
         ],
         "title": "USAddress"
+      },
+      "USState": {
+        "type": "string",
+        "enum": [
+          "AL",
+          "AK",
+          "AZ",
+          "AR",
+          "CA",
+          "CO",
+          "CT",
+          "DE",
+          "FL",
+          "GA",
+          "HI",
+          "ID",
+          "IL",
+          "IN",
+          "IA",
+          "KS",
+          "KY",
+          "LA",
+          "ME",
+          "MD",
+          "MA",
+          "MI",
+          "MN",
+          "MS",
+          "MO",
+          "MT",
+          "NE",
+          "NV",
+          "NH",
+          "NJ",
+          "NM",
+          "NY",
+          "NC",
+          "ND",
+          "OH",
+          "OK",
+          "OR",
+          "PA",
+          "RI",
+          "SC",
+          "SD",
+          "TN",
+          "TX",
+          "UT",
+          "VT",
+          "VA",
+          "WA",
+          "WV",
+          "WI",
+          "WY"
+        ],
+        "title": "USState",
+        "description": "ℹ️ This enum is non-exhaustive."
       },
       "UTCTimestampWithTimezoneOffset": {
         "properties": {
@@ -49140,7 +50116,7 @@
               {
                 "data": [
                   {
-                    "end": "2026-02-18T20:35:47.668742+00:00",
+                    "end": "2026-02-23T13:30:26.115325+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -50786,7 +51762,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2026-02-18T20:30:47+00:00",
+                    "timestamp": "2026-02-23T13:25:26+00:00",
                     "unit": "mmHg"
                   }
                 ],
