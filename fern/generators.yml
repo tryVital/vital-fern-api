@@ -21,7 +21,8 @@ groups:
   java-sdk:
     generators:
       - name: fernapi/fern-java-sdk
-        version: 3.33.2
+        version: 3.39.1
+        autorelease: true
         output:
           location: maven
           coordinate: io.tryvital:vital-java
@@ -45,7 +46,8 @@ groups:
   node-sdk:
     generators:
       - name: fernapi/fern-typescript-sdk
-        version: 3.43.1
+        version: 3.51.3
+        autorelease: true
         config:
           namespaceExport: Vital
 
@@ -78,7 +80,8 @@ groups:
   python-sdk:
     generators:
       - name: fernapi/fern-python-sdk
-        version: 4.46.6
+        version: 4.60.1
+        autorelease: true
         output:
           location: pypi
           package-name: vital
@@ -96,7 +99,8 @@ groups:
   go-sdk:
     generators:
       - name: fernapi/fern-go-sdk
-        version: 1.21.8
+        version: 1.24.0
+        autorelease: true
         github:
           repository: tryVital/vital-go
           mode: pull-request
@@ -106,7 +110,7 @@ groups:
   local-preview:
     generators:
       - name: fernapi/fern-java-sdk
-        version: 3.33.2
+        version: 3.39.1
         output:
           location: local-file-system
           path: ../generated/java
@@ -118,7 +122,7 @@ groups:
           enable-forward-compatible-enums: false
         smart-casing: false
       - name: fernapi/fern-typescript-sdk
-        version: 3.43.1
+        version: 3.51.3
         config:
           namespaceExport: Vital
 
@@ -145,7 +149,7 @@ groups:
           path: ../generated/node
         smart-casing: false
       - name: fernapi/fern-python-sdk
-        version: 4.46.6
+        version: 4.60.1
         output:
           location: local-file-system
           path: ../generated/python
@@ -157,7 +161,7 @@ groups:
             use_pydantic_field_aliases: true
         smart-casing: false
       - name: fernapi/fern-go-sdk
-        version: 1.21.8
+        version: 1.24.0
         output:
           location: local-file-system
           path: ../generated/go
