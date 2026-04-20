@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.4.393"
+    "version": "0.4.395"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -14740,10 +14740,10 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "9965f84e-d852-4572-bb7e-a8a55c1d4af0",
-                  "user_id": "f165726d-1a7c-4da5-8b1a-f1a38d6abb7b",
-                  "order_id": "555a606c-a438-428b-b69d-4d9616f3d33f",
-                  "order_transaction_id": "93f84125-6479-42fe-8331-a1b002c7a449",
+                  "id": "f1574810-58b5-4583-a66f-91d65c8a5421",
+                  "user_id": "a7ec0e4f-7c58-4a99-83be-63d6e9597365",
+                  "order_id": "09c4f8ff-01be-4e75-9875-8938946edfbf",
+                  "order_transaction_id": "17ddd10d-24e4-4786-a300-e63c9d74548c",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -22470,6 +22470,9 @@
                 "$ref": "#/components/schemas/MealColumnExpr"
               },
               {
+                "$ref": "#/components/schemas/MenstrualCycleColumnExpr"
+              },
+              {
                 "$ref": "#/components/schemas/ProfileColumnExpr"
               },
               {
@@ -22513,6 +22516,9 @@
               },
               {
                 "$ref": "#/components/schemas/IndexColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/ScalarOutputSubqueryExpr"
               }
             ],
             "title": "Arg"
@@ -22540,6 +22546,73 @@
           "func"
         ],
         "title": "AggregateExpr"
+      },
+      "AggregateFieldExpr": {
+        "properties": {
+          "func": {
+            "type": "string",
+            "enum": [
+              "mean",
+              "min",
+              "max",
+              "sum",
+              "count",
+              "median",
+              "stddev",
+              "oldest",
+              "newest"
+            ],
+            "title": "Func",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "arg": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MCMenstrualFlowFieldExpr"
+              },
+              {
+                "$ref": "#/components/schemas/MCCervicalMucusFieldExpr"
+              },
+              {
+                "$ref": "#/components/schemas/MCIntermenstrualBleedingFieldExpr"
+              },
+              {
+                "$ref": "#/components/schemas/MCContraceptiveFieldExpr"
+              },
+              {
+                "$ref": "#/components/schemas/MCDetectedDeviationsFieldExpr"
+              },
+              {
+                "$ref": "#/components/schemas/MCOvulationTestFieldExpr"
+              },
+              {
+                "$ref": "#/components/schemas/MCHomePregnancyTestFieldExpr"
+              },
+              {
+                "$ref": "#/components/schemas/MCHomeProgesteroneTestFieldExpr"
+              },
+              {
+                "$ref": "#/components/schemas/MCSexualActivityFieldExpr"
+              },
+              {
+                "$ref": "#/components/schemas/MCBasalBodyTemperatureFieldExpr"
+              },
+              {
+                "$ref": "#/components/schemas/ElementFieldExpr"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arg"
+          }
+        },
+        "type": "object",
+        "required": [
+          "func"
+        ],
+        "title": "AggregateFieldExpr",
+        "description": "Aggregate over unnested list elements, optionally targeting a struct field.\n\nWhen arg is None, the aggregate operates on the list elements directly\n(e.g., count-all, or mean/sum on a scalar numeric list).\nWhen arg is a FieldExpr, the struct field is extracted before aggregating."
       },
       "AggregationResponse": {
         "properties": {
@@ -24521,19 +24594,19 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "64e08bc4-59c3-4ea7-bf7a-e0a8ee5dfae2",
+          "id": "f1af80a0-5230-428e-aebc-d9d9bfb8c428",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "8f5ccb7f-97e2-4299-8de5-273a5058d2ee",
-          "order_transaction_id": "c5bed252-a5ff-445f-8c61-cc332095e20f",
+          "order_id": "bf7a7cfb-1f0d-42e1-bf86-6c8b36ec9bd8",
+          "order_transaction_id": "a9f644b8-a018-4ab1-abfd-37d334f7efb5",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "d353e131-f2ba-48e6-b003-29779f171fb7"
+          "user_id": "77cb1e8f-0b83-452f-aa91-3b3db4381a1f"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -24560,7 +24633,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "4c0ecc23-9036-460b-8c0d-a73815d59e98",
+          "id": "a6d828a2-89e3-4b05-8b91-8a1d8797bb2a",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -24636,9 +24709,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "de0e19ba-b280-47af-90ab-0623dc9af9cf",
+          "appointment_id": "94ce698c-7152-4db8-94ff-e2d53f97cd3d",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "903a6d41-f17b-447c-be41-7b3d46efce1e",
+          "id": "c091705b-ff11-4bb4-9d5b-75bdd7c0d842",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -24895,7 +24968,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2026-04-20T11:25:54+00:00",
+          "timestamp": "2026-04-20T16:32:10+00:00",
           "unit": "mmHg"
         }
       },
@@ -26022,12 +26095,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "aaa83d15-7b31-47cf-b802-fddac31dbcc3",
+          "order_id": "c81f4e9f-5bf5-4071-b3a9-23e42a91a7ef",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "9faeb308-5136-415e-82fe-9a43474b3118",
+          "team_id": "c3e7ad53-9d38-4891-bebe-7c6782d2de76",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "f439e67f-5fc7-4918-9bc5-fdb1634a255c"
+          "user_id": "557d3dab-2253-4aa8-83e2-42bed6c6f776"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -29313,7 +29386,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2026-04-20T11:30:54.405530+00:00",
+          "end": "2026-04-20T16:37:10.449334+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -29456,7 +29529,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "cc6d59e4-468b-492b-b452-98133b668d6f",
+          "id": "e0c12be6-7168-44a6-8748-3df14f37adbf",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -29850,8 +29923,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "67a13070-18aa-47a3-a2e5-471f14fe5cb8",
-          "id": "97bbb048-d2d6-4ca8-bea9-60105ffccf0f",
+          "health_insurace_id": "56f62d42-94a6-474b-b0f3-fb93ba1a7e0e",
+          "id": "ab3699ad-a40b-4ade-9b83-730299bc2052",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -29903,9 +29976,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "147d7ef6-1835-4949-9ed3-e4c6079a6ef2",
+          "team_id": "29124066-25ed-4802-a97b-0c1773d7cdff",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "34e80dfd-4167-4f3a-8212-70ba3877782c"
+          "user_id": "c87b9358-e932-423f-a68b-8f9087394304"
         }
       },
       "ClientFacingOrderEvent": {
@@ -31009,7 +31082,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "bfe1b9ad-f901-461b-82bf-a682a832f3a0",
+          "id": "58749cf6-8079-462f-8bdf-99702d8963fb",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31770,129 +31843,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2026-04-20T11:25:54.606030+00:00",
+              "timestamp": "2026-04-20T16:32:10.559308+00:00",
               "unit": "bpm",
-              "value": 179
+              "value": 37
             },
             {
               "id": 1,
-              "timestamp": "2026-04-20T11:26:24.606054+00:00",
+              "timestamp": "2026-04-20T16:32:40.559328+00:00",
               "unit": "bpm",
-              "value": 82
+              "value": 21
             },
             {
               "id": 2,
-              "timestamp": "2026-04-20T11:26:54.606073+00:00",
+              "timestamp": "2026-04-20T16:33:10.559345+00:00",
               "unit": "bpm",
-              "value": 97
+              "value": 125
             },
             {
               "id": 3,
-              "timestamp": "2026-04-20T11:27:24.606089+00:00",
+              "timestamp": "2026-04-20T16:33:40.559362+00:00",
               "unit": "bpm",
-              "value": 130
+              "value": 80
             },
             {
               "id": 4,
-              "timestamp": "2026-04-20T11:27:54.606105+00:00",
+              "timestamp": "2026-04-20T16:34:10.559378+00:00",
               "unit": "bpm",
-              "value": 141
+              "value": 43
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2026-04-20T11:25:54.605781+00:00",
+              "timestamp": "2026-04-20T16:32:10.559131+00:00",
               "unit": "rmssd",
-              "value": 40
+              "value": 9
             },
             {
               "id": 1,
-              "timestamp": "2026-04-20T11:26:24.605879+00:00",
+              "timestamp": "2026-04-20T16:32:40.559202+00:00",
               "unit": "rmssd",
-              "value": 96
+              "value": 81
             },
             {
               "id": 2,
-              "timestamp": "2026-04-20T11:26:54.605918+00:00",
+              "timestamp": "2026-04-20T16:33:10.559240+00:00",
               "unit": "rmssd",
-              "value": 53
+              "value": 15
             },
             {
               "id": 3,
-              "timestamp": "2026-04-20T11:27:24.605945+00:00",
+              "timestamp": "2026-04-20T16:33:40.559267+00:00",
               "unit": "rmssd",
-              "value": 89
+              "value": 57
             },
             {
               "id": 4,
-              "timestamp": "2026-04-20T11:27:54.605965+00:00",
+              "timestamp": "2026-04-20T16:34:10.559288+00:00",
               "unit": "rmssd",
-              "value": 77
+              "value": 17
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2026-04-20T11:25:54.606121+00:00",
+              "timestamp": "2026-04-20T16:32:10.559395+00:00",
               "unit": "stage",
               "value": 0
             },
             {
               "id": 1,
-              "timestamp": "2026-04-20T11:26:24.606137+00:00",
+              "timestamp": "2026-04-20T16:32:40.559412+00:00",
               "unit": "stage",
-              "value": 4
+              "value": -1
             },
             {
               "id": 2,
-              "timestamp": "2026-04-20T11:26:54.606153+00:00",
+              "timestamp": "2026-04-20T16:33:10.559429+00:00",
               "unit": "stage",
               "value": 4
             },
             {
               "id": 3,
-              "timestamp": "2026-04-20T11:27:24.606215+00:00",
+              "timestamp": "2026-04-20T16:33:40.559444+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 0
             },
             {
               "id": 4,
-              "timestamp": "2026-04-20T11:27:54.606234+00:00",
+              "timestamp": "2026-04-20T16:34:10.559460+00:00",
               "unit": "stage",
-              "value": 2
+              "value": 4
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2026-04-20T11:25:54.606254+00:00",
+              "timestamp": "2026-04-20T16:32:10.559476+00:00",
               "unit": "bpm",
-              "value": 25
+              "value": 28
             },
             {
               "id": 1,
-              "timestamp": "2026-04-20T11:26:24.606270+00:00",
+              "timestamp": "2026-04-20T16:32:40.559492+00:00",
               "unit": "bpm",
-              "value": 29
+              "value": 10
             },
             {
               "id": 2,
-              "timestamp": "2026-04-20T11:26:54.606289+00:00",
+              "timestamp": "2026-04-20T16:33:10.559512+00:00",
               "unit": "bpm",
-              "value": 27
+              "value": 8
             },
             {
               "id": 3,
-              "timestamp": "2026-04-20T11:27:24.606303+00:00",
+              "timestamp": "2026-04-20T16:33:40.559527+00:00",
               "unit": "bpm",
-              "value": 27
+              "value": 19
             },
             {
               "id": 4,
-              "timestamp": "2026-04-20T11:27:54.606319+00:00",
+              "timestamp": "2026-04-20T16:34:10.559542+00:00",
               "unit": "bpm",
-              "value": 28
+              "value": 13
             }
           ]
         }
@@ -32967,10 +33040,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "a8e0fafe-6897-4502-80b8-ecbf0d4d5a18",
+          "id": "647b6b44-098d-4b43-900f-2fd5d255db9f",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "71a26728-6906-4dec-9975-0a2da4a14a1b",
+            "id": "21841104-8b16-458d-849b-c36cc381137c",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -33163,7 +33236,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2026-04-20T11:25:55+00:00",
+              "created_on": "2026-04-20T16:32:11+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -33171,16 +33244,16 @@
               }
             }
           ],
-          "created_on": "2026-04-20T11:25:55+00:00",
+          "created_on": "2026-04-20T16:32:11+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2026-04-20T11:25:55+00:00",
+            "updated_at": "2026-04-20T16:32:11+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2026-04-20T11:25:55+00:00"
+            "updated_at": "2026-04-20T16:32:11+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -33442,9 +33515,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "cad273f1-b441-4dda-a1e6-eeb594d6b40b",
+          "appointment_id": "a92c8189-a315-4bdf-b428-4a4e54771526",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "9464bb83-3d28-43aa-83e9-3f74156fcbc1",
+          "id": "c453a874-a035-48a6-a499-9f9ef51d1699",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -34707,7 +34780,7 @@
               "third"
             ]
           },
-          "query_id": "0e550e6c-3159-4154-9062-c5d3d80d66bf",
+          "query_id": "2f6be515-775a-4b22-ab5b-fc8c1dd1a463",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -35737,6 +35810,22 @@
         ],
         "title": "DiscreteTimeseriesExpr"
       },
+      "ElementFieldExpr": {
+        "properties": {
+          "element": {
+            "type": "boolean",
+            "const": true,
+            "title": "Element"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "element"
+        ],
+        "title": "ElementFieldExpr",
+        "description": "References the element itself in a scalar-element list subquery arg.\n\nSymmetric with the reserved ``element`` keyword in WHERE predicates.\nOnly valid when the UNNEST source is a ``List[scalar]``."
+      },
       "EmailAuthLink": {
         "properties": {
           "email": {
@@ -36704,6 +36793,7 @@
               "workout",
               "body",
               "meal",
+              "menstrual_cycle",
               "profile",
               "timeseries"
             ],
@@ -37719,6 +37809,252 @@
         ],
         "title": "LoincMatch"
       },
+      "MCBasalBodyTemperatureFieldExpr": {
+        "properties": {
+          "field_for": {
+            "type": "string",
+            "const": "menstrual_cycle",
+            "title": "Field For",
+            "default": "menstrual_cycle"
+          },
+          "basal_body_temperature": {
+            "type": "string",
+            "enum": [
+              "date",
+              "value"
+            ],
+            "title": "Basal Body Temperature",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "basal_body_temperature"
+        ],
+        "title": "MCBasalBodyTemperatureFieldExpr"
+      },
+      "MCCervicalMucusFieldExpr": {
+        "properties": {
+          "field_for": {
+            "type": "string",
+            "const": "menstrual_cycle",
+            "title": "Field For",
+            "default": "menstrual_cycle"
+          },
+          "cervical_mucus": {
+            "type": "string",
+            "enum": [
+              "date",
+              "quality"
+            ],
+            "title": "Cervical Mucus",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "cervical_mucus"
+        ],
+        "title": "MCCervicalMucusFieldExpr"
+      },
+      "MCContraceptiveFieldExpr": {
+        "properties": {
+          "field_for": {
+            "type": "string",
+            "const": "menstrual_cycle",
+            "title": "Field For",
+            "default": "menstrual_cycle"
+          },
+          "contraceptive": {
+            "type": "string",
+            "enum": [
+              "date",
+              "type"
+            ],
+            "title": "Contraceptive",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "contraceptive"
+        ],
+        "title": "MCContraceptiveFieldExpr"
+      },
+      "MCDetectedDeviationsFieldExpr": {
+        "properties": {
+          "field_for": {
+            "type": "string",
+            "const": "menstrual_cycle",
+            "title": "Field For",
+            "default": "menstrual_cycle"
+          },
+          "detected_deviations": {
+            "type": "string",
+            "enum": [
+              "date",
+              "deviation"
+            ],
+            "title": "Detected Deviations",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "detected_deviations"
+        ],
+        "title": "MCDetectedDeviationsFieldExpr"
+      },
+      "MCHomePregnancyTestFieldExpr": {
+        "properties": {
+          "field_for": {
+            "type": "string",
+            "const": "menstrual_cycle",
+            "title": "Field For",
+            "default": "menstrual_cycle"
+          },
+          "home_pregnancy_test": {
+            "type": "string",
+            "enum": [
+              "date",
+              "test_result"
+            ],
+            "title": "Home Pregnancy Test",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "home_pregnancy_test"
+        ],
+        "title": "MCHomePregnancyTestFieldExpr"
+      },
+      "MCHomeProgesteroneTestFieldExpr": {
+        "properties": {
+          "field_for": {
+            "type": "string",
+            "const": "menstrual_cycle",
+            "title": "Field For",
+            "default": "menstrual_cycle"
+          },
+          "home_progesterone_test": {
+            "type": "string",
+            "enum": [
+              "date",
+              "test_result"
+            ],
+            "title": "Home Progesterone Test",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "home_progesterone_test"
+        ],
+        "title": "MCHomeProgesteroneTestFieldExpr"
+      },
+      "MCIntermenstrualBleedingFieldExpr": {
+        "properties": {
+          "field_for": {
+            "type": "string",
+            "const": "menstrual_cycle",
+            "title": "Field For",
+            "default": "menstrual_cycle"
+          },
+          "intermenstrual_bleeding": {
+            "type": "string",
+            "const": "date",
+            "title": "Intermenstrual Bleeding"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "intermenstrual_bleeding"
+        ],
+        "title": "MCIntermenstrualBleedingFieldExpr"
+      },
+      "MCMenstrualFlowFieldExpr": {
+        "properties": {
+          "field_for": {
+            "type": "string",
+            "const": "menstrual_cycle",
+            "title": "Field For",
+            "default": "menstrual_cycle"
+          },
+          "menstrual_flow": {
+            "type": "string",
+            "enum": [
+              "date",
+              "flow"
+            ],
+            "title": "Menstrual Flow",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "menstrual_flow"
+        ],
+        "title": "MCMenstrualFlowFieldExpr"
+      },
+      "MCOvulationTestFieldExpr": {
+        "properties": {
+          "field_for": {
+            "type": "string",
+            "const": "menstrual_cycle",
+            "title": "Field For",
+            "default": "menstrual_cycle"
+          },
+          "ovulation_test": {
+            "type": "string",
+            "enum": [
+              "date",
+              "test_result"
+            ],
+            "title": "Ovulation Test",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "ovulation_test"
+        ],
+        "title": "MCOvulationTestFieldExpr"
+      },
+      "MCSexualActivityFieldExpr": {
+        "properties": {
+          "field_for": {
+            "type": "string",
+            "const": "menstrual_cycle",
+            "title": "Field For",
+            "default": "menstrual_cycle"
+          },
+          "sexual_activity": {
+            "type": "string",
+            "enum": [
+              "date",
+              "protection_used"
+            ],
+            "title": "Sexual Activity",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sexual_activity"
+        ],
+        "title": "MCSexualActivityFieldExpr"
+      },
       "Macros": {
         "properties": {
           "carbs": {
@@ -38135,6 +38471,40 @@
           "updated_at": "2023-02-28T01:22:38+00:00",
           "user_id": "a169451c-8525-4352-b8ca-070dd449a1a5"
         }
+      },
+      "MenstrualCycleColumnExpr": {
+        "properties": {
+          "menstrual_cycle": {
+            "type": "string",
+            "enum": [
+              "period_start",
+              "period_end",
+              "cycle_end",
+              "is_predicted",
+              "menstrual_flow",
+              "cervical_mucus",
+              "intermenstrual_bleeding",
+              "contraceptive",
+              "detected_deviations",
+              "ovulation_test",
+              "home_pregnancy_test",
+              "home_progesterone_test",
+              "sexual_activity",
+              "basal_body_temperature",
+              "source_type",
+              "source_provider",
+              "source_app_id",
+              "source_device_id"
+            ],
+            "title": "Menstrual Cycle",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "type": "object",
+        "required": [
+          "menstrual_cycle"
+        ],
+        "title": "MenstrualCycleColumnExpr"
       },
       "MenstrualCycleResponse": {
         "properties": {
@@ -40297,6 +40667,9 @@
                   "$ref": "#/components/schemas/MealColumnExpr"
                 },
                 {
+                  "$ref": "#/components/schemas/MenstrualCycleColumnExpr"
+                },
+                {
                   "$ref": "#/components/schemas/ProfileColumnExpr"
                 },
                 {
@@ -40342,6 +40715,9 @@
                   "$ref": "#/components/schemas/IndexColumnExpr"
                 },
                 {
+                  "$ref": "#/components/schemas/ScalarOutputSubqueryExpr"
+                },
+                {
                   "$ref": "#/components/schemas/SourceColumnExpr"
                 }
               ]
@@ -40375,6 +40751,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/MealColumnExpr"
+                },
+                {
+                  "$ref": "#/components/schemas/MenstrualCycleColumnExpr"
                 },
                 {
                   "$ref": "#/components/schemas/ProfileColumnExpr"
@@ -41343,6 +41722,50 @@
         },
         "type": "object",
         "title": "SampleData"
+      },
+      "ScalarOutputSubqueryExpr": {
+        "properties": {
+          "select": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AggregateFieldExpr"
+              },
+              {
+                "$ref": "#/components/schemas/Placeholder"
+              }
+            ],
+            "title": "Select"
+          },
+          "from": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UnnestExpr"
+              },
+              {
+                "$ref": "#/components/schemas/Placeholder"
+              }
+            ],
+            "title": "From"
+          },
+          "where": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Where"
+          }
+        },
+        "type": "object",
+        "required": [
+          "select",
+          "from"
+        ],
+        "title": "ScalarOutputSubqueryExpr",
+        "description": "A subquery that produces a single scalar value per row."
       },
       "ScopeRequirementsGrants": {
         "properties": {
@@ -42755,6 +43178,84 @@
           "timezone_offset"
         ],
         "title": "UTCTimestampWithTimezoneOffset"
+      },
+      "UnnestExpr": {
+        "properties": {
+          "unnest": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SleepColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/DerivedReadinessColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/ActivityColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/WorkoutColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/BodyColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/MealColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/MenstrualCycleColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/ProfileColumnExpr"
+              },
+              {
+                "$ref": "#/components/schemas/SleepScoreValueMacroExpr"
+              },
+              {
+                "$ref": "#/components/schemas/ChronotypeValueMacroExpr"
+              },
+              {
+                "$ref": "#/components/schemas/AsleepAtValueMacroExpr"
+              },
+              {
+                "$ref": "#/components/schemas/AwakeAtValueMacroExpr"
+              },
+              {
+                "$ref": "#/components/schemas/AwakeningsValueMacroExpr"
+              },
+              {
+                "$ref": "#/components/schemas/UnrecognizedValueMacroExpr"
+              },
+              {
+                "$ref": "#/components/schemas/DiscreteTimeseriesExpr"
+              },
+              {
+                "$ref": "#/components/schemas/IntervalTimeseriesExpr"
+              },
+              {
+                "$ref": "#/components/schemas/InsulinInjectionTimeseriesExpr"
+              },
+              {
+                "$ref": "#/components/schemas/BloodPressureTimeseriesExpr"
+              },
+              {
+                "$ref": "#/components/schemas/TemperatureTimeseriesExpr"
+              },
+              {
+                "$ref": "#/components/schemas/WorkoutDurationTimeseriesExpr"
+              },
+              {
+                "$ref": "#/components/schemas/NoteTimeseriesExpr"
+              }
+            ],
+            "title": "Unnest"
+          }
+        },
+        "type": "object",
+        "required": [
+          "unnest"
+        ],
+        "title": "UnnestExpr",
+        "description": "FROM clause variant: unnest a list column into elements."
       },
       "UnrecognizedValueMacroExpr": {
         "properties": {
@@ -45708,7 +46209,7 @@
               {
                 "data": [
                   {
-                    "end": "2026-04-20T11:30:54.405530+00:00",
+                    "end": "2026-04-20T16:37:10.449334+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -47357,7 +47858,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2026-04-20T11:25:54+00:00",
+                    "timestamp": "2026-04-20T16:32:10+00:00",
                     "unit": "mmHg"
                   }
                 ],
