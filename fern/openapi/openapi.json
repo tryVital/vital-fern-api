@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.4.438"
+    "version": "0.4.440"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -292,53 +292,6 @@
         "x-fern-sdk-method-name": "token"
       }
     },
-    "/v2/link/token/isValid": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Check Token Valid",
-        "operationId": "check_token_valid_v2_link_token_isValid_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LinkTokenValidationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Response Check Token Valid V2 Link Token Isvalid Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": true,
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "is_token_valid",
-        "x-fern-availability": "deprecated"
-      }
-    },
     "/v2/link/code/create": {
       "post": {
         "tags": [
@@ -402,237 +355,6 @@
         },
         "x-fern-sdk-group-name": "link",
         "x-fern-sdk-method-name": "code_create"
-      }
-    },
-    "/v2/link/start": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Start Connect Process",
-        "description": "REQUEST_SOURCE: VITAL-LINK\nStart link token process",
-        "operationId": "start_connect_process_v2_link_start_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BeginLinkTokenRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Response Start Connect Process V2 Link Start Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "deprecated": true,
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "start_connect",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/link/state": {
-      "get": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Check Link Token State",
-        "description": "REQUEST_SOURCE: VITAL-LINK\nCheck link token state - can be hit continuously used as heartbeat",
-        "operationId": "check_link_token_state_v2_link_state_get",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Check Link Token State V2 Link State Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "token_state",
-        "x-fern-availability": "deprecated",
-        "security": []
-      }
-    },
-    "/v2/link/auth/email": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Legacy Connect Email Auth",
-        "description": "Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.",
-        "operationId": "legacy_connect_email_auth_v2_link_auth_email_post",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmailAuthLink"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "email_auth",
-        "x-fern-availability": "deprecated",
-        "security": []
-      }
-    },
-    "/v2/link/auth": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Legacy Connect Password Auth",
-        "description": "Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.",
-        "operationId": "legacy_connect_password_auth_v2_link_auth_post",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PasswordAuthLink"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "password_auth",
-        "x-fern-availability": "deprecated",
-        "security": []
       }
     },
     "/v2/link/provider/oauth/{oauth_provider}": {
@@ -965,98 +687,6 @@
         "x-fern-sdk-group-name": "link",
         "x-fern-sdk-method-name": "get_all_providers",
         "security": []
-      }
-    },
-    "/v2/link/provider/manual/{provider}": {
-      "post": {
-        "tags": [
-          "link"
-        ],
-        "summary": "Create Manual Connected Source",
-        "operationId": "create_manual_connected_source_v2_link_provider_manual__provider__post",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "provider",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/ManualProviders",
-              "title": "Providers that are manually added devices, such as ble devices and generated data"
-            }
-          },
-          {
-            "name": "x-vital-ios-sdk-version",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Ios-Sdk-Version"
-            }
-          },
-          {
-            "name": "x-vital-android-sdk-version",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Android-Sdk-Version"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ManualConnectionData"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "boolean"
-                  },
-                  "title": "Response Create Manual Connected Source V2 Link Provider Manual  Provider  Post"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "link",
-        "x-fern-sdk-method-name": "connect_manual_provider",
-        "x-fern-availability": "deprecated"
       }
     },
     "/v2/link/connect/demo": {
@@ -1431,7 +1061,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RawDevices"
+                  "$ref": "#/components/schemas/RawDevicesResponse"
                 }
               }
             }
@@ -1605,7 +1235,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RawActivity"
+                  "$ref": "#/components/schemas/RawActivityResponse"
                 }
               }
             }
@@ -1779,7 +1409,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RawWorkout"
+                  "$ref": "#/components/schemas/RawWorkoutResponse"
                 }
               }
             }
@@ -1953,7 +1583,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RawSleep"
+                  "$ref": "#/components/schemas/RawSleepResponse"
                 }
               }
             }
@@ -2127,7 +1757,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RawBody"
+                  "$ref": "#/components/schemas/RawBodyResponse"
                 }
               }
             }
@@ -11353,7 +10983,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ClientFacingUserKey"
+                  "$ref": "#/components/schemas/ClientFacingUser"
                 }
               }
             }
@@ -12158,61 +11788,6 @@
         },
         "x-fern-sdk-group-name": "user",
         "x-fern-sdk-method-name": "get_device"
-      }
-    },
-    "/v2/team/link/config": {
-      "get": {
-        "tags": [
-          "team"
-        ],
-        "summary": "Get Team Config",
-        "description": "Post teams.",
-        "operationId": "get_team_config_v2_team_link_config_get",
-        "parameters": [
-          {
-            "name": "x-vital-link-token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Vital-Link-Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Get Team Config V2 Team Link Config Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "team",
-        "x-fern-sdk-method-name": "get_link_config",
-        "security": []
       }
     },
     "/v2/team/{team_id}": {
@@ -14740,10 +14315,10 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "607c219c-24cb-4dec-9d31-4ebbf89fd447",
-                  "user_id": "4271f3af-9552-4d71-add5-8ef617cc71f2",
-                  "order_id": "b41c9f53-699c-46af-b414-77ef7aed35e3",
-                  "order_transaction_id": "d7273b79-b813-4da6-8047-6b4e04f2e8d3",
+                  "id": "6e350106-9fc6-4cb4-8fdb-e9d79c0e75b3",
+                  "user_id": "defc0fb4-cf0e-49ce-90c2-7cf5b75b8d29",
+                  "order_id": "7456778f-1af9-4016-b0ca-fa5f974e6e46",
+                  "order_transaction_id": "fa85324d-4bef-43c0-9349-d0c200dc7217",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -16788,7 +16363,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/Body_CreateLabReportParserJob"
+                "$ref": "#/components/schemas/CreateLabReportParserJobBody"
               }
             }
           },
@@ -22277,85 +21852,6 @@
         ],
         "title": "ActivityColumnExpr"
       },
-      "ActivityV2InDB": {
-        "properties": {
-          "timestamp": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Timestamp"
-          },
-          "data": {
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Data"
-          },
-          "user_id": {
-            "type": "string",
-            "format": "uuid4",
-            "title": "User Id"
-          },
-          "provider_id": {
-            "type": "string",
-            "title": "Provider Id",
-            "deprecated": true
-          },
-          "source_id": {
-            "type": "integer",
-            "title": "Source Id",
-            "deprecated": true
-          },
-          "priority_id": {
-            "type": "integer",
-            "title": "Priority Id",
-            "deprecated": true
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Id"
-          },
-          "source_device_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Source Device Id"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At",
-            "default": "0001-01-01T00:00:00Z"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At",
-            "default": "0001-01-01T00:00:00Z"
-          },
-          "source": {
-            "$ref": "#/components/schemas/ClientFacingProvider",
-            "deprecated": true
-          }
-        },
-        "type": "object",
-        "required": [
-          "timestamp",
-          "data",
-          "user_id",
-          "provider_id",
-          "source_id",
-          "priority_id",
-          "id",
-          "source"
-        ],
-        "title": "ActivityV2InDB"
-      },
       "AddOnOrder": {
         "properties": {
           "marker_ids": {
@@ -23005,16 +22501,6 @@
         "title": "AttemptStatus",
         "description": "ℹ️ This enum is non-exhaustive."
       },
-      "AuthType": {
-        "type": "string",
-        "enum": [
-          "password",
-          "oauth",
-          "email"
-        ],
-        "title": "AuthType",
-        "description": "ℹ️ This enum is non-exhaustive."
-      },
       "Availability": {
         "type": "string",
         "enum": [
@@ -23082,24 +22568,6 @@
           "value"
         ],
         "title": "BasalBodyTemperatureEntry"
-      },
-      "BeginLinkTokenRequest": {
-        "properties": {
-          "link_token": {
-            "type": "string",
-            "title": "Link Token"
-          },
-          "provider": {
-            "$ref": "#/components/schemas/Providers",
-            "description": "ℹ️ This enum is non-exhaustive."
-          }
-        },
-        "type": "object",
-        "required": [
-          "link_token",
-          "provider"
-        ],
-        "title": "BeginLinkTokenRequest"
       },
       "Billing": {
         "type": "string",
@@ -23418,132 +22886,6 @@
           "body"
         ],
         "title": "BodyColumnExpr"
-      },
-      "BodyV2InDB": {
-        "properties": {
-          "timestamp": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Timestamp"
-          },
-          "data": {
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Data"
-          },
-          "user_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "User Id"
-          },
-          "provider_id": {
-            "type": "string",
-            "title": "Provider Id",
-            "deprecated": true
-          },
-          "source_id": {
-            "type": "integer",
-            "title": "Source Id",
-            "deprecated": true
-          },
-          "priority_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Priority Id",
-            "deprecated": true
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Id"
-          },
-          "source_device_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Source Device Id"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At",
-            "default": "0001-01-01T00:00:00Z"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At",
-            "default": "0001-01-01T00:00:00Z"
-          },
-          "priority": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Priority",
-            "deprecated": true
-          },
-          "source": {
-            "$ref": "#/components/schemas/ClientFacingProvider",
-            "deprecated": true
-          }
-        },
-        "type": "object",
-        "required": [
-          "timestamp",
-          "data",
-          "user_id",
-          "provider_id",
-          "source_id",
-          "priority_id",
-          "id",
-          "source"
-        ],
-        "title": "BodyV2InDB"
-      },
-      "Body_CreateLabReportParserJob": {
-        "properties": {
-          "file": {
-            "items": {
-              "type": "string",
-              "format": "binary"
-            },
-            "type": "array",
-            "title": "File"
-          },
-          "user_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "User Id"
-          },
-          "needs_human_review": {
-            "type": "boolean",
-            "title": "Needs Human Review",
-            "default": false
-          }
-        },
-        "type": "object",
-        "required": [
-          "file",
-          "user_id"
-        ],
-        "title": "Body_CreateLabReportParserJob"
       },
       "BulkExportConnectionsBody": {
         "properties": {
@@ -24594,19 +23936,19 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "a61792b3-0023-4f2b-b35d-b4be5bfc7527",
+          "id": "6c8d0eaf-d032-419f-90f2-94490148196b",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "91eec9c1-360f-456a-a14c-aa40b520047f",
-          "order_transaction_id": "354a8a5c-ad04-474e-8006-28c5d4db650f",
+          "order_id": "e2a96b8a-047d-4b1e-b850-3907befd63f8",
+          "order_transaction_id": "3fcf8efa-1164-45f4-b145-38aa4a0bf405",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "8a24878f-0ce8-4c47-aaee-963e00f3d8a2"
+          "user_id": "7a8e6526-f713-4615-9619-05c96487b050"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -24633,7 +23975,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "21a1b0cd-6fc4-4ee3-a95c-ce7f9923372c",
+          "id": "d453e3ce-3baf-450a-be0f-1c815c84c725",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -24709,9 +24051,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "aadc0433-3955-414a-ae84-1054df0a5c3f",
+          "appointment_id": "c7030394-a75a-4d84-86f3-93669298716b",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "f498ad9a-ec68-47e2-bbd3-6200fb35b1b2",
+          "id": "63441562-2483-41d9-ac6e-87b066a9bd82",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -24968,7 +24310,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2026-04-28T11:03:57+00:00",
+          "timestamp": "2026-04-28T16:11:58+00:00",
           "unit": "mmHg"
         }
       },
@@ -26095,12 +25437,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "af3e1d82-daff-47e2-bce6-e2a35589ea5f",
+          "order_id": "8d8a97c9-d5c9-4096-8315-94aaa2e11b0c",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "be265239-3d82-45ef-80a2-b321c7c7081f",
+          "team_id": "90a60809-7f97-4f8e-86ea-dbacacffa39e",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "314eb9bd-a479-43c2-a32c-ad9687f2b781"
+          "user_id": "bae4b75e-1431-4113-af28-2efee9f959f3"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -29386,7 +28728,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2026-04-28T11:08:57.373429+00:00",
+          "end": "2026-04-28T16:16:58.558653+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -29529,7 +28871,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "cf794389-feb1-459d-b9af-c4c3cb044519",
+          "id": "0f7c2322-5a6b-45af-81ef-859a8bfce29d",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -29923,8 +29265,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "2c013f7d-8f66-49c5-a51a-2b4009f0d8b3",
-          "id": "d6d891cd-c3bd-446d-8c27-ee90db471d06",
+          "health_insurace_id": "8bf730ae-1c43-41ec-9461-0741ea19da4c",
+          "id": "659b9e37-93fd-4c37-a8c5-4976aa7cf1fb",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -29976,9 +29318,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "dc72551b-e330-4891-85a7-58599104f39c",
+          "team_id": "175f4cfe-8058-483c-a11f-2207aa219901",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "7b425b79-35fe-4d90-a4fc-3547acaa2d7e"
+          "user_id": "9de09d25-2391-435f-b7b2-e1150e63002d"
         }
       },
       "ClientFacingOrderEvent": {
@@ -31082,7 +30424,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "34b483b2-ba0c-418b-bdb4-47a205a4f636",
+          "id": "3a7c9acb-99da-432c-94f6-a269e501dfda",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31843,129 +31185,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2026-04-28T11:03:57.481069+00:00",
+              "timestamp": "2026-04-28T16:11:58.662267+00:00",
               "unit": "bpm",
-              "value": 136
+              "value": 113
             },
             {
               "id": 1,
-              "timestamp": "2026-04-28T11:04:27.481086+00:00",
+              "timestamp": "2026-04-28T16:12:28.662283+00:00",
               "unit": "bpm",
-              "value": 82
+              "value": 89
             },
             {
               "id": 2,
-              "timestamp": "2026-04-28T11:04:57.481100+00:00",
+              "timestamp": "2026-04-28T16:12:58.662298+00:00",
               "unit": "bpm",
-              "value": 28
+              "value": 105
             },
             {
               "id": 3,
-              "timestamp": "2026-04-28T11:05:27.481118+00:00",
+              "timestamp": "2026-04-28T16:13:28.662312+00:00",
               "unit": "bpm",
-              "value": 34
+              "value": 14
             },
             {
               "id": 4,
-              "timestamp": "2026-04-28T11:05:57.481131+00:00",
+              "timestamp": "2026-04-28T16:13:58.662326+00:00",
               "unit": "bpm",
-              "value": 101
+              "value": 180
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2026-04-28T11:03:57.480883+00:00",
+              "timestamp": "2026-04-28T16:11:58.662080+00:00",
               "unit": "rmssd",
-              "value": 94
+              "value": 4
             },
             {
               "id": 1,
-              "timestamp": "2026-04-28T11:04:27.480974+00:00",
+              "timestamp": "2026-04-28T16:12:28.662168+00:00",
               "unit": "rmssd",
-              "value": 59
+              "value": 54
             },
             {
               "id": 2,
-              "timestamp": "2026-04-28T11:04:57.481009+00:00",
+              "timestamp": "2026-04-28T16:12:58.662204+00:00",
               "unit": "rmssd",
-              "value": 34
+              "value": 90
             },
             {
               "id": 3,
-              "timestamp": "2026-04-28T11:05:27.481034+00:00",
+              "timestamp": "2026-04-28T16:13:28.662230+00:00",
               "unit": "rmssd",
-              "value": 81
+              "value": 37
             },
             {
               "id": 4,
-              "timestamp": "2026-04-28T11:05:57.481052+00:00",
+              "timestamp": "2026-04-28T16:13:58.662249+00:00",
               "unit": "rmssd",
-              "value": 57
+              "value": 42
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2026-04-28T11:03:57.481145+00:00",
+              "timestamp": "2026-04-28T16:11:58.662341+00:00",
               "unit": "stage",
               "value": 4
             },
             {
               "id": 1,
-              "timestamp": "2026-04-28T11:04:27.481160+00:00",
+              "timestamp": "2026-04-28T16:12:28.662355+00:00",
+              "unit": "stage",
+              "value": 0
+            },
+            {
+              "id": 2,
+              "timestamp": "2026-04-28T16:12:58.662369+00:00",
               "unit": "stage",
               "value": 2
             },
             {
-              "id": 2,
-              "timestamp": "2026-04-28T11:04:57.481173+00:00",
-              "unit": "stage",
-              "value": 4
-            },
-            {
               "id": 3,
-              "timestamp": "2026-04-28T11:05:27.481187+00:00",
+              "timestamp": "2026-04-28T16:13:28.662383+00:00",
               "unit": "stage",
-              "value": -1
+              "value": 2
             },
             {
               "id": 4,
-              "timestamp": "2026-04-28T11:05:57.481200+00:00",
+              "timestamp": "2026-04-28T16:13:58.662396+00:00",
               "unit": "stage",
-              "value": 3
+              "value": 0
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2026-04-28T11:03:57.481213+00:00",
-              "unit": "bpm",
-              "value": 9
-            },
-            {
-              "id": 1,
-              "timestamp": "2026-04-28T11:04:27.481226+00:00",
+              "timestamp": "2026-04-28T16:11:58.662413+00:00",
               "unit": "bpm",
               "value": 20
             },
             {
-              "id": 2,
-              "timestamp": "2026-04-28T11:04:57.481240+00:00",
+              "id": 1,
+              "timestamp": "2026-04-28T16:12:28.662427+00:00",
               "unit": "bpm",
-              "value": 9
+              "value": 15
+            },
+            {
+              "id": 2,
+              "timestamp": "2026-04-28T16:12:58.662441+00:00",
+              "unit": "bpm",
+              "value": 21
             },
             {
               "id": 3,
-              "timestamp": "2026-04-28T11:05:27.481252+00:00",
+              "timestamp": "2026-04-28T16:13:28.662454+00:00",
               "unit": "bpm",
-              "value": 26
+              "value": 19
             },
             {
               "id": 4,
-              "timestamp": "2026-04-28T11:05:57.481264+00:00",
+              "timestamp": "2026-04-28T16:13:58.662466+00:00",
               "unit": "bpm",
-              "value": 25
+              "value": 13
             }
           ]
         }
@@ -33040,10 +32382,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "bf732281-9bc1-4390-9733-f4ee528c5907",
+          "id": "5b82de56-9100-4ee4-a3b6-089b15ce9623",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "ff8f93bb-1369-4565-add2-c51b9332c07f",
+            "id": "8943683d-f069-4a0c-8a61-d98cd0d0349c",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -33236,7 +32578,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2026-04-28T11:03:58+00:00",
+              "created_on": "2026-04-28T16:11:59+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -33244,44 +32586,19 @@
               }
             }
           ],
-          "created_on": "2026-04-28T11:03:58+00:00",
+          "created_on": "2026-04-28T16:11:59+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2026-04-28T11:03:58+00:00",
+            "updated_at": "2026-04-28T16:11:59+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2026-04-28T11:03:58+00:00"
+            "updated_at": "2026-04-28T16:11:59+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
-        }
-      },
-      "ClientFacingUserKey": {
-        "properties": {
-          "user_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "User Id",
-            "description": "User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
-          },
-          "client_user_id": {
-            "type": "string",
-            "title": "Client User Id",
-            "description": "A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id."
-          }
-        },
-        "type": "object",
-        "required": [
-          "user_id",
-          "client_user_id"
-        ],
-        "title": "ClientFacingUserKey",
-        "example": {
-          "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
-          "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537"
         }
       },
       "ClientFacingVO2MaxTimeseries": {
@@ -33515,9 +32832,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "c1d0e4ec-2d81-428b-922f-0d193e7e457b",
+          "appointment_id": "7bb6af6c-edf8-40d5-81ba-c2aa835b79e6",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "5f78c61d-97db-4eb3-a762-3dc7ca74f439",
+          "id": "61ef8099-07d4-4662-a434-a9351dd85e99",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -34780,7 +34097,7 @@
               "third"
             ]
           },
-          "query_id": "f27ca698-917c-41e6-9508-55d1ebd83abe",
+          "query_id": "b398a6bb-31ab-4e66-93c9-620e24ce9998",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -35087,6 +34404,34 @@
           "insured"
         ],
         "title": "CreateInsuranceRequest"
+      },
+      "CreateLabReportParserJobBody": {
+        "properties": {
+          "file": {
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "type": "array",
+            "title": "File"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "needs_human_review": {
+            "type": "boolean",
+            "title": "Needs Human Review",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "file",
+          "user_id"
+        ],
+        "title": "CreateLabReportParserJobBody"
       },
       "CreateLabTestRequest": {
         "properties": {
@@ -35707,46 +35052,6 @@
         ],
         "title": "DetectedDeviationEntry"
       },
-      "DeviceV2InDB": {
-        "properties": {
-          "data": {
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Data"
-          },
-          "provider_id": {
-            "type": "string",
-            "title": "Provider Id"
-          },
-          "user_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "User Id"
-          },
-          "source_id": {
-            "type": "integer",
-            "title": "Source Id"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Id"
-          },
-          "source": {
-            "$ref": "#/components/schemas/ClientFacingProvider"
-          }
-        },
-        "type": "object",
-        "required": [
-          "data",
-          "provider_id",
-          "user_id",
-          "source_id",
-          "id",
-          "source"
-        ],
-        "title": "DeviceV2InDB"
-      },
       "DiscreteTimeseriesExpr": {
         "properties": {
           "timeseries": {
@@ -35826,33 +35131,6 @@
         ],
         "title": "ElementFieldExpr",
         "description": "References the element itself in a scalar-element list subquery arg.\n\nSymmetric with the reserved ``element`` keyword in WHERE predicates.\nOnly valid when the UNNEST source is a ``List[scalar]``."
-      },
-      "EmailAuthLink": {
-        "properties": {
-          "email": {
-            "type": "string",
-            "title": "Email"
-          },
-          "provider": {
-            "$ref": "#/components/schemas/Providers",
-            "description": "ℹ️ This enum is non-exhaustive."
-          },
-          "auth_type": {
-            "$ref": "#/components/schemas/AuthType",
-            "description": "ℹ️ This enum is non-exhaustive."
-          },
-          "region": {
-            "$ref": "#/components/schemas/Region",
-            "description": "ℹ️ This enum is non-exhaustive."
-          }
-        },
-        "type": "object",
-        "required": [
-          "email",
-          "provider",
-          "auth_type"
-        ],
-        "title": "EmailAuthLink"
       },
       "EmailProviderAuthLink": {
         "properties": {
@@ -37741,19 +37019,6 @@
           "link_web_url": "https://link.tryvital.io/?token=dGVzdCB0ZXN0IHRlc3Q%3D&env=production&region=us"
         }
       },
-      "LinkTokenValidationRequest": {
-        "properties": {
-          "token": {
-            "type": "string",
-            "title": "Token"
-          }
-        },
-        "type": "object",
-        "required": [
-          "token"
-        ],
-        "title": "LinkTokenBase"
-      },
       "LngLat": {
         "properties": {
           "lng": {
@@ -38151,61 +37416,6 @@
         },
         "type": "object",
         "title": "Macros"
-      },
-      "ManualConnectionData": {
-        "properties": {
-          "user_id": {
-            "type": "string",
-            "title": "User Id"
-          },
-          "provider_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Provider Id"
-          },
-          "granted_permissions": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Granted Permissions"
-          }
-        },
-        "type": "object",
-        "required": [
-          "user_id"
-        ],
-        "title": "ManualConnectionData"
-      },
-      "ManualProviders": {
-        "type": "string",
-        "enum": [
-          "beurer_ble",
-          "omron_ble",
-          "accuchek_ble",
-          "contour_ble",
-          "freestyle_libre_ble",
-          "onetouch_ble",
-          "apple_health_kit",
-          "manual",
-          "health_connect",
-          "samsung_health"
-        ],
-        "title": "ManualProviders",
-        "description": "ℹ️ This enum is non-exhaustive."
       },
       "MarkerType": {
         "type": "string",
@@ -39394,34 +38604,6 @@
         ],
         "title": "ParsingJobStatus",
         "description": "ℹ️ This enum is non-exhaustive."
-      },
-      "PasswordAuthLink": {
-        "properties": {
-          "username": {
-            "type": "string",
-            "title": "Username"
-          },
-          "password": {
-            "type": "string",
-            "title": "Password"
-          },
-          "provider": {
-            "$ref": "#/components/schemas/Providers",
-            "description": "ℹ️ This enum is non-exhaustive."
-          },
-          "auth_type": {
-            "$ref": "#/components/schemas/AuthType",
-            "description": "ℹ️ This enum is non-exhaustive."
-          }
-        },
-        "type": "object",
-        "required": [
-          "username",
-          "password",
-          "provider",
-          "auth_type"
-        ],
-        "title": "PasswordAuthLink"
       },
       "PasswordProviders": {
         "type": "string",
@@ -40980,9 +40162,88 @@
       },
       "RawActivity": {
         "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          },
+          "data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Data"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid4",
+            "title": "User Id"
+          },
+          "provider_id": {
+            "type": "string",
+            "title": "Provider Id",
+            "deprecated": true
+          },
+          "source_id": {
+            "type": "integer",
+            "title": "Source Id",
+            "deprecated": true
+          },
+          "priority_id": {
+            "type": "integer",
+            "title": "Priority Id",
+            "deprecated": true
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "source_device_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Device Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "default": "0001-01-01T00:00:00Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At",
+            "default": "0001-01-01T00:00:00Z"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingProvider",
+            "deprecated": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "timestamp",
+          "data",
+          "user_id",
+          "provider_id",
+          "source_id",
+          "priority_id",
+          "id",
+          "source"
+        ],
+        "title": "RawActivity"
+      },
+      "RawActivityResponse": {
+        "properties": {
           "activity": {
             "items": {
-              "$ref": "#/components/schemas/ActivityV2InDB"
+              "$ref": "#/components/schemas/RawActivity"
             },
             "type": "array",
             "title": "Activity"
@@ -41011,9 +40272,107 @@
       },
       "RawBody": {
         "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          },
+          "data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Data"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "provider_id": {
+            "type": "string",
+            "title": "Provider Id",
+            "deprecated": true
+          },
+          "source_id": {
+            "type": "integer",
+            "title": "Source Id",
+            "deprecated": true
+          },
+          "priority_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority Id",
+            "deprecated": true
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "source_device_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Device Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "default": "0001-01-01T00:00:00Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At",
+            "default": "0001-01-01T00:00:00Z"
+          },
+          "priority": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority",
+            "deprecated": true
+          },
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingProvider",
+            "deprecated": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "timestamp",
+          "data",
+          "user_id",
+          "provider_id",
+          "source_id",
+          "priority_id",
+          "id",
+          "source"
+        ],
+        "title": "RawBody"
+      },
+      "RawBodyResponse": {
+        "properties": {
           "body": {
             "items": {
-              "$ref": "#/components/schemas/BodyV2InDB"
+              "$ref": "#/components/schemas/RawBody"
             },
             "type": "array",
             "title": "Body"
@@ -41040,11 +40399,51 @@
           ]
         }
       },
-      "RawDevices": {
+      "RawDevice": {
+        "properties": {
+          "data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Data"
+          },
+          "provider_id": {
+            "type": "string",
+            "title": "Provider Id"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "source_id": {
+            "type": "integer",
+            "title": "Source Id"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingProvider"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "provider_id",
+          "user_id",
+          "source_id",
+          "id",
+          "source"
+        ],
+        "title": "RawDevice"
+      },
+      "RawDevicesResponse": {
         "properties": {
           "devices": {
             "items": {
-              "$ref": "#/components/schemas/DeviceV2InDB"
+              "$ref": "#/components/schemas/RawDevice"
             },
             "type": "array",
             "title": "Devices"
@@ -41093,9 +40492,107 @@
       },
       "RawSleep": {
         "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          },
+          "data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Data"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "provider_id": {
+            "type": "string",
+            "title": "Provider Id",
+            "deprecated": true
+          },
+          "source_id": {
+            "type": "integer",
+            "title": "Source Id",
+            "deprecated": true
+          },
+          "priority_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority Id",
+            "deprecated": true
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "source_device_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Device Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "default": "0001-01-01T00:00:00Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At",
+            "default": "0001-01-01T00:00:00Z"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingProvider",
+            "deprecated": true
+          },
+          "priority": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority",
+            "deprecated": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "timestamp",
+          "data",
+          "user_id",
+          "provider_id",
+          "source_id",
+          "priority_id",
+          "id",
+          "source"
+        ],
+        "title": "RawSleep"
+      },
+      "RawSleepResponse": {
+        "properties": {
           "sleep": {
             "items": {
-              "$ref": "#/components/schemas/SleepV2InDB"
+              "$ref": "#/components/schemas/RawSleep"
             },
             "type": "array",
             "title": "Sleep"
@@ -41124,9 +40621,104 @@
       },
       "RawWorkout": {
         "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          },
+          "data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Data"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid4",
+            "title": "User Id"
+          },
+          "provider_id": {
+            "type": "string",
+            "title": "Provider Id",
+            "deprecated": true
+          },
+          "source_id": {
+            "type": "integer",
+            "title": "Source Id",
+            "deprecated": true
+          },
+          "priority_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority Id",
+            "deprecated": true
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "sport_id": {
+            "type": "integer",
+            "title": "Sport Id"
+          },
+          "sport": {
+            "$ref": "#/components/schemas/ClientFacingSport"
+          },
+          "source_device_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Device Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "default": "0001-01-01T00:00:00Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At",
+            "default": "0001-01-01T00:00:00Z"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ClientFacingProvider",
+            "deprecated": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "timestamp",
+          "data",
+          "user_id",
+          "provider_id",
+          "source_id",
+          "priority_id",
+          "id",
+          "sport_id",
+          "sport",
+          "source"
+        ],
+        "title": "RawWorkout"
+      },
+      "RawWorkoutResponse": {
+        "properties": {
           "workouts": {
             "items": {
-              "$ref": "#/components/schemas/WorkoutV2InDB"
+              "$ref": "#/components/schemas/RawWorkout"
             },
             "type": "array",
             "title": "Workouts"
@@ -42422,104 +42014,6 @@
         ],
         "title": "SleepType",
         "description": "ℹ️ This enum is non-exhaustive."
-      },
-      "SleepV2InDB": {
-        "properties": {
-          "timestamp": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Timestamp"
-          },
-          "data": {
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Data"
-          },
-          "user_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "User Id"
-          },
-          "provider_id": {
-            "type": "string",
-            "title": "Provider Id",
-            "deprecated": true
-          },
-          "source_id": {
-            "type": "integer",
-            "title": "Source Id",
-            "deprecated": true
-          },
-          "priority_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Priority Id",
-            "deprecated": true
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Id"
-          },
-          "source_device_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Source Device Id"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At",
-            "default": "0001-01-01T00:00:00Z"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At",
-            "default": "0001-01-01T00:00:00Z"
-          },
-          "source": {
-            "$ref": "#/components/schemas/ClientFacingProvider",
-            "deprecated": true
-          },
-          "priority": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Priority",
-            "deprecated": true
-          }
-        },
-        "type": "object",
-        "required": [
-          "timestamp",
-          "data",
-          "user_id",
-          "provider_id",
-          "source_id",
-          "priority_id",
-          "id",
-          "source"
-        ],
-        "title": "SleepV2InDB"
       },
       "Source": {
         "properties": {
@@ -44231,101 +43725,6 @@
           "field"
         ],
         "title": "WorkoutDurationTimeseriesExpr"
-      },
-      "WorkoutV2InDB": {
-        "properties": {
-          "timestamp": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Timestamp"
-          },
-          "data": {
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Data"
-          },
-          "user_id": {
-            "type": "string",
-            "format": "uuid4",
-            "title": "User Id"
-          },
-          "provider_id": {
-            "type": "string",
-            "title": "Provider Id",
-            "deprecated": true
-          },
-          "source_id": {
-            "type": "integer",
-            "title": "Source Id",
-            "deprecated": true
-          },
-          "priority_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Priority Id",
-            "deprecated": true
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Id"
-          },
-          "sport_id": {
-            "type": "integer",
-            "title": "Sport Id"
-          },
-          "sport": {
-            "$ref": "#/components/schemas/ClientFacingSport"
-          },
-          "source_device_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Source Device Id"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At",
-            "default": "0001-01-01T00:00:00Z"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At",
-            "default": "0001-01-01T00:00:00Z"
-          },
-          "source": {
-            "$ref": "#/components/schemas/ClientFacingProvider",
-            "deprecated": true
-          }
-        },
-        "type": "object",
-        "required": [
-          "timestamp",
-          "data",
-          "user_id",
-          "provider_id",
-          "source_id",
-          "priority_id",
-          "id",
-          "sport_id",
-          "sport",
-          "source"
-        ],
-        "title": "WorkoutV2InDB"
       },
       "_ClientFacingSampleGroupingKeys": {
         "prefixItems": [
@@ -46213,7 +45612,7 @@
               {
                 "data": [
                   {
-                    "end": "2026-04-28T11:08:57.373429+00:00",
+                    "end": "2026-04-28T16:16:58.558653+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -47862,7 +47261,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2026-04-28T11:03:57+00:00",
+                    "timestamp": "2026-04-28T16:11:58+00:00",
                     "unit": "mmHg"
                   }
                 ],
