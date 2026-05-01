@@ -10,11 +10,8 @@ api:
         coerce-enums-to-literals: true
         type-dates-as-strings: true
         object-query-parameters: false
-        idiomatic-request-names: false
-        respect-nullable-schemas: false
         wrap-references-to-nullable-in-optional: true
         coerce-optional-schemas-to-nullable: true
-        inline-path-parameters: false
         path-parameter-order: spec-order
   settings:
     path-parameter-order: spec-order
@@ -22,11 +19,11 @@ groups:
   java-sdk:
     generators:
       - name: fernapi/fern-java-sdk
-        version: 3.39.1
+        version: 4.6.1
         autorelease: true
         output:
           location: maven
-          coordinate: io.tryvital:vital-java
+          coordinate: com.junction:junction-java
           username: ${JRELEASER_DEPLOY_MAVEN_MAVENCENTRAL_USERNAME}
           password: ${JRELEASER_DEPLOY_MAVEN_MAVENCENTRAL_PASSWORD}
           signature:
@@ -34,65 +31,57 @@ groups:
             password: ${JRELEASER_GPG_PASSPHRASE}
             secretKey: ${JRELEASER_GPG_SECRET_KEY}
         config:
+          package-prefix: com.junction.api
           publish-to: central
           base-api-exception-class-name: ApiError
-          client-class-name: Vital
-
-          # 3.0.0 backwards compatibility settings
-          enable-forward-compatible-enums: false
+          client-class-name: Junction
+          enable-forward-compatible-enums: true
         github:
-          repository: tryVital/vital-java
+          repository: junction-api/junction-java
           mode: pull-request
         smart-casing: false
   node-sdk:
     generators:
       - name: fernapi/fern-typescript-sdk
-        version: 3.51.3
+        version: 3.66.1
         autorelease: true
         config:
-          namespaceExport: Vital
+          namespaceExport: Junction
 
-          # 1.0.0 backwards compatibility settings
-          inlineFileProperties: false
-          inlinePathParameters: false
-          enableInlineTypes: false
           noSerdeLayer: false
           omitUndefined: false
           skipResponseValidation: false
-          # useLegacyExports: true    # disable because it's better
 
-          # 2.0.0 backwards compatibility settings
-          # streamType: wrapper       # disable because it's better
-          # fileResponseType: stream  # disable because it's better
-          # formDataSupport: Node16   # disable because it's better
-          # fetchSupport: node-fetch  # disable because it's better
-
-          # 3.0.0 backwards compatibility settings
-          # packageManager: yarn      # disable because it's better
-          # testFramework: jest       # disable because it's better
+          useLegacyExports: false
+          streamType: web
+          fileResponseType: binary-response
+          formDataSupport: Node18
+          fetchSupport: native
+          packageManager: pnpm
+          testFramework: vitest
         output:
           location: npm
-          package-name: '@tryvital/vital-node'
-          token: ${NPM_TOKEN}
+          package-name: '@junction-api/sdk'
+          token: ${NPM_TOKEN_JUNCTION}
         github:
-          repository: tryVital/vital-node
+          repository: junction-api/junction-typescript
           mode: pull-request
         smart-casing: false
   python-sdk:
     generators:
       - name: fernapi/fern-python-sdk
-        version: 4.60.1
+        version: 5.8.1
         autorelease: true
         output:
           location: pypi
-          package-name: vital
-          token: ${PYPI_TOKEN}
+          package-name: junction-api-sdk
+          token: ${PYPI_TOKEN_JUNCTION}
         github:
-          repository: tryVital/vital-python
+          repository: junction-api/junction-python
           mode: pull-request
         config:
-          client_class_name: Vital
-          inline_request_params: false
+          package_name: "junction"
+          client_class_name: Junction
           pydantic_config:
             enum_type: forward_compatible_python_enums
             use_pydantic_field_aliases: true
@@ -100,74 +89,13 @@ groups:
   go-sdk:
     generators:
       - name: fernapi/fern-go-sdk
-        version: 1.24.0
+        version: 1.38.1
         autorelease: true
         github:
-          repository: tryVital/vital-go
+          repository: junction-api/junction-go
           mode: pull-request
         config:
           enableWireTests: false
-        smart-casing: false
-  local-preview:
-    generators:
-      - name: fernapi/fern-java-sdk
-        version: 3.39.1
-        output:
-          location: local-file-system
-          path: ../generated/java
-        config:
-          base-api-exception-class-name: ApiError
-          client-class-name: Vital
-
-          # 3.0.0 backwards compatibility settings
-          enable-forward-compatible-enums: false
-        smart-casing: false
-      - name: fernapi/fern-typescript-sdk
-        version: 3.51.3
-        config:
-          namespaceExport: Vital
-
-          # 1.0.0 backwards compatibility settings
-          inlineFileProperties: false
-          inlinePathParameters: false
-          enableInlineTypes: false
-          noSerdeLayer: false
-          omitUndefined: false
-          skipResponseValidation: false
-          # useLegacyExports: true    # disable because it's better
-
-          # 2.0.0 backwards compatibility settings
-          # streamType: wrapper       # disable because it's better
-          # fileResponseType: stream  # disable because it's better
-          # formDataSupport: Node16   # disable because it's better
-          # fetchSupport: node-fetch  # disable because it's better
-
-          # 3.0.0 backwards compatibility settings
-          # packageManager: yarn      # disable because it's better
-          # testFramework: jest       # disable because it's better
-        output:
-          location: local-file-system
-          path: ../generated/node
-        smart-casing: false
-      - name: fernapi/fern-python-sdk
-        version: 4.60.1
-        output:
-          location: local-file-system
-          path: ../generated/python
-        config:
-          client_class_name: Vital
-          inline_request_params: false
-          pydantic_config:
-            enum_type: forward_compatible_python_enums
-            use_pydantic_field_aliases: true
-        smart-casing: false
-      - name: fernapi/fern-go-sdk
-        version: 1.24.0
-        output:
-          location: local-file-system
-          path: ../generated/go
-        config:
-          enableWireTest: false
         smart-casing: false
   postman:
     generators:

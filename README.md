@@ -36,7 +36,7 @@ fern generate --group go-sdk --version <release version>
 ## How to preview generated SDKs locally?
 
 ```bash
-fern generate --group local-preview
+fern generate --group <generator-group> --preview
 ```
 
 The generated code would be located at `./generated/`.
