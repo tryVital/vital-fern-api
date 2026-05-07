@@ -19,7 +19,7 @@ groups:
   java-sdk:
     generators:
       - name: fernapi/fern-java-sdk
-        version: 4.6.1
+        version: 4.8.3
         autorelease: true
         output:
           location: maven
@@ -43,7 +43,7 @@ groups:
   node-sdk:
     generators:
       - name: fernapi/fern-typescript-sdk
-        version: 3.69.0
+        version: 3.69.2
         autorelease: true
         config:
           namespaceExport: Junction
@@ -60,7 +60,7 @@ groups:
         output:
           location: npm
           package-name: '@junction-api/sdk'
-          token: ${NPM_TOKEN_JUNCTION}
+          token: OIDC
         github:
           repository: junction-api/junction-typescript
           mode: pull-request
@@ -68,7 +68,7 @@ groups:
   python-sdk:
     generators:
       - name: fernapi/fern-python-sdk
-        version: 5.8.1
+        version: 5.12.1
         autorelease: true
         output:
           location: pypi
@@ -83,11 +83,10 @@ groups:
           pydantic_config:
             enum_type: forward_compatible_python_enums
             use_pydantic_field_aliases: true
-        smart-casing: false
   go-sdk:
     generators:
       - name: fernapi/fern-go-sdk
-        version: 1.38.1
+        version: 1.40.2
         autorelease: true
         github:
           repository: junction-api/junction-go
