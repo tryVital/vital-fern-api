@@ -1,4 +1,4 @@
-# Vital API Definition
+# Junction API Definition
 
 Tagging a release on this repository will update the:
 
