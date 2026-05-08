@@ -2,10 +2,10 @@
 
 Tagging a release on this repository will update the:
 
-  - [Python SDK](https://github.com/tryVital/vital-python)
-  - [Java SDK](https://github.com/tryVital/vital-java)
-  - [TypeScript SDK](https://github.com/tryVital/vital-node)
-  - [Go SDK](https://github.com/tryVital/vital-go)
+  - [Python SDK](https://github.com/junction-api/junction-python)
+  - [Java SDK](https://github.com/junction-api/junction-java)
+  - [TypeScript SDK](https://github.com/junction-api/junction-typescript)
+  - [Go SDK](https://github.com/junction-api/junction-go)
 
 ## What is in this repository?
 
