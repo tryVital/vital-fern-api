@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.4.589"
+    "version": "0.4.594"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -14327,10 +14327,10 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "51a674fe-08ae-4f9e-bbd9-dfc5a537691d",
-                  "user_id": "16933b60-1e8f-4e0b-8463-10d3b5ea87ce",
-                  "order_id": "cfc541ff-79b6-4587-bd18-3b47d8a0ec1c",
-                  "order_transaction_id": "15af1670-1364-405d-be68-d5f95f8b1831",
+                  "id": "364d14ea-94bf-49d7-8a78-3c0cad1071b0",
+                  "user_id": "8599e4bf-2822-464c-84a4-1a441682004c",
+                  "order_id": "2294c86f-9c24-4b28-b296-413ff9ee100a",
+                  "order_transaction_id": "d6f32931-e7ec-4186-8306-7b84da6dbbe0",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -16327,7 +16327,7 @@
             "schema": {
               "anyOf": [
                 {
-                  "$ref": "#/components/schemas/MatchReviewStatus"
+                  "$ref": "#/components/schemas/MatchReviewStatusFilter"
                 },
                 {
                   "type": "null"
@@ -24601,19 +24601,19 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "29f62b4a-66dc-4c03-b228-f5a5bf4ce63b",
+          "id": "ab688db3-229d-4f0c-a90c-0a60930cf88d",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "03531e75-e978-47d5-b64b-efb30690bc25",
-          "order_transaction_id": "0fe5d069-6b34-4a20-b5ed-e5681a4923fc",
+          "order_id": "002520de-1db1-4a06-aa41-2437a8d74c2b",
+          "order_transaction_id": "3a6b690e-2409-41dd-a151-dfe252387601",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "5013775a-c0bd-4011-a76a-1566c38a39bd"
+          "user_id": "fd4558bf-da95-4536-9872-50e281636210"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -24640,7 +24640,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "f3cea1a3-e83b-4b3a-9ce5-726b2c87a225",
+          "id": "bf105a0f-df59-446a-a589-1bf7b48cf1a5",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -24716,9 +24716,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "7e9daf65-cf50-4e83-8771-f37d09174da9",
+          "appointment_id": "29471c98-09e2-449c-ad21-f51330cdc6b6",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "d21d8323-bafa-46d9-a88d-3a1eabd1b604",
+          "id": "19799dc0-cd8a-4c58-9310-bcb3b9c4b55e",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -24975,7 +24975,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2026-07-07T19:50:59+00:00",
+          "timestamp": "2026-07-09T10:10:24+00:00",
           "unit": "mmHg"
         }
       },
@@ -26102,12 +26102,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "a778eaa1-2d32-40f5-bfe4-40f4646f614e",
+          "order_id": "1ae62627-437c-4264-be4b-f88751694193",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "729374df-a323-4f3c-884a-8262bf60df65",
+          "team_id": "18816a6b-63a7-48ac-b2be-10a1acd193b1",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "8359c4e5-4dbe-4fc6-af2a-d6e150f53ef4"
+          "user_id": "b87c48e1-bcf9-4b7a-ad78-b6316108fe89"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -29394,7 +29394,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2026-07-07T19:55:59.610471+00:00",
+          "end": "2026-07-09T10:15:24.520698+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -29537,7 +29537,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "0c8b7266-fe48-4697-8c84-ab6315e8fe82",
+          "id": "4f8f7d23-4f1e-4620-97c2-dd9bdb969d52",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -29931,8 +29931,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "0aee5371-dfde-47a2-a355-06405936eef2",
-          "id": "723ce1ca-3bc4-4790-959c-6505b636542b",
+          "health_insurace_id": "9936f1cd-1462-4f2d-9cc7-1811c5afaf0f",
+          "id": "5830b457-17f8-4b23-99e9-e65f3ab6e8a8",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -29984,9 +29984,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "de54ebaf-674a-4585-b79f-552b3892e33d",
+          "team_id": "d4f72368-a7ee-4a24-8126-91092a383620",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "a1331182-0d5b-4ae3-8297-55b853fa9a59"
+          "user_id": "0e48a80d-997e-4e3b-b0c9-421fb7b3b0de"
         }
       },
       "ClientFacingOrderEvent": {
@@ -31090,7 +31090,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "8e2c6cf2-da1a-49da-bb31-e87c992de07d",
+          "id": "09aa70d8-29f4-4725-9941-c779d8b40649",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31851,129 +31851,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2026-07-07T19:50:59.679173+00:00",
+              "timestamp": "2026-07-09T10:10:24.588552+00:00",
               "unit": "bpm",
-              "value": 172
+              "value": 153
             },
             {
               "id": 1,
-              "timestamp": "2026-07-07T19:51:29.679187+00:00",
+              "timestamp": "2026-07-09T10:10:54.588563+00:00",
               "unit": "bpm",
-              "value": 178
+              "value": 128
             },
             {
               "id": 2,
-              "timestamp": "2026-07-07T19:51:59.679196+00:00",
+              "timestamp": "2026-07-09T10:11:24.588572+00:00",
               "unit": "bpm",
-              "value": 166
+              "value": 103
             },
             {
               "id": 3,
-              "timestamp": "2026-07-07T19:52:29.679204+00:00",
+              "timestamp": "2026-07-09T10:11:54.588581+00:00",
               "unit": "bpm",
-              "value": 143
+              "value": 175
             },
             {
               "id": 4,
-              "timestamp": "2026-07-07T19:52:59.679212+00:00",
+              "timestamp": "2026-07-09T10:12:24.588588+00:00",
               "unit": "bpm",
-              "value": 0
+              "value": 170
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2026-07-07T19:50:59.679010+00:00",
+              "timestamp": "2026-07-09T10:10:24.588378+00:00",
               "unit": "rmssd",
-              "value": 50
+              "value": 29
             },
             {
               "id": 1,
-              "timestamp": "2026-07-07T19:51:29.679113+00:00",
+              "timestamp": "2026-07-09T10:10:54.588478+00:00",
               "unit": "rmssd",
-              "value": 92
+              "value": 97
             },
             {
               "id": 2,
-              "timestamp": "2026-07-07T19:51:59.679135+00:00",
+              "timestamp": "2026-07-09T10:11:24.588505+00:00",
               "unit": "rmssd",
-              "value": 49
+              "value": 34
             },
             {
               "id": 3,
-              "timestamp": "2026-07-07T19:52:29.679151+00:00",
+              "timestamp": "2026-07-09T10:11:54.588528+00:00",
               "unit": "rmssd",
-              "value": 79
+              "value": 32
             },
             {
               "id": 4,
-              "timestamp": "2026-07-07T19:52:59.679162+00:00",
+              "timestamp": "2026-07-09T10:12:24.588540+00:00",
               "unit": "rmssd",
-              "value": 28
+              "value": 76
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2026-07-07T19:50:59.679220+00:00",
-              "unit": "stage",
-              "value": 0
-            },
-            {
-              "id": 1,
-              "timestamp": "2026-07-07T19:51:29.679228+00:00",
-              "unit": "stage",
-              "value": 2
-            },
-            {
-              "id": 2,
-              "timestamp": "2026-07-07T19:51:59.679237+00:00",
-              "unit": "stage",
-              "value": 4
-            },
-            {
-              "id": 3,
-              "timestamp": "2026-07-07T19:52:29.679244+00:00",
+              "timestamp": "2026-07-09T10:10:24.588598+00:00",
               "unit": "stage",
               "value": -1
             },
             {
-              "id": 4,
-              "timestamp": "2026-07-07T19:52:59.679251+00:00",
+              "id": 1,
+              "timestamp": "2026-07-09T10:10:54.588607+00:00",
               "unit": "stage",
               "value": 4
+            },
+            {
+              "id": 2,
+              "timestamp": "2026-07-09T10:11:24.588615+00:00",
+              "unit": "stage",
+              "value": 0
+            },
+            {
+              "id": 3,
+              "timestamp": "2026-07-09T10:11:54.588623+00:00",
+              "unit": "stage",
+              "value": 1
+            },
+            {
+              "id": 4,
+              "timestamp": "2026-07-09T10:12:24.588631+00:00",
+              "unit": "stage",
+              "value": 0
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2026-07-07T19:50:59.679258+00:00",
+              "timestamp": "2026-07-09T10:10:24.588638+00:00",
               "unit": "bpm",
-              "value": 18
+              "value": 21
             },
             {
               "id": 1,
-              "timestamp": "2026-07-07T19:51:29.679266+00:00",
+              "timestamp": "2026-07-09T10:10:54.588646+00:00",
               "unit": "bpm",
-              "value": 11
+              "value": 14
             },
             {
               "id": 2,
-              "timestamp": "2026-07-07T19:51:59.679273+00:00",
+              "timestamp": "2026-07-09T10:11:24.588655+00:00",
               "unit": "bpm",
-              "value": 13
+              "value": 26
             },
             {
               "id": 3,
-              "timestamp": "2026-07-07T19:52:29.679281+00:00",
+              "timestamp": "2026-07-09T10:11:54.588665+00:00",
               "unit": "bpm",
               "value": 27
             },
             {
               "id": 4,
-              "timestamp": "2026-07-07T19:52:59.679288+00:00",
+              "timestamp": "2026-07-09T10:12:24.588673+00:00",
               "unit": "bpm",
-              "value": 17
+              "value": 18
             }
           ]
         }
@@ -33048,10 +33048,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "6a0a6172-01a5-43e8-bffe-ae889316ba8e",
+          "id": "be8ae763-037f-4a85-99e3-83865f928491",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "93cbbf65-93aa-4b59-8a66-147d6249811d",
+            "id": "5e7d5a86-0deb-44e6-99e1-07d7261e9cdd",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -33244,7 +33244,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2026-07-07T19:51:00+00:00",
+              "created_on": "2026-07-09T10:10:25+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -33252,16 +33252,16 @@
               }
             }
           ],
-          "created_on": "2026-07-07T19:51:00+00:00",
+          "created_on": "2026-07-09T10:10:25+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2026-07-07T19:51:00+00:00",
+            "updated_at": "2026-07-09T10:10:25+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2026-07-07T19:51:00+00:00"
+            "updated_at": "2026-07-09T10:10:25+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -33498,9 +33498,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "5247a759-ce53-4b45-a83e-6f53bb504403",
+          "appointment_id": "276bce2e-02e3-4d13-9e1c-03309587b78e",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "8053a48b-1eb5-4e98-89b3-1ced79592c69",
+          "id": "bdb8cd60-ce1d-46ed-8b24-a36da3bf7cf3",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -34763,7 +34763,7 @@
               "third"
             ]
           },
-          "query_id": "e9f9fa7e-a144-4a25-91eb-ecd7ea3f0b89",
+          "query_id": "ba08d728-488c-48bf-a3af-63c8648dd991",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -38645,6 +38645,17 @@
               }
             ],
             "title": "Dob"
+          },
+          "gender": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gender"
           }
         },
         "type": "object",
@@ -38669,6 +38680,16 @@
           "resolved"
         ],
         "title": "MatchReviewStatus",
+        "description": "ℹ️ This enum is non-exhaustive."
+      },
+      "MatchReviewStatusFilter": {
+        "type": "string",
+        "enum": [
+          "pending_customer_review",
+          "pending_ops_review",
+          "resolved"
+        ],
+        "title": "MatchReviewStatusFilter",
         "description": "ℹ️ This enum is non-exhaustive."
       },
       "MatchReviewWebhookPayload": {
@@ -42376,6 +42397,7 @@
           "result",
           "match_review",
           "appointment",
+          "result_table",
           "glucose",
           "heartrate",
           "hrv",
@@ -47257,7 +47279,7 @@
               {
                 "data": [
                   {
-                    "end": "2026-07-07T19:55:59.610471+00:00",
+                    "end": "2026-07-09T10:15:24.520698+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -48906,7 +48928,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2026-07-07T19:50:59+00:00",
+                    "timestamp": "2026-07-09T10:10:24+00:00",
                     "unit": "mmHg"
                   }
                 ],
