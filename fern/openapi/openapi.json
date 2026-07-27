@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.4.632"
+    "version": "0.4.636"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -14356,10 +14356,10 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "4565cf3b-f10c-4de6-add0-28d1d65c6c4a",
-                  "user_id": "0188c884-980a-40cc-90b1-3011d3c59234",
-                  "order_id": "4a96957f-0a78-40dc-ad81-ed139f61c5d6",
-                  "order_transaction_id": "68c6eaf6-998c-404b-8226-c06a78334a11",
+                  "id": "d2cb8b99-7ef9-4ceb-a5c3-df7d497e834d",
+                  "user_id": "ddb21bc1-bd29-4151-9a0a-c32c0ca4e1c7",
+                  "order_id": "aa962885-faf1-482f-953e-cd73bf247224",
+                  "order_transaction_id": "9d3796a4-99f5-4987-a7d0-85ff0637f2ea",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -16275,6 +16275,130 @@
         },
         "x-fern-sdk-group-name": "lab_tests",
         "x-fern-sdk-method-name": "update_on_site_collection_order_draw_completed"
+      }
+    },
+    "/v3/unmatched_result_test/case": {
+      "get": {
+        "tags": [
+          "unmatched"
+        ],
+        "summary": "List Unmatched Result Test Case Catalog",
+        "operationId": "list_unmatched_result_test_case_catalog_v3_unmatched_result_test_case_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListUnmatchedResultTestCasesResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "list_unmatched_result_test_cases"
+      }
+    },
+    "/v3/unmatched_result_test": {
+      "post": {
+        "tags": [
+          "unmatched"
+        ],
+        "summary": "Create Unmatched Result Test",
+        "operationId": "create_unmatched_result_test_v3_unmatched_result_test_post",
+        "parameters": [
+          {
+            "name": "X-Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 255,
+              "title": "X-Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUnmatchedResultTestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateUnmatchedResultTestResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "create_unmatched_result_test"
+      }
+    },
+    "/v3/unmatched_result_test/{run_id}": {
+      "get": {
+        "tags": [
+          "unmatched"
+        ],
+        "summary": "Get Unmatched Result Test",
+        "operationId": "get_unmatched_result_test_v3_unmatched_result_test__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUnmatchedResultTestResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_unmatched_result_test"
       }
     },
     "/v3/unmatched_result": {
@@ -24648,19 +24772,19 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "398717a7-1bf3-40d8-845a-65f3dfe1d424",
+          "id": "298627aa-ac59-4217-b965-4fb537ecba4e",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "58e15a02-2b92-4ec9-ab3d-86c3ac1f641f",
-          "order_transaction_id": "fb513ca8-b5c0-4fe8-9f1a-81753364d55b",
+          "order_id": "c263ec63-57b5-4b1c-8ac2-ebdcc720d098",
+          "order_transaction_id": "a4616904-4657-4373-b6ee-f2b31e880d4b",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "3c6a1f25-84ba-4dcd-8264-ab8ce52f858f"
+          "user_id": "6972adb1-8253-49cf-9136-205c5da193fc"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -24687,7 +24811,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "d3e03a95-43fd-455c-bd3e-c3b6dfa191c1",
+          "id": "48f62afa-5340-488b-8279-a570e5c505a8",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -24763,9 +24887,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "6777ce8e-418f-4bc4-8f92-e0a741a00bd1",
+          "appointment_id": "a3461a71-a869-4bb3-aee6-632d16c9f641",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "7effce61-eef7-40e2-9608-f9cc8821bbb6",
+          "id": "6cffb4b8-55e3-426d-ae3f-9fb007aad1ef",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -25022,7 +25146,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2026-07-23T14:27:45+00:00",
+          "timestamp": "2026-07-27T12:54:53+00:00",
           "unit": "mmHg"
         }
       },
@@ -26149,12 +26273,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "7aee7a39-4028-4109-8092-7b67ca58c543",
+          "order_id": "a07f3a46-5147-4d32-9837-2625c5432b54",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "37520725-ffab-4425-a8cf-ca6dd4556d40",
+          "team_id": "7599bbd8-d550-4398-92fd-8a802a5240d5",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "dd6b2904-f6f5-44be-8f92-c3508e63e88f"
+          "user_id": "040bc4f3-8738-45a9-a1bf-b67d568135b3"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -28200,6 +28324,17 @@
             },
             "type": "array",
             "title": "Sample Types"
+          },
+          "logo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Logo Url"
           }
         },
         "type": "object",
@@ -28221,6 +28356,7 @@
           ],
           "first_line_address": "123 Main St",
           "id": 1,
+          "logo_url": "https://assets.tryvital.io/labs/labcorp.png",
           "name": "LabCorp",
           "sample_types": [
             "saliva"
@@ -29441,7 +29577,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2026-07-23T14:32:45.241827+00:00",
+          "end": "2026-07-27T12:59:53.849627+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -29584,7 +29720,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "204685a6-a464-44c1-a56f-defb89da85ec",
+          "id": "7e44b804-a883-4643-aab1-c0812489ac0b",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -29978,8 +30114,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "dbec8b3f-f3cc-44bd-92ff-16dfb6721325",
-          "id": "3c5d548a-c1c0-4c6a-991b-b5d8a9dc317e",
+          "health_insurace_id": "eacc0495-107c-457e-9c4c-2ff21ce3d0cd",
+          "id": "a4cca431-4656-4a97-acb9-da5512ac995e",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -30031,9 +30167,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "1c5e4e72-fac6-4212-86ce-b802f0634b81",
+          "team_id": "ddad0e46-5cf2-4a82-ae33-0bfdeb3a181b",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "1a6578f8-e53a-481b-8fb4-d3b97f1faf11"
+          "user_id": "1b5e4777-51a9-4d89-be38-ce79a0e1b86a"
         }
       },
       "ClientFacingOrderEvent": {
@@ -31137,7 +31273,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "94773947-c4b4-4acd-921e-a6e321d70a2b",
+          "id": "9a6d1d0d-3044-49f6-bd6b-2a5ba1549b91",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31898,129 +32034,129 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2026-07-23T14:27:45.322490+00:00",
+              "timestamp": "2026-07-27T12:54:53.907792+00:00",
               "unit": "bpm",
-              "value": 93
+              "value": 186
             },
             {
               "id": 1,
-              "timestamp": "2026-07-23T14:28:15.322499+00:00",
+              "timestamp": "2026-07-27T12:55:23.907801+00:00",
               "unit": "bpm",
-              "value": 155
+              "value": 74
             },
             {
               "id": 2,
-              "timestamp": "2026-07-23T14:28:45.322508+00:00",
+              "timestamp": "2026-07-27T12:55:53.907810+00:00",
               "unit": "bpm",
-              "value": 40
+              "value": 118
             },
             {
               "id": 3,
-              "timestamp": "2026-07-23T14:29:15.322515+00:00",
+              "timestamp": "2026-07-27T12:56:23.907817+00:00",
               "unit": "bpm",
-              "value": 51
+              "value": 91
             },
             {
               "id": 4,
-              "timestamp": "2026-07-23T14:29:45.322522+00:00",
+              "timestamp": "2026-07-27T12:56:53.907824+00:00",
               "unit": "bpm",
-              "value": 52
+              "value": 27
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2026-07-23T14:27:45.322342+00:00",
+              "timestamp": "2026-07-27T12:54:53.907676+00:00",
               "unit": "rmssd",
-              "value": 52
+              "value": 40
             },
             {
               "id": 1,
-              "timestamp": "2026-07-23T14:28:15.322429+00:00",
+              "timestamp": "2026-07-27T12:55:23.907735+00:00",
               "unit": "rmssd",
-              "value": 46
+              "value": 96
             },
             {
               "id": 2,
-              "timestamp": "2026-07-23T14:28:45.322452+00:00",
+              "timestamp": "2026-07-27T12:55:53.907756+00:00",
               "unit": "rmssd",
-              "value": 79
+              "value": 77
             },
             {
               "id": 3,
-              "timestamp": "2026-07-23T14:29:15.322468+00:00",
+              "timestamp": "2026-07-27T12:56:23.907772+00:00",
               "unit": "rmssd",
-              "value": 5
+              "value": 39
             },
             {
               "id": 4,
-              "timestamp": "2026-07-23T14:29:45.322478+00:00",
+              "timestamp": "2026-07-27T12:56:53.907782+00:00",
               "unit": "rmssd",
-              "value": 3
+              "value": 57
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2026-07-23T14:27:45.322530+00:00",
+              "timestamp": "2026-07-27T12:54:53.907832+00:00",
               "unit": "stage",
               "value": 4
             },
             {
               "id": 1,
-              "timestamp": "2026-07-23T14:28:15.322538+00:00",
+              "timestamp": "2026-07-27T12:55:23.907840+00:00",
               "unit": "stage",
               "value": 3
             },
             {
               "id": 2,
-              "timestamp": "2026-07-23T14:28:45.322546+00:00",
+              "timestamp": "2026-07-27T12:55:53.907851+00:00",
               "unit": "stage",
-              "value": 0
+              "value": 1
             },
             {
               "id": 3,
-              "timestamp": "2026-07-23T14:29:15.322553+00:00",
+              "timestamp": "2026-07-27T12:56:23.907857+00:00",
               "unit": "stage",
-              "value": 0
+              "value": 3
             },
             {
               "id": 4,
-              "timestamp": "2026-07-23T14:29:45.322559+00:00",
+              "timestamp": "2026-07-27T12:56:53.907864+00:00",
               "unit": "stage",
-              "value": 2
+              "value": -1
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2026-07-23T14:27:45.322566+00:00",
+              "timestamp": "2026-07-27T12:54:53.907871+00:00",
+              "unit": "bpm",
+              "value": 26
+            },
+            {
+              "id": 1,
+              "timestamp": "2026-07-27T12:55:23.907878+00:00",
+              "unit": "bpm",
+              "value": 29
+            },
+            {
+              "id": 2,
+              "timestamp": "2026-07-27T12:55:53.907884+00:00",
               "unit": "bpm",
               "value": 18
             },
             {
-              "id": 1,
-              "timestamp": "2026-07-23T14:28:15.322574+00:00",
-              "unit": "bpm",
-              "value": 23
-            },
-            {
-              "id": 2,
-              "timestamp": "2026-07-23T14:28:45.322580+00:00",
-              "unit": "bpm",
-              "value": 12
-            },
-            {
               "id": 3,
-              "timestamp": "2026-07-23T14:29:15.322588+00:00",
+              "timestamp": "2026-07-27T12:56:23.907891+00:00",
               "unit": "bpm",
-              "value": 13
+              "value": 14
             },
             {
               "id": 4,
-              "timestamp": "2026-07-23T14:29:45.322595+00:00",
+              "timestamp": "2026-07-27T12:56:53.907897+00:00",
               "unit": "bpm",
-              "value": 13
+              "value": 18
             }
           ]
         }
@@ -33095,10 +33231,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "00cfb8c0-3fc0-4811-ad40-90da06d95040",
+          "id": "aa3678c8-dc22-4eca-91b2-6f29c0972769",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "b7458f72-3cc6-4704-8e7d-1d0e22d6cbc1",
+            "id": "0f1d59d0-0728-4a19-b44b-9c6080a025db",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -33291,7 +33427,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2026-07-23T14:27:46+00:00",
+              "created_on": "2026-07-27T12:54:54+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -33299,16 +33435,16 @@
               }
             }
           ],
-          "created_on": "2026-07-23T14:27:46+00:00",
+          "created_on": "2026-07-27T12:54:54+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2026-07-23T14:27:46+00:00",
+            "updated_at": "2026-07-27T12:54:54+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2026-07-23T14:27:46+00:00"
+            "updated_at": "2026-07-27T12:54:54+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -33545,9 +33681,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "666dd791-5502-48ff-9fe7-5481bdfd9757",
+          "appointment_id": "ae1fa515-759d-4479-b158-6e5176c41a9a",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "7397b1f6-7029-4286-abec-b702661a1283",
+          "id": "63117caf-fa19-48dc-8c81-20c8fdfdb123",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -34810,7 +34946,7 @@
               "third"
             ]
           },
-          "query_id": "bceb41b6-42bc-419e-ba8c-f5b42feb697d",
+          "query_id": "cb218fb8-9771-40b6-a37f-d967e400b1f7",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -35500,6 +35636,88 @@
           "shipping_details"
         ],
         "title": "CreateRegistrableTestkitOrderRequest"
+      },
+      "CreateUnmatchedResultTestBody": {
+        "properties": {
+          "case": {
+            "$ref": "#/components/schemas/UnmatchedResultTestCase",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "order_source": {
+            "$ref": "#/components/schemas/UnmatchedResultTestOrderSource",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "orders": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Orders"
+          },
+          "result_status": {
+            "$ref": "#/components/schemas/ResultStatus",
+            "default": "final",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "lab_test_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lab Test Id"
+          },
+          "wrong_lab_test_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wrong Lab Test Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "case",
+          "order_source"
+        ],
+        "title": "CreateUnmatchedResultTestBody"
+      },
+      "CreateUnmatchedResultTestResponse": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/UnmatchedResultTestRunStatus",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "status"
+        ],
+        "title": "CreateUnmatchedResultTestResponse"
       },
       "CreateUserPortalURLBody": {
         "properties": {
@@ -36460,6 +36678,110 @@
           "updated_at"
         ],
         "title": "GetUnmatchedResultResponse"
+      },
+      "GetUnmatchedResultTestResponse": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/UnmatchedResultTestRunStatus",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "stage": {
+            "$ref": "#/components/schemas/UnmatchedResultTestStage",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "case": {
+            "$ref": "#/components/schemas/UnmatchedResultTestCase",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "order_source": {
+            "$ref": "#/components/schemas/UnmatchedResultTestOrderSource",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "result_status": {
+            "$ref": "#/components/schemas/ResultStatus",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "orders": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/UnmatchedResultTestOrderArtifact"
+            },
+            "type": "object",
+            "title": "Orders"
+          },
+          "raw_result_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Result Id"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UnmatchedResultTestFailure"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "status",
+          "stage",
+          "case",
+          "order_source",
+          "result_status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "GetUnmatchedResultTestResponse"
       },
       "GroupKeyColumnExpr": {
         "properties": {
@@ -38060,6 +38382,22 @@
           "total"
         ],
         "title": "ListUnmatchedResultResponse"
+      },
+      "ListUnmatchedResultTestCasesResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/UnmatchedResultTestCaseDefinition"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ListUnmatchedResultTestCasesResponse"
       },
       "LngLat": {
         "properties": {
@@ -44381,6 +44719,139 @@
         "title": "UnmatchedResultResolutionAction",
         "description": "ℹ️ This enum is non-exhaustive."
       },
+      "UnmatchedResultTestCase": {
+        "type": "string",
+        "enum": [
+          "match_completed",
+          "match_cancelled",
+          "wrong_collection",
+          "wrong_lab",
+          "multiple_demo_match",
+          "match_sample_id_mismatch_demo",
+          "match_demo",
+          "no_match"
+        ],
+        "title": "UnmatchedResultTestCase",
+        "description": "ℹ️ This enum is non-exhaustive."
+      },
+      "UnmatchedResultTestCaseDefinition": {
+        "properties": {
+          "case": {
+            "$ref": "#/components/schemas/UnmatchedResultTestCase",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "order_roles": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Order Roles"
+          },
+          "required_statuses": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/OrderLowLevelStatus"
+            },
+            "type": "object",
+            "title": "Required Statuses"
+          },
+          "lab_constraints": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Lab Constraints"
+          }
+        },
+        "type": "object",
+        "required": [
+          "case",
+          "order_roles",
+          "required_statuses",
+          "lab_constraints"
+        ],
+        "title": "UnmatchedResultTestCaseDefinition"
+      },
+      "UnmatchedResultTestFailure": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "UnmatchedResultTestFailure"
+      },
+      "UnmatchedResultTestOrderArtifact": {
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Order Id"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "order_transaction_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Order Transaction Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "order_id",
+          "user_id",
+          "order_transaction_id"
+        ],
+        "title": "UnmatchedResultTestOrderArtifact"
+      },
+      "UnmatchedResultTestOrderSource": {
+        "type": "string",
+        "enum": [
+          "managed",
+          "provided"
+        ],
+        "title": "UnmatchedResultTestOrderSource",
+        "description": "ℹ️ This enum is non-exhaustive."
+      },
+      "UnmatchedResultTestRunStatus": {
+        "type": "string",
+        "enum": [
+          "queued",
+          "running",
+          "succeeded",
+          "failed"
+        ],
+        "title": "UnmatchedResultTestRunStatus",
+        "description": "ℹ️ This enum is non-exhaustive."
+      },
+      "UnmatchedResultTestStage": {
+        "type": "string",
+        "enum": [
+          "queued",
+          "validating",
+          "selecting_configuration",
+          "creating_orders",
+          "transitioning_orders",
+          "writing_result",
+          "matching_result",
+          "verifying_review",
+          "succeeded",
+          "failed"
+        ],
+        "title": "UnmatchedResultTestStage",
+        "description": "ℹ️ This enum is non-exhaustive."
+      },
       "UnnestExpr": {
         "properties": {
           "unnest": {
@@ -47418,7 +47889,7 @@
               {
                 "data": [
                   {
-                    "end": "2026-07-23T14:32:45.241827+00:00",
+                    "end": "2026-07-27T12:59:53.849627+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -49067,7 +49538,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2026-07-23T14:27:45+00:00",
+                    "timestamp": "2026-07-27T12:54:53+00:00",
                     "unit": "mmHg"
                   }
                 ],
