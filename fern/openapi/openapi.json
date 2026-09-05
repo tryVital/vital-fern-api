@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.4.749"
+    "version": "0.4.754"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -13310,6 +13310,50 @@
         "x-fern-sdk-method-name": "get_team_lab_accounts"
       }
     },
+    "/v3/lab_test/estimate_order_set_pricing": {
+      "post": {
+        "tags": [
+          "lab_tests"
+        ],
+        "summary": "Estimate Order Set Pricing",
+        "operationId": "estimate_order_set_pricing_v3_lab_test_estimate_order_set_pricing_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EstimateOrderSetPricingBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstimateOrderSetPricingResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "estimate_order_set_pricing",
+        "x-fern-availability": "beta"
+      }
+    },
     "/v3/lab_test": {
       "get": {
         "tags": [
@@ -14399,10 +14443,10 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "81114691-cf45-48b2-9057-4a5cebc67c76",
-                  "user_id": "8a552666-5d6c-442d-9922-cd207a1b0cad",
-                  "order_id": "be335ad3-5a3b-4432-ac77-a94e07a2d391",
-                  "order_transaction_id": "24141e28-40f2-4d35-bf27-b1d0c3355ed1",
+                  "id": "8bdb4892-48f0-49eb-8c1a-1e7c0d660c6f",
+                  "user_id": "fe331e96-ebd6-4949-9976-d33e0494eb08",
+                  "order_id": "107ea25b-332f-46d2-b843-e3d005be95f1",
+                  "order_transaction_id": "5d331e6e-8622-4689-a55d-8e9840382ef5",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -17130,6 +17174,100 @@
         },
         "x-fern-sdk-group-name": "lab_report",
         "x-fern-sdk-method-name": "parser_get_job",
+        "x-fern-availability": "beta"
+      }
+    },
+    "/checkout/v1/session/{checkout_session_id}": {
+      "get": {
+        "tags": [
+          "checkout"
+        ],
+        "summary": "Get Session",
+        "description": "Get the checkout session snapshot.\n\nIn-flight sessions reflect live workflow state; terminal sessions are\nserved from the persisted snapshot. A read arriving moments after session\ncreation can 404 until the workflow's first persistence write commits.",
+        "operationId": "get_session_checkout_v1_session__checkout_session_id__get",
+        "parameters": [
+          {
+            "name": "checkout_session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Checkout Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutSession"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "checkout",
+        "x-fern-sdk-method-name": "get_checkout_session",
+        "x-fern-availability": "beta"
+      }
+    },
+    "/checkout/v1/session/{checkout_session_id}/confirm": {
+      "post": {
+        "tags": [
+          "checkout"
+        ],
+        "summary": "Confirm Session",
+        "description": "Confirm the checkout session after completing payment.\n\nIn-flight sessions verify payment against the channel (Stripe) and report\norder progress; terminal sessions return the persisted snapshot untouched.",
+        "operationId": "confirm_session_checkout_v1_session__checkout_session_id__confirm_post",
+        "parameters": [
+          {
+            "name": "checkout_session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Checkout Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutSession"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "checkout",
+        "x-fern-sdk-method-name": "confirm_checkout_session",
         "x-fern-availability": "beta"
       }
     },
@@ -23594,7 +23732,8 @@
           "client_bill",
           "commercial_insurance",
           "patient_bill_passthrough",
-          "patient_bill"
+          "patient_bill",
+          "upfront_payment"
         ],
         "title": "Billing",
         "description": "ℹ️ This enum is non-exhaustive."
@@ -24467,6 +24606,85 @@
         "title": "CheckoutQuoteLineItemCode",
         "description": "ℹ️ This enum is non-exhaustive."
       },
+      "CheckoutSession": {
+        "properties": {
+          "checkout_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Checkout Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CheckoutSessionStatus",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "pay_before": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Pay Before",
+            "examples": [
+              "2021-01-01T00:00:00Z",
+              "2021-01-01T00:00:00+00:00",
+              "2021-01-01T00:00:00"
+            ]
+          },
+          "payment_resource_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Resource Id"
+          },
+          "order_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Order Id"
+          },
+          "order_transaction_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Order Transaction Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "checkout_id",
+          "status",
+          "pay_before",
+          "payment_resource_id",
+          "order_id",
+          "order_transaction_id"
+        ],
+        "title": "CheckoutSession"
+      },
+      "CheckoutSessionStatus": {
+        "type": "string",
+        "enum": [
+          "unpaid",
+          "paid",
+          "expired",
+          "cancelled"
+        ],
+        "title": "CheckoutSessionStatus",
+        "description": "ℹ️ This enum is non-exhaustive."
+      },
       "ChronotypeValueMacroExpr": {
         "properties": {
           "value_macro": {
@@ -25157,19 +25375,19 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "74869de7-ae55-420e-849a-7d704817b1ed",
+          "id": "940c32ff-d8b6-4da7-99fb-d8461d5c1288",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "26892ba3-1930-4967-9cc6-417672ca9175",
-          "order_transaction_id": "a315b099-d07c-4721-aec1-b5b9714d3486",
+          "order_id": "7bde0d81-9bfa-479e-95c5-68f34950b4fe",
+          "order_transaction_id": "369ab810-f3a6-4bfb-b7b7-b27ace82994b",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "abf4c415-75c4-4dea-8655-838d06034657"
+          "user_id": "82473878-09bf-41b2-82fc-0068b9c81c94"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -25196,7 +25414,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "c0b6b13e-266b-4c2e-9970-4eafba5ddb0a",
+          "id": "be6b5378-9d43-4b2a-bc12-8dca107d396d",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -25272,9 +25490,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "bc93d209-359b-4b16-87a3-9e78e19f1878",
+          "appointment_id": "55984617-5ea6-47c3-a2e3-f53c4b6f9a5e",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "19fcc76a-ef6d-4f66-8148-5d33193605b5",
+          "id": "d0108d66-6465-4eba-9dc5-d57f1c97b115",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -25531,7 +25749,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2026-09-04T10:16:56+00:00",
+          "timestamp": "2026-09-05T09:51:30+00:00",
           "unit": "mmHg"
         }
       },
@@ -26683,12 +26901,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "b0d2e086-ac2b-49ce-a124-b7d0f239653a",
+          "order_id": "a39012c8-4c4c-4e22-8fc5-953c3adcc089",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "dae6efb7-5007-4a55-ae7c-7908785562a7",
+          "team_id": "ae8ecda6-8fa5-45b0-9300-a44388297b1d",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "112d884a-3449-400b-ac62-2996bd4cf30c"
+          "user_id": "2b6aba1e-8073-47e7-a532-7e9fcdf58a64"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -30012,7 +30230,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2026-09-04T10:21:56.133055+00:00",
+          "end": "2026-09-05T09:56:30.621125+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -30155,7 +30373,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "ccc388b8-4bad-4320-a775-67ae670e0595",
+          "id": "1fd40faa-8c2b-410f-ac29-80c1480bc60e",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -30549,8 +30767,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "d243d727-734a-4c16-910d-4cbfccef2f8d",
-          "id": "10d16cc9-6069-4af8-9548-3fe939cfe890",
+          "health_insurace_id": "5e3cc849-2f2c-4008-a744-56ad1022f004",
+          "id": "7b6db45d-f3ba-4227-bbfb-a38c43b84901",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -30602,9 +30820,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "b09c3d72-26c8-4adf-b429-76dd0bede9aa",
+          "team_id": "459d5aa9-9822-4cff-8809-6721e78769a2",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "d61df258-47ff-4caf-8761-37fd27a04672"
+          "user_id": "93b86557-072d-4000-bdbe-c427215f17c4"
         }
       },
       "ClientFacingOrderEvent": {
@@ -31708,7 +31926,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "2a62528f-8375-4cf0-8fca-471c8b125148",
+          "id": "28cb2a17-f25d-426b-be9e-1b48ad2704e0",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -32469,95 +32687,95 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2026-09-04T10:16:56.191158+00:00",
+              "timestamp": "2026-09-05T09:51:30.682290+00:00",
               "unit": "bpm",
-              "value": 102
+              "value": 175
             },
             {
               "id": 1,
-              "timestamp": "2026-09-04T10:17:26.191167+00:00",
+              "timestamp": "2026-09-05T09:52:00.682300+00:00",
               "unit": "bpm",
-              "value": 52
+              "value": 136
             },
             {
               "id": 2,
-              "timestamp": "2026-09-04T10:17:56.191175+00:00",
+              "timestamp": "2026-09-05T09:52:30.682317+00:00",
               "unit": "bpm",
-              "value": 54
+              "value": 149
             },
             {
               "id": 3,
-              "timestamp": "2026-09-04T10:18:26.191183+00:00",
+              "timestamp": "2026-09-05T09:53:00.682327+00:00",
               "unit": "bpm",
-              "value": 30
+              "value": 33
             },
             {
               "id": 4,
-              "timestamp": "2026-09-04T10:18:56.191190+00:00",
+              "timestamp": "2026-09-05T09:53:30.682345+00:00",
               "unit": "bpm",
-              "value": 27
+              "value": 41
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2026-09-04T10:16:56.191036+00:00",
+              "timestamp": "2026-09-05T09:51:30.682165+00:00",
+              "unit": "rmssd",
+              "value": 38
+            },
+            {
+              "id": 1,
+              "timestamp": "2026-09-05T09:52:00.682234+00:00",
               "unit": "rmssd",
               "value": 74
             },
             {
-              "id": 1,
-              "timestamp": "2026-09-04T10:17:26.191099+00:00",
-              "unit": "rmssd",
-              "value": 49
-            },
-            {
               "id": 2,
-              "timestamp": "2026-09-04T10:17:56.191120+00:00",
+              "timestamp": "2026-09-05T09:52:30.682255+00:00",
               "unit": "rmssd",
-              "value": 63
+              "value": 30
             },
             {
               "id": 3,
-              "timestamp": "2026-09-04T10:18:26.191138+00:00",
+              "timestamp": "2026-09-05T09:53:00.682270+00:00",
               "unit": "rmssd",
-              "value": 76
+              "value": 90
             },
             {
               "id": 4,
-              "timestamp": "2026-09-04T10:18:56.191148+00:00",
+              "timestamp": "2026-09-05T09:53:30.682280+00:00",
               "unit": "rmssd",
-              "value": 50
+              "value": 76
             }
           ],
           "hypnogram": [
             {
               "id": 0,
-              "timestamp": "2026-09-04T10:16:56.191198+00:00",
-              "unit": "stage",
-              "value": -1
-            },
-            {
-              "id": 1,
-              "timestamp": "2026-09-04T10:17:26.191205+00:00",
-              "unit": "stage",
-              "value": -1
-            },
-            {
-              "id": 2,
-              "timestamp": "2026-09-04T10:17:56.191213+00:00",
+              "timestamp": "2026-09-05T09:51:30.682353+00:00",
               "unit": "stage",
               "value": 0
             },
             {
+              "id": 1,
+              "timestamp": "2026-09-05T09:52:00.682361+00:00",
+              "unit": "stage",
+              "value": 0
+            },
+            {
+              "id": 2,
+              "timestamp": "2026-09-05T09:52:30.682369+00:00",
+              "unit": "stage",
+              "value": 3
+            },
+            {
               "id": 3,
-              "timestamp": "2026-09-04T10:18:26.191220+00:00",
+              "timestamp": "2026-09-05T09:53:00.682376+00:00",
               "unit": "stage",
               "value": 2
             },
             {
               "id": 4,
-              "timestamp": "2026-09-04T10:18:56.191226+00:00",
+              "timestamp": "2026-09-05T09:53:30.682382+00:00",
               "unit": "stage",
               "value": 3
             }
@@ -32565,33 +32783,33 @@
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2026-09-04T10:16:56.191233+00:00",
+              "timestamp": "2026-09-05T09:51:30.682389+00:00",
               "unit": "bpm",
-              "value": 17
+              "value": 28
             },
             {
               "id": 1,
-              "timestamp": "2026-09-04T10:17:26.191240+00:00",
+              "timestamp": "2026-09-05T09:52:00.682396+00:00",
+              "unit": "bpm",
+              "value": 27
+            },
+            {
+              "id": 2,
+              "timestamp": "2026-09-05T09:52:30.682402+00:00",
+              "unit": "bpm",
+              "value": 24
+            },
+            {
+              "id": 3,
+              "timestamp": "2026-09-05T09:53:00.682409+00:00",
               "unit": "bpm",
               "value": 26
             },
             {
-              "id": 2,
-              "timestamp": "2026-09-04T10:17:56.191247+00:00",
-              "unit": "bpm",
-              "value": 22
-            },
-            {
-              "id": 3,
-              "timestamp": "2026-09-04T10:18:26.191253+00:00",
-              "unit": "bpm",
-              "value": 18
-            },
-            {
               "id": 4,
-              "timestamp": "2026-09-04T10:18:56.191263+00:00",
+              "timestamp": "2026-09-05T09:53:30.682415+00:00",
               "unit": "bpm",
-              "value": 12
+              "value": 25
             }
           ]
         }
@@ -33666,10 +33884,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "39ff3308-e0da-4974-a192-002d7423b7c7",
+          "id": "66b2e3ad-dcad-43df-afd4-9924957abfbb",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "0e98228d-c9f5-48d8-adca-ec8f2074e34f",
+            "id": "8ee5ae13-fc2b-472e-aaa4-08376fc7a3f8",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -33862,7 +34080,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2026-09-04T10:16:56+00:00",
+              "created_on": "2026-09-05T09:51:31+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -33870,16 +34088,16 @@
               }
             }
           ],
-          "created_on": "2026-09-04T10:16:56+00:00",
+          "created_on": "2026-09-05T09:51:31+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2026-09-04T10:16:56+00:00",
+            "updated_at": "2026-09-05T09:51:31+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2026-09-04T10:16:56+00:00"
+            "updated_at": "2026-09-05T09:51:31+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -34116,9 +34334,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "8d545fc2-0479-428f-be82-7b564d4b03bc",
+          "appointment_id": "9936c970-9ab4-4aa2-afdd-2452c4f5df2a",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "71fc5ff3-f1b6-4c4e-8e40-4354eebcce10",
+          "id": "06013ce9-6bd5-430f-8676-e1228af3cbc4",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -35220,6 +35438,42 @@
         ],
         "title": "CompletePasswordProviderMFABody"
       },
+      "ComponentPricingConditions": {
+        "properties": {
+          "us_state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/USStatePricingCondition"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reflex": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReflexPricingCondition"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "critical_care": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CriticalCarePricingCondition"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "ComponentPricingConditions"
+      },
       "ConnectedSourceClientFacing": {
         "properties": {
           "provider": {
@@ -35381,7 +35635,7 @@
               "third"
             ]
           },
-          "query_id": "a67ad7a2-ccec-43c6-845d-31a0e7ae08fc",
+          "query_id": "0614f8f2-9ce5-45c8-a414-cc474073a253",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -36236,6 +36490,11 @@
         ],
         "title": "CreateUserPortalURLResponse"
       },
+      "CriticalCarePricingCondition": {
+        "properties": {},
+        "type": "object",
+        "title": "CriticalCarePricingCondition"
+      },
       "DatePartExpr": {
         "properties": {
           "arg": {
@@ -36588,6 +36847,60 @@
         ],
         "title": "Energy"
       },
+      "EstimateOrderSetPricingBody": {
+        "properties": {
+          "order_sets": {
+            "items": {
+              "$ref": "#/components/schemas/OrderSetRequest"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Order Sets"
+          },
+          "modality": {
+            "$ref": "#/components/schemas/LabTestCollectionMethod",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "us_state": {
+            "type": "string",
+            "title": "Us State"
+          },
+          "billing": {
+            "$ref": "#/components/schemas/Billing",
+            "default": "client_bill",
+            "description": "ℹ️ This enum is non-exhaustive."
+          }
+        },
+        "type": "object",
+        "required": [
+          "order_sets",
+          "modality",
+          "us_state"
+        ],
+        "title": "EstimateOrderSetPricingBody"
+      },
+      "EstimateOrderSetPricingResponse": {
+        "properties": {
+          "currency": {
+            "type": "string",
+            "const": "USD",
+            "title": "Currency"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/OrderSetPricing"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "currency",
+          "data"
+        ],
+        "title": "EstimateOrderSetPricingResponse"
+      },
       "Ethnicity": {
         "type": "string",
         "enum": [
@@ -36805,6 +37118,31 @@
         ],
         "title": "GenderIdentity",
         "description": "ℹ️ This enum is non-exhaustive."
+      },
+      "GenericPricingComponent": {
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/PricingComponentID",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "pricing": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpecifiedPricing_ComponentPricingConditions_"
+              },
+              {
+                "$ref": "#/components/schemas/UnspecifiedPricing"
+              }
+            ],
+            "title": "Pricing"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "pricing"
+        ],
+        "title": "GenericPricingComponent"
       },
       "GetLabTestPricingResponse": {
         "properties": {
@@ -38050,6 +38388,53 @@
         ],
         "title": "LabAccountStatus",
         "description": "ℹ️ This enum is non-exhaustive."
+      },
+      "LabChargePricingComponent": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "const": "lab_charge",
+            "title": "Id"
+          },
+          "pricing": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpecifiedPricing_ComponentPricingConditions_"
+              },
+              {
+                "$ref": "#/components/schemas/UnspecifiedPricing"
+              }
+            ],
+            "title": "Pricing"
+          },
+          "marker_breakdown": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/SpecifiedPricing_MarkerPricingConditions_"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UnspecifiedPricing"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Marker Breakdown"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "pricing"
+        ],
+        "title": "LabChargePricingComponent"
       },
       "LabLocationCapability": {
         "type": "string",
@@ -40429,6 +40814,41 @@
         "title": "OrderOrigin",
         "description": "ℹ️ This enum is non-exhaustive."
       },
+      "OrderSetPricing": {
+        "properties": {
+          "aggregate_pricing": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpecifiedPricing_ComponentPricingConditions_"
+              },
+              {
+                "$ref": "#/components/schemas/UnspecifiedPricing"
+              }
+            ],
+            "title": "Aggregate Pricing"
+          },
+          "components": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/LabChargePricingComponent"
+                },
+                {
+                  "$ref": "#/components/schemas/GenericPricingComponent"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Components"
+          }
+        },
+        "type": "object",
+        "required": [
+          "aggregate_pricing",
+          "components"
+        ],
+        "title": "OrderSetPricing"
+      },
       "OrderSetRequest": {
         "properties": {
           "lab_test_ids": {
@@ -41690,6 +42110,22 @@
         ],
         "title": "PostOrderResponse"
       },
+      "PricingComponentID": {
+        "type": "string",
+        "enum": [
+          "placed_order_charge",
+          "requisition_charge",
+          "draw_charge",
+          "mobile_phlebotomy_charge",
+          "delivered_kit_charge",
+          "completed_kit_charge",
+          "critical_care_charge",
+          "lab_charge",
+          "lab_priority_charge"
+        ],
+        "title": "PricingComponentID",
+        "description": "ℹ️ This enum is non-exhaustive."
+      },
       "PricingModifierRange": {
         "properties": {
           "minimum": {
@@ -41708,6 +42144,40 @@
         ],
         "title": "PricingModifierRange"
       },
+      "PricingModifier_ComponentPricingConditions_": {
+        "properties": {
+          "delta_amount_minor": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "$ref": "#/components/schemas/PricingModifierRange"
+              }
+            ],
+            "title": "Delta Amount Minor",
+            "description": "Amount delta in the smallest denomination of the currency, e.g. cents for USD."
+          },
+          "conditions": {
+            "$ref": "#/components/schemas/ComponentPricingConditions"
+          },
+          "keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Keys",
+            "description": "Property names present in conditions, including names unknown to a deserializer."
+          }
+        },
+        "type": "object",
+        "required": [
+          "delta_amount_minor",
+          "conditions",
+          "keys"
+        ],
+        "title": "PricingModifier[ComponentPricingConditions]"
+      },
       "PricingModifier_MarkerPricingConditions_": {
         "properties": {
           "delta_amount_minor": {
@@ -41724,12 +42194,21 @@
           },
           "conditions": {
             "$ref": "#/components/schemas/MarkerPricingConditions"
+          },
+          "keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Keys",
+            "description": "Property names present in conditions, including names unknown to a deserializer."
           }
         },
         "type": "object",
         "required": [
           "delta_amount_minor",
-          "conditions"
+          "conditions",
+          "keys"
         ],
         "title": "PricingModifier[MarkerPricingConditions]"
       },
@@ -44712,6 +45191,34 @@
         ],
         "title": "SourceType",
         "description": "ℹ️ This enum is non-exhaustive."
+      },
+      "SpecifiedPricing_ComponentPricingConditions_": {
+        "properties": {
+          "base_amount_minor": {
+            "type": "integer",
+            "title": "Base Amount Minor",
+            "description": "Amount chargeable in the smallest denomination of the currency, e.g. cents for USD."
+          },
+          "modifiers": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/PricingModifier_ComponentPricingConditions_"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Modifiers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "base_amount_minor"
+        ],
+        "title": "SpecifiedPricing[ComponentPricingConditions]"
       },
       "SpecifiedPricing_MarkerPricingConditions_": {
         "properties": {
@@ -48535,7 +49042,7 @@
               {
                 "data": [
                   {
-                    "end": "2026-09-04T10:21:56.133055+00:00",
+                    "end": "2026-09-05T09:56:30.621125+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -50184,7 +50691,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2026-09-04T10:16:56+00:00",
+                    "timestamp": "2026-09-05T09:51:30+00:00",
                     "unit": "mmHg"
                   }
                 ],
