@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.4.827"
+    "version": "0.4.833"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -6796,132 +6796,6 @@
         "x-fern-availability": "generally-available"
       }
     },
-    "/v2/timeseries/{user_id}/hypnogram/grouped": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Hypnogram",
-        "operationId": "get_hypnogram_grouped",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
-              "deprecated": true,
-              "title": "Cursor"
-            },
-            "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
-            "deprecated": true
-          },
-          {
-            "name": "next_cursor",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "The cursor for fetching the next page, or `null` to fetch the first page.",
-              "title": "Next Cursor"
-            },
-            "description": "The cursor for fetching the next page, or `null` to fetch the first page."
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GroupedHypnogramResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "hypnogram_grouped",
-        "x-fern-availability": "deprecated"
-      }
-    },
     "/v2/timeseries/{user_id}/hrv/grouped": {
       "get": {
         "tags": [
@@ -8420,2490 +8294,6 @@
         "x-fern-sdk-group-name": "vitals",
         "x-fern-sdk-method-name": "blood_pressure_grouped",
         "x-fern-availability": "generally-available"
-      }
-    },
-    "/v2/timeseries/{user_id}/vo2_max": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Vo2 Max",
-        "operationId": "get_vo2_max",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingVO2MaxTimeseries"
-                  },
-                  "title": "Response Get Vo2 Max"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "vo2_max",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/stress_level": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Stress Level",
-        "operationId": "get_stress_level",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingStressLevelTimeseries"
-                  },
-                  "title": "Response Get Stress Level"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "stress_level",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/mindfulness_minutes": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Mindfulness Minutes",
-        "operationId": "get_mindfulness_minutes",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingMindfulnessMinutesTimeseries"
-                  },
-                  "title": "Response Get Mindfulness Minutes"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "mindfulness_minutes",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/caffeine": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Caffeine",
-        "operationId": "get_caffeine",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingCaffeineTimeseries"
-                  },
-                  "title": "Response Get Caffeine"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "caffeine",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/water": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Water",
-        "operationId": "get_water",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingWaterTimeseries"
-                  },
-                  "title": "Response Get Water"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "water",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/steps": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Steps",
-        "operationId": "get_steps",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingStepsTimeseries"
-                  },
-                  "title": "Response Get Steps"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "steps",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/floors_climbed": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Floors Climbed",
-        "operationId": "get_floors_climbed",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingFloorsClimbedTimeseries"
-                  },
-                  "title": "Response Get Floors Climbed"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "floors_climbed",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/distance": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Distance",
-        "operationId": "get_distance",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingDistanceTimeseries"
-                  },
-                  "title": "Response Get Distance"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "distance",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/calories_basal": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Calories Basal",
-        "operationId": "get_calories_basal",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingCaloriesBasalTimeseries"
-                  },
-                  "title": "Response Get Calories Basal"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "calories_basal",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/calories_active": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Calories Active",
-        "operationId": "get_calories_active",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingCaloriesActiveTimeseries"
-                  },
-                  "title": "Response Get Calories Active"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "calories_active",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/respiratory_rate": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Respiratory Rate",
-        "operationId": "get_respiratory_rate",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingRespiratoryRateTimeseries"
-                  },
-                  "title": "Response Get Respiratory Rate"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "respiratory_rate",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/ige": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Ige",
-        "operationId": "get_ige",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingIgeTimeseries"
-                  },
-                  "title": "Response Get Ige"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "ige",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/igg": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Igg",
-        "operationId": "get_igg",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingIggTimeseries"
-                  },
-                  "title": "Response Get Igg"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "igg",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/hypnogram": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Hypnogram",
-        "operationId": "get_hypnogram",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingHypnogramTimeseries"
-                  },
-                  "title": "Response Get Hypnogram"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "hypnogram",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/hrv": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Heart Rate Variability",
-        "operationId": "get_hrv",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingHRVTimeseries"
-                  },
-                  "title": "Response Get Hrv"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "hrv",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/heartrate": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Heart Rate",
-        "operationId": "get_heartrate",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingHeartRateTimeseries"
-                  },
-                  "title": "Response Get Heartrate"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "heartrate",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/glucose": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Glucose",
-        "operationId": "get_glucose",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingGlucoseTimeseries"
-                  },
-                  "title": "Response Get Glucose"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "glucose",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/cholesterol/triglycerides": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Cholesterol/Triglycerides",
-        "operationId": "get_cholesterol/triglycerides",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingCholesterolTimeseries"
-                  },
-                  "title": "Response Get Cholesterol/Triglycerides"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "cholesterol/triglycerides",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/cholesterol/total": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Cholesterol/Total",
-        "operationId": "get_cholesterol/total",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingCholesterolTimeseries"
-                  },
-                  "title": "Response Get Cholesterol/Total"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "cholesterol/total",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/cholesterol/ldl": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Cholesterol/Ldl",
-        "operationId": "get_cholesterol/ldl",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingCholesterolTimeseries"
-                  },
-                  "title": "Response Get Cholesterol/Ldl"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "cholesterol/ldl",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/cholesterol/hdl": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Cholesterol/Hdl",
-        "operationId": "get_cholesterol/hdl",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingCholesterolTimeseries"
-                  },
-                  "title": "Response Get Cholesterol/Hdl"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "cholesterol/hdl",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/cholesterol": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Cholesterol",
-        "operationId": "get_cholesterol",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingCholesterolTimeseries"
-                  },
-                  "title": "Response Get Cholesterol"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "cholesterol",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/body_weight": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Body Weight",
-        "operationId": "get_body_weight",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingBodyWeightTimeseries"
-                  },
-                  "title": "Response Get Body Weight"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "body_weight",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/body_fat": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Body Fat",
-        "operationId": "get_body_fat",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingBodyFatTimeseries"
-                  },
-                  "title": "Response Get Body Fat"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "body_fat",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/blood_oxygen": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Blood Oxygen",
-        "operationId": "get_blood_oxygen",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingBloodOxygenTimeseries"
-                  },
-                  "title": "Response Get Blood Oxygen"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "blood_oxygen",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/electrocardiogram_voltage": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Electrocardiogram Voltage",
-        "operationId": "get_electrocardiogram_voltage",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingElectrocardiogramVoltageTimeseries"
-                  },
-                  "title": "Response Get Electrocardiogram Voltage"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "electrocardiogram_voltage",
-        "x-fern-availability": "deprecated"
-      }
-    },
-    "/v2/timeseries/{user_id}/blood_pressure": {
-      "get": {
-        "tags": [
-          "timeseries"
-        ],
-        "summary": "Blood Pressure",
-        "operationId": "get_blood_pressure",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "User id returned by vital create user id request. This id should be stored in your database against the user and used for all interactions with the vital api."
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Provider oura/strava etc",
-              "default": "",
-              "title": "Provider"
-            },
-            "description": "Provider oura/strava etc"
-          },
-          {
-            "name": "start_date",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00",
-              "title": "Start Date"
-            },
-            "description": "Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00"
-          },
-          {
-            "name": "end_date",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59",
-              "title": "End Date"
-            },
-            "description": "Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientFacingBloodPressureTimeseries"
-                  },
-                  "title": "Response Get Blood Pressure"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "x-fern-sdk-group-name": "vitals",
-        "x-fern-sdk-method-name": "blood_pressure",
-        "x-fern-availability": "deprecated"
       }
     },
     "/v2/user": {
@@ -14478,10 +11868,10 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "9741da20-8fda-475c-8d2c-78f53b20413e",
-                  "user_id": "9d017a7b-d79d-4f89-bc27-09d0fd39dfb6",
-                  "order_id": "73afc429-8910-43a2-88e4-f7343e86f6aa",
-                  "order_transaction_id": "263ec18c-ce59-4120-9524-3ca1fbd87287",
+                  "id": "2ebeaaf7-e561-4935-95b6-ac020af80d43",
+                  "user_id": "e2f08910-17a8-4b13-a343-74f98680957b",
+                  "order_id": "91a02264-a127-47a3-8233-ee46bdb26f2c",
+                  "order_transaction_id": "73edd4ef-3276-4a1a-a92f-f8733d2f4b00",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -25005,9 +22395,8 @@
               "medium": 6400,
               "source": {
                 "device_id": "550e8400-e29b-41d4-a716-446655440000",
-                "logo": "https://logo_url.com",
-                "name": "Oura",
-                "slug": "oura"
+                "provider": "oura",
+                "type": "ring"
               },
               "steps": 10000,
               "time_zone": "Europe/London",
@@ -25048,9 +22437,8 @@
               "muscle_mass_percentage": 40.2,
               "source": {
                 "device_id": "550e8400-e29b-41d4-a716-446655440000",
-                "logo": "https://logo_url.com",
-                "name": "Withings",
-                "slug": "withings"
+                "provider": "withings",
+                "type": "scale"
               },
               "updated_at": "2023-02-28T01:22:38+00:00",
               "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537",
@@ -25385,9 +22773,8 @@
           "medium": 6400,
           "source": {
             "device_id": "550e8400-e29b-41d4-a716-446655440000",
-            "logo": "https://logo_url.com",
-            "name": "Oura",
-            "slug": "oura"
+            "provider": "oura",
+            "type": "ring"
           },
           "steps": 10000,
           "time_zone": "Europe/London",
@@ -25637,19 +23024,19 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "9569b6fd-cfb3-4391-b848-55ab7eb44f6d",
+          "id": "7be3d47d-b71d-4bb1-ac79-9c6269c35972",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "5541ec6e-386f-49f3-bfb8-e3046033bcd9",
-          "order_transaction_id": "89af565c-0624-4097-b86f-1894ce426169",
+          "order_id": "e3d556a0-4edd-48e6-ae6e-d4b58e3a45d8",
+          "order_transaction_id": "73a8c585-c4a9-4fd2-9ba9-ae11a46945dd",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "efb96bdf-e1a6-43d6-8419-642ae4ab345f"
+          "user_id": "89ec4c0c-1e97-462e-9255-0f7338c370c3"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -25676,7 +23063,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "66e9db0a-39bc-40ce-8549-dfe878b27166",
+          "id": "719d243f-8bc4-4e6a-8c8a-7a0a75588af8",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -25752,9 +23139,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "81742c88-c984-44d9-86f5-b9e716382d44",
+          "appointment_id": "4e76d8ce-76e7-4989-bac8-441b37c0f0dc",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "97862ca5-03b9-434a-bf06-12e53f8e6a43",
+          "id": "83feae41-f681-42cc-b3e6-fb9de01c1e8f",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -26011,7 +23398,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2026-09-21T16:59:34+00:00",
+          "timestamp": "2026-09-22T13:52:53+00:00",
           "unit": "mmHg"
         }
       },
@@ -26184,9 +23571,8 @@
           "muscle_mass_percentage": 40.2,
           "source": {
             "device_id": "550e8400-e29b-41d4-a716-446655440000",
-            "logo": "https://logo_url.com",
-            "name": "Withings",
-            "slug": "withings"
+            "provider": "withings",
+            "type": "scale"
           },
           "updated_at": "2023-02-28T01:22:38+00:00",
           "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537",
@@ -27163,12 +24549,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "9bea9da8-06ca-4b9e-8d61-f8e8b4b3e08a",
+          "order_id": "3c914c63-a761-4286-84b1-733a93e7b500",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "57c97ee3-693e-405c-8a66-d1b280ac109d",
+          "team_id": "d9f185af-6fc2-4f7f-8a84-35a16be2e96a",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "2c49e63b-ce42-4945-94b3-225d4eda7f29"
+          "user_id": "b2c54f77-338f-4630-ab07-8823e11906ff"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -28687,90 +26073,6 @@
           "timestamp": "2023-02-13T14:30:52+00:00",
           "unit": "bpm",
           "value": 70
-        }
-      },
-      "ClientFacingHypnogramTimeseries": {
-        "properties": {
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Id",
-            "description": "Deprecated"
-          },
-          "timezone_offset": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Timezone Offset",
-            "description": "Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
-          },
-          "type": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Type",
-            "description": "Type is always null for this resource."
-          },
-          "unit": {
-            "type": "string",
-            "title": "Unit",
-            "description": "enum: 1: deep, 2: light, 3: rem, 4: awake, -1: missing_data."
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Timestamp",
-            "description": "Depracated. The start time (inclusive) of the interval."
-          },
-          "start": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Start",
-            "description": "The start time (inclusive) of the interval."
-          },
-          "end": {
-            "type": "string",
-            "format": "date-time",
-            "title": "End",
-            "description": "The end time (exclusive) of the interval."
-          },
-          "value": {
-            "type": "number",
-            "title": "Value",
-            "description": "Hypnogram for sleep stages {\"deep\": 1, \"light\": 2, \"rem\": 3, \"awake\": 4, \"manual\": 5, \"missing_data\": -1}"
-          }
-        },
-        "type": "object",
-        "required": [
-          "unit",
-          "timestamp",
-          "start",
-          "end",
-          "value"
-        ],
-        "title": "ClientFacingHypnogramTimeseries",
-        "deprecated": true,
-        "example": {
-          "end": "2023-02-13T14:57:24+00:00",
-          "start": "2023-02-13T14:30:52+00:00",
-          "unit": "stage",
-          "value": 1
         }
       },
       "ClientFacingIgeTimeseries": {
@@ -30492,7 +27794,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2026-09-21T17:04:34.481294+00:00",
+          "end": "2026-09-22T13:57:53.578174+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -30635,7 +27937,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "4937d2d4-25ec-426c-aad9-daf7c38d019c",
+          "id": "b5ce3b3a-6d8b-47bf-9e5e-f6a4e1415682",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -31031,8 +28333,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "eea74904-b9d0-47d9-8c13-452ea185d9dc",
-          "id": "2141eae6-a416-4f5d-ad17-ac625f0e9d1c",
+          "health_insurace_id": "73569472-8a2d-4394-970f-aa2c6b919bee",
+          "id": "9cdae4e9-ef24-4780-8cba-e2493ccd3fde",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -31084,9 +28386,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "4f88a417-46ed-4193-a34c-ff37f4e03e2a",
+          "team_id": "36ad03d2-1243-435e-a208-38f98273ef98",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "306115b5-a244-413e-9e2c-ca3862c1c9ec"
+          "user_id": "3a984a24-b6f0-4c11-b44e-5e40b9b03ba3"
         }
       },
       "ClientFacingOrderEvent": {
@@ -31674,9 +28976,8 @@
           "height": 183,
           "id": "ceb39d90-5ba6-472b-9cb8-b5c128da5038",
           "source": {
-            "logo": "https://logo_url.com",
-            "name": "Oura",
-            "slug": "oura"
+            "provider": "oura",
+            "type": "ring"
           },
           "updated_at": "2023-02-28T01:22:38+00:00",
           "user_id": "1449752e-0d8a-40e0-9206-91ab099b2537"
@@ -32071,9 +29372,8 @@
           "message": "Due to payload size limits, to access the workout stream, please use the /v2/timeseries/workouts/{workout_id}/stream endpoint.",
           "provider_id": "123dashd9",
           "source": {
-            "logo": "https://logo_url.com",
-            "name": "Oura",
-            "slug": "oura"
+            "provider": "oura",
+            "type": "ring"
           },
           "sport": {
             "id": 1,
@@ -32190,7 +29490,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "61244742-54d2-4644-88a7-3bcc930a43af",
+          "id": "995212ae-d966-457c-a6d9-af1594fdbe58",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -32914,21 +30214,6 @@
             "title": "Heartrate",
             "default": []
           },
-          "hypnogram": {
-            "anyOf": [
-              {
-                "items": {
-                  "$ref": "#/components/schemas/ClientFacingHypnogramTimeseries"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Hypnogram",
-            "default": []
-          },
           "respiratory_rate": {
             "anyOf": [
               {
@@ -32951,129 +30236,97 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2026-09-21T16:59:34.554422+00:00",
+              "timestamp": "2026-09-22T13:52:53.640325+00:00",
               "unit": "bpm",
-              "value": 41
+              "value": 53
             },
             {
               "id": 1,
-              "timestamp": "2026-09-21T17:00:04.554435+00:00",
+              "timestamp": "2026-09-22T13:53:23.640336+00:00",
               "unit": "bpm",
-              "value": 9
+              "value": 72
             },
             {
               "id": 2,
-              "timestamp": "2026-09-21T17:00:34.554446+00:00",
+              "timestamp": "2026-09-22T13:53:53.640344+00:00",
               "unit": "bpm",
-              "value": 48
+              "value": 153
             },
             {
               "id": 3,
-              "timestamp": "2026-09-21T17:01:04.554460+00:00",
+              "timestamp": "2026-09-22T13:54:23.640360+00:00",
               "unit": "bpm",
-              "value": 136
+              "value": 186
             },
             {
               "id": 4,
-              "timestamp": "2026-09-21T17:01:34.554469+00:00",
+              "timestamp": "2026-09-22T13:54:53.640369+00:00",
               "unit": "bpm",
-              "value": 157
+              "value": 115
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2026-09-21T16:59:34.554267+00:00",
+              "timestamp": "2026-09-22T13:52:53.640204+00:00",
+              "unit": "rmssd",
+              "value": 27
+            },
+            {
+              "id": 1,
+              "timestamp": "2026-09-22T13:53:23.640265+00:00",
               "unit": "rmssd",
               "value": 100
             },
             {
-              "id": 1,
-              "timestamp": "2026-09-21T17:00:04.554354+00:00",
-              "unit": "rmssd",
-              "value": 34
-            },
-            {
               "id": 2,
-              "timestamp": "2026-09-21T17:00:34.554379+00:00",
+              "timestamp": "2026-09-22T13:53:53.640287+00:00",
               "unit": "rmssd",
-              "value": 70
+              "value": 85
             },
             {
               "id": 3,
-              "timestamp": "2026-09-21T17:01:04.554397+00:00",
+              "timestamp": "2026-09-22T13:54:23.640303+00:00",
               "unit": "rmssd",
-              "value": 98
+              "value": 68
             },
             {
               "id": 4,
-              "timestamp": "2026-09-21T17:01:34.554410+00:00",
+              "timestamp": "2026-09-22T13:54:53.640314+00:00",
               "unit": "rmssd",
-              "value": 91
-            }
-          ],
-          "hypnogram": [
-            {
-              "id": 0,
-              "timestamp": "2026-09-21T16:59:34.554481+00:00",
-              "unit": "stage",
-              "value": 2
-            },
-            {
-              "id": 1,
-              "timestamp": "2026-09-21T17:00:04.554506+00:00",
-              "unit": "stage",
-              "value": 3
-            },
-            {
-              "id": 2,
-              "timestamp": "2026-09-21T17:00:34.554516+00:00",
-              "unit": "stage",
-              "value": -1
-            },
-            {
-              "id": 3,
-              "timestamp": "2026-09-21T17:01:04.554525+00:00",
-              "unit": "stage",
-              "value": 0
-            },
-            {
-              "id": 4,
-              "timestamp": "2026-09-21T17:01:34.554533+00:00",
-              "unit": "stage",
-              "value": 0
+              "value": 92
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2026-09-21T16:59:34.554541+00:00",
+              "timestamp": "2026-09-22T13:52:53.640377+00:00",
               "unit": "bpm",
-              "value": 11
+              "value": 29
             },
             {
               "id": 1,
-              "timestamp": "2026-09-21T17:00:04.554549+00:00",
+              "timestamp": "2026-09-22T13:53:23.640385+00:00",
               "unit": "bpm",
-              "value": 13
+              "value": 27
             },
             {
               "id": 2,
-              "timestamp": "2026-09-21T17:00:34.554556+00:00",
+              "timestamp": "2026-09-22T13:53:53.640394+00:00",
               "unit": "bpm",
-              "value": 26
+              "value": 20
             },
             {
               "id": 3,
-              "timestamp": "2026-09-21T17:01:04.554563+00:00",
+              "timestamp": "2026-09-22T13:54:23.640401+00:00",
               "unit": "bpm",
-              "value": 25
+              "value": 24
             },
             {
               "id": 4,
-              "timestamp": "2026-09-21T17:01:34.554570+00:00",
+              "timestamp": "2026-09-22T13:54:53.640414+00:00",
               "unit": "bpm",
-              "value": 27
+              "value": 20
             }
           ]
         }
@@ -33140,27 +30393,6 @@
             ],
             "title": "Workout Id",
             "description": "\nFor workout stream timeseries, this is the workout ID with which the timeseries data are associated.\n\nFor all other types, this is always `null`.\n"
-          },
-          "name": {
-            "type": "string",
-            "title": "Name",
-            "description": "Deprecated. Subject to removal after 1 Jan 2024.",
-            "default": "",
-            "deprecated": true
-          },
-          "slug": {
-            "type": "string",
-            "title": "Slug",
-            "description": "Deprecated. Use `provider` instead. Subject to removal after 1 Jan 2024.",
-            "default": "",
-            "deprecated": true
-          },
-          "logo": {
-            "type": "string",
-            "title": "Logo",
-            "description": "Deprecated. Subject to removal after 1 Jan 2024.",
-            "default": "",
-            "deprecated": true
           }
         },
         "type": "object",
@@ -34148,10 +31380,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "f1065731-e74b-4664-8253-e96b997b9f6a",
+          "id": "a78b14fc-522a-47af-bd24-73429e49671f",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "b399f67d-cda1-4377-bb97-b24be17b89dd",
+            "id": "77451e3b-a1a7-4e7c-805d-b1a0dcdb8519",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -34344,7 +31576,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2026-09-21T16:59:35+00:00",
+              "created_on": "2026-09-22T13:52:54+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -34352,16 +31584,16 @@
               }
             }
           ],
-          "created_on": "2026-09-21T16:59:35+00:00",
+          "created_on": "2026-09-22T13:52:54+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2026-09-21T16:59:35+00:00",
+            "updated_at": "2026-09-22T13:52:54+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2026-09-21T16:59:35+00:00"
+            "updated_at": "2026-09-22T13:52:54+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -34598,9 +31830,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "04bda83c-f962-46bd-addc-ac9306c71d31",
+          "appointment_id": "3733c98a-0779-4927-8157-9b9c20a606f3",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "31642321-e233-41cf-8322-3c205afb5af6",
+          "id": "84538d58-ed8a-4534-a0ac-7e1680f4a2a1",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -35910,7 +33142,7 @@
               "third"
             ]
           },
-          "query_id": "9dcd786a-b673-4313-a056-1d3d280d6797",
+          "query_id": "cb717d0f-fd48-4bb5-aee4-7d26f110e029",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -38190,11 +35422,6 @@
             "format": "date-time",
             "title": "End Date"
           },
-          "is_final": {
-            "type": "boolean",
-            "const": true,
-            "title": "Is Final"
-          },
           "provider": {
             "type": "string",
             "title": "Provider"
@@ -38205,10 +35432,15 @@
           "user_id",
           "start_date",
           "end_date",
-          "is_final",
           "provider"
         ],
-        "title": "HistoricalPullCompleted"
+        "title": "HistoricalPullCompleted",
+        "example": {
+          "end_date": "2024-04-01T00:00:00Z",
+          "provider": "oura",
+          "start_date": "2024-01-01T00:00:00Z",
+          "user_id": "fac593ed-f371-4aea-9210-9332f1b19bec"
+        }
       },
       "HistoricalPullNonRetriableErrorDetails": {
         "type": "string",
@@ -42960,11 +40192,6 @@
             "format": "uuid",
             "title": "User Id"
           },
-          "source": {
-            "$ref": "#/components/schemas/ClientFacingProvider",
-            "description": "Deprecated. Use `provider` instead. Subject to removal after 1 Jan 2024.",
-            "deprecated": true
-          },
           "provider": {
             "$ref": "#/components/schemas/ClientFacingProvider"
           },
@@ -42994,7 +40221,6 @@
         "type": "object",
         "required": [
           "user_id",
-          "source",
           "provider",
           "external_user_id",
           "resource_availability"
@@ -44649,8 +41875,7 @@
           "insulin_injection",
           "carbohydrates",
           "note",
-          "sleep_stream",
-          "hypnogram"
+          "sleep_stream"
         ],
         "title": "ClientFacingResource",
         "x-fern-type-name": "ClientFacingResource",
@@ -46160,7 +43385,6 @@
           "glucose",
           "heartrate",
           "hrv",
-          "hypnogram",
           "ige",
           "igg",
           "respiratory_rate",
@@ -49731,7 +46955,7 @@
               {
                 "data": [
                   {
-                    "end": "2026-09-21T17:04:34.481294+00:00",
+                    "end": "2026-09-22T13:57:53.578174+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -50533,71 +47757,6 @@
           }
         }
       },
-      "GroupedHypnogramResponse": {
-        "properties": {
-          "groups": {
-            "additionalProperties": {
-              "items": {
-                "$ref": "#/components/schemas/GroupedHypnogram"
-              },
-              "type": "array"
-            },
-            "type": "object",
-            "title": "Groups",
-            "description": "For each matching provider or lab, a list of grouped timeseries values."
-          },
-          "next": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Next",
-            "description": "The cursor for fetching the next page, or `null` if there is no more data.",
-            "deprecated": true
-          },
-          "next_cursor": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Next Cursor",
-            "description": "The cursor for fetching the next page, or `null` if there is no more data."
-          }
-        },
-        "type": "object",
-        "required": [
-          "groups"
-        ],
-        "title": "GroupedHypnogramResponse",
-        "example": {
-          "groups": {
-            "oura": [
-              {
-                "data": [
-                  {
-                    "end": "2023-02-13T14:57:24+00:00",
-                    "start": "2023-02-13T14:30:52+00:00",
-                    "unit": "stage",
-                    "value": 1
-                  }
-                ],
-                "source": {
-                  "provider": "oura",
-                  "type": "ring"
-                }
-              }
-            ]
-          }
-        }
-      },
       "GroupedHRVResponse": {
         "properties": {
           "groups": {
@@ -51380,7 +48539,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2026-09-21T16:59:34+00:00",
+                    "timestamp": "2026-09-22T13:52:53+00:00",
                     "unit": "mmHg"
                   }
                 ],
@@ -52114,25 +49273,6 @@
           "data"
         ],
         "title": "GroupedIgg"
-      },
-      "GroupedHypnogram": {
-        "properties": {
-          "source": {
-            "$ref": "#/components/schemas/ClientFacingSource"
-          },
-          "data": {
-            "items": {
-              "$ref": "#/components/schemas/ClientFacingHypnogramTimeseries"
-            },
-            "type": "array"
-          }
-        },
-        "type": "object",
-        "required": [
-          "source",
-          "data"
-        ],
-        "title": "GroupedHypnogram"
       },
       "GroupedHRV": {
         "properties": {
