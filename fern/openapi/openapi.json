@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.4.948"
+    "version": "0.4.950"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -12106,10 +12106,10 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "236201c6-60b3-4333-a398-f9d4a66b38fa",
-                  "user_id": "4368e691-ee4d-45ab-8d02-4d11c11dab0c",
-                  "order_id": "e051612b-1d46-45ba-b71f-e62b8364cff6",
-                  "order_transaction_id": "c447ab5b-2713-4a9e-ab0c-367caf801be7",
+                  "id": "a2c886d2-86d4-4a2e-b94b-99a4c1cd181b",
+                  "user_id": "4cff28f2-4ae9-42d7-96d2-50f44e6cfb73",
+                  "order_id": "81fc771b-2b86-4138-a2cf-1cc49314fc5b",
+                  "order_transaction_id": "04e8a2d4-c49a-40e7-b364-e60a43c8891b",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -23537,19 +23537,19 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "10468d6b-e69d-40bf-b90b-667e1ce80f26",
+          "id": "efea7f57-90bb-4b1a-9a69-c4f61af0c2e8",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "84f90a75-340b-4711-8a21-c3574ccdfb71",
-          "order_transaction_id": "b2328565-7559-4b82-8a25-2b1d461db251",
+          "order_id": "4b4e0a84-84c0-4083-ab44-9012c9940e09",
+          "order_transaction_id": "972cde0a-4157-4df1-98f4-1c55a5ed2a0f",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "eca2d42a-e191-4d88-81fd-5a83bccb2f08"
+          "user_id": "ca492026-12a3-4f13-b8e4-e6aa168340ef"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23576,7 +23576,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "252f2e29-2545-4f07-958f-3a8d4950cd9a",
+          "id": "39c7c615-d93c-44ea-b343-9aa3da26c910",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23652,9 +23652,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "8219e1e0-80f4-4c91-837b-1276bc786a53",
+          "appointment_id": "d49b94a5-b48e-4964-a430-af1e034464c1",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "0386da1e-0386-4357-ab4a-0edd50effeda",
+          "id": "03575d6c-883e-4a7b-8288-0f10d01ada39",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -23911,7 +23911,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2026-10-20T11:35:57+00:00",
+          "timestamp": "2026-10-20T12:45:19+00:00",
           "unit": "mmHg"
         }
       },
@@ -25112,12 +25112,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "636e176e-4562-43d1-bb9b-9eb308ae4631",
+          "order_id": "bca586ec-4072-4673-8244-e1bb68699932",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "0f162f4a-11df-439a-95b5-5dc0b7b1b0d8",
+          "team_id": "b906b5f1-3326-4991-bf2d-8e45da6803fd",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "cf14a3f2-8503-439b-b2d1-e52d6c3eeaeb"
+          "user_id": "36ee6442-ecd0-4d98-a2e7-83886cfba667"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -27398,7 +27398,7 @@
               }
             ],
             "title": "Common Tat Days",
-            "description": "The common turnaround time in days for the lab test. This is the expected time for the lab to process the test and return results."
+            "description": "The common turnaround time in days for the lab test. This is the expected time for the lab to process the test and return results. Uses their legacy or percentile-based values. Null if any included marker lacks a common or worst-case estimate."
           },
           "worst_case_tat_days": {
             "anyOf": [
@@ -27410,7 +27410,7 @@
               }
             ],
             "title": "Worst Case Tat Days",
-            "description": "The worst-case turnaround time in days for the lab test. This is the maximum time the lab may take to process the test and return results."
+            "description": "The worst-case turnaround time in days for the lab test. This is the maximum time the lab may take to process the test and return results. Uses their legacy or percentile-based values. Null if any included marker lacks a common or worst-case estimate."
           },
           "updated_at": {
             "type": "string",
@@ -27713,7 +27713,9 @@
                 "type": "null"
               }
             ],
-            "title": "Common Tat Days"
+            "title": "Common Tat Days",
+            "description": "Common turnaround time for this marker, in days. Uses the legacy estimate, or `p90_tat_days_past_90_days` when percentile fields are included. Null when unavailable.",
+            "deprecated": true
           },
           "worst_case_tat_days": {
             "anyOf": [
@@ -27724,7 +27726,81 @@
                 "type": "null"
               }
             ],
-            "title": "Worst Case Tat Days"
+            "title": "Worst Case Tat Days",
+            "description": "Worst-case turnaround time for this marker, in days. Uses the legacy estimate, or `p95_tat_days_past_90_days` when percentile fields are included. Null when unavailable.",
+            "deprecated": true
+          },
+          "p50_tat_days_past_7_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P50 Tat Days Past 7 Days",
+            "description": "50th percentile marker turnaround time for the 7-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
+          },
+          "p50_tat_days_past_90_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P50 Tat Days Past 90 Days",
+            "description": "50th percentile marker turnaround time for the 90-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
+          },
+          "p90_tat_days_past_7_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P90 Tat Days Past 7 Days",
+            "description": "90th percentile marker turnaround time for the 7-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
+          },
+          "p90_tat_days_past_90_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P90 Tat Days Past 90 Days",
+            "description": "90th percentile marker turnaround time for the 90-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
+          },
+          "p95_tat_days_past_7_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P95 Tat Days Past 7 Days",
+            "description": "95th percentile marker turnaround time for the 7-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
+          },
+          "p95_tat_days_past_90_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P95 Tat Days Past 90 Days",
+            "description": "95th percentile marker turnaround time for the 90-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
           },
           "is_orderable": {
             "anyOf": [
@@ -27881,7 +27957,9 @@
                 "type": "null"
               }
             ],
-            "title": "Common Tat Days"
+            "title": "Common Tat Days",
+            "description": "Common turnaround time for this marker, in days. Uses the legacy estimate, or `p90_tat_days_past_90_days` when percentile fields are included. Null when unavailable.",
+            "deprecated": true
           },
           "worst_case_tat_days": {
             "anyOf": [
@@ -27892,7 +27970,81 @@
                 "type": "null"
               }
             ],
-            "title": "Worst Case Tat Days"
+            "title": "Worst Case Tat Days",
+            "description": "Worst-case turnaround time for this marker, in days. Uses the legacy estimate, or `p95_tat_days_past_90_days` when percentile fields are included. Null when unavailable.",
+            "deprecated": true
+          },
+          "p50_tat_days_past_7_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P50 Tat Days Past 7 Days",
+            "description": "50th percentile marker turnaround time for the 7-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
+          },
+          "p50_tat_days_past_90_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P50 Tat Days Past 90 Days",
+            "description": "50th percentile marker turnaround time for the 90-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
+          },
+          "p90_tat_days_past_7_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P90 Tat Days Past 7 Days",
+            "description": "90th percentile marker turnaround time for the 7-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
+          },
+          "p90_tat_days_past_90_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P90 Tat Days Past 90 Days",
+            "description": "90th percentile marker turnaround time for the 90-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
+          },
+          "p95_tat_days_past_7_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P95 Tat Days Past 7 Days",
+            "description": "95th percentile marker turnaround time for the 7-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
+          },
+          "p95_tat_days_past_90_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P95 Tat Days Past 90 Days",
+            "description": "95th percentile marker turnaround time for the 90-day window, rounded up to days without a buffer. Omitted for legacy estimates; null when unavailable."
           },
           "is_orderable": {
             "anyOf": [
@@ -28402,7 +28554,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2026-10-20T11:40:57.620280+00:00",
+          "end": "2026-10-20T12:50:19.444643+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -28545,7 +28697,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "5a66543b-fa18-4533-b96a-5aba3acc00c9",
+          "id": "07a6c161-7aef-44c3-b618-9ebf4f456608",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -28953,8 +29105,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "aa86c8d2-f86b-4fcf-aee0-1c1a53d24f66",
-          "id": "0b70e8e2-f193-4db3-8957-a999f39acb5b",
+          "health_insurace_id": "286c90fe-1784-4e72-9261-0d1cc473efcb",
+          "id": "b5102b28-e307-40ed-bd98-de0827cb45c2",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -29007,9 +29159,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "d4486ffe-2944-4f9f-ae6c-49ec361dc306",
+          "team_id": "b6199451-b37b-4745-a998-de7d10daa757",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "399e6ce5-635d-4b4d-94a6-1bf2ad8cfda5"
+          "user_id": "95232a4d-778f-4215-9bbb-01c5d3492475"
         }
       },
       "ClientFacingOrderEvent": {
@@ -30111,7 +30263,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "dacca487-3d2a-4caf-b7f3-f7c0b5fc78ed",
+          "id": "47309e81-3b29-4404-8414-9e5f41f38d4f",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -30917,97 +31069,97 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2026-10-20T11:36:02.425333+00:00",
+              "timestamp": "2026-10-20T12:45:23.886411+00:00",
               "unit": "bpm",
-              "value": 168
+              "value": 70
             },
             {
               "id": 1,
-              "timestamp": "2026-10-20T11:36:32.425353+00:00",
+              "timestamp": "2026-10-20T12:45:53.886430+00:00",
               "unit": "bpm",
-              "value": 68
+              "value": 34
             },
             {
               "id": 2,
-              "timestamp": "2026-10-20T11:37:02.425371+00:00",
+              "timestamp": "2026-10-20T12:46:23.886448+00:00",
               "unit": "bpm",
-              "value": 95
+              "value": 3
             },
             {
               "id": 3,
-              "timestamp": "2026-10-20T11:37:32.425388+00:00",
+              "timestamp": "2026-10-20T12:46:53.886464+00:00",
               "unit": "bpm",
-              "value": 93
+              "value": 11
             },
             {
               "id": 4,
-              "timestamp": "2026-10-20T11:38:02.425405+00:00",
+              "timestamp": "2026-10-20T12:47:23.886480+00:00",
               "unit": "bpm",
-              "value": 1
+              "value": 56
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2026-10-20T11:36:02.424917+00:00",
+              "timestamp": "2026-10-20T12:45:23.886096+00:00",
               "unit": "rmssd",
-              "value": 2
+              "value": 65
             },
             {
               "id": 1,
-              "timestamp": "2026-10-20T11:36:32.425163+00:00",
+              "timestamp": "2026-10-20T12:45:53.886282+00:00",
               "unit": "rmssd",
-              "value": 67
+              "value": 23
             },
             {
               "id": 2,
-              "timestamp": "2026-10-20T11:37:02.425220+00:00",
+              "timestamp": "2026-10-20T12:46:23.886320+00:00",
               "unit": "rmssd",
-              "value": 42
+              "value": 25
             },
             {
               "id": 3,
-              "timestamp": "2026-10-20T11:37:32.425288+00:00",
+              "timestamp": "2026-10-20T12:46:53.886369+00:00",
               "unit": "rmssd",
-              "value": 67
+              "value": 74
             },
             {
               "id": 4,
-              "timestamp": "2026-10-20T11:38:02.425311+00:00",
+              "timestamp": "2026-10-20T12:47:23.886391+00:00",
               "unit": "rmssd",
-              "value": 83
+              "value": 52
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2026-10-20T11:36:02.425421+00:00",
+              "timestamp": "2026-10-20T12:45:23.886505+00:00",
               "unit": "bpm",
-              "value": 15
+              "value": 22
             },
             {
               "id": 1,
-              "timestamp": "2026-10-20T11:36:32.425449+00:00",
+              "timestamp": "2026-10-20T12:45:53.886522+00:00",
               "unit": "bpm",
-              "value": 18
+              "value": 19
             },
             {
               "id": 2,
-              "timestamp": "2026-10-20T11:37:02.425467+00:00",
+              "timestamp": "2026-10-20T12:46:23.886538+00:00",
               "unit": "bpm",
-              "value": 19
+              "value": 27
             },
             {
               "id": 3,
-              "timestamp": "2026-10-20T11:37:32.425484+00:00",
+              "timestamp": "2026-10-20T12:46:53.886555+00:00",
               "unit": "bpm",
-              "value": 16
+              "value": 28
             },
             {
               "id": 4,
-              "timestamp": "2026-10-20T11:38:02.425500+00:00",
+              "timestamp": "2026-10-20T12:47:23.886654+00:00",
               "unit": "bpm",
-              "value": 19
+              "value": 16
             }
           ]
         }
@@ -32061,10 +32213,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "9b0d9f62-5ba3-4558-8fd6-9762fb58f15b",
+          "id": "59539463-2abe-4e23-9d6a-b96b2cef8f9c",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "f4665047-be14-4890-bc35-13bede7101e1",
+            "id": "bd2aa9ac-2a23-4186-8cd4-f80c502be00c",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -32257,7 +32409,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2026-10-20T11:36:03+00:00",
+              "created_on": "2026-10-20T12:45:25+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -32265,16 +32417,16 @@
               }
             }
           ],
-          "created_on": "2026-10-20T11:36:03+00:00",
+          "created_on": "2026-10-20T12:45:25+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2026-10-20T11:36:03+00:00",
+            "updated_at": "2026-10-20T12:45:25+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2026-10-20T11:36:03+00:00"
+            "updated_at": "2026-10-20T12:45:25+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -32511,9 +32663,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "409778bd-1ede-4a27-bd00-829f0858c44a",
+          "appointment_id": "244dde9d-6744-45ce-a764-78b3976529cb",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "f80fc29e-596a-44c9-bac7-973e8bba6187",
+          "id": "d646dca9-8432-4723-82dd-55cabf2acacf",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -33823,7 +33975,7 @@
               "third"
             ]
           },
-          "query_id": "4d73638a-c1c1-4fef-9ee9-0b21735aa840",
+          "query_id": "3edb1aa9-65f5-4f9e-927d-069d8b78e7c4",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -47925,7 +48077,7 @@
               {
                 "data": [
                   {
-                    "end": "2026-10-20T11:40:57.620280+00:00",
+                    "end": "2026-10-20T12:50:19.444643+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -49509,7 +49661,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2026-10-20T11:35:57+00:00",
+                    "timestamp": "2026-10-20T12:45:19+00:00",
                     "unit": "mmHg"
                   }
                 ],
