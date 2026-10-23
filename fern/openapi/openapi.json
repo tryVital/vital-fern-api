@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.4.962"
+    "version": "0.4.963"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -12149,10 +12149,10 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "e2b19ffe-f451-4d59-af3b-0a15cfa12f5a",
-                  "user_id": "5273d5b2-6af5-46bf-bdfe-efb573585f5b",
-                  "order_id": "1bcc9982-d1f4-4999-b36d-b8dc8f60cf64",
-                  "order_transaction_id": "23b33183-24eb-43ad-ae02-df821eba1522",
+                  "id": "6c810bb8-c5bd-4f3f-b27a-e4fdd47ccb04",
+                  "user_id": "746a5075-4d9f-4d07-b2a6-4bd0b10277e5",
+                  "order_id": "bd787a2a-c336-4f16-9b2d-e90e55bd6e9c",
+                  "order_transaction_id": "63846469-cca4-4fde-8988-ea263851901d",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -12842,6 +12842,58 @@
         },
         "x-fern-sdk-group-name": "lab_tests",
         "x-fern-sdk-method-name": "get_result_raw"
+      }
+    },
+    "/v3/order/{order_id}/clinical_report": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "summary": "Get Order Clinical Report",
+        "description": "Return the current released Labcorp clinical report, including preliminary reports.\n\nThe saved report preserves the lab's specimen, test, observation, and note\nstructure. Lab times retain their source precision and have no inferred timezone.",
+        "operationId": "get_order_clinical_report_v3_order__order_id__clinical_report_get",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Order Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOrderClinicalReportResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Clinical reports are supported only for Labcorp orders"
+          },
+          "404": {
+            "description": "Order not found or clinical report not available"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "lab_tests",
+        "x-fern-sdk-method-name": "get_clinical_report"
       }
     },
     "/v3/order/{order_id}/labels/pdf": {
@@ -22680,8 +22732,7 @@
       "CheckoutQuoteLineItemCode": {
         "type": "string",
         "enum": [
-          "lab_test_fee",
-          "draw_fee"
+          "order"
         ],
         "title": "CheckoutQuoteLineItemCode",
         "description": "ℹ️ This enum is non-exhaustive."
@@ -23585,19 +23636,19 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "ee5f4bb2-e4d8-4271-8ec7-1b3ad4f42dbe",
+          "id": "49cb1fbe-c5d0-4128-899c-336eeeb7df25",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "5d47acd9-43ba-4ea0-942d-a6a752ad9d13",
-          "order_transaction_id": "111f0b38-2c0b-4c5c-8c6b-8de535e265db",
+          "order_id": "d2fd545e-7255-4721-a262-aea83b4438c6",
+          "order_transaction_id": "da0b670d-1c37-4a6b-ba1e-145e2714323d",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "c17c9909-7269-410d-b470-d11165deca59"
+          "user_id": "c1dc9c0b-72fa-4f70-ac35-e480563fd21c"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23624,7 +23675,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "1a9563e1-445d-49c4-aa46-8e1ef96521e4",
+          "id": "1f31c270-a483-4454-a625-5317927c0f60",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23700,9 +23751,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "0eba47ef-b7dd-47fd-9abd-cc2a712fbff1",
+          "appointment_id": "53201ef8-efbb-4fdf-a25f-cb7055bab4f0",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "02bb61b0-0f57-4bed-9874-a3ebefc7e804",
+          "id": "3c1843d9-c005-40cd-8f4a-df2709fc79c9",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -23959,7 +24010,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2026-10-23T00:39:19+00:00",
+          "timestamp": "2026-10-23T08:54:01+00:00",
           "unit": "mmHg"
         }
       },
@@ -25160,12 +25211,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "98c929e1-a3f4-40ca-bc38-54ba41b95a74",
+          "order_id": "18a69e22-a35b-40c8-923b-41d71d0dd125",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "6f1c9b3e-21c4-4f0a-ab03-dde51d888a59",
+          "team_id": "f0033ab1-00f9-4a14-8754-b29dfee11f4e",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "8cfed39d-396e-4fbd-856a-4ed1462bf3e8"
+          "user_id": "679f6e38-edd4-48f5-ae67-c888cf9573a1"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -27356,7 +27407,8 @@
           "price": {
             "type": "number",
             "title": "Price",
-            "description": ""
+            "description": "",
+            "deprecated": true
           },
           "is_active": {
             "type": "boolean",
@@ -27735,7 +27787,8 @@
                 "type": "null"
               }
             ],
-            "title": "Price"
+            "title": "Price",
+            "deprecated": true
           },
           "aoe": {
             "anyOf": [
@@ -27979,7 +28032,8 @@
                 "type": "null"
               }
             ],
-            "title": "Price"
+            "title": "Price",
+            "deprecated": true
           },
           "aoe": {
             "anyOf": [
@@ -28602,7 +28656,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2026-10-23T00:44:19.189218+00:00",
+          "end": "2026-10-23T08:59:01.076591+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -28745,7 +28799,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "44054a00-b271-4345-9b80-86e775306eb5",
+          "id": "82755e72-f9ed-42cd-9a48-7a52a8b41464",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -29153,8 +29207,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "40e535f0-d68f-47ea-b2b6-ada8e5ed7353",
-          "id": "df28c0aa-29f9-4cf7-98ac-cadf8a7f1f55",
+          "health_insurace_id": "6d3dea1d-850d-4bd7-9ed2-ae30edd9f573",
+          "id": "35ba54f3-0e0f-4e88-b666-00f133ee4960",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -29207,9 +29261,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "6cf31852-bbb8-42f1-8ca8-0364078769df",
+          "team_id": "314751e0-2996-4b01-b2f6-6d1e0cfee29f",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "94fe273f-bd71-449c-8c66-11064b1070b4"
+          "user_id": "5cb73601-e015-4dac-83bb-e2bb640a2328"
         }
       },
       "ClientFacingOrderEvent": {
@@ -30311,7 +30365,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "cbd8b91d-b1a0-468f-86ba-13970941de4d",
+          "id": "b00458ca-0011-4882-9422-33131ecef17f",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31117,97 +31171,97 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2026-10-23T00:39:23.256361+00:00",
+              "timestamp": "2026-10-23T08:54:04.653050+00:00",
               "unit": "bpm",
-              "value": 141
+              "value": 119
             },
             {
               "id": 1,
-              "timestamp": "2026-10-23T00:39:53.256381+00:00",
+              "timestamp": "2026-10-23T08:54:34.653068+00:00",
               "unit": "bpm",
-              "value": 70
+              "value": 152
             },
             {
               "id": 2,
-              "timestamp": "2026-10-23T00:40:23.256398+00:00",
+              "timestamp": "2026-10-23T08:55:04.653085+00:00",
               "unit": "bpm",
-              "value": 1
+              "value": 46
             },
             {
               "id": 3,
-              "timestamp": "2026-10-23T00:40:53.256415+00:00",
+              "timestamp": "2026-10-23T08:55:34.653102+00:00",
               "unit": "bpm",
-              "value": 71
+              "value": 95
             },
             {
               "id": 4,
-              "timestamp": "2026-10-23T00:41:23.256434+00:00",
+              "timestamp": "2026-10-23T08:56:04.653119+00:00",
               "unit": "bpm",
-              "value": 77
+              "value": 83
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2026-10-23T00:39:23.256044+00:00",
+              "timestamp": "2026-10-23T08:54:04.652764+00:00",
               "unit": "rmssd",
-              "value": 20
+              "value": 83
             },
             {
               "id": 1,
-              "timestamp": "2026-10-23T00:39:53.256228+00:00",
+              "timestamp": "2026-10-23T08:54:34.652917+00:00",
               "unit": "rmssd",
-              "value": 74
+              "value": 7
             },
             {
               "id": 2,
-              "timestamp": "2026-10-23T00:40:23.256269+00:00",
+              "timestamp": "2026-10-23T08:55:04.652953+00:00",
               "unit": "rmssd",
-              "value": 86
+              "value": 44
             },
             {
               "id": 3,
-              "timestamp": "2026-10-23T00:40:53.256301+00:00",
+              "timestamp": "2026-10-23T08:55:34.652982+00:00",
               "unit": "rmssd",
-              "value": 37
+              "value": 56
             },
             {
               "id": 4,
-              "timestamp": "2026-10-23T00:41:23.256338+00:00",
+              "timestamp": "2026-10-23T08:56:04.653030+00:00",
               "unit": "rmssd",
-              "value": 26
+              "value": 36
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2026-10-23T00:39:23.256451+00:00",
+              "timestamp": "2026-10-23T08:54:04.653135+00:00",
               "unit": "bpm",
-              "value": 19
+              "value": 24
             },
             {
               "id": 1,
-              "timestamp": "2026-10-23T00:39:53.256484+00:00",
+              "timestamp": "2026-10-23T08:54:34.653161+00:00",
               "unit": "bpm",
-              "value": 28
+              "value": 30
             },
             {
               "id": 2,
-              "timestamp": "2026-10-23T00:40:23.256502+00:00",
+              "timestamp": "2026-10-23T08:55:04.653178+00:00",
               "unit": "bpm",
-              "value": 13
+              "value": 14
             },
             {
               "id": 3,
-              "timestamp": "2026-10-23T00:40:53.256518+00:00",
+              "timestamp": "2026-10-23T08:55:34.653195+00:00",
               "unit": "bpm",
-              "value": 10
+              "value": 20
             },
             {
               "id": 4,
-              "timestamp": "2026-10-23T00:41:23.256534+00:00",
+              "timestamp": "2026-10-23T08:56:04.653210+00:00",
               "unit": "bpm",
-              "value": 28
+              "value": 15
             }
           ]
         }
@@ -32261,10 +32315,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "b3070b2a-7a64-4207-8391-13f6aeeb48bc",
+          "id": "26bc195c-2060-45f6-b0a0-e014bf97e8b0",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "0d9fbe12-38e9-4627-ba29-104c98e519ab",
+            "id": "e7bbc846-ddd0-4c30-82d6-70725c3a234f",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -32457,7 +32511,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2026-10-23T00:39:25+00:00",
+              "created_on": "2026-10-23T08:54:06+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -32465,16 +32519,16 @@
               }
             }
           ],
-          "created_on": "2026-10-23T00:39:25+00:00",
+          "created_on": "2026-10-23T08:54:06+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2026-10-23T00:39:25+00:00",
+            "updated_at": "2026-10-23T08:54:06+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2026-10-23T00:39:25+00:00"
+            "updated_at": "2026-10-23T08:54:06+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -32711,9 +32765,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "063fef5a-4f7e-4a4c-b9cf-c03deb15d34a",
+          "appointment_id": "dfb539e6-9561-413d-930e-7e4779091dfe",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "d74e8af9-1be5-46cd-9463-5c47d61f90bd",
+          "id": "1cf0e5a0-e8ad-4921-a323-4fef8c50a421",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -33774,6 +33828,1102 @@
         "type": "object",
         "title": "ClinicalInformation"
       },
+      "ClinicalReport": {
+        "properties": {
+          "source_lab": {
+            "type": "string",
+            "title": "Source Lab"
+          },
+          "report_status": {
+            "$ref": "#/components/schemas/ClinicalReportCode"
+          },
+          "specimens": {
+            "items": {
+              "$ref": "#/components/schemas/ClinicalReportSpecimen"
+            },
+            "type": "array",
+            "title": "Specimens"
+          },
+          "performing_laboratories": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ClinicalReportLaboratory"
+            },
+            "type": "object",
+            "title": "Performing Laboratories"
+          },
+          "patient": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportPatient"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ordering_provider": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportProvider"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lab_account_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lab Account Number"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_lab",
+          "report_status",
+          "specimens",
+          "performing_laboratories"
+        ],
+        "title": "ClinicalReport"
+      },
+      "ClinicalReportAddress": {
+        "properties": {
+          "lines": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Lines"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "City"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State"
+          },
+          "postal_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Postal Code"
+          },
+          "country": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country"
+          }
+        },
+        "type": "object",
+        "title": "ClinicalReportAddress"
+      },
+      "ClinicalReportCode": {
+        "properties": {
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code"
+          },
+          "display": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display"
+          }
+        },
+        "type": "object",
+        "title": "ClinicalReportCode"
+      },
+      "ClinicalReportInformation": {
+        "properties": {
+          "fasting": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fasting"
+          },
+          "total_volume": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Volume"
+          },
+          "information": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Information"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "title": "ClinicalReportInformation"
+      },
+      "ClinicalReportLaboratory": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "address": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportAddress"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "medical_director": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportName"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "clia": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clia"
+          }
+        },
+        "type": "object",
+        "title": "ClinicalReportLaboratory"
+      },
+      "ClinicalReportName": {
+        "properties": {
+          "family": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Family"
+          },
+          "given": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Given"
+          },
+          "middle": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Middle"
+          },
+          "suffix": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suffix"
+          },
+          "prefix": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prefix"
+          },
+          "degree": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Degree"
+          }
+        },
+        "type": "object",
+        "title": "ClinicalReportName"
+      },
+      "ClinicalReportObservation": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "sub_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sub Id"
+          },
+          "value_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value Type"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result"
+          },
+          "units": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Units"
+          },
+          "reference_interval": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Interval"
+          },
+          "abnormal_flags": {
+            "items": {
+              "$ref": "#/components/schemas/ClinicalReportCode"
+            },
+            "type": "array",
+            "title": "Abnormal Flags"
+          },
+          "interpretation": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "normal",
+                  "abnormal",
+                  "critical"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interpretation",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "status": {
+            "$ref": "#/components/schemas/ClinicalReportCode"
+          },
+          "result_time": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportTime"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "performing_lab": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Performing Lab"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "relationships": {
+            "items": {
+              "$ref": "#/components/schemas/ClinicalReportRelationship"
+            },
+            "type": "array",
+            "title": "Relationships"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status"
+        ],
+        "title": "ClinicalReportObservation"
+      },
+      "ClinicalReportOrderedTest": {
+        "properties": {
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "control_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Control Number"
+          },
+          "alternate_control_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alternate Control Number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ClinicalReportCode"
+          },
+          "collection_time": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportTime"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "received_time": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportTime"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lab_release_time": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportTime"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "clinical_information": {
+            "$ref": "#/components/schemas/ClinicalReportInformation"
+          },
+          "ordering_provider": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportProvider"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "action_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Action Code"
+          },
+          "organism": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organism"
+          },
+          "parent_result_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Result Code"
+          },
+          "parent_result_sub_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Result Sub Id"
+          },
+          "parent_order_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Order Code"
+          },
+          "specimen_details": {
+            "items": {
+              "$ref": "#/components/schemas/ClinicalReportSpecimenDetails"
+            },
+            "type": "array",
+            "title": "Specimen Details"
+          },
+          "observations": {
+            "items": {
+              "$ref": "#/components/schemas/ClinicalReportObservation"
+            },
+            "type": "array",
+            "title": "Observations"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "clinical_information"
+        ],
+        "title": "ClinicalReportOrderedTest"
+      },
+      "ClinicalReportPatient": {
+        "properties": {
+          "lab_patient_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lab Patient Id"
+          },
+          "alternate_patient_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Alternate Patient Ids"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportName"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "birth_date": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportTime"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sex": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sex"
+          },
+          "address": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportAddress"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "title": "ClinicalReportPatient"
+      },
+      "ClinicalReportProvider": {
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/ClinicalReportName"
+          },
+          "identifier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Identifier"
+          },
+          "identifier_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Identifier Type"
+          },
+          "npi": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Npi"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "ClinicalReportProvider"
+      },
+      "ClinicalReportRelationship": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "reflex",
+              "susceptibility"
+            ],
+            "title": "Type",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "target_observation_id": {
+            "type": "string",
+            "title": "Target Observation Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "target_observation_id"
+        ],
+        "title": "ClinicalReportRelationship"
+      },
+      "ClinicalReportSpecimen": {
+        "properties": {
+          "specimen_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Specimen Id"
+          },
+          "control_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Control Number"
+          },
+          "alternate_control_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alternate Control Number"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "body_site": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body Site"
+          },
+          "collection_time": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportTime"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lab_release_time": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportTime"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "clinical_information": {
+            "$ref": "#/components/schemas/ClinicalReportInformation"
+          },
+          "patient": {
+            "$ref": "#/components/schemas/ClinicalReportPatient"
+          },
+          "report_status": {
+            "$ref": "#/components/schemas/ClinicalReportCode"
+          },
+          "message_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message Id"
+          },
+          "message_time": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportTime"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lab_account_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lab Account Number"
+          },
+          "ordered_tests": {
+            "items": {
+              "$ref": "#/components/schemas/ClinicalReportOrderedTest"
+            },
+            "type": "array",
+            "title": "Ordered Tests"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "clinical_information",
+          "patient",
+          "report_status",
+          "ordered_tests"
+        ],
+        "title": "ClinicalReportSpecimen"
+      },
+      "ClinicalReportSpecimenDetails": {
+        "properties": {
+          "specimen_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Specimen Id"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "source_modifiers": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Modifiers"
+          },
+          "body_site": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body Site"
+          },
+          "body_site_modifiers": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body Site Modifiers"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "collection_time": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportTime"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "collection_end_time": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClinicalReportTime"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "title": "ClinicalReportSpecimenDetails"
+      },
+      "ClinicalReportTime": {
+        "properties": {
+          "source_value": {
+            "type": "string",
+            "title": "Source Value"
+          },
+          "local_value": {
+            "type": "string",
+            "title": "Local Value"
+          },
+          "precision": {
+            "type": "string",
+            "enum": [
+              "date",
+              "hour",
+              "minute",
+              "second",
+              "fraction"
+            ],
+            "title": "Precision",
+            "description": "ℹ️ This enum is non-exhaustive."
+          },
+          "utc_offset": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Utc Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_value",
+          "local_value",
+          "precision"
+        ],
+        "title": "ClinicalReportTime"
+      },
       "CollectionInferenceSource": {
         "type": "string",
         "enum": [
@@ -34023,7 +35173,7 @@
               "third"
             ]
           },
-          "query_id": "2a78dcf7-5ffc-400e-9670-5a2a15b29b82",
+          "query_id": "82238bea-9f8c-4f12-959c-88b62548558b",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -35757,6 +36907,36 @@
           "pages"
         ],
         "title": "GetMarkersResponse"
+      },
+      "GetOrderClinicalReportResponse": {
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Order Id"
+          },
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id"
+          },
+          "report": {
+            "$ref": "#/components/schemas/ClinicalReport"
+          }
+        },
+        "type": "object",
+        "required": [
+          "order_id",
+          "report"
+        ],
+        "title": "GetOrderClinicalReportResponse"
       },
       "GetOrderCommunicationSettingsResponse": {
         "properties": {
@@ -48229,7 +49409,7 @@
               {
                 "data": [
                   {
-                    "end": "2026-10-23T00:44:19.189218+00:00",
+                    "end": "2026-10-23T08:59:01.076591+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -49813,7 +50993,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2026-10-23T00:39:19+00:00",
+                    "timestamp": "2026-10-23T08:54:01+00:00",
                     "unit": "mmHg"
                   }
                 ],
