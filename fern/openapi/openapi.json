@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.4.983"
+    "version": "0.4.993"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -12149,10 +12149,10 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "387ee729-d1ab-4bd1-a1d4-0822f93ad645",
-                  "user_id": "995fea12-a36a-48a6-9778-3115b759b21d",
-                  "order_id": "cdb57b89-ac05-4015-8ad5-81f4d69c52c5",
-                  "order_transaction_id": "cf6d81eb-6a48-4b0f-a79a-fafa14a69b1e",
+                  "id": "ffd1a5a4-2624-4e9f-9682-40fc225be1a8",
+                  "user_id": "79a4bdbd-3cef-4725-ad90-405ab05a4678",
+                  "order_id": "1ac9f132-82c2-4ef5-a1ef-69ee2933c9b1",
+                  "order_transaction_id": "6cc6940c-386c-4f4e-9c20-eb3ee37e876d",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -14439,6 +14439,18 @@
               "title": "Search Input"
             },
             "description": "Search by patient first name, last name, or date of birth (e.g. `Alice`, `Smith`, or `1990-01-15`)."
+          },
+          {
+            "name": "critical_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Return only critical unmatched results.",
+              "default": false,
+              "title": "Critical Only"
+            },
+            "description": "Return only critical unmatched results."
           }
         ],
         "responses": {
@@ -22758,18 +22770,6 @@
               "2021-01-01T00:00:00"
             ]
           },
-          "payment_resource_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Payment Resource Id",
-            "description": "ID of the Stripe Checkout Session (`cs_...`) or PaymentIntent (`pi_...`) collecting payment. `null` until the payment resource is created."
-          },
           "order_id": {
             "anyOf": [
               {
@@ -22817,29 +22817,35 @@
             ],
             "title": "Appointment Id"
           },
-          "payment_resource_url": {
+          "payment": {
             "anyOf": [
               {
-                "type": "string"
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/HostedCheckoutPayment"
+                  },
+                  {
+                    "$ref": "#/components/schemas/StripeElementsPayment"
+                  },
+                  {
+                    "$ref": "#/components/schemas/StripePaymentIntentPayment"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "flow",
+                  "mapping": {
+                    "hosted_checkout": "#/components/schemas/HostedCheckoutPayment",
+                    "stripe_elements": "#/components/schemas/StripeElementsPayment",
+                    "stripe_payment_intent": "#/components/schemas/StripePaymentIntentPayment"
+                  }
+                }
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Payment Resource Url",
-            "description": "Stripe-hosted payment page URL, for the `checkout_session` payment method. Returned only by the create, get and confirm endpoints while `status` is `unpaid`; always `null` in webhooks."
-          },
-          "payment_resource_client_secret": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Payment Resource Client Secret",
-            "description": "Client secret for confirming the Stripe PaymentIntent with Stripe.js, for the `payment_intent` payment method. Returned only by the create, get and confirm endpoints while `status` is `unpaid`; always `null` in webhooks."
+            "title": "Payment",
+            "description": "Payment handoff returned by authenticated endpoints only while unpaid. Null in row snapshots and webhooks."
           }
         },
         "type": "object",
@@ -22847,7 +22853,6 @@
           "checkout_session_id",
           "status",
           "pay_before",
-          "payment_resource_id",
           "order_id",
           "order_transaction_id",
           "appointment_hold_status",
@@ -22893,8 +22898,8 @@
             "const": "stripe",
             "title": "Channel"
           },
-          "method": {
-            "$ref": "#/components/schemas/CheckoutSessionPaymentMethod",
+          "flow": {
+            "$ref": "#/components/schemas/CheckoutSessionPaymentFlow",
             "description": "ℹ️ This enum is non-exhaustive."
           },
           "success_url": {
@@ -22907,7 +22912,7 @@
               }
             ],
             "title": "Success Url",
-            "description": "Where the hosted checkout page redirects after a successful payment. Required for `checkout_session`, rejected for `payment_intent`. Include the literal `{JUNCTION_CHECKOUT_SESSION_ID}` anywhere in the URL to receive the Junction checkout session ID; Stripe's `{CHECKOUT_SESSION_ID}` placeholder still resolves to the Stripe session ID."
+            "description": "Where the hosted checkout page redirects after a successful payment. Required for `hosted_checkout`, rejected for native payment flows. Include the literal `{JUNCTION_CHECKOUT_SESSION_ID}` anywhere in the URL to receive the Junction checkout session ID; Stripe's `{CHECKOUT_SESSION_ID}` placeholder still resolves to the Stripe session ID."
           },
           "cancel_url": {
             "anyOf": [
@@ -22919,23 +22924,24 @@
               }
             ],
             "title": "Cancel Url",
-            "description": "Where the hosted checkout page redirects when the patient cancels. Only accepted for `checkout_session`. Include the literal `{JUNCTION_CHECKOUT_SESSION_ID}` anywhere in the URL to receive the Junction checkout session ID; Stripe's `{CHECKOUT_SESSION_ID}` placeholder still resolves to the Stripe session ID."
+            "description": "Where the hosted checkout page redirects when the patient cancels. Only accepted for `hosted_checkout`. Include the literal `{JUNCTION_CHECKOUT_SESSION_ID}` anywhere in the URL to receive the Junction checkout session ID; Stripe's `{CHECKOUT_SESSION_ID}` placeholder still resolves to the Stripe session ID."
           }
         },
         "type": "object",
         "required": [
           "channel",
-          "method"
+          "flow"
         ],
         "title": "CheckoutSessionPayment"
       },
-      "CheckoutSessionPaymentMethod": {
+      "CheckoutSessionPaymentFlow": {
         "type": "string",
         "enum": [
-          "checkout_session",
-          "payment_intent"
+          "hosted_checkout",
+          "stripe_elements",
+          "stripe_payment_intent"
         ],
-        "title": "CheckoutSessionPaymentMethod",
+        "title": "CheckoutSessionPaymentFlow",
         "description": "ℹ️ This enum is non-exhaustive."
       },
       "CheckoutSessionStatus": {
@@ -23636,19 +23642,19 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "4eb8fced-ec7a-4a9f-b224-4b2b3d2788ad",
+          "id": "d5afa71f-455b-4ded-b349-8f4ba3b23806",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "7c045cb2-6cd7-4c5e-8d15-682b3da23843",
-          "order_transaction_id": "a648c3c0-1f8d-4abc-b4f6-5c2f9d13ebed",
+          "order_id": "30876c5b-2c1e-49fa-bf72-506cb1906a99",
+          "order_transaction_id": "46f96475-d2fa-44d0-a0aa-e6e72cd1e1e2",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "b15610ce-f715-4fef-a5a9-63b5497ae725"
+          "user_id": "4566f097-443d-4450-8bdc-db4b26cdf264"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23675,7 +23681,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "b49be0db-b947-45f5-9878-827f32d63f9a",
+          "id": "44017407-0ea5-4108-bd02-10d0ffbbe66e",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23751,9 +23757,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "1d8688a7-265f-47bc-a13a-0d377f744932",
+          "appointment_id": "18ca5c09-7373-4380-8a63-be9dfad96dfd",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "7a338564-a31b-4034-89dd-eadf1ee941bc",
+          "id": "710d726b-01b5-49a6-afb2-22840a1eb56f",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -24010,7 +24016,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2026-10-30T13:30:39+00:00",
+          "timestamp": "2026-11-04T14:53:59+00:00",
           "unit": "mmHg"
         }
       },
@@ -25211,12 +25217,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "f1372b97-c816-4f43-8026-e2a5ae638da7",
+          "order_id": "4086a227-6036-4671-bb2d-dd12fbf0968d",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "9f448596-6353-429d-992e-97e789f14f6f",
+          "team_id": "36b99395-a2c6-4e85-a472-f6c274e7ea50",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "64da4aef-a574-48a7-91e3-54eb0198ca35"
+          "user_id": "9034f293-afa2-4377-ada8-a5fdca33e35d"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -28676,7 +28682,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2026-10-30T13:35:38.954062+00:00",
+          "end": "2026-11-04T14:58:59.690811+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -28819,7 +28825,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "42197f56-ec22-4056-896d-828c3518641e",
+          "id": "62aabb11-7b93-4dc6-95ff-7de4ebefc7e8",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -29227,8 +29233,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "0e76ce24-a9b6-4a33-bbdb-d70b88ed1607",
-          "id": "89155d9d-23cf-4864-91b7-5a90d4aa2512",
+          "health_insurace_id": "dc7309e0-091c-4124-a5db-7f8bcf0217ee",
+          "id": "80dc24b3-44b6-4a73-9e83-63b9c532a635",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -29281,9 +29287,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "ea369bf7-ca50-46d7-a325-a3cacf56f9ea",
+          "team_id": "3a2c072c-1be7-4621-a0a4-b0d1d2f738b2",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "dddc8c6e-91f8-49e3-acc0-0b5e7f342438"
+          "user_id": "a59f8ffe-ea9d-4d1d-9e22-5392da2fb37e"
         }
       },
       "ClientFacingOrderEvent": {
@@ -30385,7 +30391,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "41968d76-3db8-4e28-9ae9-91f553c131e8",
+          "id": "c823db88-f0f1-4159-84dd-7a652ec51fc3",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31191,97 +31197,97 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2026-10-30T13:30:42.931513+00:00",
+              "timestamp": "2026-11-04T14:54:03.565316+00:00",
               "unit": "bpm",
-              "value": 35
+              "value": 164
             },
             {
               "id": 1,
-              "timestamp": "2026-10-30T13:31:12.931531+00:00",
+              "timestamp": "2026-11-04T14:54:33.565334+00:00",
               "unit": "bpm",
-              "value": 187
+              "value": 23
             },
             {
               "id": 2,
-              "timestamp": "2026-10-30T13:31:42.931548+00:00",
+              "timestamp": "2026-11-04T14:55:03.565351+00:00",
               "unit": "bpm",
-              "value": 74
+              "value": 87
             },
             {
               "id": 3,
-              "timestamp": "2026-10-30T13:32:12.931573+00:00",
+              "timestamp": "2026-11-04T14:55:33.565367+00:00",
               "unit": "bpm",
-              "value": 173
+              "value": 93
             },
             {
               "id": 4,
-              "timestamp": "2026-10-30T13:32:42.931590+00:00",
+              "timestamp": "2026-11-04T14:56:03.565397+00:00",
               "unit": "bpm",
-              "value": 153
+              "value": 69
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2026-10-30T13:30:42.931252+00:00",
+              "timestamp": "2026-11-04T14:54:03.565078+00:00",
               "unit": "rmssd",
-              "value": 7
+              "value": 96
             },
             {
               "id": 1,
-              "timestamp": "2026-10-30T13:31:12.931386+00:00",
+              "timestamp": "2026-11-04T14:54:33.565213+00:00",
               "unit": "rmssd",
-              "value": 92
+              "value": 77
             },
             {
               "id": 2,
-              "timestamp": "2026-10-30T13:31:42.931436+00:00",
+              "timestamp": "2026-11-04T14:55:03.565247+00:00",
               "unit": "rmssd",
-              "value": 33
+              "value": 76
             },
             {
               "id": 3,
-              "timestamp": "2026-10-30T13:32:12.931473+00:00",
+              "timestamp": "2026-11-04T14:55:33.565275+00:00",
               "unit": "rmssd",
-              "value": 29
+              "value": 2
             },
             {
               "id": 4,
-              "timestamp": "2026-10-30T13:32:42.931493+00:00",
+              "timestamp": "2026-11-04T14:56:03.565296+00:00",
               "unit": "rmssd",
-              "value": 55
+              "value": 32
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2026-10-30T13:30:42.931606+00:00",
+              "timestamp": "2026-11-04T14:54:03.565413+00:00",
               "unit": "bpm",
-              "value": 8
+              "value": 16
             },
             {
               "id": 1,
-              "timestamp": "2026-10-30T13:31:12.931623+00:00",
+              "timestamp": "2026-11-04T14:54:33.565429+00:00",
               "unit": "bpm",
               "value": 18
             },
             {
               "id": 2,
-              "timestamp": "2026-10-30T13:31:42.931639+00:00",
+              "timestamp": "2026-11-04T14:55:03.565446+00:00",
               "unit": "bpm",
-              "value": 24
+              "value": 19
             },
             {
               "id": 3,
-              "timestamp": "2026-10-30T13:32:12.931655+00:00",
+              "timestamp": "2026-11-04T14:55:33.565461+00:00",
               "unit": "bpm",
-              "value": 24
+              "value": 22
             },
             {
               "id": 4,
-              "timestamp": "2026-10-30T13:32:42.931670+00:00",
+              "timestamp": "2026-11-04T14:56:03.565477+00:00",
               "unit": "bpm",
-              "value": 15
+              "value": 10
             }
           ]
         }
@@ -32335,10 +32341,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "048f668f-727a-4d0a-9654-7d7aadef7c01",
+          "id": "bff87407-75fd-4b7f-8244-4777fa29d063",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "425d5059-ba43-4b16-88a5-6888b1efe8c4",
+            "id": "6ca2a795-e685-4c3e-9caa-9d65e3c98996",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -32531,7 +32537,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2026-10-30T13:30:44+00:00",
+              "created_on": "2026-11-04T14:54:04+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -32539,16 +32545,16 @@
               }
             }
           ],
-          "created_on": "2026-10-30T13:30:44+00:00",
+          "created_on": "2026-11-04T14:54:04+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2026-10-30T13:30:44+00:00",
+            "updated_at": "2026-11-04T14:54:04+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2026-10-30T13:30:44+00:00"
+            "updated_at": "2026-11-04T14:54:04+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -32785,9 +32791,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "95004dcb-37f2-4fe3-9625-01acfc85a318",
+          "appointment_id": "5945897c-22dd-436a-99ab-c11f2e29401f",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "8695f021-cd2e-441a-8c38-cb2506e40313",
+          "id": "c95d62ef-8f46-4e70-a14c-277e9732ce45",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -35193,7 +35199,7 @@
               "third"
             ]
           },
-          "query_id": "b11d33dd-3fc7-4dde-83c2-16134f8358fa",
+          "query_id": "46cd7683-1a82-4c2b-958b-a4e3e980f2a0",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -36122,6 +36128,104 @@
         "properties": {},
         "type": "object",
         "title": "CriticalCarePricingCondition"
+      },
+      "CriticalMatchReviewDetails": {
+        "properties": {
+          "detected_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detected At"
+          },
+          "markers": {
+            "items": {
+              "$ref": "#/components/schemas/CriticalMatchReviewMarker"
+            },
+            "type": "array",
+            "title": "Markers"
+          }
+        },
+        "type": "object",
+        "title": "CriticalMatchReviewDetails"
+      },
+      "CriticalMatchReviewMarker": {
+        "properties": {
+          "provider_id": {
+            "type": "string",
+            "title": "Provider Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "result": {
+            "type": "string",
+            "title": "Result"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "reference_range": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Range"
+          },
+          "source_interpretation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Interpretation"
+          },
+          "sources": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "obx",
+                "custom_result_range"
+              ]
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider_id",
+          "result"
+        ],
+        "title": "CriticalMatchReviewMarker"
       },
       "DatePartExpr": {
         "properties": {
@@ -37558,6 +37662,25 @@
           "test_result"
         ],
         "title": "HomeProgesteroneTestEntry"
+      },
+      "HostedCheckoutPayment": {
+        "properties": {
+          "flow": {
+            "type": "string",
+            "const": "hosted_checkout",
+            "title": "Flow",
+            "default": "hosted_checkout"
+          },
+          "checkout_url": {
+            "type": "string",
+            "title": "Checkout Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "checkout_url"
+        ],
+        "title": "HostedCheckoutPayment"
       },
       "ICDExcludesViolation": {
         "properties": {
@@ -45478,6 +45601,54 @@
         ],
         "title": "SpecifiedPricing[MarkerPricingConditions]"
       },
+      "StripeElementsPayment": {
+        "properties": {
+          "flow": {
+            "type": "string",
+            "const": "stripe_elements",
+            "title": "Flow",
+            "default": "stripe_elements"
+          },
+          "client_secret": {
+            "type": "string",
+            "title": "Client Secret"
+          },
+          "publishable_key": {
+            "type": "string",
+            "title": "Publishable Key"
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_secret",
+          "publishable_key"
+        ],
+        "title": "StripeElementsPayment"
+      },
+      "StripePaymentIntentPayment": {
+        "properties": {
+          "flow": {
+            "type": "string",
+            "const": "stripe_payment_intent",
+            "title": "Flow",
+            "default": "stripe_payment_intent"
+          },
+          "client_secret": {
+            "type": "string",
+            "title": "Client Secret"
+          },
+          "publishable_key": {
+            "type": "string",
+            "title": "Publishable Key"
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_secret",
+          "publishable_key"
+        ],
+        "title": "StripePaymentIntentPayment"
+      },
       "TeamConfig": {
         "properties": {
           "libreview": {
@@ -45963,6 +46134,16 @@
             },
             "type": "array",
             "title": "Markers"
+          },
+          "critical": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CriticalMatchReviewDetails"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "interpretation": {
             "anyOf": [
@@ -49446,7 +49627,7 @@
               {
                 "data": [
                   {
-                    "end": "2026-10-30T13:35:38.954062+00:00",
+                    "end": "2026-11-04T14:58:59.690811+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -51030,7 +51211,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2026-10-30T13:30:39+00:00",
+                    "timestamp": "2026-11-04T14:53:59+00:00",
                     "unit": "mmHg"
                   }
                 ],
