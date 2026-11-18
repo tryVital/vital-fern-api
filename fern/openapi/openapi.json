@@ -3,7 +3,7 @@
   "info": {
     "title": "Junction API",
     "description": "https://docs.junction.com/",
-    "version": "0.5.65"
+    "version": "0.5.68"
   },
   "paths": {
     "/v2/link/bulk_op": {
@@ -12225,10 +12225,10 @@
                   "$ref": "#/components/schemas/ClientFacingAppointment"
                 },
                 "example": {
-                  "id": "5f2a3560-439c-487e-9c91-2a57bd389218",
-                  "user_id": "dcdaa346-b684-47e3-a271-d1adb60858cd",
-                  "order_id": "35e5b743-1c54-4ab9-a957-e89e02f5b4d9",
-                  "order_transaction_id": "c658fe9f-0ca7-4b7c-a87d-9e3c1caab587",
+                  "id": "db1b70ff-a2b4-432c-8595-8d439011838f",
+                  "user_id": "67e742a0-7d7d-4ddb-8d47-a4a8f70104f8",
+                  "order_id": "818e56ed-2223-44a2-8b77-f5864cdb6cd6",
+                  "order_transaction_id": "4b8a00d1-dc83-4c83-87fd-6f7e0bb61913",
                   "address": {
                     "first_line": "123 Main St.",
                     "second_line": "Apt. 208",
@@ -15751,6 +15751,96 @@
         "x-fern-availability": "beta"
       }
     },
+    "/onboarding/v1/session/{id}": {
+      "get": {
+        "tags": [
+          "onboarding"
+        ],
+        "summary": "Get Session",
+        "operationId": "get_session_onboarding_v1_session__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OnboardingSession"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "onboarding",
+        "x-fern-sdk-method-name": "get_session"
+      }
+    },
+    "/onboarding/v1/session/{id}/resume": {
+      "post": {
+        "tags": [
+          "onboarding"
+        ],
+        "summary": "Resume Session",
+        "operationId": "resume_session_onboarding_v1_session__id__resume_post",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OnboardingSession"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": "onboarding",
+        "x-fern-sdk-method-name": "resume_session"
+      }
+    },
     "/v2/user/{user_id}/sign_in_token": {
       "post": {
         "tags": [
@@ -16243,18 +16333,2358 @@
         }
       }
     },
-    "historical.data.*.in_progress": {
+    "historical.data.activity.in_progress": {
       "post": {
         "tags": [
           "historical"
         ],
-        "summary": "Historical Pull In Progress",
-        "operationId": "historical_pull_in_progresshistorical_data___in_progress_post",
+        "summary": "Activity Historical Pull In Progress",
+        "operationId": "activity_historical_pull_in_progresshistorical_data_activity_in_progress_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ClientFacingHistoricalPullInProgress"
+                "$ref": "#/components/schemas/ClientFacingActivityHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.afib_burden.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Afib Burden Historical Pull In Progress",
+        "operationId": "afib_burden_historical_pull_in_progresshistorical_data_afib_burden_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingAfibBurdenHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.basal_body_temperature.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Basal Body Temperature Historical Pull In Progress",
+        "operationId": "basal_body_temperature_historical_pull_in_progresshistorical_data_basal_body_temperature_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingBasalBodyTemperatureHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.blood_oxygen.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Blood Oxygen Historical Pull In Progress",
+        "operationId": "blood_oxygen_historical_pull_in_progresshistorical_data_blood_oxygen_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingBloodOxygenHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.blood_pressure.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Blood Pressure Historical Pull In Progress",
+        "operationId": "blood_pressure_historical_pull_in_progresshistorical_data_blood_pressure_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingBloodPressureHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.body.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Body Historical Pull In Progress",
+        "operationId": "body_historical_pull_in_progresshistorical_data_body_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingBodyHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.body_mass_index.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Body Mass Index Historical Pull In Progress",
+        "operationId": "body_mass_index_historical_pull_in_progresshistorical_data_body_mass_index_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingBodyMassIndexHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.body_temperature.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Body Temperature Historical Pull In Progress",
+        "operationId": "body_temperature_historical_pull_in_progresshistorical_data_body_temperature_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingBodyTemperatureHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.body_temperature_delta.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Body Temperature Delta Historical Pull In Progress",
+        "operationId": "body_temperature_delta_historical_pull_in_progresshistorical_data_body_temperature_delta_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingBodyTemperatureDeltaHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.caffeine.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Caffeine Historical Pull In Progress",
+        "operationId": "caffeine_historical_pull_in_progresshistorical_data_caffeine_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingCaffeineHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.calories_active.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Calories Active Historical Pull In Progress",
+        "operationId": "calories_active_historical_pull_in_progresshistorical_data_calories_active_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingCaloriesActiveHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.calories_basal.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Calories Basal Historical Pull In Progress",
+        "operationId": "calories_basal_historical_pull_in_progresshistorical_data_calories_basal_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingCaloriesBasalHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.carbohydrates.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Carbohydrates Historical Pull In Progress",
+        "operationId": "carbohydrates_historical_pull_in_progresshistorical_data_carbohydrates_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingCarbohydratesHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.cholesterol.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Cholesterol Historical Pull In Progress",
+        "operationId": "cholesterol_historical_pull_in_progresshistorical_data_cholesterol_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingCholesterolHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.daylight_exposure.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Daylight Exposure Historical Pull In Progress",
+        "operationId": "daylight_exposure_historical_pull_in_progresshistorical_data_daylight_exposure_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingDaylightExposureHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.device_legacy.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Device Legacy Historical Pull In Progress",
+        "operationId": "device_legacy_historical_pull_in_progresshistorical_data_device_legacy_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingDeviceLegacyHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.distance.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Distance Historical Pull In Progress",
+        "operationId": "distance_historical_pull_in_progresshistorical_data_distance_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingDistanceHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.electrocardiogram.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Electrocardiogram Historical Pull In Progress",
+        "operationId": "electrocardiogram_historical_pull_in_progresshistorical_data_electrocardiogram_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingElectrocardiogramHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.electrocardiogram_voltage.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Electrocardiogram Voltage Historical Pull In Progress",
+        "operationId": "electrocardiogram_voltage_historical_pull_in_progresshistorical_data_electrocardiogram_voltage_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingElectrocardiogramVoltageHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.fall.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Fall Historical Pull In Progress",
+        "operationId": "fall_historical_pull_in_progresshistorical_data_fall_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingFallHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.fat.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Fat Historical Pull In Progress",
+        "operationId": "fat_historical_pull_in_progresshistorical_data_fat_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingFatHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.floors_climbed.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Floors Climbed Historical Pull In Progress",
+        "operationId": "floors_climbed_historical_pull_in_progresshistorical_data_floors_climbed_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingFloorsClimbedHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.forced_expiratory_volume_1.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Forced Expiratory Volume 1 Historical Pull In Progress",
+        "operationId": "forced_expiratory_volume_1_historical_pull_in_progresshistorical_data_forced_expiratory_volume_1_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingForcedExpiratoryVolume1HistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.forced_vital_capacity.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Forced Vital Capacity Historical Pull In Progress",
+        "operationId": "forced_vital_capacity_historical_pull_in_progresshistorical_data_forced_vital_capacity_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingForcedVitalCapacityHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.glucose.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Glucose Historical Pull In Progress",
+        "operationId": "glucose_historical_pull_in_progresshistorical_data_glucose_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingGlucoseHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.handwashing.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Handwashing Historical Pull In Progress",
+        "operationId": "handwashing_historical_pull_in_progresshistorical_data_handwashing_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingHandwashingHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.heart_rate_alert.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Heart Rate Alert Historical Pull In Progress",
+        "operationId": "heart_rate_alert_historical_pull_in_progresshistorical_data_heart_rate_alert_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingHeartRateAlertHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.heart_rate_recovery_one_minute.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Heart Rate Recovery One Minute Historical Pull In Progress",
+        "operationId": "heart_rate_recovery_one_minute_historical_pull_in_progresshistorical_data_heart_rate_recovery_one_minute_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingHeartRateRecoveryOneMinuteHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.heartrate.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Heartrate Historical Pull In Progress",
+        "operationId": "heartrate_historical_pull_in_progresshistorical_data_heartrate_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingHeartrateHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.hrv.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Hrv Historical Pull In Progress",
+        "operationId": "hrv_historical_pull_in_progresshistorical_data_hrv_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingHrvHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.ige.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Ige Historical Pull In Progress",
+        "operationId": "ige_historical_pull_in_progresshistorical_data_ige_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingIgeHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.igg.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Igg Historical Pull In Progress",
+        "operationId": "igg_historical_pull_in_progresshistorical_data_igg_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingIggHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.inhaler_usage.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Inhaler Usage Historical Pull In Progress",
+        "operationId": "inhaler_usage_historical_pull_in_progresshistorical_data_inhaler_usage_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingInhalerUsageHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.insulin_injection.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Insulin Injection Historical Pull In Progress",
+        "operationId": "insulin_injection_historical_pull_in_progresshistorical_data_insulin_injection_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingInsulinInjectionHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.lean_body_mass.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Lean Body Mass Historical Pull In Progress",
+        "operationId": "lean_body_mass_historical_pull_in_progresshistorical_data_lean_body_mass_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingLeanBodyMassHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.meal.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Meal Historical Pull In Progress",
+        "operationId": "meal_historical_pull_in_progresshistorical_data_meal_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingMealHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.menstrual_cycle.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Menstrual Cycle Historical Pull In Progress",
+        "operationId": "menstrual_cycle_historical_pull_in_progresshistorical_data_menstrual_cycle_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingMenstrualCycleHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.mindfulness_minutes.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Mindfulness Minutes Historical Pull In Progress",
+        "operationId": "mindfulness_minutes_historical_pull_in_progresshistorical_data_mindfulness_minutes_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingMindfulnessMinutesHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.note.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Note Historical Pull In Progress",
+        "operationId": "note_historical_pull_in_progresshistorical_data_note_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingNoteHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.peak_expiratory_flow_rate.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Peak Expiratory Flow Rate Historical Pull In Progress",
+        "operationId": "peak_expiratory_flow_rate_historical_pull_in_progresshistorical_data_peak_expiratory_flow_rate_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingPeakExpiratoryFlowRateHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.profile.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Profile Historical Pull In Progress",
+        "operationId": "profile_historical_pull_in_progresshistorical_data_profile_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingProfileHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.respiratory_rate.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Respiratory Rate Historical Pull In Progress",
+        "operationId": "respiratory_rate_historical_pull_in_progresshistorical_data_respiratory_rate_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingRespiratoryRateHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.sleep.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Sleep Historical Pull In Progress",
+        "operationId": "sleep_historical_pull_in_progresshistorical_data_sleep_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingSleepHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.sleep_apnea_alert.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Sleep Apnea Alert Historical Pull In Progress",
+        "operationId": "sleep_apnea_alert_historical_pull_in_progresshistorical_data_sleep_apnea_alert_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingSleepApneaAlertHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.sleep_breathing_disturbance.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Sleep Breathing Disturbance Historical Pull In Progress",
+        "operationId": "sleep_breathing_disturbance_historical_pull_in_progresshistorical_data_sleep_breathing_disturbance_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingSleepBreathingDisturbanceHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.sleep_cycle.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Sleep Cycle Historical Pull In Progress",
+        "operationId": "sleep_cycle_historical_pull_in_progresshistorical_data_sleep_cycle_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingSleepCycleHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.stand_duration.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Stand Duration Historical Pull In Progress",
+        "operationId": "stand_duration_historical_pull_in_progresshistorical_data_stand_duration_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingStandDurationHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.stand_hour.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Stand Hour Historical Pull In Progress",
+        "operationId": "stand_hour_historical_pull_in_progresshistorical_data_stand_hour_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingStandHourHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.steps.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Steps Historical Pull In Progress",
+        "operationId": "steps_historical_pull_in_progresshistorical_data_steps_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingStepsHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.stress_level.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Stress Level Historical Pull In Progress",
+        "operationId": "stress_level_historical_pull_in_progresshistorical_data_stress_level_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingStressLevelHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.uv_exposure.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Uv Exposure Historical Pull In Progress",
+        "operationId": "uv_exposure_historical_pull_in_progresshistorical_data_uv_exposure_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingUvExposureHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.vo2_max.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Vo2 Max Historical Pull In Progress",
+        "operationId": "vo2_max_historical_pull_in_progresshistorical_data_vo2_max_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingVo2MaxHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.waist_circumference.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Waist Circumference Historical Pull In Progress",
+        "operationId": "waist_circumference_historical_pull_in_progresshistorical_data_waist_circumference_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWaistCircumferenceHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.water.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Water Historical Pull In Progress",
+        "operationId": "water_historical_pull_in_progresshistorical_data_water_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWaterHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.weight.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Weight Historical Pull In Progress",
+        "operationId": "weight_historical_pull_in_progresshistorical_data_weight_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWeightHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.wheelchair_push.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Wheelchair Push Historical Pull In Progress",
+        "operationId": "wheelchair_push_historical_pull_in_progresshistorical_data_wheelchair_push_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWheelchairPushHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.workout_distance.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Workout Distance Historical Pull In Progress",
+        "operationId": "workout_distance_historical_pull_in_progresshistorical_data_workout_distance_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWorkoutDistanceHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.workout_duration.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Workout Duration Historical Pull In Progress",
+        "operationId": "workout_duration_historical_pull_in_progresshistorical_data_workout_duration_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWorkoutDurationHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.workout_stream.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Workout Stream Historical Pull In Progress",
+        "operationId": "workout_stream_historical_pull_in_progresshistorical_data_workout_stream_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWorkoutStreamHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.workout_swimming_stroke.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Workout Swimming Stroke Historical Pull In Progress",
+        "operationId": "workout_swimming_stroke_historical_pull_in_progresshistorical_data_workout_swimming_stroke_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWorkoutSwimmingStrokeHistoricalPullInProgress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "historical.data.workouts.in_progress": {
+      "post": {
+        "tags": [
+          "historical"
+        ],
+        "summary": "Workouts Historical Pull In Progress",
+        "operationId": "workouts_historical_pull_in_progresshistorical_data_workouts_in_progress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientFacingWorkoutsHistoricalPullInProgress"
               }
             }
           },
@@ -23809,19 +26239,19 @@
           ],
           "external_id": "ext-123",
           "iana_timezone": "America/New_York",
-          "id": "63e70f4e-ef45-43a3-9d76-fbe3e8c842c2",
+          "id": "091a1e09-1e79-4548-a3fe-f332ca3180d0",
           "location": {
             "lat": 37.7749295,
             "lng": -122.4194155
           },
-          "order_id": "f3ce0ce0-d787-49d9-8462-0e194fd00c05",
-          "order_transaction_id": "ae8e90f9-303e-4eb2-a1ce-dac645947580",
+          "order_id": "c670e17a-1f76-417a-a635-89aef3c451e9",
+          "order_transaction_id": "2b8729db-3572-4a5d-85ce-d2f79644fa92",
           "provider": "getlabs",
           "provider_id": "123",
           "start_at": "2022-01-01T00:00:00",
           "status": "confirmed",
           "type": "phlebotomy",
-          "user_id": "6878e791-85d6-4065-97ca-0d18bde0035e"
+          "user_id": "33d18ceb-80f7-4585-9aec-43b9365f2d38"
         }
       },
       "ClientFacingAppointmentCancellationReason": {
@@ -23848,7 +26278,7 @@
         ],
         "title": "ClientFacingAppointmentCancellationReason",
         "example": {
-          "id": "77902008-2bc6-4165-acf9-a67da9d8ab3c",
+          "id": "30a5b2ba-069e-4361-9f82-7375f82851a5",
           "is_refundable": true,
           "name": "I'm feeling sick"
         }
@@ -23935,9 +26365,9 @@
         "title": "ClientFacingAtHomePhlebotomyOrder",
         "description": "Schema for a at-home-phlebotomy test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "681df1e6-00d7-440c-96d6-f9b1ebfd1a6f",
+          "appointment_id": "60fc6c16-f72c-4e31-bcb9-c4b304e12335",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "3c1c15bf-5ba3-430b-80da-9c21831bd956",
+          "id": "41011d2e-78f8-4bb7-879a-6e03f454dc16",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -24194,7 +26624,7 @@
         "example": {
           "diastolic": 75,
           "systolic": 125,
-          "timestamp": "2026-11-18T12:41:26+00:00",
+          "timestamp": "2026-11-18T16:07:05+00:00",
           "unit": "mmHg"
         }
       },
@@ -25396,12 +27826,12 @@
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
           "interpretation": "normal",
-          "order_id": "39119d2e-a4d7-4a5e-8e47-b8c2fc36124f",
+          "order_id": "b074c2a0-d0a3-49cd-b1b0-51acd51f74c3",
           "sample_id": "123456789",
           "status": "final",
-          "team_id": "6ded2b24-1a2c-45c0-b460-66433b0d8c61",
+          "team_id": "6f67c478-3076-4eec-ac0b-05ddc21e8d5a",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "af84ba00-bdaa-4160-87d3-f55560bebe39"
+          "user_id": "8a411b6c-4bc3-4e52-8456-afb02fe8b689"
         }
       },
       "ClientFacingDaylightExposureSample": {
@@ -28914,7 +31344,7 @@
         ],
         "title": "ClientFacingMindfulnessMinutesTimeseries",
         "example": {
-          "end": "2026-11-18T12:46:25.920846+00:00",
+          "end": "2026-11-18T16:12:04.929647+00:00",
           "start": "2023-02-13T14:57:24+00:00",
           "unit": "min",
           "value": 42
@@ -29057,7 +31487,7 @@
         "description": "Schema for an on-site collection order in the client facing API.\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "50ce27c2-ebbb-4cfb-9c5f-8afdbd5c53a2",
+          "id": "53645b0f-1fc1-464f-a478-1d57d9d322f2",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -29465,8 +31895,8 @@
             }
           ],
           "has_abn": false,
-          "health_insurace_id": "9dc74906-b980-4021-a1e1-8fe1fe76ebdf",
-          "id": "f5924fb9-2e96-4bae-a174-a5a02bcebd69",
+          "health_insurace_id": "1c1709ee-ffd7-407c-92ae-0c461c1c663a",
+          "id": "6975c377-eb69-4556-877e-8ed9b05fba47",
           "lab_test": {
             "description": "Cholesterol test",
             "method": "testkit",
@@ -29519,9 +31949,9 @@
           "requisition_form_url": "https://www.example.com",
           "sample_id": "123456789",
           "status": "collecting_sample",
-          "team_id": "8b2ec66b-99d6-4c90-a6d9-8e25dda42803",
+          "team_id": "492680e1-8dff-4fb5-a215-5f54642bc277",
           "updated_at": "2020-01-01T00:00:00Z",
-          "user_id": "23916eb5-d334-4f7d-a65b-222eee722e44"
+          "user_id": "3400211c-3436-432a-a634-8fe056979e37"
         }
       },
       "ClientFacingOrderEvent": {
@@ -30623,7 +33053,7 @@
         "title": "ClientFacingShipment",
         "description": "Schema for a Shipment in the client facing API.\n\nTo be used as part of a ClientFacingTestkitOrder.",
         "example": {
-          "id": "fd9e8c13-c5cc-4f71-bb3a-d5e4a9f4a3e3",
+          "id": "09e71e26-469f-42c9-940e-5be9e2775173",
           "inbound_courier": "usps",
           "inbound_tracking_number": "<inbound_tracking_number>",
           "inbound_tracking_url": "<inbound_tracking_url>",
@@ -31429,97 +33859,97 @@
           "heartrate": [
             {
               "id": 0,
-              "timestamp": "2026-11-18T12:41:28.989384+00:00",
+              "timestamp": "2026-11-18T16:07:07.423128+00:00",
               "unit": "bpm",
-              "value": 108
+              "value": 84
             },
             {
               "id": 1,
-              "timestamp": "2026-11-18T12:41:58.989403+00:00",
+              "timestamp": "2026-11-18T16:07:37.423147+00:00",
               "unit": "bpm",
-              "value": 17
+              "value": 57
             },
             {
               "id": 2,
-              "timestamp": "2026-11-18T12:42:28.989420+00:00",
+              "timestamp": "2026-11-18T16:08:07.423164+00:00",
               "unit": "bpm",
-              "value": 24
+              "value": 72
             },
             {
               "id": 3,
-              "timestamp": "2026-11-18T12:42:58.989532+00:00",
+              "timestamp": "2026-11-18T16:08:37.423180+00:00",
               "unit": "bpm",
-              "value": 76
+              "value": 190
             },
             {
               "id": 4,
-              "timestamp": "2026-11-18T12:43:28.989551+00:00",
+              "timestamp": "2026-11-18T16:09:07.423197+00:00",
               "unit": "bpm",
-              "value": 50
+              "value": 4
             }
           ],
           "hrv": [
             {
               "id": 0,
-              "timestamp": "2026-11-18T12:41:28.989130+00:00",
+              "timestamp": "2026-11-18T16:07:07.422821+00:00",
               "unit": "rmssd",
-              "value": 13
+              "value": 43
             },
             {
               "id": 1,
-              "timestamp": "2026-11-18T12:41:58.989270+00:00",
+              "timestamp": "2026-11-18T16:07:37.423008+00:00",
               "unit": "rmssd",
-              "value": 21
+              "value": 1
             },
             {
               "id": 2,
-              "timestamp": "2026-11-18T12:42:28.989307+00:00",
+              "timestamp": "2026-11-18T16:08:07.423045+00:00",
               "unit": "rmssd",
-              "value": 96
+              "value": 86
             },
             {
               "id": 3,
-              "timestamp": "2026-11-18T12:42:58.989344+00:00",
+              "timestamp": "2026-11-18T16:08:37.423086+00:00",
               "unit": "rmssd",
-              "value": 80
+              "value": 19
             },
             {
               "id": 4,
-              "timestamp": "2026-11-18T12:43:28.989365+00:00",
+              "timestamp": "2026-11-18T16:09:07.423107+00:00",
               "unit": "rmssd",
-              "value": 89
+              "value": 15
             }
           ],
           "respiratory_rate": [
             {
               "id": 0,
-              "timestamp": "2026-11-18T12:41:28.989570+00:00",
-              "unit": "bpm",
-              "value": 20
-            },
-            {
-              "id": 1,
-              "timestamp": "2026-11-18T12:41:58.989587+00:00",
+              "timestamp": "2026-11-18T16:07:07.423214+00:00",
               "unit": "bpm",
               "value": 30
             },
             {
-              "id": 2,
-              "timestamp": "2026-11-18T12:42:28.989637+00:00",
+              "id": 1,
+              "timestamp": "2026-11-18T16:07:37.423230+00:00",
               "unit": "bpm",
-              "value": 14
+              "value": 24
+            },
+            {
+              "id": 2,
+              "timestamp": "2026-11-18T16:08:07.423247+00:00",
+              "unit": "bpm",
+              "value": 28
             },
             {
               "id": 3,
-              "timestamp": "2026-11-18T12:42:58.989654+00:00",
+              "timestamp": "2026-11-18T16:08:37.423262+00:00",
               "unit": "bpm",
-              "value": 20
+              "value": 15
             },
             {
               "id": 4,
-              "timestamp": "2026-11-18T12:43:28.989670+00:00",
+              "timestamp": "2026-11-18T16:09:07.423277+00:00",
               "unit": "bpm",
-              "value": 11
+              "value": 29
             }
           ]
         }
@@ -32573,10 +35003,10 @@
         "description": "Schema for a testkit order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "bba05920-aaf6-4175-ac23-eb4641c9e485",
+          "id": "f647e894-83f0-4857-9b10-e12a18eab39c",
           "shipment": {
             "created_at": "2020-01-01T00:00:00.000Z",
-            "id": "71a1eeac-4c29-4482-b9b2-f181ecacafdd",
+            "id": "f550a710-96b6-41d4-b16b-cf88dec272fe",
             "inbound_courier": "usps",
             "inbound_tracking_number": "<inbound_tracking_number>",
             "inbound_tracking_url": "<inbound_tracking_url>",
@@ -32780,7 +35210,7 @@
           "client_user_id": "ZTEwZjNjMjctOTI2ZS00M2Vm",
           "connected_sources": [
             {
-              "created_on": "2026-11-18T12:41:34+00:00",
+              "created_on": "2026-11-18T16:07:12+00:00",
               "source": {
                 "logo": "logo_url",
                 "name": "Oura",
@@ -32788,16 +35218,16 @@
               }
             }
           ],
-          "created_on": "2026-11-18T12:41:34+00:00",
+          "created_on": "2026-11-18T16:07:12+00:00",
           "fallback_birth_date": {
             "source_slug": "manual",
-            "updated_at": "2026-11-18T12:41:34+00:00",
+            "updated_at": "2026-11-18T16:07:12+00:00",
             "value": "1989-09-12"
           },
           "fallback_time_zone": {
             "id": "Europe/London",
             "source_slug": "manual",
-            "updated_at": "2026-11-18T12:41:34+00:00"
+            "updated_at": "2026-11-18T16:07:12+00:00"
           },
           "team_id": "56bd81c9-6219-4000-a775-ae85526eba18",
           "user_id": "56bd81c9-6219-4000-a775-ae85526eba18"
@@ -33034,9 +35464,9 @@
         "title": "ClientFacingWalkInTestOrder",
         "description": "Schema for a walk-in test order in the client facing API.\n\nTo be used as part of a ClientFacingOrder.",
         "example": {
-          "appointment_id": "9c915351-aba1-435f-920c-0d267b89f620",
+          "appointment_id": "69f3f476-5dda-4828-8bee-1a95e9360f04",
           "created_at": "2020-01-01T00:00:00Z",
-          "id": "b1ec9090-85f5-40ec-a7cc-4ab7331ee204",
+          "id": "12430b69-8e85-402e-bfe5-6fb870de881e",
           "updated_at": "2020-01-01T00:00:00Z"
         }
       },
@@ -35442,7 +37872,7 @@
               "third"
             ]
           },
-          "query_id": "b2125c81-34fe-48b3-a924-98debda3ef9a",
+          "query_id": "323ef9da-6800-47a1-b103-e1be2314698e",
           "query_slug": "sleep-analysis-v1"
         }
       },
@@ -41012,6 +43442,37 @@
         ],
         "title": "OAuthProviders",
         "description": "ℹ️ This enum is non-exhaustive."
+      },
+      "OnboardingSession": {
+        "properties": {
+          "checkout_session_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Checkout Session Id"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires At"
+          },
+          "checkout_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checkout Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "checkout_session_id",
+          "expires_at"
+        ],
+        "title": "OnboardingSession"
       },
       "OrderActivationType": {
         "type": "string",
@@ -50063,7 +52524,7 @@
               {
                 "data": [
                   {
-                    "end": "2026-11-18T12:46:25.920846+00:00",
+                    "end": "2026-11-18T16:12:04.929647+00:00",
                     "start": "2023-02-13T14:57:24+00:00",
                     "unit": "min",
                     "value": 42
@@ -51647,7 +54108,7 @@
                   {
                     "diastolic": 75,
                     "systolic": 125,
-                    "timestamp": "2026-11-18T12:41:26+00:00",
+                    "timestamp": "2026-11-18T16:07:05+00:00",
                     "unit": "mmHg"
                   }
                 ],
@@ -53010,73 +55471,11 @@
         ],
         "title": "ClientFacingElectrocardiogramChanged"
       },
-      "ClientFacingHistoricalPullInProgress": {
+      "ClientFacingActivityHistoricalPullInProgress": {
         "properties": {
           "event_type": {
             "type": "string",
-            "enum": [
-              "historical.data.activity.in_progress",
-              "historical.data.afib_burden.in_progress",
-              "historical.data.basal_body_temperature.in_progress",
-              "historical.data.blood_oxygen.in_progress",
-              "historical.data.blood_pressure.in_progress",
-              "historical.data.body.in_progress",
-              "historical.data.body_mass_index.in_progress",
-              "historical.data.body_temperature.in_progress",
-              "historical.data.body_temperature_delta.in_progress",
-              "historical.data.caffeine.in_progress",
-              "historical.data.calories_active.in_progress",
-              "historical.data.calories_basal.in_progress",
-              "historical.data.carbohydrates.in_progress",
-              "historical.data.cholesterol.in_progress",
-              "historical.data.daylight_exposure.in_progress",
-              "historical.data.device_legacy.in_progress",
-              "historical.data.distance.in_progress",
-              "historical.data.electrocardiogram.in_progress",
-              "historical.data.electrocardiogram_voltage.in_progress",
-              "historical.data.fall.in_progress",
-              "historical.data.fat.in_progress",
-              "historical.data.floors_climbed.in_progress",
-              "historical.data.forced_expiratory_volume_1.in_progress",
-              "historical.data.forced_vital_capacity.in_progress",
-              "historical.data.glucose.in_progress",
-              "historical.data.handwashing.in_progress",
-              "historical.data.heart_rate_alert.in_progress",
-              "historical.data.heart_rate_recovery_one_minute.in_progress",
-              "historical.data.heartrate.in_progress",
-              "historical.data.hrv.in_progress",
-              "historical.data.ige.in_progress",
-              "historical.data.igg.in_progress",
-              "historical.data.inhaler_usage.in_progress",
-              "historical.data.insulin_injection.in_progress",
-              "historical.data.lean_body_mass.in_progress",
-              "historical.data.meal.in_progress",
-              "historical.data.menstrual_cycle.in_progress",
-              "historical.data.mindfulness_minutes.in_progress",
-              "historical.data.note.in_progress",
-              "historical.data.peak_expiratory_flow_rate.in_progress",
-              "historical.data.profile.in_progress",
-              "historical.data.respiratory_rate.in_progress",
-              "historical.data.sleep.in_progress",
-              "historical.data.sleep_apnea_alert.in_progress",
-              "historical.data.sleep_breathing_disturbance.in_progress",
-              "historical.data.sleep_cycle.in_progress",
-              "historical.data.stand_duration.in_progress",
-              "historical.data.stand_hour.in_progress",
-              "historical.data.steps.in_progress",
-              "historical.data.stress_level.in_progress",
-              "historical.data.uv_exposure.in_progress",
-              "historical.data.vo2_max.in_progress",
-              "historical.data.waist_circumference.in_progress",
-              "historical.data.water.in_progress",
-              "historical.data.weight.in_progress",
-              "historical.data.wheelchair_push.in_progress",
-              "historical.data.workout_distance.in_progress",
-              "historical.data.workout_duration.in_progress",
-              "historical.data.workout_stream.in_progress",
-              "historical.data.workout_swimming_stroke.in_progress",
-              "historical.data.workouts.in_progress"
-            ],
+            "const": "historical.data.activity.in_progress",
             "title": "Event Type",
             "x-junction-exhaustive": true
           },
@@ -53107,7 +55506,2227 @@
           "team_id",
           "data"
         ],
-        "title": "ClientFacingHistoricalPullInProgress"
+        "title": "ClientFacingActivityHistoricalPullInProgress"
+      },
+      "ClientFacingAfibBurdenHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.afib_burden.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingAfibBurdenHistoricalPullInProgress"
+      },
+      "ClientFacingBasalBodyTemperatureHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.basal_body_temperature.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingBasalBodyTemperatureHistoricalPullInProgress"
+      },
+      "ClientFacingBloodOxygenHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.blood_oxygen.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingBloodOxygenHistoricalPullInProgress"
+      },
+      "ClientFacingBloodPressureHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.blood_pressure.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingBloodPressureHistoricalPullInProgress"
+      },
+      "ClientFacingBodyHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.body.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingBodyHistoricalPullInProgress"
+      },
+      "ClientFacingBodyMassIndexHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.body_mass_index.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingBodyMassIndexHistoricalPullInProgress"
+      },
+      "ClientFacingBodyTemperatureHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.body_temperature.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingBodyTemperatureHistoricalPullInProgress"
+      },
+      "ClientFacingBodyTemperatureDeltaHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.body_temperature_delta.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingBodyTemperatureDeltaHistoricalPullInProgress"
+      },
+      "ClientFacingCaffeineHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.caffeine.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingCaffeineHistoricalPullInProgress"
+      },
+      "ClientFacingCaloriesActiveHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.calories_active.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingCaloriesActiveHistoricalPullInProgress"
+      },
+      "ClientFacingCaloriesBasalHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.calories_basal.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingCaloriesBasalHistoricalPullInProgress"
+      },
+      "ClientFacingCarbohydratesHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.carbohydrates.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingCarbohydratesHistoricalPullInProgress"
+      },
+      "ClientFacingCholesterolHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.cholesterol.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingCholesterolHistoricalPullInProgress"
+      },
+      "ClientFacingDaylightExposureHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.daylight_exposure.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingDaylightExposureHistoricalPullInProgress"
+      },
+      "ClientFacingDeviceLegacyHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.device_legacy.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingDeviceLegacyHistoricalPullInProgress"
+      },
+      "ClientFacingDistanceHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.distance.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingDistanceHistoricalPullInProgress"
+      },
+      "ClientFacingElectrocardiogramHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.electrocardiogram.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingElectrocardiogramHistoricalPullInProgress"
+      },
+      "ClientFacingElectrocardiogramVoltageHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.electrocardiogram_voltage.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingElectrocardiogramVoltageHistoricalPullInProgress"
+      },
+      "ClientFacingFallHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.fall.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingFallHistoricalPullInProgress"
+      },
+      "ClientFacingFatHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.fat.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingFatHistoricalPullInProgress"
+      },
+      "ClientFacingFloorsClimbedHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.floors_climbed.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingFloorsClimbedHistoricalPullInProgress"
+      },
+      "ClientFacingForcedExpiratoryVolume1HistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.forced_expiratory_volume_1.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingForcedExpiratoryVolume1HistoricalPullInProgress"
+      },
+      "ClientFacingForcedVitalCapacityHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.forced_vital_capacity.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingForcedVitalCapacityHistoricalPullInProgress"
+      },
+      "ClientFacingGlucoseHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.glucose.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingGlucoseHistoricalPullInProgress"
+      },
+      "ClientFacingHandwashingHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.handwashing.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingHandwashingHistoricalPullInProgress"
+      },
+      "ClientFacingHeartRateAlertHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.heart_rate_alert.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingHeartRateAlertHistoricalPullInProgress"
+      },
+      "ClientFacingHeartRateRecoveryOneMinuteHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.heart_rate_recovery_one_minute.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingHeartRateRecoveryOneMinuteHistoricalPullInProgress"
+      },
+      "ClientFacingHeartrateHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.heartrate.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingHeartrateHistoricalPullInProgress"
+      },
+      "ClientFacingHrvHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.hrv.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingHrvHistoricalPullInProgress"
+      },
+      "ClientFacingIgeHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.ige.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingIgeHistoricalPullInProgress"
+      },
+      "ClientFacingIggHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.igg.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingIggHistoricalPullInProgress"
+      },
+      "ClientFacingInhalerUsageHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.inhaler_usage.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingInhalerUsageHistoricalPullInProgress"
+      },
+      "ClientFacingInsulinInjectionHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.insulin_injection.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingInsulinInjectionHistoricalPullInProgress"
+      },
+      "ClientFacingLeanBodyMassHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.lean_body_mass.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingLeanBodyMassHistoricalPullInProgress"
+      },
+      "ClientFacingMealHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.meal.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingMealHistoricalPullInProgress"
+      },
+      "ClientFacingMenstrualCycleHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.menstrual_cycle.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingMenstrualCycleHistoricalPullInProgress"
+      },
+      "ClientFacingMindfulnessMinutesHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.mindfulness_minutes.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingMindfulnessMinutesHistoricalPullInProgress"
+      },
+      "ClientFacingNoteHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.note.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingNoteHistoricalPullInProgress"
+      },
+      "ClientFacingPeakExpiratoryFlowRateHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.peak_expiratory_flow_rate.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingPeakExpiratoryFlowRateHistoricalPullInProgress"
+      },
+      "ClientFacingProfileHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.profile.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingProfileHistoricalPullInProgress"
+      },
+      "ClientFacingRespiratoryRateHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.respiratory_rate.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingRespiratoryRateHistoricalPullInProgress"
+      },
+      "ClientFacingSleepHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.sleep.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingSleepHistoricalPullInProgress"
+      },
+      "ClientFacingSleepApneaAlertHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.sleep_apnea_alert.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingSleepApneaAlertHistoricalPullInProgress"
+      },
+      "ClientFacingSleepBreathingDisturbanceHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.sleep_breathing_disturbance.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingSleepBreathingDisturbanceHistoricalPullInProgress"
+      },
+      "ClientFacingSleepCycleHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.sleep_cycle.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingSleepCycleHistoricalPullInProgress"
+      },
+      "ClientFacingStandDurationHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.stand_duration.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingStandDurationHistoricalPullInProgress"
+      },
+      "ClientFacingStandHourHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.stand_hour.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingStandHourHistoricalPullInProgress"
+      },
+      "ClientFacingStepsHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.steps.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingStepsHistoricalPullInProgress"
+      },
+      "ClientFacingStressLevelHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.stress_level.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingStressLevelHistoricalPullInProgress"
+      },
+      "ClientFacingUvExposureHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.uv_exposure.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingUvExposureHistoricalPullInProgress"
+      },
+      "ClientFacingVo2MaxHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.vo2_max.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingVo2MaxHistoricalPullInProgress"
+      },
+      "ClientFacingWaistCircumferenceHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.waist_circumference.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWaistCircumferenceHistoricalPullInProgress"
+      },
+      "ClientFacingWaterHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.water.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWaterHistoricalPullInProgress"
+      },
+      "ClientFacingWeightHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.weight.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWeightHistoricalPullInProgress"
+      },
+      "ClientFacingWheelchairPushHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.wheelchair_push.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWheelchairPushHistoricalPullInProgress"
+      },
+      "ClientFacingWorkoutDistanceHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.workout_distance.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWorkoutDistanceHistoricalPullInProgress"
+      },
+      "ClientFacingWorkoutDurationHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.workout_duration.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWorkoutDurationHistoricalPullInProgress"
+      },
+      "ClientFacingWorkoutStreamHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.workout_stream.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWorkoutStreamHistoricalPullInProgress"
+      },
+      "ClientFacingWorkoutSwimmingStrokeHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.workout_swimming_stroke.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWorkoutSwimmingStrokeHistoricalPullInProgress"
+      },
+      "ClientFacingWorkoutsHistoricalPullInProgress": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "historical.data.workouts.in_progress",
+            "title": "Event Type",
+            "x-junction-exhaustive": true
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "client_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client User Id"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HistoricalPullInProgress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_type",
+          "user_id",
+          "client_user_id",
+          "team_id",
+          "data"
+        ],
+        "title": "ClientFacingWorkoutsHistoricalPullInProgress"
       },
       "ClientFacingActivityHistoricalPullCompleted": {
         "properties": {
